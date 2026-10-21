@@ -1,0 +1,1170 @@
+[
+  {
+    "id": "gnb",
+    "className": "gnb ",
+    "color": "rgb(24, 24, 27)",
+    "background": "rgba(255, 255, 255, 0.72)",
+    "fontFamily": "Paperlogy, system-ui, sans-serif",
+    "fontSize": "15px",
+    "display": "flex",
+    "gridTemplateColumns": "none",
+    "bbox": {
+      "x": 24,
+      "y": 16,
+      "width": 1872,
+      "height": 64
+    }
+  },
+  {
+    "id": "pixel-sprite",
+    "className": "oq-pixel-sprite ",
+    "color": "rgb(24, 24, 27)",
+    "background": "rgba(0, 0, 0, 0)",
+    "fontFamily": "Paperlogy, system-ui, sans-serif",
+    "fontSize": "20px",
+    "display": "block",
+    "gridTemplateColumns": "none",
+    "bbox": {
+      "x": 44,
+      "y": 34,
+      "width": 28,
+      "height": 28
+    }
+  },
+  {
+    "id": "nav-dashboard",
+    "className": "tab ",
+    "color": "rgb(113, 113, 122)",
+    "background": "rgba(0, 0, 0, 0)",
+    "fontFamily": "Paperlogy, system-ui, sans-serif",
+    "fontSize": "15px",
+    "display": "flex",
+    "gridTemplateColumns": "none",
+    "bbox": {
+      "x": 342.671875,
+      "y": 29,
+      "width": 111.203125,
+      "height": 38
+    }
+  },
+  {
+    "id": "nav-quests",
+    "className": "tab on",
+    "color": "rgb(24, 24, 27)",
+    "background": "rgba(0, 0, 0, 0)",
+    "fontFamily": "Paperlogy, system-ui, sans-serif",
+    "fontSize": "15px",
+    "display": "flex",
+    "gridTemplateColumns": "none",
+    "bbox": {
+      "x": 455.875,
+      "y": 29,
+      "width": 127.40625,
+      "height": 38
+    }
+  },
+  {
+    "id": "nav-village",
+    "className": "tab ",
+    "color": "rgb(113, 113, 122)",
+    "background": "rgba(0, 0, 0, 0)",
+    "fontFamily": "Paperlogy, system-ui, sans-serif",
+    "fontSize": "15px",
+    "display": "flex",
+    "gridTemplateColumns": "none",
+    "bbox": {
+      "x": 585.28125,
+      "y": 29,
+      "width": 111.203125,
+      "height": 38
+    }
+  },
+  {
+    "id": "timer-display",
+    "className": "num",
+    "color": "rgb(255, 255, 255)",
+    "background": "rgba(0, 0, 0, 0)",
+    "fontFamily": "Paperlogy, system-ui, sans-serif",
+    "fontSize": "19px",
+    "display": "inline",
+    "gridTemplateColumns": "none",
+    "bbox": {
+      "x": 1052.234375,
+      "y": 42.34375,
+      "width": 80.1875,
+      "height": 23
+    }
+  },
+  {
+    "id": "timer-ctl-toggle",
+    "className": "z",
+    "color": "rgb(255, 255, 255)",
+    "background": "rgb(124, 58, 237)",
+    "fontFamily": "Paperlogy, system-ui, sans-serif",
+    "fontSize": "12px",
+    "display": "flex",
+    "gridTemplateColumns": "none",
+    "bbox": {
+      "x": 1157,
+      "y": 30,
+      "width": 90.546875,
+      "height": 36
+    }
+  },
+  {
+    "id": "timer-ctl-plus30",
+    "className": null,
+    "color": "rgb(228, 228, 231)",
+    "background": "rgba(255, 255, 255, 0.08)",
+    "fontFamily": "Paperlogy, system-ui, sans-serif",
+    "fontSize": "12px",
+    "display": "flex",
+    "gridTemplateColumns": "none",
+    "bbox": {
+      "x": 1250.546875,
+      "y": 30,
+      "width": 51.609375,
+      "height": 36
+    }
+  },
+  {
+    "id": "timer-ctl-expire",
+    "className": null,
+    "color": "rgb(228, 228, 231)",
+    "background": "rgba(255, 255, 255, 0.08)",
+    "fontFamily": "Paperlogy, system-ui, sans-serif",
+    "fontSize": "12px",
+    "display": "flex",
+    "gridTemplateColumns": "none",
+    "bbox": {
+      "x": 1305.15625,
+      "y": 30,
+      "width": 72.546875,
+      "height": 36
+    }
+  },
+  {
+    "id": "timer-ctl-reset",
+    "className": null,
+    "color": "rgb(228, 228, 231)",
+    "background": "rgba(255, 255, 255, 0.08)",
+    "fontFamily": "Paperlogy, system-ui, sans-serif",
+    "fontSize": "12px",
+    "display": "flex",
+    "gridTemplateColumns": "none",
+    "bbox": {
+      "x": 1380.703125,
+      "y": 30,
+      "width": 31,
+      "height": 36
+    }
+  },
+  {
+    "id": "points-chip",
+    "className": "chip num",
+    "color": "rgb(24, 24, 27)",
+    "background": "rgb(255, 255, 255)",
+    "fontFamily": "Paperlogy, system-ui, sans-serif",
+    "fontSize": "15px",
+    "display": "flex",
+    "gridTemplateColumns": "none",
+    "bbox": {
+      "x": 1423.703125,
+      "y": 26,
+      "width": 122.25,
+      "height": 44
+    }
+  },
+  {
+    "id": "pixel-sprite",
+    "className": "oq-pixel-sprite ",
+    "color": "rgb(24, 24, 27)",
+    "background": "rgba(0, 0, 0, 0)",
+    "fontFamily": "Paperlogy, system-ui, sans-serif",
+    "fontSize": "15px",
+    "display": "block",
+    "gridTemplateColumns": "none",
+    "bbox": {
+      "x": 1438.703125,
+      "y": 36,
+      "width": 24,
+      "height": 24
+    }
+  },
+  {
+    "id": "persona-switcher",
+    "className": "persona-current",
+    "color": "rgb(24, 24, 27)",
+    "background": "rgb(255, 255, 255)",
+    "fontFamily": "Paperlogy, system-ui, sans-serif",
+    "fontSize": "13px",
+    "display": "flex",
+    "gridTemplateColumns": "none",
+    "bbox": {
+      "x": 1553.953125,
+      "y": 26,
+      "width": 137.171875,
+      "height": 44
+    }
+  },
+  {
+    "id": "pixel-sprite",
+    "className": "oq-pixel-sprite ",
+    "color": "rgb(24, 24, 27)",
+    "background": "rgba(0, 0, 0, 0)",
+    "fontFamily": "Paperlogy, system-ui, sans-serif",
+    "fontSize": "13px",
+    "display": "block",
+    "gridTemplateColumns": "none",
+    "bbox": {
+      "x": 1558.953125,
+      "y": 34,
+      "width": 32,
+      "height": 28
+    }
+  },
+  {
+    "id": "theme-toggle",
+    "className": "thm",
+    "color": "rgb(82, 82, 91)",
+    "background": "rgb(255, 255, 255)",
+    "fontFamily": "Paperlogy, system-ui, sans-serif",
+    "fontSize": "13px",
+    "display": "flex",
+    "gridTemplateColumns": "none",
+    "bbox": {
+      "x": 1699.125,
+      "y": 26,
+      "width": 113.875,
+      "height": 44
+    }
+  },
+  {
+    "id": "sound-toggle",
+    "className": "sound-toggle",
+    "color": "rgb(109, 40, 217)",
+    "background": "rgb(255, 255, 255)",
+    "fontFamily": "Paperlogy, system-ui, sans-serif",
+    "fontSize": "15px",
+    "display": "grid",
+    "gridTemplateColumns": "30px",
+    "bbox": {
+      "x": 1821,
+      "y": 30,
+      "width": 32,
+      "height": 36
+    }
+  },
+  {
+    "id": "debug-menu",
+    "className": "debug-trigger",
+    "color": "rgb(109, 40, 217)",
+    "background": "rgba(0, 0, 0, 0)",
+    "fontFamily": "Paperlogy, system-ui, sans-serif",
+    "fontSize": "15px",
+    "display": "grid",
+    "gridTemplateColumns": "22px",
+    "bbox": {
+      "x": 1861,
+      "y": 33,
+      "width": 24,
+      "height": 30
+    }
+  },
+  {
+    "id": "app-root",
+    "className": "shell ws ",
+    "color": "rgb(24, 24, 27)",
+    "background": "rgba(0, 0, 0, 0)",
+    "fontFamily": "Paperlogy, system-ui, sans-serif",
+    "fontSize": "15px",
+    "display": "grid",
+    "gridTemplateColumns": "264px 1588px",
+    "bbox": {
+      "x": 0,
+      "y": 0,
+      "width": 1920,
+      "height": 1080
+    }
+  },
+  {
+    "id": "side-quest-daily",
+    "className": "nv ",
+    "color": "rgb(82, 82, 91)",
+    "background": "rgba(0, 0, 0, 0)",
+    "fontFamily": "Paperlogy, system-ui, sans-serif",
+    "fontSize": "15px",
+    "display": "flex",
+    "gridTemplateColumns": "none",
+    "bbox": {
+      "x": 39,
+      "y": 157,
+      "width": 234,
+      "height": 46
+    }
+  },
+  {
+    "id": "side-quest-new",
+    "className": "nv ",
+    "color": "rgb(82, 82, 91)",
+    "background": "rgba(0, 0, 0, 0)",
+    "fontFamily": "Paperlogy, system-ui, sans-serif",
+    "fontSize": "15px",
+    "display": "flex",
+    "gridTemplateColumns": "none",
+    "bbox": {
+      "x": 39,
+      "y": 203,
+      "width": 234,
+      "height": 46
+    }
+  },
+  {
+    "id": "side-quest-board",
+    "className": "nv on",
+    "color": "rgb(24, 24, 27)",
+    "background": "rgb(237, 233, 254)",
+    "fontFamily": "Paperlogy, system-ui, sans-serif",
+    "fontSize": "15px",
+    "display": "flex",
+    "gridTemplateColumns": "none",
+    "bbox": {
+      "x": 39,
+      "y": 249,
+      "width": 234,
+      "height": 46
+    }
+  },
+  {
+    "id": "side-mine-requested",
+    "className": "nv",
+    "color": "rgb(82, 82, 91)",
+    "background": "rgba(0, 0, 0, 0)",
+    "fontFamily": "Paperlogy, system-ui, sans-serif",
+    "fontSize": "15px",
+    "display": "flex",
+    "gridTemplateColumns": "none",
+    "bbox": {
+      "x": 39,
+      "y": 333,
+      "width": 234,
+      "height": 46
+    }
+  },
+  {
+    "id": "side-mine-applied",
+    "className": "nv",
+    "color": "rgb(82, 82, 91)",
+    "background": "rgba(0, 0, 0, 0)",
+    "fontFamily": "Paperlogy, system-ui, sans-serif",
+    "fontSize": "15px",
+    "display": "flex",
+    "gridTemplateColumns": "none",
+    "bbox": {
+      "x": 39,
+      "y": 379,
+      "width": 234,
+      "height": 46
+    }
+  },
+  {
+    "id": "side-mine-done",
+    "className": "nv",
+    "color": "rgb(82, 82, 91)",
+    "background": "rgba(0, 0, 0, 0)",
+    "fontFamily": "Paperlogy, system-ui, sans-serif",
+    "fontSize": "15px",
+    "display": "flex",
+    "gridTemplateColumns": "none",
+    "bbox": {
+      "x": 39,
+      "y": 425,
+      "width": 234,
+      "height": 46
+    }
+  },
+  {
+    "id": "side-today-limit",
+    "className": "sidebox",
+    "color": "rgb(24, 24, 27)",
+    "background": "rgb(244, 244, 245)",
+    "fontFamily": "Paperlogy, system-ui, sans-serif",
+    "fontSize": "15px",
+    "display": "block",
+    "gridTemplateColumns": "none",
+    "bbox": {
+      "x": 39,
+      "y": 923.75,
+      "width": 234,
+      "height": 113.25
+    }
+  },
+  {
+    "id": "board-new-btn",
+    "className": "btn pri lg ",
+    "color": "rgb(255, 255, 255)",
+    "background": "rgb(109, 40, 217)",
+    "fontFamily": "Paperlogy, system-ui, sans-serif",
+    "fontSize": "16px",
+    "display": "flex",
+    "gridTemplateColumns": "none",
+    "bbox": {
+      "x": 1689.109375,
+      "y": 150.03125,
+      "width": 177.890625,
+      "height": 52
+    }
+  },
+  {
+    "id": "board-filter-type-all",
+    "className": "fchip on",
+    "color": "rgb(250, 250, 252)",
+    "background": "rgb(24, 24, 27)",
+    "fontFamily": "Paperlogy, system-ui, sans-serif",
+    "fontSize": "13px",
+    "display": "flex",
+    "gridTemplateColumns": "none",
+    "bbox": {
+      "x": 369.59375,
+      "y": 250.078125,
+      "width": 66.453125,
+      "height": 38
+    }
+  },
+  {
+    "id": "board-filter-type-inquiry",
+    "className": "fchip ",
+    "color": "rgb(82, 82, 91)",
+    "background": "rgb(255, 255, 255)",
+    "fontFamily": "Paperlogy, system-ui, sans-serif",
+    "fontSize": "13px",
+    "display": "flex",
+    "gridTemplateColumns": "none",
+    "bbox": {
+      "x": 446.046875,
+      "y": 250.078125,
+      "width": 66.453125,
+      "height": 38
+    }
+  },
+  {
+    "id": "board-filter-type-request",
+    "className": "fchip ",
+    "color": "rgb(82, 82, 91)",
+    "background": "rgb(255, 255, 255)",
+    "fontFamily": "Paperlogy, system-ui, sans-serif",
+    "fontSize": "13px",
+    "display": "flex",
+    "gridTemplateColumns": "none",
+    "bbox": {
+      "x": 522.5,
+      "y": 250.078125,
+      "width": 66.453125,
+      "height": 38
+    }
+  },
+  {
+    "id": "board-filter-status-all",
+    "className": "fchip on",
+    "color": "rgb(250, 250, 252)",
+    "background": "rgb(24, 24, 27)",
+    "fontFamily": "Paperlogy, system-ui, sans-serif",
+    "fontSize": "13px",
+    "display": "flex",
+    "gridTemplateColumns": "none",
+    "bbox": {
+      "x": 650.546875,
+      "y": 250.078125,
+      "width": 52.59375,
+      "height": 38
+    }
+  },
+  {
+    "id": "board-filter-status-recruiting",
+    "className": "fchip ",
+    "color": "rgb(82, 82, 91)",
+    "background": "rgb(255, 255, 255)",
+    "fontFamily": "Paperlogy, system-ui, sans-serif",
+    "fontSize": "13px",
+    "display": "flex",
+    "gridTemplateColumns": "none",
+    "bbox": {
+      "x": 713.140625,
+      "y": 250.078125,
+      "width": 77.734375,
+      "height": 38
+    }
+  },
+  {
+    "id": "board-filter-status-in_progress",
+    "className": "fchip ",
+    "color": "rgb(82, 82, 91)",
+    "background": "rgb(255, 255, 255)",
+    "fontFamily": "Paperlogy, system-ui, sans-serif",
+    "fontSize": "13px",
+    "display": "flex",
+    "gridTemplateColumns": "none",
+    "bbox": {
+      "x": 800.875,
+      "y": 250.078125,
+      "width": 77.734375,
+      "height": 38
+    }
+  },
+  {
+    "id": "board-filter-status-revision",
+    "className": "fchip ",
+    "color": "rgb(82, 82, 91)",
+    "background": "rgb(255, 255, 255)",
+    "fontFamily": "Paperlogy, system-ui, sans-serif",
+    "fontSize": "13px",
+    "display": "flex",
+    "gridTemplateColumns": "none",
+    "bbox": {
+      "x": 888.609375,
+      "y": 250.078125,
+      "width": 89.03125,
+      "height": 38
+    }
+  },
+  {
+    "id": "board-filter-status-done",
+    "className": "fchip ",
+    "color": "rgb(82, 82, 91)",
+    "background": "rgb(255, 255, 255)",
+    "fontFamily": "Paperlogy, system-ui, sans-serif",
+    "fontSize": "13px",
+    "display": "flex",
+    "gridTemplateColumns": "none",
+    "bbox": {
+      "x": 987.640625,
+      "y": 250.078125,
+      "width": 66.453125,
+      "height": 38
+    }
+  },
+  {
+    "id": "board-search",
+    "className": null,
+    "color": "rgb(24, 24, 27)",
+    "background": "rgba(0, 0, 0, 0)",
+    "fontFamily": "Paperlogy, system-ui, sans-serif",
+    "fontSize": "13px",
+    "display": "block",
+    "gridTemplateColumns": "none",
+    "bbox": {
+      "x": 1406.71875,
+      "y": 248.078125,
+      "width": 285.28125,
+      "height": 42
+    }
+  },
+  {
+    "id": "board-sort",
+    "className": null,
+    "color": "rgb(24, 24, 27)",
+    "background": "rgb(255, 255, 255)",
+    "fontFamily": "Paperlogy, system-ui, sans-serif",
+    "fontSize": "13px",
+    "display": "inline-block",
+    "gridTemplateColumns": "none",
+    "bbox": {
+      "x": 1717,
+      "y": 247.078125,
+      "width": 150,
+      "height": 44
+    }
+  },
+  {
+    "id": "board-row-7",
+    "className": null,
+    "color": "rgb(24, 24, 27)",
+    "background": "rgba(0, 0, 0, 0)",
+    "fontFamily": "Paperlogy, system-ui, sans-serif",
+    "fontSize": "15px",
+    "display": "table-row",
+    "gridTemplateColumns": "none",
+    "bbox": {
+      "x": 337,
+      "y": 351.078125,
+      "width": 1530,
+      "height": 86
+    }
+  },
+  {
+    "id": "board-row-status-7",
+    "className": "badge s b-ok ",
+    "color": "rgb(21, 128, 61)",
+    "background": "rgb(220, 252, 231)",
+    "fontFamily": "Paperlogy, system-ui, sans-serif",
+    "fontSize": "12px",
+    "display": "inline-flex",
+    "gridTemplateColumns": "none",
+    "bbox": {
+      "x": 483,
+      "y": 382.578125,
+      "width": 47.234375,
+      "height": 22
+    }
+  },
+  {
+    "id": "pixel-sprite",
+    "className": "oq-pixel-sprite ",
+    "color": "rgb(113, 113, 122)",
+    "background": "rgba(0, 0, 0, 0)",
+    "fontFamily": "Paperlogy, system-ui, sans-serif",
+    "fontSize": "12px",
+    "display": "block",
+    "gridTemplateColumns": "none",
+    "bbox": {
+      "x": 1425,
+      "y": 379.578125,
+      "width": 32,
+      "height": 28
+    }
+  },
+  {
+    "id": "board-row-applicants-7",
+    "className": "num",
+    "color": "rgb(24, 24, 27)",
+    "background": "rgba(0, 0, 0, 0)",
+    "fontFamily": "Paperlogy, system-ui, sans-serif",
+    "fontSize": "14.5px",
+    "display": "table-cell",
+    "gridTemplateColumns": "none",
+    "bbox": {
+      "x": 1637,
+      "y": 351.078125,
+      "width": 80,
+      "height": 86
+    }
+  },
+  {
+    "id": "board-row-views-7",
+    "className": "num mut",
+    "color": "rgb(113, 113, 122)",
+    "background": "rgba(0, 0, 0, 0)",
+    "fontFamily": "Paperlogy, system-ui, sans-serif",
+    "fontSize": "14.5px",
+    "display": "table-cell",
+    "gridTemplateColumns": "none",
+    "bbox": {
+      "x": 1717,
+      "y": 351.078125,
+      "width": 70,
+      "height": 86
+    }
+  },
+  {
+    "id": "board-row-6",
+    "className": null,
+    "color": "rgb(24, 24, 27)",
+    "background": "rgba(0, 0, 0, 0)",
+    "fontFamily": "Paperlogy, system-ui, sans-serif",
+    "fontSize": "15px",
+    "display": "table-row",
+    "gridTemplateColumns": "none",
+    "bbox": {
+      "x": 337,
+      "y": 437.078125,
+      "width": 1530,
+      "height": 86
+    }
+  },
+  {
+    "id": "board-row-status-6",
+    "className": "badge s b-ok ",
+    "color": "rgb(21, 128, 61)",
+    "background": "rgb(220, 252, 231)",
+    "fontFamily": "Paperlogy, system-ui, sans-serif",
+    "fontSize": "12px",
+    "display": "inline-flex",
+    "gridTemplateColumns": "none",
+    "bbox": {
+      "x": 483,
+      "y": 468.578125,
+      "width": 47.234375,
+      "height": 22
+    }
+  },
+  {
+    "id": "pixel-sprite",
+    "className": "oq-pixel-sprite ",
+    "color": "rgb(113, 113, 122)",
+    "background": "rgba(0, 0, 0, 0)",
+    "fontFamily": "Paperlogy, system-ui, sans-serif",
+    "fontSize": "12px",
+    "display": "block",
+    "gridTemplateColumns": "none",
+    "bbox": {
+      "x": 1425,
+      "y": 465.578125,
+      "width": 32,
+      "height": 28
+    }
+  },
+  {
+    "id": "board-row-applicants-6",
+    "className": "num",
+    "color": "rgb(24, 24, 27)",
+    "background": "rgba(0, 0, 0, 0)",
+    "fontFamily": "Paperlogy, system-ui, sans-serif",
+    "fontSize": "14.5px",
+    "display": "table-cell",
+    "gridTemplateColumns": "none",
+    "bbox": {
+      "x": 1637,
+      "y": 437.078125,
+      "width": 80,
+      "height": 86
+    }
+  },
+  {
+    "id": "board-row-views-6",
+    "className": "num mut",
+    "color": "rgb(113, 113, 122)",
+    "background": "rgba(0, 0, 0, 0)",
+    "fontFamily": "Paperlogy, system-ui, sans-serif",
+    "fontSize": "14.5px",
+    "display": "table-cell",
+    "gridTemplateColumns": "none",
+    "bbox": {
+      "x": 1717,
+      "y": 437.078125,
+      "width": 70,
+      "height": 86
+    }
+  },
+  {
+    "id": "board-row-5",
+    "className": null,
+    "color": "rgb(24, 24, 27)",
+    "background": "rgba(0, 0, 0, 0)",
+    "fontFamily": "Paperlogy, system-ui, sans-serif",
+    "fontSize": "15px",
+    "display": "table-row",
+    "gridTemplateColumns": "none",
+    "bbox": {
+      "x": 337,
+      "y": 523.078125,
+      "width": 1530,
+      "height": 86
+    }
+  },
+  {
+    "id": "board-row-status-5",
+    "className": "badge s  ",
+    "color": "rgb(109, 40, 217)",
+    "background": "rgb(237, 233, 254)",
+    "fontFamily": "Paperlogy, system-ui, sans-serif",
+    "fontSize": "12px",
+    "display": "inline-flex",
+    "gridTemplateColumns": "none",
+    "bbox": {
+      "x": 483,
+      "y": 554.578125,
+      "width": 47.234375,
+      "height": 22
+    }
+  },
+  {
+    "id": "pixel-sprite",
+    "className": "oq-pixel-sprite ",
+    "color": "rgb(113, 113, 122)",
+    "background": "rgba(0, 0, 0, 0)",
+    "fontFamily": "Paperlogy, system-ui, sans-serif",
+    "fontSize": "12px",
+    "display": "block",
+    "gridTemplateColumns": "none",
+    "bbox": {
+      "x": 1425,
+      "y": 551.578125,
+      "width": 32,
+      "height": 28
+    }
+  },
+  {
+    "id": "board-row-applicants-5",
+    "className": "num",
+    "color": "rgb(24, 24, 27)",
+    "background": "rgba(0, 0, 0, 0)",
+    "fontFamily": "Paperlogy, system-ui, sans-serif",
+    "fontSize": "14.5px",
+    "display": "table-cell",
+    "gridTemplateColumns": "none",
+    "bbox": {
+      "x": 1637,
+      "y": 523.078125,
+      "width": 80,
+      "height": 86
+    }
+  },
+  {
+    "id": "board-row-views-5",
+    "className": "num mut",
+    "color": "rgb(113, 113, 122)",
+    "background": "rgba(0, 0, 0, 0)",
+    "fontFamily": "Paperlogy, system-ui, sans-serif",
+    "fontSize": "14.5px",
+    "display": "table-cell",
+    "gridTemplateColumns": "none",
+    "bbox": {
+      "x": 1717,
+      "y": 523.078125,
+      "width": 70,
+      "height": 86
+    }
+  },
+  {
+    "id": "board-row-4",
+    "className": null,
+    "color": "rgb(24, 24, 27)",
+    "background": "rgba(0, 0, 0, 0)",
+    "fontFamily": "Paperlogy, system-ui, sans-serif",
+    "fontSize": "15px",
+    "display": "table-row",
+    "gridTemplateColumns": "none",
+    "bbox": {
+      "x": 337,
+      "y": 609.078125,
+      "width": 1530,
+      "height": 86
+    }
+  },
+  {
+    "id": "board-row-status-4",
+    "className": "badge s b-wait ",
+    "color": "rgb(180, 83, 9)",
+    "background": "rgb(254, 243, 199)",
+    "fontFamily": "Paperlogy, system-ui, sans-serif",
+    "fontSize": "12px",
+    "display": "inline-flex",
+    "gridTemplateColumns": "none",
+    "bbox": {
+      "x": 483,
+      "y": 640.578125,
+      "width": 97.578125,
+      "height": 22
+    }
+  },
+  {
+    "id": "pixel-sprite",
+    "className": "oq-pixel-sprite ",
+    "color": "rgb(113, 113, 122)",
+    "background": "rgba(0, 0, 0, 0)",
+    "fontFamily": "Paperlogy, system-ui, sans-serif",
+    "fontSize": "12px",
+    "display": "block",
+    "gridTemplateColumns": "none",
+    "bbox": {
+      "x": 1425,
+      "y": 637.578125,
+      "width": 32,
+      "height": 28
+    }
+  },
+  {
+    "id": "board-row-applicants-4",
+    "className": "num",
+    "color": "rgb(24, 24, 27)",
+    "background": "rgba(0, 0, 0, 0)",
+    "fontFamily": "Paperlogy, system-ui, sans-serif",
+    "fontSize": "14.5px",
+    "display": "table-cell",
+    "gridTemplateColumns": "none",
+    "bbox": {
+      "x": 1637,
+      "y": 609.078125,
+      "width": 80,
+      "height": 86
+    }
+  },
+  {
+    "id": "board-row-views-4",
+    "className": "num mut",
+    "color": "rgb(113, 113, 122)",
+    "background": "rgba(0, 0, 0, 0)",
+    "fontFamily": "Paperlogy, system-ui, sans-serif",
+    "fontSize": "14.5px",
+    "display": "table-cell",
+    "gridTemplateColumns": "none",
+    "bbox": {
+      "x": 1717,
+      "y": 609.078125,
+      "width": 70,
+      "height": 86
+    }
+  },
+  {
+    "id": "board-row-3",
+    "className": null,
+    "color": "rgb(24, 24, 27)",
+    "background": "rgba(0, 0, 0, 0)",
+    "fontFamily": "Paperlogy, system-ui, sans-serif",
+    "fontSize": "15px",
+    "display": "table-row",
+    "gridTemplateColumns": "none",
+    "bbox": {
+      "x": 337,
+      "y": 695.078125,
+      "width": 1530,
+      "height": 86
+    }
+  },
+  {
+    "id": "board-row-status-3",
+    "className": "badge s b-ok ",
+    "color": "rgb(21, 128, 61)",
+    "background": "rgb(220, 252, 231)",
+    "fontFamily": "Paperlogy, system-ui, sans-serif",
+    "fontSize": "12px",
+    "display": "inline-flex",
+    "gridTemplateColumns": "none",
+    "bbox": {
+      "x": 483,
+      "y": 726.578125,
+      "width": 47.234375,
+      "height": 22
+    }
+  },
+  {
+    "id": "pixel-sprite",
+    "className": "oq-pixel-sprite ",
+    "color": "rgb(113, 113, 122)",
+    "background": "rgba(0, 0, 0, 0)",
+    "fontFamily": "Paperlogy, system-ui, sans-serif",
+    "fontSize": "12px",
+    "display": "block",
+    "gridTemplateColumns": "none",
+    "bbox": {
+      "x": 1425,
+      "y": 723.578125,
+      "width": 32,
+      "height": 28
+    }
+  },
+  {
+    "id": "board-row-applicants-3",
+    "className": "num",
+    "color": "rgb(24, 24, 27)",
+    "background": "rgba(0, 0, 0, 0)",
+    "fontFamily": "Paperlogy, system-ui, sans-serif",
+    "fontSize": "14.5px",
+    "display": "table-cell",
+    "gridTemplateColumns": "none",
+    "bbox": {
+      "x": 1637,
+      "y": 695.078125,
+      "width": 80,
+      "height": 86
+    }
+  },
+  {
+    "id": "board-row-views-3",
+    "className": "num mut",
+    "color": "rgb(113, 113, 122)",
+    "background": "rgba(0, 0, 0, 0)",
+    "fontFamily": "Paperlogy, system-ui, sans-serif",
+    "fontSize": "14.5px",
+    "display": "table-cell",
+    "gridTemplateColumns": "none",
+    "bbox": {
+      "x": 1717,
+      "y": 695.078125,
+      "width": 70,
+      "height": 86
+    }
+  },
+  {
+    "id": "board-row-2",
+    "className": null,
+    "color": "rgb(24, 24, 27)",
+    "background": "rgba(0, 0, 0, 0)",
+    "fontFamily": "Paperlogy, system-ui, sans-serif",
+    "fontSize": "15px",
+    "display": "table-row",
+    "gridTemplateColumns": "none",
+    "bbox": {
+      "x": 337,
+      "y": 781.078125,
+      "width": 1530,
+      "height": 86
+    }
+  },
+  {
+    "id": "board-row-status-2",
+    "className": "badge s b-done ",
+    "color": "rgb(82, 82, 91)",
+    "background": "rgb(228, 228, 231)",
+    "fontFamily": "Paperlogy, system-ui, sans-serif",
+    "fontSize": "12px",
+    "display": "inline-flex",
+    "gridTemplateColumns": "none",
+    "bbox": {
+      "x": 483,
+      "y": 812.578125,
+      "width": 36.828125,
+      "height": 22
+    }
+  },
+  {
+    "id": "pixel-sprite",
+    "className": "oq-pixel-sprite ",
+    "color": "rgb(113, 113, 122)",
+    "background": "rgba(0, 0, 0, 0)",
+    "fontFamily": "Paperlogy, system-ui, sans-serif",
+    "fontSize": "12px",
+    "display": "block",
+    "gridTemplateColumns": "none",
+    "bbox": {
+      "x": 1425,
+      "y": 809.578125,
+      "width": 32,
+      "height": 28
+    }
+  },
+  {
+    "id": "board-row-applicants-2",
+    "className": "num",
+    "color": "rgb(24, 24, 27)",
+    "background": "rgba(0, 0, 0, 0)",
+    "fontFamily": "Paperlogy, system-ui, sans-serif",
+    "fontSize": "14.5px",
+    "display": "table-cell",
+    "gridTemplateColumns": "none",
+    "bbox": {
+      "x": 1637,
+      "y": 781.078125,
+      "width": 80,
+      "height": 86
+    }
+  },
+  {
+    "id": "board-row-views-2",
+    "className": "num mut",
+    "color": "rgb(113, 113, 122)",
+    "background": "rgba(0, 0, 0, 0)",
+    "fontFamily": "Paperlogy, system-ui, sans-serif",
+    "fontSize": "14.5px",
+    "display": "table-cell",
+    "gridTemplateColumns": "none",
+    "bbox": {
+      "x": 1717,
+      "y": 781.078125,
+      "width": 70,
+      "height": 86
+    }
+  },
+  {
+    "id": "board-row-1",
+    "className": null,
+    "color": "rgb(24, 24, 27)",
+    "background": "rgba(0, 0, 0, 0)",
+    "fontFamily": "Paperlogy, system-ui, sans-serif",
+    "fontSize": "15px",
+    "display": "table-row",
+    "gridTemplateColumns": "none",
+    "bbox": {
+      "x": 337,
+      "y": 867.078125,
+      "width": 1530,
+      "height": 86
+    }
+  },
+  {
+    "id": "board-row-status-1",
+    "className": "badge s b-done ",
+    "color": "rgb(82, 82, 91)",
+    "background": "rgb(228, 228, 231)",
+    "fontFamily": "Paperlogy, system-ui, sans-serif",
+    "fontSize": "12px",
+    "display": "inline-flex",
+    "gridTemplateColumns": "none",
+    "bbox": {
+      "x": 483,
+      "y": 899.078125,
+      "width": 36.828125,
+      "height": 22
+    }
+  },
+  {
+    "id": "pixel-sprite",
+    "className": "oq-pixel-sprite ",
+    "color": "rgb(113, 113, 122)",
+    "background": "rgba(0, 0, 0, 0)",
+    "fontFamily": "Paperlogy, system-ui, sans-serif",
+    "fontSize": "12px",
+    "display": "block",
+    "gridTemplateColumns": "none",
+    "bbox": {
+      "x": 1425,
+      "y": 896.078125,
+      "width": 32,
+      "height": 28
+    }
+  },
+  {
+    "id": "board-row-applicants-1",
+    "className": "num",
+    "color": "rgb(24, 24, 27)",
+    "background": "rgba(0, 0, 0, 0)",
+    "fontFamily": "Paperlogy, system-ui, sans-serif",
+    "fontSize": "14.5px",
+    "display": "table-cell",
+    "gridTemplateColumns": "none",
+    "bbox": {
+      "x": 1637,
+      "y": 867.078125,
+      "width": 80,
+      "height": 86
+    }
+  },
+  {
+    "id": "board-row-views-1",
+    "className": "num mut",
+    "color": "rgb(113, 113, 122)",
+    "background": "rgba(0, 0, 0, 0)",
+    "fontFamily": "Paperlogy, system-ui, sans-serif",
+    "fontSize": "14.5px",
+    "display": "table-cell",
+    "gridTemplateColumns": "none",
+    "bbox": {
+      "x": 1717,
+      "y": 867.078125,
+      "width": 70,
+      "height": 86
+    }
+  },
+  {
+    "id": "board-pagination",
+    "className": "quest-board-pagination",
+    "color": "rgb(24, 24, 27)",
+    "background": "rgba(0, 0, 0, 0)",
+    "fontFamily": "Paperlogy, system-ui, sans-serif",
+    "fontSize": "15px",
+    "display": "flex",
+    "gridTemplateColumns": "none",
+    "bbox": {
+      "x": 1747,
+      "y": 993,
+      "width": 120,
+      "height": 36
+    }
+  },
+  {
+    "id": "particle-canvas",
+    "className": "oq-particle-canvas",
+    "color": "rgb(24, 24, 27)",
+    "background": "rgba(0, 0, 0, 0)",
+    "fontFamily": "Paperlogy, system-ui, sans-serif",
+    "fontSize": "15px",
+    "display": "block",
+    "gridTemplateColumns": "none",
+    "bbox": {
+      "x": 0,
+      "y": 0,
+      "width": 1920,
+      "height": 1080
+    }
+  }
+]

@@ -1,0 +1,866 @@
+[
+  {
+    "id": "gnb",
+    "className": "gnb ",
+    "color": "rgb(24, 24, 27)",
+    "background": "rgba(255, 255, 255, 0.72)",
+    "fontFamily": "Paperlogy, system-ui, sans-serif",
+    "fontSize": "15px",
+    "display": "flex",
+    "gridTemplateColumns": "none",
+    "bbox": {
+      "x": 24,
+      "y": 16,
+      "width": 1872,
+      "height": 64
+    }
+  },
+  {
+    "id": "pixel-sprite",
+    "className": "oq-pixel-sprite ",
+    "color": "rgb(24, 24, 27)",
+    "background": "rgba(0, 0, 0, 0)",
+    "fontFamily": "Paperlogy, system-ui, sans-serif",
+    "fontSize": "20px",
+    "display": "block",
+    "gridTemplateColumns": "none",
+    "bbox": {
+      "x": 44,
+      "y": 34,
+      "width": 28,
+      "height": 28
+    }
+  },
+  {
+    "id": "nav-dashboard",
+    "className": "tab ",
+    "color": "rgb(113, 113, 122)",
+    "background": "rgba(0, 0, 0, 0)",
+    "fontFamily": "Paperlogy, system-ui, sans-serif",
+    "fontSize": "15px",
+    "display": "flex",
+    "gridTemplateColumns": "none",
+    "bbox": {
+      "x": 342.671875,
+      "y": 29,
+      "width": 111.203125,
+      "height": 38
+    }
+  },
+  {
+    "id": "nav-quests",
+    "className": "tab on",
+    "color": "rgb(24, 24, 27)",
+    "background": "rgba(0, 0, 0, 0)",
+    "fontFamily": "Paperlogy, system-ui, sans-serif",
+    "fontSize": "15px",
+    "display": "flex",
+    "gridTemplateColumns": "none",
+    "bbox": {
+      "x": 455.875,
+      "y": 29,
+      "width": 127.40625,
+      "height": 38
+    }
+  },
+  {
+    "id": "nav-village",
+    "className": "tab ",
+    "color": "rgb(113, 113, 122)",
+    "background": "rgba(0, 0, 0, 0)",
+    "fontFamily": "Paperlogy, system-ui, sans-serif",
+    "fontSize": "15px",
+    "display": "flex",
+    "gridTemplateColumns": "none",
+    "bbox": {
+      "x": 585.28125,
+      "y": 29,
+      "width": 111.203125,
+      "height": 38
+    }
+  },
+  {
+    "id": "timer-display",
+    "className": "num",
+    "color": "rgb(255, 255, 255)",
+    "background": "rgba(0, 0, 0, 0)",
+    "fontFamily": "Paperlogy, system-ui, sans-serif",
+    "fontSize": "19px",
+    "display": "inline",
+    "gridTemplateColumns": "none",
+    "bbox": {
+      "x": 1052.234375,
+      "y": 42.34375,
+      "width": 80.1875,
+      "height": 23
+    }
+  },
+  {
+    "id": "timer-ctl-toggle",
+    "className": "z",
+    "color": "rgb(255, 255, 255)",
+    "background": "rgb(124, 58, 237)",
+    "fontFamily": "Paperlogy, system-ui, sans-serif",
+    "fontSize": "12px",
+    "display": "flex",
+    "gridTemplateColumns": "none",
+    "bbox": {
+      "x": 1157,
+      "y": 30,
+      "width": 90.546875,
+      "height": 36
+    }
+  },
+  {
+    "id": "timer-ctl-plus30",
+    "className": null,
+    "color": "rgb(228, 228, 231)",
+    "background": "rgba(255, 255, 255, 0.08)",
+    "fontFamily": "Paperlogy, system-ui, sans-serif",
+    "fontSize": "12px",
+    "display": "flex",
+    "gridTemplateColumns": "none",
+    "bbox": {
+      "x": 1250.546875,
+      "y": 30,
+      "width": 51.609375,
+      "height": 36
+    }
+  },
+  {
+    "id": "timer-ctl-expire",
+    "className": null,
+    "color": "rgb(228, 228, 231)",
+    "background": "rgba(255, 255, 255, 0.08)",
+    "fontFamily": "Paperlogy, system-ui, sans-serif",
+    "fontSize": "12px",
+    "display": "flex",
+    "gridTemplateColumns": "none",
+    "bbox": {
+      "x": 1305.15625,
+      "y": 30,
+      "width": 72.546875,
+      "height": 36
+    }
+  },
+  {
+    "id": "timer-ctl-reset",
+    "className": null,
+    "color": "rgb(228, 228, 231)",
+    "background": "rgba(255, 255, 255, 0.08)",
+    "fontFamily": "Paperlogy, system-ui, sans-serif",
+    "fontSize": "12px",
+    "display": "flex",
+    "gridTemplateColumns": "none",
+    "bbox": {
+      "x": 1380.703125,
+      "y": 30,
+      "width": 31,
+      "height": 36
+    }
+  },
+  {
+    "id": "points-chip",
+    "className": "chip num",
+    "color": "rgb(24, 24, 27)",
+    "background": "rgb(255, 255, 255)",
+    "fontFamily": "Paperlogy, system-ui, sans-serif",
+    "fontSize": "15px",
+    "display": "flex",
+    "gridTemplateColumns": "none",
+    "bbox": {
+      "x": 1423.703125,
+      "y": 26,
+      "width": 122.25,
+      "height": 44
+    }
+  },
+  {
+    "id": "pixel-sprite",
+    "className": "oq-pixel-sprite ",
+    "color": "rgb(24, 24, 27)",
+    "background": "rgba(0, 0, 0, 0)",
+    "fontFamily": "Paperlogy, system-ui, sans-serif",
+    "fontSize": "15px",
+    "display": "block",
+    "gridTemplateColumns": "none",
+    "bbox": {
+      "x": 1438.703125,
+      "y": 36,
+      "width": 24,
+      "height": 24
+    }
+  },
+  {
+    "id": "persona-switcher",
+    "className": "persona-current",
+    "color": "rgb(24, 24, 27)",
+    "background": "rgb(255, 255, 255)",
+    "fontFamily": "Paperlogy, system-ui, sans-serif",
+    "fontSize": "13px",
+    "display": "flex",
+    "gridTemplateColumns": "none",
+    "bbox": {
+      "x": 1553.953125,
+      "y": 26,
+      "width": 137.171875,
+      "height": 44
+    }
+  },
+  {
+    "id": "pixel-sprite",
+    "className": "oq-pixel-sprite ",
+    "color": "rgb(24, 24, 27)",
+    "background": "rgba(0, 0, 0, 0)",
+    "fontFamily": "Paperlogy, system-ui, sans-serif",
+    "fontSize": "13px",
+    "display": "block",
+    "gridTemplateColumns": "none",
+    "bbox": {
+      "x": 1558.953125,
+      "y": 34,
+      "width": 32,
+      "height": 28
+    }
+  },
+  {
+    "id": "theme-toggle",
+    "className": "thm",
+    "color": "rgb(82, 82, 91)",
+    "background": "rgb(255, 255, 255)",
+    "fontFamily": "Paperlogy, system-ui, sans-serif",
+    "fontSize": "13px",
+    "display": "flex",
+    "gridTemplateColumns": "none",
+    "bbox": {
+      "x": 1699.125,
+      "y": 26,
+      "width": 113.875,
+      "height": 44
+    }
+  },
+  {
+    "id": "sound-toggle",
+    "className": "sound-toggle",
+    "color": "rgb(109, 40, 217)",
+    "background": "rgb(255, 255, 255)",
+    "fontFamily": "Paperlogy, system-ui, sans-serif",
+    "fontSize": "15px",
+    "display": "grid",
+    "gridTemplateColumns": "30px",
+    "bbox": {
+      "x": 1821,
+      "y": 30,
+      "width": 32,
+      "height": 36
+    }
+  },
+  {
+    "id": "debug-menu",
+    "className": "debug-trigger",
+    "color": "rgb(109, 40, 217)",
+    "background": "rgba(0, 0, 0, 0)",
+    "fontFamily": "Paperlogy, system-ui, sans-serif",
+    "fontSize": "15px",
+    "display": "grid",
+    "gridTemplateColumns": "22px",
+    "bbox": {
+      "x": 1861,
+      "y": 33,
+      "width": 24,
+      "height": 30
+    }
+  },
+  {
+    "id": "app-root",
+    "className": "shell ws ",
+    "color": "rgb(24, 24, 27)",
+    "background": "rgba(0, 0, 0, 0)",
+    "fontFamily": "Paperlogy, system-ui, sans-serif",
+    "fontSize": "15px",
+    "display": "grid",
+    "gridTemplateColumns": "264px 1588px",
+    "bbox": {
+      "x": 0,
+      "y": 0,
+      "width": 1920,
+      "height": 1092.796875
+    }
+  },
+  {
+    "id": "side-quest-daily",
+    "className": "nv ",
+    "color": "rgb(82, 82, 91)",
+    "background": "rgba(0, 0, 0, 0)",
+    "fontFamily": "Paperlogy, system-ui, sans-serif",
+    "fontSize": "15px",
+    "display": "flex",
+    "gridTemplateColumns": "none",
+    "bbox": {
+      "x": 39,
+      "y": 157,
+      "width": 234,
+      "height": 46
+    }
+  },
+  {
+    "id": "side-quest-new",
+    "className": "nv on",
+    "color": "rgb(24, 24, 27)",
+    "background": "rgb(237, 233, 254)",
+    "fontFamily": "Paperlogy, system-ui, sans-serif",
+    "fontSize": "15px",
+    "display": "flex",
+    "gridTemplateColumns": "none",
+    "bbox": {
+      "x": 39,
+      "y": 203,
+      "width": 234,
+      "height": 46
+    }
+  },
+  {
+    "id": "side-quest-board",
+    "className": "nv ",
+    "color": "rgb(82, 82, 91)",
+    "background": "rgba(0, 0, 0, 0)",
+    "fontFamily": "Paperlogy, system-ui, sans-serif",
+    "fontSize": "15px",
+    "display": "flex",
+    "gridTemplateColumns": "none",
+    "bbox": {
+      "x": 39,
+      "y": 249,
+      "width": 234,
+      "height": 46
+    }
+  },
+  {
+    "id": "side-mine-requested",
+    "className": "nv",
+    "color": "rgb(82, 82, 91)",
+    "background": "rgba(0, 0, 0, 0)",
+    "fontFamily": "Paperlogy, system-ui, sans-serif",
+    "fontSize": "15px",
+    "display": "flex",
+    "gridTemplateColumns": "none",
+    "bbox": {
+      "x": 39,
+      "y": 333,
+      "width": 234,
+      "height": 46
+    }
+  },
+  {
+    "id": "side-mine-applied",
+    "className": "nv",
+    "color": "rgb(82, 82, 91)",
+    "background": "rgba(0, 0, 0, 0)",
+    "fontFamily": "Paperlogy, system-ui, sans-serif",
+    "fontSize": "15px",
+    "display": "flex",
+    "gridTemplateColumns": "none",
+    "bbox": {
+      "x": 39,
+      "y": 379,
+      "width": 234,
+      "height": 46
+    }
+  },
+  {
+    "id": "side-mine-done",
+    "className": "nv",
+    "color": "rgb(82, 82, 91)",
+    "background": "rgba(0, 0, 0, 0)",
+    "fontFamily": "Paperlogy, system-ui, sans-serif",
+    "fontSize": "15px",
+    "display": "flex",
+    "gridTemplateColumns": "none",
+    "bbox": {
+      "x": 39,
+      "y": 425,
+      "width": 234,
+      "height": 46
+    }
+  },
+  {
+    "id": "side-today-limit",
+    "className": "sidebox",
+    "color": "rgb(24, 24, 27)",
+    "background": "rgb(244, 244, 245)",
+    "fontFamily": "Paperlogy, system-ui, sans-serif",
+    "fontSize": "15px",
+    "display": "block",
+    "gridTemplateColumns": "none",
+    "bbox": {
+      "x": 39,
+      "y": 923.75,
+      "width": 234,
+      "height": 113.25
+    }
+  },
+  {
+    "id": "quest-form",
+    "className": "quest-form-grid",
+    "color": "rgb(24, 24, 27)",
+    "background": "rgba(0, 0, 0, 0)",
+    "fontFamily": "Paperlogy, system-ui, sans-serif",
+    "fontSize": "15px",
+    "display": "grid",
+    "gridTemplateColumns": "1168px 400px",
+    "bbox": {
+      "x": 308,
+      "y": 100,
+      "width": 1588,
+      "height": 968.796875
+    }
+  },
+  {
+    "id": "quest-type-inquiry",
+    "className": "",
+    "color": "rgb(113, 113, 122)",
+    "background": "rgb(244, 244, 245)",
+    "fontFamily": "Paperlogy, system-ui, sans-serif",
+    "fontSize": "14px",
+    "display": "flex",
+    "gridTemplateColumns": "none",
+    "bbox": {
+      "x": 337,
+      "y": 241.796875,
+      "width": 549,
+      "height": 47
+    }
+  },
+  {
+    "id": "quest-type-request",
+    "className": "active",
+    "color": "rgb(109, 40, 217)",
+    "background": "rgb(237, 233, 254)",
+    "fontFamily": "Paperlogy, system-ui, sans-serif",
+    "fontSize": "14px",
+    "display": "flex",
+    "gridTemplateColumns": "none",
+    "bbox": {
+      "x": 898,
+      "y": 241.796875,
+      "width": 549,
+      "height": 47
+    }
+  },
+  {
+    "id": "quest-title",
+    "className": null,
+    "color": "rgb(24, 24, 27)",
+    "background": "rgb(255, 255, 255)",
+    "fontFamily": "Paperlogy, system-ui, sans-serif",
+    "fontSize": "14px",
+    "display": "block",
+    "gridTemplateColumns": "none",
+    "bbox": {
+      "x": 337,
+      "y": 329.296875,
+      "width": 566.75,
+      "height": 50
+    }
+  },
+  {
+    "id": "quest-field",
+    "className": null,
+    "color": "rgb(24, 24, 27)",
+    "background": "rgb(255, 255, 255)",
+    "fontFamily": "Paperlogy, system-ui, sans-serif",
+    "fontSize": "14px",
+    "display": "block",
+    "gridTemplateColumns": "none",
+    "bbox": {
+      "x": 917.75,
+      "y": 329.296875,
+      "width": 257.625,
+      "height": 50
+    }
+  },
+  {
+    "id": "quest-due",
+    "className": null,
+    "color": "rgb(24, 24, 27)",
+    "background": "rgb(255, 255, 255)",
+    "fontFamily": "Paperlogy, system-ui, sans-serif",
+    "fontSize": "14px",
+    "display": "block",
+    "gridTemplateColumns": "none",
+    "bbox": {
+      "x": 1189.375,
+      "y": 329.296875,
+      "width": 257.625,
+      "height": 50
+    }
+  },
+  {
+    "id": "quest-body-editor",
+    "className": "rich-editor",
+    "color": "rgb(24, 24, 27)",
+    "background": "rgb(255, 255, 255)",
+    "fontFamily": "Paperlogy, system-ui, sans-serif",
+    "fontSize": "15px",
+    "display": "block",
+    "gridTemplateColumns": "none",
+    "bbox": {
+      "x": 337,
+      "y": 422.796875,
+      "width": 1110,
+      "height": 412
+    }
+  },
+  {
+    "id": "quest-attach-input",
+    "className": null,
+    "color": "rgb(24, 24, 27)",
+    "background": "rgb(255, 255, 255)",
+    "fontFamily": "Paperlogy, system-ui, sans-serif",
+    "fontSize": "15px",
+    "display": "none",
+    "gridTemplateColumns": "none",
+    "bbox": {
+      "x": 0,
+      "y": 0,
+      "width": 0,
+      "height": 0
+    }
+  },
+  {
+    "id": "quest-screenshot-input",
+    "className": null,
+    "color": "rgb(24, 24, 27)",
+    "background": "rgb(255, 255, 255)",
+    "fontFamily": "Paperlogy, system-ui, sans-serif",
+    "fontSize": "15px",
+    "display": "none",
+    "gridTemplateColumns": "none",
+    "bbox": {
+      "x": 0,
+      "y": 0,
+      "width": 0,
+      "height": 0
+    }
+  },
+  {
+    "id": "sharepoint-badge",
+    "className": "attachment-link",
+    "color": "rgb(24, 24, 27)",
+    "background": "rgba(0, 0, 0, 0)",
+    "fontFamily": "Paperlogy, system-ui, sans-serif",
+    "fontSize": "15px",
+    "display": "flex",
+    "gridTemplateColumns": "none",
+    "bbox": {
+      "x": 337,
+      "y": 889.796875,
+      "width": 1110,
+      "height": 72
+    }
+  },
+  {
+    "id": "quest-submit",
+    "className": "btn pri  ",
+    "color": "rgb(255, 255, 255)",
+    "background": "rgb(109, 40, 217)",
+    "fontFamily": "Paperlogy, system-ui, sans-serif",
+    "fontSize": "14px",
+    "display": "flex",
+    "gridTemplateColumns": "none",
+    "bbox": {
+      "x": 1246.09375,
+      "y": 995.796875,
+      "width": 200.90625,
+      "height": 44
+    }
+  },
+  {
+    "id": "pixel-sprite",
+    "className": "oq-pixel-sprite ",
+    "color": "rgb(255, 255, 255)",
+    "background": "rgba(0, 0, 0, 0)",
+    "fontFamily": "Paperlogy, system-ui, sans-serif",
+    "fontSize": "14px",
+    "display": "block",
+    "gridTemplateColumns": "none",
+    "bbox": {
+      "x": 1265.09375,
+      "y": 1009.796875,
+      "width": 16,
+      "height": 16
+    }
+  },
+  {
+    "id": "pixel-sprite",
+    "className": "oq-pixel-sprite ",
+    "color": "rgb(109, 40, 217)",
+    "background": "rgba(0, 0, 0, 0)",
+    "fontFamily": "Paperlogy, system-ui, sans-serif",
+    "fontSize": "15px",
+    "display": "block",
+    "gridTemplateColumns": "none",
+    "bbox": {
+      "x": 1726.703125,
+      "y": 122,
+      "width": 32,
+      "height": 32
+    }
+  },
+  {
+    "id": "quest-bounty-input",
+    "className": null,
+    "color": "rgb(109, 40, 217)",
+    "background": "rgba(0, 0, 0, 0)",
+    "fontFamily": "Paperlogy, system-ui, sans-serif",
+    "fontSize": "28px",
+    "display": "block",
+    "gridTemplateColumns": "none",
+    "bbox": {
+      "x": 1762.703125,
+      "y": 118,
+      "width": 85,
+      "height": 40
+    }
+  },
+  {
+    "id": "quest-bounty-slider",
+    "className": "bounty-range",
+    "color": "rgb(24, 24, 27)",
+    "background": "rgb(255, 255, 255)",
+    "fontFamily": "Paperlogy, system-ui, sans-serif",
+    "fontSize": "15px",
+    "display": "inline-block",
+    "gridTemplateColumns": "none",
+    "bbox": {
+      "x": 1521,
+      "y": 175,
+      "width": 350,
+      "height": 10
+    }
+  },
+  {
+    "id": "quest-bounty-preset-50",
+    "className": "",
+    "color": "rgb(24, 24, 27)",
+    "background": "rgb(255, 255, 255)",
+    "fontFamily": "Paperlogy, system-ui, sans-serif",
+    "fontSize": "13px",
+    "display": "block",
+    "gridTemplateColumns": "none",
+    "bbox": {
+      "x": 1521,
+      "y": 228.5,
+      "width": 55.109375,
+      "height": 37.5
+    }
+  },
+  {
+    "id": "quest-bounty-preset-100",
+    "className": "",
+    "color": "rgb(24, 24, 27)",
+    "background": "rgb(255, 255, 255)",
+    "fontFamily": "Paperlogy, system-ui, sans-serif",
+    "fontSize": "13px",
+    "display": "block",
+    "gridTemplateColumns": "none",
+    "bbox": {
+      "x": 1584.109375,
+      "y": 228.5,
+      "width": 63.625,
+      "height": 37.5
+    }
+  },
+  {
+    "id": "quest-bounty-preset-300",
+    "className": "on",
+    "color": "rgb(250, 250, 252)",
+    "background": "rgb(24, 24, 27)",
+    "fontFamily": "Paperlogy, system-ui, sans-serif",
+    "fontSize": "13px",
+    "display": "block",
+    "gridTemplateColumns": "none",
+    "bbox": {
+      "x": 1655.734375,
+      "y": 228.5,
+      "width": 63.625,
+      "height": 37.5
+    }
+  },
+  {
+    "id": "quest-bounty-preset-500",
+    "className": "",
+    "color": "rgb(24, 24, 27)",
+    "background": "rgb(255, 255, 255)",
+    "fontFamily": "Paperlogy, system-ui, sans-serif",
+    "fontSize": "13px",
+    "display": "block",
+    "gridTemplateColumns": "none",
+    "bbox": {
+      "x": 1727.359375,
+      "y": 228.5,
+      "width": 63.625,
+      "height": 37.5
+    }
+  },
+  {
+    "id": "quest-escrow-preview",
+    "className": "escrow-preview",
+    "color": "rgb(109, 40, 217)",
+    "background": "rgb(237, 233, 254)",
+    "fontFamily": "Paperlogy, system-ui, sans-serif",
+    "fontSize": "11px",
+    "display": "flex",
+    "gridTemplateColumns": "none",
+    "bbox": {
+      "x": 1521,
+      "y": 278,
+      "width": 350,
+      "height": 45
+    }
+  },
+  {
+    "id": "quest-reward-preview",
+    "className": "card pad reward-preview",
+    "color": "rgb(24, 24, 27)",
+    "background": "rgb(255, 255, 255)",
+    "fontFamily": "Paperlogy, system-ui, sans-serif",
+    "fontSize": "15px",
+    "display": "block",
+    "gridTemplateColumns": "none",
+    "bbox": {
+      "x": 1496,
+      "y": 415.375,
+      "width": 400,
+      "height": 267
+    }
+  },
+  {
+    "id": "quest-checklist",
+    "className": "card pad quest-checklist",
+    "color": "rgb(24, 24, 27)",
+    "background": "rgb(255, 255, 255)",
+    "fontFamily": "Paperlogy, system-ui, sans-serif",
+    "fontSize": "15px",
+    "display": "block",
+    "gridTemplateColumns": "none",
+    "bbox": {
+      "x": 1496,
+      "y": 702.375,
+      "width": 400,
+      "height": 208.6875
+    }
+  },
+  {
+    "id": "particle-canvas",
+    "className": "oq-particle-canvas",
+    "color": "rgb(24, 24, 27)",
+    "background": "rgba(0, 0, 0, 0)",
+    "fontFamily": "Paperlogy, system-ui, sans-serif",
+    "fontSize": "15px",
+    "display": "block",
+    "gridTemplateColumns": "none",
+    "bbox": {
+      "x": 0,
+      "y": 0,
+      "width": 1920,
+      "height": 1080
+    }
+  },
+  {
+    "id": "pledge-modal",
+    "className": "modal-panel md pledge-dialog",
+    "color": "rgb(24, 24, 27)",
+    "background": "rgb(255, 255, 255)",
+    "fontFamily": "Paperlogy, system-ui, sans-serif",
+    "fontSize": "15px",
+    "display": "block",
+    "gridTemplateColumns": "none",
+    "bbox": {
+      "x": 640,
+      "y": 155.34375,
+      "width": 640,
+      "height": 769.296875
+    }
+  },
+  {
+    "id": "pledge-check-1",
+    "className": null,
+    "color": "rgb(24, 24, 27)",
+    "background": "rgb(255, 255, 255)",
+    "fontFamily": "Paperlogy, system-ui, sans-serif",
+    "fontSize": "15px",
+    "display": "block",
+    "gridTemplateColumns": "none",
+    "bbox": {
+      "x": 690,
+      "y": 443.859375,
+      "width": 32,
+      "height": 32
+    }
+  },
+  {
+    "id": "pledge-check-2",
+    "className": null,
+    "color": "rgb(24, 24, 27)",
+    "background": "rgb(255, 255, 255)",
+    "fontFamily": "Paperlogy, system-ui, sans-serif",
+    "fontSize": "15px",
+    "display": "block",
+    "gridTemplateColumns": "none",
+    "bbox": {
+      "x": 690,
+      "y": 530.546875,
+      "width": 32,
+      "height": 32
+    }
+  },
+  {
+    "id": "pledge-check-3",
+    "className": null,
+    "color": "rgb(24, 24, 27)",
+    "background": "rgb(255, 255, 255)",
+    "fontFamily": "Paperlogy, system-ui, sans-serif",
+    "fontSize": "15px",
+    "display": "block",
+    "gridTemplateColumns": "none",
+    "bbox": {
+      "x": 690,
+      "y": 617.234375,
+      "width": 32,
+      "height": 32
+    }
+  },
+  {
+    "id": "pledge-cancel",
+    "className": "btn   ",
+    "color": "rgb(24, 24, 27)",
+    "background": "rgb(255, 255, 255)",
+    "fontFamily": "Paperlogy, system-ui, sans-serif",
+    "fontSize": "15px",
+    "display": "flex",
+    "gridTemplateColumns": "none",
+    "bbox": {
+      "x": 1036.328125,
+      "y": 849.640625,
+      "width": 64.109375,
+      "height": 44
+    }
+  },
+  {
+    "id": "pledge-confirm",
+    "className": "btn pri  ",
+    "color": "rgb(255, 255, 255)",
+    "background": "rgb(109, 40, 217)",
+    "fontFamily": "Paperlogy, system-ui, sans-serif",
+    "fontSize": "15px",
+    "display": "flex",
+    "gridTemplateColumns": "none",
+    "bbox": {
+      "x": 1110.4375,
+      "y": 849.640625,
+      "width": 134.5625,
+      "height": 44
+    }
+  }
+]

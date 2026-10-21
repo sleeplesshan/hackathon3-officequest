@@ -1,0 +1,79 @@
+{
+  "url": "http://localhost:3000/",
+  "hydrated": "true",
+  "canvases": [
+    {
+      "width": 24,
+      "height": 24,
+      "loaded": "true",
+      "tier": "gold",
+      "gender": "male",
+      "hair": "classic"
+    },
+    {
+      "width": 24,
+      "height": 24,
+      "loaded": "true",
+      "tier": "bronze",
+      "gender": "male",
+      "hair": "classic"
+    },
+    {
+      "width": 24,
+      "height": 24,
+      "loaded": "true",
+      "tier": "bronze",
+      "gender": "male",
+      "hair": "wave"
+    },
+    {
+      "width": 24,
+      "height": 24,
+      "loaded": "true",
+      "tier": "bronze",
+      "gender": "male",
+      "hair": "classic"
+    },
+    {
+      "width": 24,
+      "height": 24,
+      "loaded": "true",
+      "tier": "silver",
+      "gender": "male",
+      "hair": "classic"
+    },
+    {
+      "width": 24,
+      "height": 24,
+      "loaded": "true",
+      "tier": "gold",
+      "gender": "male",
+      "hair": "classic"
+    },
+    {
+      "width": 24,
+      "height": 24,
+      "loaded": "true",
+      "tier": "platinum",
+      "gender": "male",
+      "hair": "classic"
+    },
+    {
+      "width": 24,
+      "height": 24,
+      "loaded": "true",
+      "tier": "diamond",
+      "gender": "male",
+      "hair": "classic"
+    },
+    {
+      "width": 24,
+      "height": 24,
+      "loaded": "true",
+      "tier": "master",
+      "gender": "male",
+      "hair": "classic"
+    }
+  ],
+  "externalResources": []
+}

@@ -1,0 +1,202 @@
+{
+  "ok": true,
+  "engine": "component-row",
+  "kind": "sprite-gen-inspect-report",
+  "run_dir": "/Users/han/Documents/Codex/2026-10-21/ttps-github-com-sleeplesshan-hackathon3-officequest/work/character-art/pixel-wardrobe",
+  "states": [
+    "male-classic",
+    "male-wave",
+    "female-classic",
+    "female-wave"
+  ],
+  "thresholds": {
+    "histogram_min": 0.0,
+    "dhash_min": 0.55,
+    "motion_min": 0.01
+  },
+  "rows": [
+    {
+      "state": "male-classic",
+      "source": "frames",
+      "expected_frames": 6,
+      "found_frames": 6,
+      "natural_pose_count": 6,
+      "frame_files": [
+        "frames/male-classic/frame-0.png",
+        "frames/male-classic/frame-1.png",
+        "frames/male-classic/frame-2.png",
+        "frames/male-classic/frame-3.png",
+        "frames/male-classic/frame-4.png",
+        "frames/male-classic/frame-5.png"
+      ],
+      "metrics": {
+        "histogram_intersection": {
+          "min": 0.6657553815083,
+          "mean": 0.7487490946482608
+        },
+        "dhash_similarity": {
+          "min": 0.859375,
+          "mean": 0.90625
+        },
+        "motion_presence": 0.05190453622855392,
+        "centroid_sigma": {
+          "x": 0.1533791701385084,
+          "y": 0.2499159810811832
+        }
+      },
+      "ok": true,
+      "errors": [],
+      "warnings": [
+        "male-classic: dropped 5 collapsed per-frame pitch(es) below 13.94",
+        "male-classic: dropped 5 collapsed per-frame pitch(es) below 14.40",
+        "male-classic: pitch crosscheck: axis ratio y/x disagrees — run-length 1.075 vs grid 1.033 (4.1%); one axis may have collapsed to the other",
+        "male-classic: frame 1 own pitch 11.68x12.00 is outside the consensus pitch family 23.24x24.00 — harmonic/collapsed misdetection; snapped at consensus",
+        "male-classic: frame 2 own pitch 12.00x12.00 is outside the consensus pitch family 23.24x24.00 — harmonic/collapsed misdetection; snapped at consensus",
+        "male-classic: frame 3 own pitch 12.00x12.00 is outside the consensus pitch family 23.24x24.00 — harmonic/collapsed misdetection; snapped at consensus",
+        "male-classic: frame 4 own pitch 11.56x12.00 is outside the consensus pitch family 23.24x24.00 — harmonic/collapsed misdetection; snapped at consensus",
+        "male-classic: frame 5 own pitch 11.50x12.00 is outside the consensus pitch family 23.24x24.00 — harmonic/collapsed misdetection; snapped at consensus"
+      ]
+    },
+    {
+      "state": "male-wave",
+      "source": "frames",
+      "expected_frames": 6,
+      "found_frames": 6,
+      "natural_pose_count": 6,
+      "frame_files": [
+        "frames/male-wave/frame-0.png",
+        "frames/male-wave/frame-1.png",
+        "frames/male-wave/frame-2.png",
+        "frames/male-wave/frame-3.png",
+        "frames/male-wave/frame-4.png",
+        "frames/male-wave/frame-5.png"
+      ],
+      "metrics": {
+        "histogram_intersection": {
+          "min": 0.6611111111111111,
+          "mean": 0.7264883003027746
+        },
+        "dhash_similarity": {
+          "min": 0.859375,
+          "mean": 0.9020833333333333
+        },
+        "motion_presence": 0.05286721622242647,
+        "centroid_sigma": {
+          "x": 0.12026990749669376,
+          "y": 0.3138434292962926
+        }
+      },
+      "ok": true,
+      "errors": [],
+      "warnings": [
+        "male-wave: dropped 5 collapsed per-frame pitch(es) below 12.60",
+        "male-wave: dropped 5 collapsed per-frame pitch(es) below 14.39",
+        "male-wave: frame 1 own pitch 9.68x7.35 is outside the consensus pitch family 21.00x23.98 — harmonic/collapsed misdetection; snapped at consensus",
+        "male-wave: frame 2 own pitch 7.39x7.39 is outside the consensus pitch family 21.00x23.98 — harmonic/collapsed misdetection; snapped at consensus",
+        "male-wave: frame 3 own pitch 11.00x11.00 is outside the consensus pitch family 21.00x23.98 — harmonic/collapsed misdetection; snapped at consensus",
+        "male-wave: frame 4 own pitch 8.52x7.37 is outside the consensus pitch family 21.00x23.98 — harmonic/collapsed misdetection; snapped at consensus",
+        "male-wave: frame 5 own pitch 10.38x11.00 is outside the consensus pitch family 21.00x23.98 — harmonic/collapsed misdetection; snapped at consensus"
+      ]
+    },
+    {
+      "state": "female-classic",
+      "source": "frames",
+      "expected_frames": 6,
+      "found_frames": 6,
+      "natural_pose_count": 6,
+      "frame_files": [
+        "frames/female-classic/frame-0.png",
+        "frames/female-classic/frame-1.png",
+        "frames/female-classic/frame-2.png",
+        "frames/female-classic/frame-3.png",
+        "frames/female-classic/frame-4.png",
+        "frames/female-classic/frame-5.png"
+      ],
+      "metrics": {
+        "histogram_intersection": {
+          "min": 0.6105501902253438,
+          "mean": 0.7174698461453967
+        },
+        "dhash_similarity": {
+          "min": 0.8125,
+          "mean": 0.9072916666666667
+        },
+        "motion_presence": 0.05683052810968137,
+        "centroid_sigma": {
+          "x": 0.11362739239524713,
+          "y": 0.33488491546838806
+        }
+      },
+      "ok": true,
+      "errors": [],
+      "warnings": [
+        "female-classic: frame 1 own pitch 16.00x21.00 is outside the consensus pitch family 19.98x21.00 — harmonic/collapsed misdetection; snapped at consensus"
+      ]
+    },
+    {
+      "state": "female-wave",
+      "source": "frames",
+      "expected_frames": 6,
+      "found_frames": 6,
+      "natural_pose_count": 6,
+      "frame_files": [
+        "frames/female-wave/frame-0.png",
+        "frames/female-wave/frame-1.png",
+        "frames/female-wave/frame-2.png",
+        "frames/female-wave/frame-3.png",
+        "frames/female-wave/frame-4.png",
+        "frames/female-wave/frame-5.png"
+      ],
+      "metrics": {
+        "histogram_intersection": {
+          "min": 0.6487510434726771,
+          "mean": 0.7476057935776221
+        },
+        "dhash_similarity": {
+          "min": 0.90625,
+          "mean": 0.9322916666666666
+        },
+        "motion_presence": 0.050911362591911764,
+        "centroid_sigma": {
+          "x": 0.2397054964447342,
+          "y": 0.17792673002380854
+        }
+      },
+      "ok": true,
+      "errors": [],
+      "warnings": [
+        "female-wave: dropped 4 collapsed per-frame pitch(es) below 14.39",
+        "female-wave: pitch crosscheck: run-length mode estimates y=10.96 but grid detection returned y=23.98 — likely a multiple/harmonic misdetection",
+        "female-wave: frame 1 own pitch 11.40x12.00 is outside the consensus pitch family 23.98x23.98 — harmonic/collapsed misdetection; snapped at consensus",
+        "female-wave: frame 2 own pitch 6.00x6.00 is outside the consensus pitch family 23.98x23.98 — harmonic/collapsed misdetection; snapped at consensus",
+        "female-wave: frame 3 own pitch 11.32x12.20 is outside the consensus pitch family 23.98x23.98 — harmonic/collapsed misdetection; snapped at consensus",
+        "female-wave: frame 4 own pitch 11.44x12.26 is outside the consensus pitch family 23.98x23.98 — harmonic/collapsed misdetection; snapped at consensus"
+      ]
+    }
+  ],
+  "errors": [],
+  "warnings": [
+    "male-classic: dropped 5 collapsed per-frame pitch(es) below 13.94",
+    "male-classic: dropped 5 collapsed per-frame pitch(es) below 14.40",
+    "male-classic: pitch crosscheck: axis ratio y/x disagrees — run-length 1.075 vs grid 1.033 (4.1%); one axis may have collapsed to the other",
+    "male-classic: frame 1 own pitch 11.68x12.00 is outside the consensus pitch family 23.24x24.00 — harmonic/collapsed misdetection; snapped at consensus",
+    "male-classic: frame 2 own pitch 12.00x12.00 is outside the consensus pitch family 23.24x24.00 — harmonic/collapsed misdetection; snapped at consensus",
+    "male-classic: frame 3 own pitch 12.00x12.00 is outside the consensus pitch family 23.24x24.00 — harmonic/collapsed misdetection; snapped at consensus",
+    "male-classic: frame 4 own pitch 11.56x12.00 is outside the consensus pitch family 23.24x24.00 — harmonic/collapsed misdetection; snapped at consensus",
+    "male-classic: frame 5 own pitch 11.50x12.00 is outside the consensus pitch family 23.24x24.00 — harmonic/collapsed misdetection; snapped at consensus",
+    "male-wave: dropped 5 collapsed per-frame pitch(es) below 12.60",
+    "male-wave: dropped 5 collapsed per-frame pitch(es) below 14.39",
+    "male-wave: frame 1 own pitch 9.68x7.35 is outside the consensus pitch family 21.00x23.98 — harmonic/collapsed misdetection; snapped at consensus",
+    "male-wave: frame 2 own pitch 7.39x7.39 is outside the consensus pitch family 21.00x23.98 — harmonic/collapsed misdetection; snapped at consensus",
+    "male-wave: frame 3 own pitch 11.00x11.00 is outside the consensus pitch family 21.00x23.98 — harmonic/collapsed misdetection; snapped at consensus",
+    "male-wave: frame 4 own pitch 8.52x7.37 is outside the consensus pitch family 21.00x23.98 — harmonic/collapsed misdetection; snapped at consensus",
+    "male-wave: frame 5 own pitch 10.38x11.00 is outside the consensus pitch family 21.00x23.98 — harmonic/collapsed misdetection; snapped at consensus",
+    "female-classic: frame 1 own pitch 16.00x21.00 is outside the consensus pitch family 19.98x21.00 — harmonic/collapsed misdetection; snapped at consensus",
+    "female-wave: dropped 4 collapsed per-frame pitch(es) below 14.39",
+    "female-wave: pitch crosscheck: run-length mode estimates y=10.96 but grid detection returned y=23.98 — likely a multiple/harmonic misdetection",
+    "female-wave: frame 1 own pitch 11.40x12.00 is outside the consensus pitch family 23.98x23.98 — harmonic/collapsed misdetection; snapped at consensus",
+    "female-wave: frame 2 own pitch 6.00x6.00 is outside the consensus pitch family 23.98x23.98 — harmonic/collapsed misdetection; snapped at consensus",
+    "female-wave: frame 3 own pitch 11.32x12.20 is outside the consensus pitch family 23.98x23.98 — harmonic/collapsed misdetection; snapped at consensus",
+    "female-wave: frame 4 own pitch 11.44x12.26 is outside the consensus pitch family 23.98x23.98 — harmonic/collapsed misdetection; snapped at consensus"
+  ]
+}

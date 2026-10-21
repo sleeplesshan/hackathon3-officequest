@@ -1,0 +1,9 @@
+{
+  "name": "officequest-preview",
+  "private": true,
+  "scripts": {
+    "dev": "npm --prefix officequest run dev",
+    "build": "npm --prefix officequest run build",
+    "verify": "npm --prefix officequest run verify"
+  }
+}

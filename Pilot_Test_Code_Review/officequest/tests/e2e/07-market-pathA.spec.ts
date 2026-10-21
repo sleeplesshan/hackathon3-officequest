@@ -1,0 +1,55 @@
+import { test, expect, bootstrap, agreePledge, expectHyperFrame, getDB, hydrated, switchPersona } from './helpers';
+import { itemCards, prepareItem, designateFinal } from './market-helpers';
+import { prepareQuest } from './quest-helpers';
+
+test('village seed, six village counts, category/search/sort and persona like toggles @p5',async({page})=>{
+  await bootstrap(page,{route:'/village'});await expect(itemCards(page)).toHaveCount(8);expect(await itemCards(page).evaluateAll(cards=>cards.map(card=>card.getAttribute('data-testid')))).toEqual(['m1','m2','m3','m4','m5','m6','m7','m8'].map(id=>`item-card-${id}`));
+  for(const [v,count] of [['all',8],['mapo',2],['hoehyeon',1],['banpo',1],['suseo',1],['changwon',1],['ulsan',2]] as const){await expect(page.getByTestId(`village-tab-${v}`)).toHaveAttribute('data-count',String(count));if(v!=='all'){await page.getByTestId(`village-tab-${v}`).click();await expect(itemCards(page)).toHaveCount(count);expect((await getDB(page)).items.filter(i=>i.village===v)).toHaveLength(count);}}
+  await page.getByTestId('village-tab-all').click();await page.getByTestId('market-only-free').click();await expect(itemCards(page)).toHaveCount(2);await page.getByTestId('market-only-free').click();await page.getByTestId('market-only-available').click();await expect(itemCards(page)).toHaveCount(5);await page.getByTestId('market-only-available').click();
+  await page.getByTestId('market-cat-digital').click();await expect(itemCards(page)).toHaveCount(2);await page.getByTestId('market-search').fill('키보드');await expect(itemCards(page)).toHaveCount(1);await expect(page.getByTestId('item-card-m5')).toBeVisible();await page.reload();await hydrated(page);await expect(page.getByTestId('market-search')).toHaveValue('키보드');await expect(itemCards(page)).toHaveCount(1);
+  await page.goto('/village');await hydrated(page);await page.getByTestId('market-sort').selectOption('popular');await expect(itemCards(page).first()).toHaveAttribute('data-testid','item-card-m2');await page.getByTestId('market-sort').selectOption('price');await expect(itemCards(page).first()).toContainText('무료나눔');
+  const before=(await getDB(page)).items.find(i=>i.id==='m1')!.likeCount;await page.getByTestId('item-like-m1').click();await expect(page.getByTestId('item-like-count-m1')).toContainText(String(before+1));await switchPersona(page,'lee');await page.getByTestId('item-like-m1').click();await expect(page.getByTestId('item-like-count-m1')).toContainText(String(before+2));await switchPersona(page,'kim');await page.getByTestId('item-like-m1').click();await expect(page.getByTestId('item-like-count-m1')).toContainText(String(before+1));await switchPersona(page,'lee');await page.getByTestId('item-like-m1').click();await expect(page.getByTestId('item-like-count-m1')).toContainText(String(before));
+  const views=(await getDB(page)).items.find(i=>i.id==='m1')!.views;await page.getByTestId('item-card-m1').getByRole('heading').getByRole('link').click();await expect(page.getByTestId('item-detail')).toBeVisible();await expect.poll(async()=>(await getDB(page)).items.find(i=>i.id==='m1')!.views).toBe(views+1);await page.goto('/village');await hydrated(page);await expect(page.getByTestId('item-views-m1')).toContainText(String(views+1));
+});
+test('seller designates, may release, and buyer completes exactly once with both trade records @p5',async({page})=>{
+ await bootstrap(page,{persona:'lee',route:'/village/m4'});const before=await getDB(page);await designateFinal(page,'kim');await page.getByTestId('release-reservation-btn').click();expect((await getDB(page)).items.find(i=>i.id==='m4')!.finalBuyerId).toBeNull();expect((await getDB(page)).transactions).toEqual(before.transactions);
+ await designateFinal(page,'kim');await switchPersona(page,'kim');await page.getByTestId('buy-btn').click();await expect(page.getByTestId('settlement-panel')).toBeVisible();const db=await getDB(page);expect(db.users.kim!.points).toBe(300);expect(db.users.lee!.points).toBe(1500);expect(db.transactions).toHaveLength(before.transactions.length+2);expect(db.transactions.slice(-2)).toEqual(expect.arrayContaining([expect.objectContaining({type:'market_purchase',amount:-1200}),expect.objectContaining({type:'market_sale',amount:1200})]));
+ await switchPersona(page,'lee');await page.goto('/village');await hydrated(page);await page.getByTestId('my-trades-btn').click();await expect(page.locator('[data-testid="trade-row"][data-type="market_sale"]').filter({hasText:'게임 패드'})).toHaveCount(1);
+});
+test('designated buyer with insufficient balance sees disabled own confirmation without DB mutation @p5',async({page})=>{
+ await bootstrap(page,{route:'/village/m1'});await designateFinal(page,'lee');await switchPersona(page,'lee');const before=await getDB(page);await expect(page.getByTestId('buy-btn')).toBeDisabled();await expect(page.locator('[data-testid="disabled-reason"][data-for="buy-btn"]')).toContainText('보유 포인트가 부족합니다');expect(await getDB(page)).toEqual(before);
+});
+test('available NPC listing cannot be purchased or auto-settled before seller designation @p5',async({page})=>{
+ await bootstrap(page,{route:'/village/m5'});const before=await getDB(page);await expect(page.getByTestId('buy-btn')).toHaveCount(0);await page.waitForTimeout(1300);expect((await getDB(page)).transactions).toEqual(before.transactions);expect((await getDB(page)).items.find(i=>i.id==='m5')!.status).toBe('available');
+});
+test('free donation settles only after designation and receipt with two zero-point records @p5',async({page})=>{
+ await bootstrap(page,{persona:'lee',route:'/village/new'});await prepareItem(page,{free:true});await page.getByTestId('item-photo-preset-pad').click();await page.getByTestId('item-submit').click();await designateFinal(page,'kim');await switchPersona(page,'kim');const before=await getDB(page);await page.getByTestId('buy-btn').click();const db=await getDB(page);expect(db.users.kim!.points).toBe(before.users.kim!.points);expect(db.users.lee!.points).toBe(before.users.lee!.points);expect(db.transactions.slice(-2).map(t=>t.amount)).toEqual([0,0]);
+});
+test('item create accepts presets and local photo, free price is zero; new item leads village list and can be edited @p5',async({page})=>{
+  await bootstrap(page,{persona:'lee',route:'/village/new'});await prepareItem(page,{free:true});await expect(page.getByTestId('item-price-input')).toBeDisabled();await expect(page.getByTestId('item-price-input')).toHaveValue('0');await page.getByTestId('item-photo-preset-pad').click();await page.getByTestId('item-photo-preset-book').click();await page.getByTestId('item-photo-input').setInputFiles('tests/fixtures/photo.png');await expect(page.getByTestId('item-photo-thumb')).toHaveCount(3);await page.getByTestId('item-submit').click();await expect(page).toHaveURL(/\/village\/m9$/);let db=await getDB(page);expect(db.items.find(i=>i.id==='m9')).toMatchObject({sellerId:'lee',village:'changwon',mode:'free',price:0});expect(db.items.find(i=>i.id==='m9')!.photos).toHaveLength(3);expect(db.items.find(i=>i.id==='m9')!.photos.every(p=>p.dataUrl?.startsWith('data:image/'))).toBe(true);
+  await page.goto('/village');await hydrated(page);await expect(itemCards(page).first()).toHaveAttribute('data-testid','item-card-m9');
+  await page.goto('/village?v=changwon');await hydrated(page);await expect(itemCards(page).first()).toHaveAttribute('data-testid','item-card-m9');await expect(page.getByTestId('item-card-m9')).toContainText('무료나눔');await expect(page.getByTestId('item-card-m9').locator('strong.free')).toHaveCSS('color','rgb(22, 163, 74)');await page.goto('/village/m9');await hydrated(page);await page.getByTestId('item-edit-btn').click();await page.getByTestId('item-title').fill('수정된 게임 장비');await page.getByTestId('item-mode-sale').click();await page.getByTestId('item-price-input').fill('100');await page.getByTestId('item-submit').click();await expect(page).toHaveURL(/\/village\/m9$/);db=await getDB(page);expect(db.items.find(i=>i.id==='m9')).toMatchObject({title:'수정된 게임 장비',mode:'sale',price:100});
+});
+test('receipt rechecks funds after buyer spends points, preserving designation and ledger @p5',async({page})=>{
+ await bootstrap(page,{persona:'lee',route:'/village/m4'});await designateFinal(page,'kim');await switchPersona(page,'kim');await page.goto('/quests/new');await hydrated(page);await prepareQuest(page,{bounty:500,title:'수령 확인 전 포인트 사용 검증'});await page.getByTestId('quest-submit').click();await agreePledge(page);await page.getByTestId('pledge-confirm').click();await expectHyperFrame(page,'post');await page.goto('/village/m4');await hydrated(page);const before=await getDB(page);await expect(page.getByTestId('buy-btn')).toBeDisabled();await expect(page.locator('[data-testid="disabled-reason"][data-for="buy-btn"]')).toContainText('보유 포인트가 부족합니다');expect((await getDB(page)).transactions).toEqual(before.transactions);expect((await getDB(page)).items.find(i=>i.id==='m4')).toMatchObject({status:'reserved',finalBuyerId:'kim'});
+});
+test('operator can read market detail while chat, likes and buying stay unavailable without errors @p5',async({page})=>{
+  await bootstrap(page,{persona:'ops',route:'/village/m1'});await expect(page.getByTestId('item-detail')).toBeVisible();await expect(page.getByTestId('item-teams-btn')).toHaveCount(0);await expect(page.getByTestId('item-like-m1')).toBeDisabled();await expect(page.getByTestId('buy-btn')).toHaveCount(0);expect((await getDB(page)).users.ops!.points).toBe(0);
+});
+test('photos reject an upload above2MB and cap preset additions at five @p5',async({page})=>{
+  await bootstrap(page,{route:'/village/new'});await page.getByTestId('item-photo-input').setInputFiles({name:'큰사진.png',mimeType:'image/png',buffer:Buffer.alloc(2*1024*1024+1)});await expect(page.getByTestId('toast')).toContainText('2 MB 이하');await expect(page.getByTestId('item-photo-thumb')).toHaveCount(0);
+  for(const name of ['monitor','mug','book','pad','keyboard'])await page.getByTestId(`item-photo-preset-${name}`).click();await expect(page.getByTestId('item-photo-thumb')).toHaveCount(5);await expect(page.getByTestId('item-photo-preset-vest')).toBeDisabled();await expect(page.getByTestId('item-photo-input')).toBeDisabled();
+});
+
+test('soft navigation from item detail to list and back increments views once on every entry @p6', async ({ page }) => {
+  await bootstrap(page, { route: '/village' }); const initial = (await getDB(page)).items.find(item => item.id === 'm1')!.views;
+  for (let entry = 1; entry <= 3; entry++) {
+    await page.getByTestId('item-card-m1').getByRole('heading').getByRole('link').click();
+    await expect(page.getByTestId('item-detail')).toBeVisible();
+    await expect.poll(async () => (await getDB(page)).items.find(item => item.id === 'm1')!.views).toBe(initial + entry);
+    await expect(page.getByTestId('item-views-m1')).toHaveText(String(initial + entry));
+    await page.getByTestId('item-detail').getByRole('link', { name: '효성마을', exact: true }).click();
+    await expect(page.getByTestId('item-card-m1')).toBeVisible();
+    await expect(page.getByTestId('item-views-m1')).toHaveText(String(initial + entry));
+  }
+});

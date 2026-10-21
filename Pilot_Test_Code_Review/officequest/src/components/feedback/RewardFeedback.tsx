@@ -1,0 +1,15 @@
+'use client';
+import { useEffect, useRef, useState } from 'react';
+import { createPortal } from 'react-dom';
+import { CheckCircle2, RotateCcw, Volume2, VolumeX } from 'lucide-react';
+import { pauseAudio, playSound, setSoundMuted, soundMuted, unlockAudio } from '@/lib/audio';
+import PixelSprite from '@/components/pixel/PixelSprite';
+export interface RewardNotice { kind:'daily'|'trade'|'undo'; title:string; detail:string }
+export function showReward(detail:RewardNotice){window.dispatchEvent(new CustomEvent('oq:reward',{detail}));}
+export function SoundToggle(){const [muted,setMuted]=useState(false);useEffect(()=>{setMuted(soundMuted());const update=()=>setMuted(soundMuted());window.addEventListener('oq:audio-setting',update);return()=>window.removeEventListener('oq:audio-setting',update);},[]);return <button type="button" className="sound-toggle" data-testid="sound-toggle" aria-label={muted?'효과음 켜기':'효과음 끄기'} aria-pressed={!muted} title={muted?'효과음 켜기':'효과음 끄기'} onClick={()=>{setSoundMuted(!muted);if(muted)playSound('coin');}}>{muted?<VolumeX size={17}/>:<Volume2 size={17}/>}</button>;}
+export default function RewardFeedback(){
+ const [mounted,setMounted]=useState(false),[notice,setNotice]=useState<(RewardNotice&{id:number})|null>(null);const timer=useRef<ReturnType<typeof setTimeout>|null>(null),sequence=useRef(0);
+ useEffect(()=>{setMounted(true);const receive=(event:Event)=>{const detail=(event as CustomEvent<RewardNotice>).detail;if(!detail)return;if(timer.current)clearTimeout(timer.current);setNotice({...detail,id:++sequence.current});timer.current=setTimeout(()=>setNotice(null),1900);};const visibility=()=>{if(document.hidden)pauseAudio();};const key=(event:KeyboardEvent)=>{if(['Enter',' ','ArrowLeft','ArrowRight'].includes(event.key))unlockAudio();};window.addEventListener('pointerdown',unlockAudio,{capture:true});window.addEventListener('keydown',key,{capture:true});document.addEventListener('visibilitychange',visibility);window.addEventListener('oq:reward',receive);return()=>{window.removeEventListener('pointerdown',unlockAudio,{capture:true});window.removeEventListener('keydown',key,{capture:true});document.removeEventListener('visibilitychange',visibility);window.removeEventListener('oq:reward',receive);if(timer.current)clearTimeout(timer.current);};},[]);
+ if(!mounted)return null;
+ return createPortal(notice&&<div key={notice.id} className={`reward-motion reward-${notice.kind}`} data-testid="reward-motion" data-kind={notice.kind} role="status" aria-live="polite"><div className="reward-motion-coins" aria-hidden="true">{Array.from({length:8},(_,i)=><span key={i} style={{'--coin-index':i} as React.CSSProperties}><PixelSprite name="coin" scale={3}/></span>)}</div><div className="reward-motion-emblem">{notice.kind==='undo'?<RotateCcw size={30}/>:<PixelSprite name="coin" scale={6}/>}</div><small>OFFICE QUEST</small><h2>{notice.title}</h2><p>{notice.detail}</p><div className="reward-motion-line"><CheckCircle2 size={15}/>{notice.kind==='undo'?'거래 상태와 정산 복원':'반영 완료'}</div></div>,document.body);
+}

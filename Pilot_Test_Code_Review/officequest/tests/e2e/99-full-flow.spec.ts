@@ -1,0 +1,54 @@
+import { test, expect, bootstrap, agreePledge, expectHyperFrame, fillEditor, getDB, hydrated, switchPersona } from './helpers';
+import { designateFinal } from './market-helpers';
+import { attachSpreadsheet, prepareQuest } from './quest-helpers';
+
+test('PRD §11 full demo: escrow300, apply/adopt, attached v1 rejection/v2 three-star approval, then game-pad purchase1200 @p6', async ({ page }) => {
+  await bootstrap(page, { route: '/quests/new' });
+  await expect(page.getByTestId('points-chip')).toContainText('1,500');
+  await prepareQuest(page, { title: 'E2E 원가 매크로 요청', bounty: 300 }); await attachSpreadsheet(page, 'e2e_원본.xlsx');
+  await expect(page.getByTestId('sharepoint-badge')).toHaveAttribute('data-demo','true');
+  await page.getByTestId('quest-submit').click(); await agreePledge(page); await page.getByTestId('pledge-confirm').click();
+  await expect(page.getByTestId('points-chip')).toContainText('1,200'); await expectHyperFrame(page, 'post');
+  await expect(page).toHaveURL(/\/quests\/board$/); await expect(page.locator('tr[data-testid^="board-row-"]').first()).toHaveAttribute('data-testid', 'board-row-8');
+  await expect(page.getByTestId('board-row-status-8')).toHaveText('모집중');
+  await switchPersona(page, 'lee'); await page.getByTestId('board-row-8').click();
+  await expect(page.getByTestId('worker-editor')).toHaveAttribute('data-locked', 'true');
+  await page.getByTestId('quest-apply-btn').click(); await agreePledge(page); await page.getByTestId('pledge-resolve-input').fill('바로 처리하겠습니다'); await page.getByTestId('pledge-confirm').click();
+  await expect(page.getByTestId('quest-apply-btn')).toContainText('지원 완료 · 채택 대기');
+  await expect(page.locator('[data-testid^="applicant-row-"]')).toHaveCount(1);
+  await switchPersona(page, 'kim'); await page.getByTestId('adopt-btn-lee').click();
+  await expect(page.getByTestId('quest-status-badge')).toHaveAttribute('data-status', 'in_progress');
+  await expect(page.getByTestId('quest-edit-btn')).toBeDisabled(); await expect(page.getByTestId('quest-delete-btn')).toBeDisabled(); await expect(page.getByTestId('teams-open-btn')).toBeVisible();
+  await switchPersona(page, 'lee'); await fillEditor(page, 'worker-editor', '<p>원가 분석 표와 자동화 매크로를 작성하여 첫 번째 결과물을 제출합니다.</p>');
+  await page.getByTestId('worker-attach-input').setInputFiles({ name: 'e2e_결과.xlsx', mimeType: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet', buffer: Buffer.alloc(2048, 65) });
+  await expect(page.getByTestId('sharepoint-badge').filter({ hasText: 'e2e_결과.xlsx' })).toHaveAttribute('data-demo','true');
+  await page.getByTestId('submit-result-btn').click(); await expect(page.getByTestId('submission-v1')).toBeVisible(); await expect(page.getByTestId('review-pending-badge')).toBeVisible();
+  await switchPersona(page, 'kim'); await page.getByTestId('reject-btn').click(); await page.getByTestId('reject-reason-input').fill('표 서식 보완 부탁드려요'); await page.getByTestId('reject-confirm').click();
+  await expect(page.getByTestId('quest-status-badge')).toHaveAttribute('data-status', 'revision'); await expect(page.getByTestId('reject-count')).toContainText('반려 1/2');
+  await switchPersona(page, 'lee'); await expect(page.getByTestId('reject-reason-box')).toContainText('표 서식 보완 부탁드려요');
+  await fillEditor(page, 'worker-editor', '<p>표 서식을 보완하고 전체 데이터 계산 결과를 다시 검증하여 제출합니다.</p>'); await page.getByTestId('submit-result-btn').click();
+  await expect(page.getByTestId('submission-v2')).toBeVisible(); await expect(page.getByTestId('quest-status-badge')).toHaveAttribute('data-status', 'in_progress'); await expect(page.getByTestId('review-pending-badge')).toBeVisible();
+  await switchPersona(page, 'kim'); await page.getByTestId('approve-btn').click(); await page.getByTestId('rating-star-3').click(); await page.getByTestId('rating-confirm').click();
+  await expect(page.getByTestId('hyperframe-title')).toHaveText('LEVEL UP!'); await expect(page.getByTestId('hyperframe')).toContainText('실버 Lv.7 → Lv.8');
+  await expect(page.getByTestId('hyperframe-reward-exp')).toContainText('+100 EXP'); await expect(page.getByTestId('hyperframe-stars')).toHaveAttribute('data-stars', '3'); await expectHyperFrame(page, 'clear');
+  await expect(page.getByTestId('quest-status-badge')).toHaveAttribute('data-status', 'done'); await expect(page.getByTestId('teams-open-btn')).toBeVisible();
+  let db = await getDB(page); const quest = db.quests.find(quest => quest.no === 8)!;
+  expect(db.users.lee).toMatchObject({ points: 700, exp: 750, completedToday: 2, rating: { sum: 36, count: 9 } }); expect(db.users.kim!.points).toBe(1200);
+  expect(quest).toMatchObject({ escrowHeld: 0, rejectCount: 1, rating: { stars: 3 }, reviewPending: false });
+  expect(quest.attachments.map(file => file.fileName)).toEqual(['e2e_원본.xlsx']); expect(quest.submissions).toHaveLength(2);
+  expect(quest.submissions[0]!.attachments.map(file => file.fileName)).toEqual(['e2e_결과.xlsx']); expect(quest.submissions[0]!.review?.result).toBe('rejected'); expect(quest.submissions[1]!.review?.result).toBe('approved');
+  await switchPersona(page, 'lee'); await page.getByTestId('nav-dashboard').click();
+  await expect(page.getByTestId('dash-level')).toContainText('8'); await expect(page.getByTestId('dash-today-completed')).toContainText(/2\s*\/\s*2/); await expect(page.getByTestId('dash-rating')).toHaveText('4.0 · 평가 9건');
+  await switchPersona(page, 'kim'); await page.getByTestId('nav-village').click(); await page.getByTestId('item-card-m4').getByRole('heading').getByRole('link').click();
+  await expect(page.getByTestId('item-price')).toContainText('1,200');await expect(page.getByTestId('buy-btn')).toHaveCount(0);await switchPersona(page,'lee');await designateFinal(page,'kim');await switchPersona(page,'kim');await page.getByTestId('buy-btn').click();await switchPersona(page,'lee');
+  await expect(page.getByTestId('item-status-m4')).toHaveAttribute('data-status', 'sold'); await expect(page.getByTestId('settlement-panel')).toBeVisible(); await expect(page.getByTestId('points-chip')).toContainText('1,900');
+  db = await getDB(page); expect(db.users.kim!.points).toBe(0); expect(db.users.lee).toMatchObject({ points: 1900, exp: 750, completedToday: 2 });
+  const trades = db.transactions.filter(transaction => transaction.refId === 'm4' && transaction.type.startsWith('market_'));
+  expect(trades).toEqual(expect.arrayContaining([expect.objectContaining({ userId: 'kim', type: 'market_purchase', amount: -1200 }), expect.objectContaining({ userId: 'lee', type: 'market_sale', amount: 1200 })])); expect(trades).toHaveLength(2);
+  for (const [persona, type] of [['lee', 'market_sale'], ['kim', 'market_purchase']] as const) {
+    if (persona === 'kim') await switchPersona(page, 'kim');
+    await page.getByTestId('nav-village').click(); await hydrated(page); await page.getByTestId('my-trades-btn').click();
+    await expect(page.locator(`[data-testid="trade-row"][data-type="${type}"]`).filter({ hasText: '게임 패드' })).toHaveCount(1);
+    await page.getByTestId('trade-history-drawer').getByRole('button', { name: '닫기', exact: true }).last().click();
+  }
+});

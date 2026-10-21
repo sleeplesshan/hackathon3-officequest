@@ -1,0 +1,71 @@
+{
+  "version": 1,
+  "kind": "sprite-gen-request",
+  "engine": "component-row",
+  "character": {
+    "id": "officequest-original-pixel-wardrobe",
+    "description": "",
+    "base_image": "base-source.png"
+  },
+  "cell": {
+    "shape": "square",
+    "width": 24,
+    "height": 24,
+    "safe_margin_x": 2,
+    "safe_margin_y": 2,
+    "size": 24,
+    "safe_margin": 2
+  },
+  "chroma_key": {
+    "name": "green",
+    "hex": "#00FF00",
+    "rgb": [
+      0,
+      255,
+      0
+    ],
+    "selection": "manual"
+  },
+  "states": {
+    "male-classic": {
+      "frames": 6,
+      "fps": 1,
+      "loop": false,
+      "action": "STATIC COSTUME VARIATIONS: exactly six full-body avatars. This is NOT an anime illustration. Follow the attached ORIGINAL existing avatar pixel-for-pixel in visual language: a TINY 24x24 native pixel game avatar, head about 10x8 pixels, body about 12x7 pixels, each eye is just a tiny 2x2 dark rectangle, no iris, no eyelashes, no nose, no skin gradients; short squat blocky arms and legs, very simple flat shapes, one dark logical-pixel outline. Every logical pixel is one BIG perfectly square solid flat-color block; around 12-16 colors per avatar. Same squat proportions as reference, almost 1:1 head/body. NO tall body, NO anime head, NO fine detail, NO smooth shading, NO highlights smaller than one logical pixel. Exactly six COSTUME variations left to right: 1) bronze navy office suit and tiny bronze pin, 2) same suit with simple silver cape, 3) chunky gold tunic/armor and simple red cape plus tiny gold crown, 4) light gray platinum tunic with simple cyan goggles, 5) simple ice-blue outfit with tiny square cyan crystal wings, 6) simple dark purple tunic with square violet wings and a short straight 1-pixel-wide legendary sword. Clothing stays SIMPLE BLOCKS on tiny torso, no detailed armor seams or ornaments. Accessories must be connected to body and fit safely within the character. Only clothes change across the six avatars. Same haircut, square head, eyes, tiny mouth, face, skin, body size and relaxed front-facing pose in all six. Empty margin, no ground/shadow/effects/text/grid. The original reference is the visual authority, not the words fantasy armor. Row character: male office avatar with the EXACT same simple short dark hair shape as the reference."
+    },
+    "male-wave": {
+      "frames": 6,
+      "fps": 1,
+      "loop": false,
+      "action": "STATIC COSTUME VARIATIONS: exactly six full-body avatars. This is NOT an anime illustration. Follow the attached ORIGINAL existing avatar pixel-for-pixel in visual language: a TINY 24x24 native pixel game avatar, head about 10x8 pixels, body about 12x7 pixels, each eye is just a tiny 2x2 dark rectangle, no iris, no eyelashes, no nose, no skin gradients; short squat blocky arms and legs, very simple flat shapes, one dark logical-pixel outline. Every logical pixel is one BIG perfectly square solid flat-color block; around 12-16 colors per avatar. Same squat proportions as reference, almost 1:1 head/body. NO tall body, NO anime head, NO fine detail, NO smooth shading, NO highlights smaller than one logical pixel. Exactly six COSTUME variations left to right: 1) bronze navy office suit and tiny bronze pin, 2) same suit with simple silver cape, 3) chunky gold tunic/armor and simple red cape plus tiny gold crown, 4) light gray platinum tunic with simple cyan goggles, 5) simple ice-blue outfit with tiny square cyan crystal wings, 6) simple dark purple tunic with square violet wings and a short straight 1-pixel-wide legendary sword. Clothing stays SIMPLE BLOCKS on tiny torso, no detailed armor seams or ornaments. Accessories must be connected to body and fit safely within the character. Only clothes change across the six avatars. Same haircut, square head, eyes, tiny mouth, face, skin, body size and relaxed front-facing pose in all six. Empty margin, no ground/shadow/effects/text/grid. The original reference is the visual authority, not the words fantasy armor. Row character: male office avatar with simple chunky wavy bangs, only 2 or 3 square hair curls, same face and body as reference."
+    },
+    "female-classic": {
+      "frames": 6,
+      "fps": 1,
+      "loop": false,
+      "action": "STATIC COSTUME VARIATIONS: exactly six full-body avatars. This is NOT an anime illustration. Follow the attached ORIGINAL existing avatar pixel-for-pixel in visual language: a TINY 24x24 native pixel game avatar, head about 10x8 pixels, body about 12x7 pixels, each eye is just a tiny 2x2 dark rectangle, no iris, no eyelashes, no nose, no skin gradients; short squat blocky arms and legs, very simple flat shapes, one dark logical-pixel outline. Every logical pixel is one BIG perfectly square solid flat-color block; around 12-16 colors per avatar. Same squat proportions as reference, almost 1:1 head/body. NO tall body, NO anime head, NO fine detail, NO smooth shading, NO highlights smaller than one logical pixel. Exactly six COSTUME variations left to right: 1) bronze navy office suit and tiny bronze pin, 2) same suit with simple silver cape, 3) chunky gold tunic/armor and simple red cape plus tiny gold crown, 4) light gray platinum tunic with simple cyan goggles, 5) simple ice-blue outfit with tiny square cyan crystal wings, 6) simple dark purple tunic with square violet wings and a short straight 1-pixel-wide legendary sword. Clothing stays SIMPLE BLOCKS on tiny torso, no detailed armor seams or ornaments. Accessories must be connected to body and fit safely within the character. Only clothes change across the six avatars. Same haircut, square head, eyes, tiny mouth, face, skin, body size and relaxed front-facing pose in all six. Empty margin, no ground/shadow/effects/text/grid. The original reference is the visual authority, not the words fantasy armor. Row character: female office avatar with simple straight dark bob haircut flanking the square head, same tiny rectangular eyes and squat body as reference."
+    },
+    "female-wave": {
+      "frames": 6,
+      "fps": 1,
+      "loop": false,
+      "action": "STATIC COSTUME VARIATIONS: exactly six full-body avatars. This is NOT an anime illustration. Follow the attached ORIGINAL existing avatar pixel-for-pixel in visual language: a TINY 24x24 native pixel game avatar, head about 10x8 pixels, body about 12x7 pixels, each eye is just a tiny 2x2 dark rectangle, no iris, no eyelashes, no nose, no skin gradients; short squat blocky arms and legs, very simple flat shapes, one dark logical-pixel outline. Every logical pixel is one BIG perfectly square solid flat-color block; around 12-16 colors per avatar. Same squat proportions as reference, almost 1:1 head/body. NO tall body, NO anime head, NO fine detail, NO smooth shading, NO highlights smaller than one logical pixel. Exactly six COSTUME variations left to right: 1) bronze navy office suit and tiny bronze pin, 2) same suit with simple silver cape, 3) chunky gold tunic/armor and simple red cape plus tiny gold crown, 4) light gray platinum tunic with simple cyan goggles, 5) simple ice-blue outfit with tiny square cyan crystal wings, 6) simple dark purple tunic with square violet wings and a short straight 1-pixel-wide legendary sword. Clothing stays SIMPLE BLOCKS on tiny torso, no detailed armor seams or ornaments. Accessories must be connected to body and fit safely within the character. Only clothes change across the six avatars. Same haircut, square head, eyes, tiny mouth, face, skin, body size and relaxed front-facing pose in all six. Empty margin, no ground/shadow/effects/text/grid. The original reference is the visual authority, not the words fantasy armor. Row character: female office avatar with longer dark hair to shoulders in 2 or 3 chunky square waves, same tiny rectangular eyes and squat body as reference."
+    }
+  },
+  "style": "EXACT EXISTING AVATAR STYLE. TRUE 24x24 LOW RESOLUTION PIXEL ART, enlarged chunky squares. Same limited flat palette, large square head, tiny simple eyes and short blocky body as attached original. NO anime illustration, NO detailed pixel illustration.",
+  "layout": "taxonomy/v1",
+  "fit": {
+    "pixel_unfake": true,
+    "logical_height": 24,
+    "palette_size": 48,
+    "align_x": "bbox-center",
+    "align_y": "bottom",
+    "outline": false,
+    "ground_frames": true
+  },
+  "chroma": {
+    "mode": "rgb",
+    "unmix_reach": 4,
+    "spill_max_fraction": 0.005
+  }
+}

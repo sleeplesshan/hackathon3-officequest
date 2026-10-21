@@ -1,0 +1,12 @@
+@import '../styles/tokens.css';
+@import '../styles/fonts.css';
+@import '../styles/mock-base.css';
+@import '../styles/app-layout.css';
+@import '../styles/character.css';
+@import '../styles/hyperframe.css';
+@import '../styles/quest-form.css';
+@import '../styles/quest-detail.css';
+@import '../styles/market-detail.css';
+@tailwind base;
+@tailwind components;
+@tailwind utilities;

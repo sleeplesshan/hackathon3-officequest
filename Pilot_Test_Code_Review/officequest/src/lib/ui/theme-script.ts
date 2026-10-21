@@ -1,0 +1,1 @@
+export const themeScript = `(function(){try{var u=JSON.parse(localStorage.getItem('oq:v1:ui')||'{}');document.documentElement.dataset.theme=u.theme==='dark'?'dark':'light'}catch(e){document.documentElement.dataset.theme='light'}})();`;

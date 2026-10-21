@@ -1,0 +1,12 @@
+{
+  "command": "npm run dev",
+  "viewport": {
+    "width": 1440,
+    "height": 720
+  },
+  "documentScrollY": 0,
+  "productScrollTop": 191,
+  "titleBeforeY": 100,
+  "titleAfterY": 100,
+  "consoleErrors": []
+}

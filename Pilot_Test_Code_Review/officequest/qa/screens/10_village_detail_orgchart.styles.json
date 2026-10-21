@@ -1,0 +1,1474 @@
+[
+  {
+    "id": "gnb",
+    "className": "gnb ",
+    "color": "rgb(24, 24, 27)",
+    "background": "rgba(255, 255, 255, 0.72)",
+    "fontFamily": "Paperlogy, system-ui, sans-serif",
+    "fontSize": "15px",
+    "display": "flex",
+    "gridTemplateColumns": "none",
+    "bbox": {
+      "x": 24,
+      "y": 16,
+      "width": 1872,
+      "height": 64
+    }
+  },
+  {
+    "id": "pixel-sprite",
+    "className": "oq-pixel-sprite ",
+    "color": "rgb(24, 24, 27)",
+    "background": "rgba(0, 0, 0, 0)",
+    "fontFamily": "Paperlogy, system-ui, sans-serif",
+    "fontSize": "20px",
+    "display": "block",
+    "gridTemplateColumns": "none",
+    "bbox": {
+      "x": 44,
+      "y": 34,
+      "width": 28,
+      "height": 28
+    }
+  },
+  {
+    "id": "nav-dashboard",
+    "className": "tab ",
+    "color": "rgb(113, 113, 122)",
+    "background": "rgba(0, 0, 0, 0)",
+    "fontFamily": "Paperlogy, system-ui, sans-serif",
+    "fontSize": "15px",
+    "display": "flex",
+    "gridTemplateColumns": "none",
+    "bbox": {
+      "x": 342.671875,
+      "y": 29,
+      "width": 111.203125,
+      "height": 38
+    }
+  },
+  {
+    "id": "nav-quests",
+    "className": "tab ",
+    "color": "rgb(113, 113, 122)",
+    "background": "rgba(0, 0, 0, 0)",
+    "fontFamily": "Paperlogy, system-ui, sans-serif",
+    "fontSize": "15px",
+    "display": "flex",
+    "gridTemplateColumns": "none",
+    "bbox": {
+      "x": 455.875,
+      "y": 29,
+      "width": 127.40625,
+      "height": 38
+    }
+  },
+  {
+    "id": "nav-village",
+    "className": "tab on",
+    "color": "rgb(24, 24, 27)",
+    "background": "rgba(0, 0, 0, 0)",
+    "fontFamily": "Paperlogy, system-ui, sans-serif",
+    "fontSize": "15px",
+    "display": "flex",
+    "gridTemplateColumns": "none",
+    "bbox": {
+      "x": 585.28125,
+      "y": 29,
+      "width": 111.203125,
+      "height": 38
+    }
+  },
+  {
+    "id": "timer-display",
+    "className": "num",
+    "color": "rgb(255, 255, 255)",
+    "background": "rgba(0, 0, 0, 0)",
+    "fontFamily": "Paperlogy, system-ui, sans-serif",
+    "fontSize": "19px",
+    "display": "inline",
+    "gridTemplateColumns": "none",
+    "bbox": {
+      "x": 1052.234375,
+      "y": 42.34375,
+      "width": 80.1875,
+      "height": 23
+    }
+  },
+  {
+    "id": "timer-ctl-toggle",
+    "className": "z",
+    "color": "rgb(255, 255, 255)",
+    "background": "rgb(124, 58, 237)",
+    "fontFamily": "Paperlogy, system-ui, sans-serif",
+    "fontSize": "12px",
+    "display": "flex",
+    "gridTemplateColumns": "none",
+    "bbox": {
+      "x": 1157,
+      "y": 30,
+      "width": 90.546875,
+      "height": 36
+    }
+  },
+  {
+    "id": "timer-ctl-plus30",
+    "className": null,
+    "color": "rgb(228, 228, 231)",
+    "background": "rgba(255, 255, 255, 0.08)",
+    "fontFamily": "Paperlogy, system-ui, sans-serif",
+    "fontSize": "12px",
+    "display": "flex",
+    "gridTemplateColumns": "none",
+    "bbox": {
+      "x": 1250.546875,
+      "y": 30,
+      "width": 51.609375,
+      "height": 36
+    }
+  },
+  {
+    "id": "timer-ctl-expire",
+    "className": null,
+    "color": "rgb(228, 228, 231)",
+    "background": "rgba(255, 255, 255, 0.08)",
+    "fontFamily": "Paperlogy, system-ui, sans-serif",
+    "fontSize": "12px",
+    "display": "flex",
+    "gridTemplateColumns": "none",
+    "bbox": {
+      "x": 1305.15625,
+      "y": 30,
+      "width": 72.546875,
+      "height": 36
+    }
+  },
+  {
+    "id": "timer-ctl-reset",
+    "className": null,
+    "color": "rgb(228, 228, 231)",
+    "background": "rgba(255, 255, 255, 0.08)",
+    "fontFamily": "Paperlogy, system-ui, sans-serif",
+    "fontSize": "12px",
+    "display": "flex",
+    "gridTemplateColumns": "none",
+    "bbox": {
+      "x": 1380.703125,
+      "y": 30,
+      "width": 31,
+      "height": 36
+    }
+  },
+  {
+    "id": "points-chip",
+    "className": "chip num",
+    "color": "rgb(24, 24, 27)",
+    "background": "rgb(255, 255, 255)",
+    "fontFamily": "Paperlogy, system-ui, sans-serif",
+    "fontSize": "15px",
+    "display": "flex",
+    "gridTemplateColumns": "none",
+    "bbox": {
+      "x": 1423.703125,
+      "y": 26,
+      "width": 122.25,
+      "height": 44
+    }
+  },
+  {
+    "id": "pixel-sprite",
+    "className": "oq-pixel-sprite ",
+    "color": "rgb(24, 24, 27)",
+    "background": "rgba(0, 0, 0, 0)",
+    "fontFamily": "Paperlogy, system-ui, sans-serif",
+    "fontSize": "15px",
+    "display": "block",
+    "gridTemplateColumns": "none",
+    "bbox": {
+      "x": 1438.703125,
+      "y": 36,
+      "width": 24,
+      "height": 24
+    }
+  },
+  {
+    "id": "persona-switcher",
+    "className": "persona-current",
+    "color": "rgb(24, 24, 27)",
+    "background": "rgb(255, 255, 255)",
+    "fontFamily": "Paperlogy, system-ui, sans-serif",
+    "fontSize": "13px",
+    "display": "flex",
+    "gridTemplateColumns": "none",
+    "bbox": {
+      "x": 1553.953125,
+      "y": 26,
+      "width": 137.171875,
+      "height": 44
+    }
+  },
+  {
+    "id": "pixel-sprite",
+    "className": "oq-pixel-sprite ",
+    "color": "rgb(24, 24, 27)",
+    "background": "rgba(0, 0, 0, 0)",
+    "fontFamily": "Paperlogy, system-ui, sans-serif",
+    "fontSize": "13px",
+    "display": "block",
+    "gridTemplateColumns": "none",
+    "bbox": {
+      "x": 1558.953125,
+      "y": 34,
+      "width": 32,
+      "height": 28
+    }
+  },
+  {
+    "id": "theme-toggle",
+    "className": "thm",
+    "color": "rgb(82, 82, 91)",
+    "background": "rgb(255, 255, 255)",
+    "fontFamily": "Paperlogy, system-ui, sans-serif",
+    "fontSize": "13px",
+    "display": "flex",
+    "gridTemplateColumns": "none",
+    "bbox": {
+      "x": 1699.125,
+      "y": 26,
+      "width": 113.875,
+      "height": 44
+    }
+  },
+  {
+    "id": "sound-toggle",
+    "className": "sound-toggle",
+    "color": "rgb(109, 40, 217)",
+    "background": "rgb(255, 255, 255)",
+    "fontFamily": "Paperlogy, system-ui, sans-serif",
+    "fontSize": "15px",
+    "display": "grid",
+    "gridTemplateColumns": "30px",
+    "bbox": {
+      "x": 1821,
+      "y": 30,
+      "width": 32,
+      "height": 36
+    }
+  },
+  {
+    "id": "debug-menu",
+    "className": "debug-trigger",
+    "color": "rgb(109, 40, 217)",
+    "background": "rgba(0, 0, 0, 0)",
+    "fontFamily": "Paperlogy, system-ui, sans-serif",
+    "fontSize": "15px",
+    "display": "grid",
+    "gridTemplateColumns": "22px",
+    "bbox": {
+      "x": 1861,
+      "y": 33,
+      "width": 24,
+      "height": 30
+    }
+  },
+  {
+    "id": "app-root",
+    "className": "shell ws village-shell ",
+    "color": "rgb(24, 24, 27)",
+    "background": "rgba(0, 0, 0, 0)",
+    "fontFamily": "Paperlogy, system-ui, sans-serif",
+    "fontSize": "15px",
+    "display": "grid",
+    "gridTemplateColumns": "264px 1588px",
+    "bbox": {
+      "x": 0,
+      "y": 0,
+      "width": 1920,
+      "height": 1090.375
+    }
+  },
+  {
+    "id": "pixel-sprite",
+    "className": "oq-pixel-sprite ",
+    "color": "rgb(24, 24, 27)",
+    "background": "rgba(0, 0, 0, 0)",
+    "fontFamily": "Paperlogy, system-ui, sans-serif",
+    "fontSize": "15px",
+    "display": "block",
+    "gridTemplateColumns": "none",
+    "bbox": {
+      "x": 48,
+      "y": 127,
+      "width": 36,
+      "height": 36
+    }
+  },
+  {
+    "id": "village-new-btn",
+    "className": "btn pri  ",
+    "color": "rgb(255, 255, 255)",
+    "background": "rgb(109, 40, 217)",
+    "fontFamily": "Paperlogy, system-ui, sans-serif",
+    "fontSize": "14px",
+    "display": "flex",
+    "gridTemplateColumns": "none",
+    "bbox": {
+      "x": 39,
+      "y": 200,
+      "width": 234,
+      "height": 46
+    }
+  },
+  {
+    "id": "village-tab-all",
+    "className": "nv ",
+    "color": "rgb(82, 82, 91)",
+    "background": "rgba(0, 0, 0, 0)",
+    "fontFamily": "Paperlogy, system-ui, sans-serif",
+    "fontSize": "13px",
+    "display": "flex",
+    "gridTemplateColumns": "none",
+    "bbox": {
+      "x": 39,
+      "y": 298,
+      "width": 234,
+      "height": 46
+    }
+  },
+  {
+    "id": "village-tab-mapo",
+    "className": "nv ",
+    "color": "rgb(82, 82, 91)",
+    "background": "rgba(0, 0, 0, 0)",
+    "fontFamily": "Paperlogy, system-ui, sans-serif",
+    "fontSize": "13px",
+    "display": "flex",
+    "gridTemplateColumns": "none",
+    "bbox": {
+      "x": 39,
+      "y": 344,
+      "width": 234,
+      "height": 46
+    }
+  },
+  {
+    "id": "village-tab-hoehyeon",
+    "className": "nv ",
+    "color": "rgb(82, 82, 91)",
+    "background": "rgba(0, 0, 0, 0)",
+    "fontFamily": "Paperlogy, system-ui, sans-serif",
+    "fontSize": "13px",
+    "display": "flex",
+    "gridTemplateColumns": "none",
+    "bbox": {
+      "x": 39,
+      "y": 390,
+      "width": 234,
+      "height": 46
+    }
+  },
+  {
+    "id": "village-tab-banpo",
+    "className": "nv ",
+    "color": "rgb(82, 82, 91)",
+    "background": "rgba(0, 0, 0, 0)",
+    "fontFamily": "Paperlogy, system-ui, sans-serif",
+    "fontSize": "13px",
+    "display": "flex",
+    "gridTemplateColumns": "none",
+    "bbox": {
+      "x": 39,
+      "y": 436,
+      "width": 234,
+      "height": 46
+    }
+  },
+  {
+    "id": "village-tab-suseo",
+    "className": "nv ",
+    "color": "rgb(82, 82, 91)",
+    "background": "rgba(0, 0, 0, 0)",
+    "fontFamily": "Paperlogy, system-ui, sans-serif",
+    "fontSize": "13px",
+    "display": "flex",
+    "gridTemplateColumns": "none",
+    "bbox": {
+      "x": 39,
+      "y": 482,
+      "width": 234,
+      "height": 46
+    }
+  },
+  {
+    "id": "village-tab-changwon",
+    "className": "nv ",
+    "color": "rgb(82, 82, 91)",
+    "background": "rgba(0, 0, 0, 0)",
+    "fontFamily": "Paperlogy, system-ui, sans-serif",
+    "fontSize": "13px",
+    "display": "flex",
+    "gridTemplateColumns": "none",
+    "bbox": {
+      "x": 39,
+      "y": 528,
+      "width": 234,
+      "height": 46
+    }
+  },
+  {
+    "id": "village-tab-ulsan",
+    "className": "nv ",
+    "color": "rgb(82, 82, 91)",
+    "background": "rgba(0, 0, 0, 0)",
+    "fontFamily": "Paperlogy, system-ui, sans-serif",
+    "fontSize": "13px",
+    "display": "flex",
+    "gridTemplateColumns": "none",
+    "bbox": {
+      "x": 39,
+      "y": 574,
+      "width": 234,
+      "height": 46
+    }
+  },
+  {
+    "id": "my-trades-btn",
+    "className": "sidebox village-my-trades",
+    "color": "rgb(24, 24, 27)",
+    "background": "rgb(244, 244, 245)",
+    "fontFamily": "Paperlogy, system-ui, sans-serif",
+    "fontSize": "15px",
+    "display": "block",
+    "gridTemplateColumns": "none",
+    "bbox": {
+      "x": 39,
+      "y": 944.3125,
+      "width": 234,
+      "height": 90.6875
+    }
+  },
+  {
+    "id": "item-detail",
+    "className": "card pad item-detail",
+    "color": "rgb(24, 24, 27)",
+    "background": "rgb(255, 255, 255)",
+    "fontFamily": "Paperlogy, system-ui, sans-serif",
+    "fontSize": "15px",
+    "display": "block",
+    "gridTemplateColumns": "none",
+    "bbox": {
+      "x": 308,
+      "y": 100,
+      "width": 1588,
+      "height": 966.375
+    }
+  },
+  {
+    "id": "pixel-sprite",
+    "className": "oq-pixel-sprite ",
+    "color": "rgb(24, 24, 27)",
+    "background": "rgba(0, 0, 0, 0)",
+    "fontFamily": "Paperlogy, system-ui, sans-serif",
+    "fontSize": "15px",
+    "display": "block",
+    "gridTemplateColumns": "none",
+    "bbox": {
+      "x": 563.34375,
+      "y": 352.890625,
+      "width": 252,
+      "height": 252
+    }
+  },
+  {
+    "id": "pixel-sprite",
+    "className": "oq-pixel-sprite ",
+    "color": "rgb(24, 24, 27)",
+    "background": "rgba(0, 0, 0, 0)",
+    "fontFamily": "Paperlogy, system-ui, sans-serif",
+    "fontSize": "15px",
+    "display": "block",
+    "gridTemplateColumns": "none",
+    "bbox": {
+      "x": 348,
+      "y": 802.28125,
+      "width": 60,
+      "height": 60
+    }
+  },
+  {
+    "id": "pixel-sprite",
+    "className": "oq-pixel-sprite ",
+    "color": "rgb(24, 24, 27)",
+    "background": "rgba(0, 0, 0, 0)",
+    "fontFamily": "Paperlogy, system-ui, sans-serif",
+    "fontSize": "15px",
+    "display": "block",
+    "gridTemplateColumns": "none",
+    "bbox": {
+      "x": 440,
+      "y": 802.28125,
+      "width": 60,
+      "height": 60
+    }
+  },
+  {
+    "id": "pixel-sprite",
+    "className": "oq-pixel-sprite ",
+    "color": "rgb(24, 24, 27)",
+    "background": "rgba(0, 0, 0, 0)",
+    "fontFamily": "Paperlogy, system-ui, sans-serif",
+    "fontSize": "15px",
+    "display": "block",
+    "gridTemplateColumns": "none",
+    "bbox": {
+      "x": 532,
+      "y": 802.28125,
+      "width": 60,
+      "height": 60
+    }
+  },
+  {
+    "id": "item-status-m1",
+    "className": "badge s b-ok ",
+    "color": "rgb(21, 128, 61)",
+    "background": "rgb(220, 252, 231)",
+    "fontFamily": "Paperlogy, system-ui, sans-serif",
+    "fontSize": "12px",
+    "display": "flex",
+    "gridTemplateColumns": "none",
+    "bbox": {
+      "x": 1077.703125,
+      "y": 172.5,
+      "width": 57.640625,
+      "height": 22
+    }
+  },
+  {
+    "id": "item-price",
+    "className": "item-detail-price ",
+    "color": "rgb(109, 40, 217)",
+    "background": "rgba(0, 0, 0, 0)",
+    "fontFamily": "Paperlogy, system-ui, sans-serif",
+    "fontSize": "40px",
+    "display": "block",
+    "gridTemplateColumns": "none",
+    "bbox": {
+      "x": 1077.703125,
+      "y": 267.296875,
+      "width": 789.296875,
+      "height": 60
+    }
+  },
+  {
+    "id": "item-like-m1",
+    "className": "",
+    "color": "rgb(113, 113, 122)",
+    "background": "rgba(0, 0, 0, 0)",
+    "fontFamily": "Paperlogy, system-ui, sans-serif",
+    "fontSize": "12px",
+    "display": "flex",
+    "gridTemplateColumns": "none",
+    "bbox": {
+      "x": 1077.703125,
+      "y": 339.296875,
+      "width": 39.703125,
+      "height": 18
+    }
+  },
+  {
+    "id": "item-like-count-m1",
+    "className": null,
+    "color": "rgb(113, 113, 122)",
+    "background": "rgba(0, 0, 0, 0)",
+    "fontFamily": "Paperlogy, system-ui, sans-serif",
+    "fontSize": "12px",
+    "display": "block",
+    "gridTemplateColumns": "none",
+    "bbox": {
+      "x": 1101.703125,
+      "y": 339.296875,
+      "width": 15.703125,
+      "height": 18
+    }
+  },
+  {
+    "id": "item-views-m1",
+    "className": null,
+    "color": "rgb(113, 113, 122)",
+    "background": "rgba(0, 0, 0, 0)",
+    "fontFamily": "Paperlogy, system-ui, sans-serif",
+    "fontSize": "12px",
+    "display": "block",
+    "gridTemplateColumns": "none",
+    "bbox": {
+      "x": 1155.40625,
+      "y": 339.296875,
+      "width": 23.5625,
+      "height": 18
+    }
+  },
+  {
+    "id": "pixel-sprite",
+    "className": "oq-pixel-sprite ",
+    "color": "rgb(24, 24, 27)",
+    "background": "rgba(0, 0, 0, 0)",
+    "fontFamily": "Paperlogy, system-ui, sans-serif",
+    "fontSize": "15px",
+    "display": "block",
+    "gridTemplateColumns": "none",
+    "bbox": {
+      "x": 1100.703125,
+      "y": 423.640625,
+      "width": 32,
+      "height": 28
+    }
+  },
+  {
+    "id": "seller-panel",
+    "className": "seller-panel",
+    "color": "rgb(24, 24, 27)",
+    "background": "rgb(237, 233, 254)",
+    "fontFamily": "Paperlogy, system-ui, sans-serif",
+    "fontSize": "15px",
+    "display": "flex",
+    "gridTemplateColumns": "none",
+    "bbox": {
+      "x": 1077.703125,
+      "y": 563.765625,
+      "width": 789.296875,
+      "height": 213.59375
+    }
+  },
+  {
+    "id": "seller-status-menu",
+    "className": "btn  sm ",
+    "color": "rgb(24, 24, 27)",
+    "background": "rgb(255, 255, 255)",
+    "fontFamily": "Paperlogy, system-ui, sans-serif",
+    "fontSize": "12px",
+    "display": "flex",
+    "gridTemplateColumns": "none",
+    "bbox": {
+      "x": 1753.859375,
+      "y": 582.765625,
+      "width": 94.140625,
+      "height": 36
+    }
+  },
+  {
+    "id": "open-orgchart-btn",
+    "className": "btn pri  ",
+    "color": "rgb(255, 255, 255)",
+    "background": "rgb(109, 40, 217)",
+    "fontFamily": "Paperlogy, system-ui, sans-serif",
+    "fontSize": "13px",
+    "display": "flex",
+    "gridTemplateColumns": "none",
+    "bbox": {
+      "x": 1096.703125,
+      "y": 632.765625,
+      "width": 751.296875,
+      "height": 44
+    }
+  },
+  {
+    "id": "item-edit-btn",
+    "className": "btn  sm ",
+    "color": "rgb(24, 24, 27)",
+    "background": "rgb(255, 255, 255)",
+    "fontFamily": "Paperlogy, system-ui, sans-serif",
+    "fontSize": "12px",
+    "display": "flex",
+    "gridTemplateColumns": "none",
+    "bbox": {
+      "x": 1096.703125,
+      "y": 690.765625,
+      "width": 70.828125,
+      "height": 36
+    }
+  },
+  {
+    "id": "item-delete-btn",
+    "className": "btn  sm ",
+    "color": "rgb(24, 24, 27)",
+    "background": "rgb(255, 255, 255)",
+    "fontFamily": "Paperlogy, system-ui, sans-serif",
+    "fontSize": "12px",
+    "display": "flex",
+    "gridTemplateColumns": "none",
+    "bbox": {
+      "x": 1175.53125,
+      "y": 690.765625,
+      "width": 70.828125,
+      "height": 36
+    }
+  },
+  {
+    "id": "particle-canvas",
+    "className": "oq-particle-canvas",
+    "color": "rgb(24, 24, 27)",
+    "background": "rgba(0, 0, 0, 0)",
+    "fontFamily": "Paperlogy, system-ui, sans-serif",
+    "fontSize": "15px",
+    "display": "block",
+    "gridTemplateColumns": "none",
+    "bbox": {
+      "x": 0,
+      "y": 0,
+      "width": 1920,
+      "height": 1080
+    }
+  },
+  {
+    "id": "orgchart-modal",
+    "className": "modal-panel lg org-dialog",
+    "color": "rgb(24, 24, 27)",
+    "background": "rgb(255, 255, 255)",
+    "fontFamily": "Paperlogy, system-ui, sans-serif",
+    "fontSize": "15px",
+    "display": "flex",
+    "gridTemplateColumns": "none",
+    "bbox": {
+      "x": 456,
+      "y": 109.203125,
+      "width": 1008,
+      "height": 861.578125
+    }
+  },
+  {
+    "id": "org-site-mapo",
+    "className": "",
+    "color": "rgb(82, 82, 91)",
+    "background": "rgba(0, 0, 0, 0)",
+    "fontFamily": "Paperlogy, system-ui, sans-serif",
+    "fontSize": "13px",
+    "display": "flex",
+    "gridTemplateColumns": "none",
+    "bbox": {
+      "x": 498,
+      "y": 308.59375,
+      "width": 216,
+      "height": 39
+    }
+  },
+  {
+    "id": "org-dept-mapo-재무팀",
+    "className": "",
+    "color": "rgb(82, 82, 91)",
+    "background": "rgba(0, 0, 0, 0)",
+    "fontFamily": "Paperlogy, system-ui, sans-serif",
+    "fontSize": "11px",
+    "display": "flex",
+    "gridTemplateColumns": "none",
+    "bbox": {
+      "x": 515,
+      "y": 347.59375,
+      "width": 199,
+      "height": 32
+    }
+  },
+  {
+    "id": "org-site-hoehyeon",
+    "className": "",
+    "color": "rgb(82, 82, 91)",
+    "background": "rgba(0, 0, 0, 0)",
+    "fontFamily": "Paperlogy, system-ui, sans-serif",
+    "fontSize": "13px",
+    "display": "flex",
+    "gridTemplateColumns": "none",
+    "bbox": {
+      "x": 498,
+      "y": 379.59375,
+      "width": 216,
+      "height": 39
+    }
+  },
+  {
+    "id": "org-dept-hoehyeon-총무팀",
+    "className": "",
+    "color": "rgb(82, 82, 91)",
+    "background": "rgba(0, 0, 0, 0)",
+    "fontFamily": "Paperlogy, system-ui, sans-serif",
+    "fontSize": "11px",
+    "display": "flex",
+    "gridTemplateColumns": "none",
+    "bbox": {
+      "x": 515,
+      "y": 418.59375,
+      "width": 199,
+      "height": 32
+    }
+  },
+  {
+    "id": "org-site-banpo",
+    "className": "",
+    "color": "rgb(82, 82, 91)",
+    "background": "rgba(0, 0, 0, 0)",
+    "fontFamily": "Paperlogy, system-ui, sans-serif",
+    "fontSize": "13px",
+    "display": "flex",
+    "gridTemplateColumns": "none",
+    "bbox": {
+      "x": 498,
+      "y": 450.59375,
+      "width": 216,
+      "height": 39
+    }
+  },
+  {
+    "id": "org-dept-banpo-AI혁신팀",
+    "className": "",
+    "color": "rgb(82, 82, 91)",
+    "background": "rgba(0, 0, 0, 0)",
+    "fontFamily": "Paperlogy, system-ui, sans-serif",
+    "fontSize": "11px",
+    "display": "flex",
+    "gridTemplateColumns": "none",
+    "bbox": {
+      "x": 515,
+      "y": 489.59375,
+      "width": 199,
+      "height": 32
+    }
+  },
+  {
+    "id": "org-dept-banpo-IT혁신팀",
+    "className": "",
+    "color": "rgb(82, 82, 91)",
+    "background": "rgba(0, 0, 0, 0)",
+    "fontFamily": "Paperlogy, system-ui, sans-serif",
+    "fontSize": "11px",
+    "display": "flex",
+    "gridTemplateColumns": "none",
+    "bbox": {
+      "x": 515,
+      "y": 521.59375,
+      "width": 199,
+      "height": 32
+    }
+  },
+  {
+    "id": "org-site-suseo",
+    "className": "",
+    "color": "rgb(82, 82, 91)",
+    "background": "rgba(0, 0, 0, 0)",
+    "fontFamily": "Paperlogy, system-ui, sans-serif",
+    "fontSize": "13px",
+    "display": "flex",
+    "gridTemplateColumns": "none",
+    "bbox": {
+      "x": 498,
+      "y": 553.59375,
+      "width": 216,
+      "height": 39
+    }
+  },
+  {
+    "id": "org-dept-suseo-인사팀",
+    "className": "",
+    "color": "rgb(82, 82, 91)",
+    "background": "rgba(0, 0, 0, 0)",
+    "fontFamily": "Paperlogy, system-ui, sans-serif",
+    "fontSize": "11px",
+    "display": "flex",
+    "gridTemplateColumns": "none",
+    "bbox": {
+      "x": 515,
+      "y": 592.59375,
+      "width": 199,
+      "height": 32
+    }
+  },
+  {
+    "id": "org-site-changwon",
+    "className": "",
+    "color": "rgb(82, 82, 91)",
+    "background": "rgba(0, 0, 0, 0)",
+    "fontFamily": "Paperlogy, system-ui, sans-serif",
+    "fontSize": "13px",
+    "display": "flex",
+    "gridTemplateColumns": "none",
+    "bbox": {
+      "x": 498,
+      "y": 624.59375,
+      "width": 216,
+      "height": 39
+    }
+  },
+  {
+    "id": "org-dept-changwon-생산기술팀",
+    "className": "",
+    "color": "rgb(82, 82, 91)",
+    "background": "rgba(0, 0, 0, 0)",
+    "fontFamily": "Paperlogy, system-ui, sans-serif",
+    "fontSize": "11px",
+    "display": "flex",
+    "gridTemplateColumns": "none",
+    "bbox": {
+      "x": 515,
+      "y": 663.59375,
+      "width": 199,
+      "height": 32
+    }
+  },
+  {
+    "id": "org-dept-changwon-품질경영팀",
+    "className": "",
+    "color": "rgb(82, 82, 91)",
+    "background": "rgba(0, 0, 0, 0)",
+    "fontFamily": "Paperlogy, system-ui, sans-serif",
+    "fontSize": "11px",
+    "display": "flex",
+    "gridTemplateColumns": "none",
+    "bbox": {
+      "x": 515,
+      "y": 695.59375,
+      "width": 199,
+      "height": 32
+    }
+  },
+  {
+    "id": "org-dept-changwon-설비보전팀",
+    "className": "",
+    "color": "rgb(82, 82, 91)",
+    "background": "rgba(0, 0, 0, 0)",
+    "fontFamily": "Paperlogy, system-ui, sans-serif",
+    "fontSize": "11px",
+    "display": "flex",
+    "gridTemplateColumns": "none",
+    "bbox": {
+      "x": 515,
+      "y": 727.59375,
+      "width": 199,
+      "height": 32
+    }
+  },
+  {
+    "id": "org-site-ulsan",
+    "className": "",
+    "color": "rgb(82, 82, 91)",
+    "background": "rgba(0, 0, 0, 0)",
+    "fontFamily": "Paperlogy, system-ui, sans-serif",
+    "fontSize": "13px",
+    "display": "flex",
+    "gridTemplateColumns": "none",
+    "bbox": {
+      "x": 498,
+      "y": 759.59375,
+      "width": 216,
+      "height": 39
+    }
+  },
+  {
+    "id": "org-dept-ulsan-생산기술팀",
+    "className": "",
+    "color": "rgb(82, 82, 91)",
+    "background": "rgba(0, 0, 0, 0)",
+    "fontFamily": "Paperlogy, system-ui, sans-serif",
+    "fontSize": "11px",
+    "display": "flex",
+    "gridTemplateColumns": "none",
+    "bbox": {
+      "x": 515,
+      "y": 798.59375,
+      "width": 199,
+      "height": 32
+    }
+  },
+  {
+    "id": "org-search",
+    "className": null,
+    "color": "rgb(113, 113, 122)",
+    "background": "rgba(0, 0, 0, 0)",
+    "fontFamily": "Paperlogy, system-ui, sans-serif",
+    "fontSize": "13px",
+    "display": "block",
+    "gridTemplateColumns": "none",
+    "bbox": {
+      "x": 789.25,
+      "y": 251.59375,
+      "width": 628.75,
+      "height": 44
+    }
+  },
+  {
+    "id": "org-emp-lee",
+    "className": "org-employee ",
+    "color": "rgb(24, 24, 27)",
+    "background": "rgb(255, 255, 255)",
+    "fontFamily": "Paperlogy, system-ui, sans-serif",
+    "fontSize": "15px",
+    "display": "flex",
+    "gridTemplateColumns": "none",
+    "bbox": {
+      "x": 750,
+      "y": 298.59375,
+      "width": 680,
+      "height": 80.5
+    }
+  },
+  {
+    "id": "pixel-sprite",
+    "className": "oq-pixel-sprite ",
+    "color": "rgb(24, 24, 27)",
+    "background": "rgba(0, 0, 0, 0)",
+    "fontFamily": "Paperlogy, system-ui, sans-serif",
+    "fontSize": "15px",
+    "display": "block",
+    "gridTemplateColumns": "none",
+    "bbox": {
+      "x": 765,
+      "y": 324.84375,
+      "width": 32,
+      "height": 28
+    }
+  },
+  {
+    "id": "org-reserve-lee",
+    "className": "btn pri sm ",
+    "color": "rgb(255, 255, 255)",
+    "background": "rgb(109, 40, 217)",
+    "fontFamily": "Paperlogy, system-ui, sans-serif",
+    "fontSize": "12px",
+    "display": "flex",
+    "gridTemplateColumns": "none",
+    "bbox": {
+      "x": 1171,
+      "y": 322.84375,
+      "width": 120,
+      "height": 32
+    }
+  },
+  {
+    "id": "org-final-lee",
+    "className": "btn  sm ",
+    "color": "rgb(24, 24, 27)",
+    "background": "rgb(255, 255, 255)",
+    "fontFamily": "Paperlogy, system-ui, sans-serif",
+    "fontSize": "12px",
+    "display": "flex",
+    "gridTemplateColumns": "none",
+    "bbox": {
+      "x": 1299,
+      "y": 322.84375,
+      "width": 120,
+      "height": 32
+    }
+  },
+  {
+    "id": "org-emp-park",
+    "className": "org-employee ",
+    "color": "rgb(24, 24, 27)",
+    "background": "rgb(255, 255, 255)",
+    "fontFamily": "Paperlogy, system-ui, sans-serif",
+    "fontSize": "15px",
+    "display": "flex",
+    "gridTemplateColumns": "none",
+    "bbox": {
+      "x": 750,
+      "y": 388.09375,
+      "width": 680,
+      "height": 80.5
+    }
+  },
+  {
+    "id": "pixel-sprite",
+    "className": "oq-pixel-sprite ",
+    "color": "rgb(24, 24, 27)",
+    "background": "rgba(0, 0, 0, 0)",
+    "fontFamily": "Paperlogy, system-ui, sans-serif",
+    "fontSize": "15px",
+    "display": "block",
+    "gridTemplateColumns": "none",
+    "bbox": {
+      "x": 765,
+      "y": 414.34375,
+      "width": 32,
+      "height": 28
+    }
+  },
+  {
+    "id": "org-reserve-park",
+    "className": "btn pri sm ",
+    "color": "rgb(255, 255, 255)",
+    "background": "rgb(109, 40, 217)",
+    "fontFamily": "Paperlogy, system-ui, sans-serif",
+    "fontSize": "12px",
+    "display": "flex",
+    "gridTemplateColumns": "none",
+    "bbox": {
+      "x": 1171,
+      "y": 412.34375,
+      "width": 120,
+      "height": 32
+    }
+  },
+  {
+    "id": "org-final-park",
+    "className": "btn  sm ",
+    "color": "rgb(24, 24, 27)",
+    "background": "rgb(255, 255, 255)",
+    "fontFamily": "Paperlogy, system-ui, sans-serif",
+    "fontSize": "12px",
+    "display": "flex",
+    "gridTemplateColumns": "none",
+    "bbox": {
+      "x": 1299,
+      "y": 412.34375,
+      "width": 120,
+      "height": 32
+    }
+  },
+  {
+    "id": "org-emp-choi",
+    "className": "org-employee ",
+    "color": "rgb(24, 24, 27)",
+    "background": "rgb(255, 255, 255)",
+    "fontFamily": "Paperlogy, system-ui, sans-serif",
+    "fontSize": "15px",
+    "display": "flex",
+    "gridTemplateColumns": "none",
+    "bbox": {
+      "x": 750,
+      "y": 477.59375,
+      "width": 680,
+      "height": 80.5
+    }
+  },
+  {
+    "id": "pixel-sprite",
+    "className": "oq-pixel-sprite ",
+    "color": "rgb(24, 24, 27)",
+    "background": "rgba(0, 0, 0, 0)",
+    "fontFamily": "Paperlogy, system-ui, sans-serif",
+    "fontSize": "15px",
+    "display": "block",
+    "gridTemplateColumns": "none",
+    "bbox": {
+      "x": 765,
+      "y": 503.84375,
+      "width": 32,
+      "height": 28
+    }
+  },
+  {
+    "id": "org-reserve-choi",
+    "className": "btn pri sm ",
+    "color": "rgb(255, 255, 255)",
+    "background": "rgb(109, 40, 217)",
+    "fontFamily": "Paperlogy, system-ui, sans-serif",
+    "fontSize": "12px",
+    "display": "flex",
+    "gridTemplateColumns": "none",
+    "bbox": {
+      "x": 1171,
+      "y": 501.84375,
+      "width": 120,
+      "height": 32
+    }
+  },
+  {
+    "id": "org-final-choi",
+    "className": "btn  sm ",
+    "color": "rgb(24, 24, 27)",
+    "background": "rgb(255, 255, 255)",
+    "fontFamily": "Paperlogy, system-ui, sans-serif",
+    "fontSize": "12px",
+    "display": "flex",
+    "gridTemplateColumns": "none",
+    "bbox": {
+      "x": 1299,
+      "y": 501.84375,
+      "width": 120,
+      "height": 32
+    }
+  },
+  {
+    "id": "org-emp-jung",
+    "className": "org-employee selected",
+    "color": "rgb(24, 24, 27)",
+    "background": "rgb(237, 233, 254)",
+    "fontFamily": "Paperlogy, system-ui, sans-serif",
+    "fontSize": "15px",
+    "display": "flex",
+    "gridTemplateColumns": "none",
+    "bbox": {
+      "x": 750,
+      "y": 567.09375,
+      "width": 680,
+      "height": 95.5
+    }
+  },
+  {
+    "id": "pixel-sprite",
+    "className": "oq-pixel-sprite ",
+    "color": "rgb(24, 24, 27)",
+    "background": "rgba(0, 0, 0, 0)",
+    "fontFamily": "Paperlogy, system-ui, sans-serif",
+    "fontSize": "15px",
+    "display": "block",
+    "gridTemplateColumns": "none",
+    "bbox": {
+      "x": 765,
+      "y": 600.84375,
+      "width": 32,
+      "height": 28
+    }
+  },
+  {
+    "id": "org-reserve-jung",
+    "className": "btn  sm ",
+    "color": "rgb(24, 24, 27)",
+    "background": "rgb(255, 255, 255)",
+    "fontFamily": "Paperlogy, system-ui, sans-serif",
+    "fontSize": "12px",
+    "display": "flex",
+    "gridTemplateColumns": "none",
+    "bbox": {
+      "x": 1171,
+      "y": 596.84375,
+      "width": 120,
+      "height": 32
+    }
+  },
+  {
+    "id": "org-final-jung",
+    "className": "btn  sm ",
+    "color": "rgb(24, 24, 27)",
+    "background": "rgb(255, 255, 255)",
+    "fontFamily": "Paperlogy, system-ui, sans-serif",
+    "fontSize": "12px",
+    "display": "flex",
+    "gridTemplateColumns": "none",
+    "bbox": {
+      "x": 1299,
+      "y": 598.84375,
+      "width": 120,
+      "height": 32
+    }
+  },
+  {
+    "id": "org-emp-han",
+    "className": "org-employee ",
+    "color": "rgb(24, 24, 27)",
+    "background": "rgb(255, 255, 255)",
+    "fontFamily": "Paperlogy, system-ui, sans-serif",
+    "fontSize": "15px",
+    "display": "flex",
+    "gridTemplateColumns": "none",
+    "bbox": {
+      "x": 750,
+      "y": 671.59375,
+      "width": 680,
+      "height": 80.5
+    }
+  },
+  {
+    "id": "pixel-sprite",
+    "className": "oq-pixel-sprite ",
+    "color": "rgb(24, 24, 27)",
+    "background": "rgba(0, 0, 0, 0)",
+    "fontFamily": "Paperlogy, system-ui, sans-serif",
+    "fontSize": "15px",
+    "display": "block",
+    "gridTemplateColumns": "none",
+    "bbox": {
+      "x": 765,
+      "y": 697.84375,
+      "width": 32,
+      "height": 28
+    }
+  },
+  {
+    "id": "org-reserve-han",
+    "className": "btn pri sm ",
+    "color": "rgb(255, 255, 255)",
+    "background": "rgb(109, 40, 217)",
+    "fontFamily": "Paperlogy, system-ui, sans-serif",
+    "fontSize": "12px",
+    "display": "flex",
+    "gridTemplateColumns": "none",
+    "bbox": {
+      "x": 1171,
+      "y": 695.84375,
+      "width": 120,
+      "height": 32
+    }
+  },
+  {
+    "id": "org-final-han",
+    "className": "btn  sm ",
+    "color": "rgb(24, 24, 27)",
+    "background": "rgb(255, 255, 255)",
+    "fontFamily": "Paperlogy, system-ui, sans-serif",
+    "fontSize": "12px",
+    "display": "flex",
+    "gridTemplateColumns": "none",
+    "bbox": {
+      "x": 1299,
+      "y": 695.84375,
+      "width": 120,
+      "height": 32
+    }
+  },
+  {
+    "id": "org-emp-kang",
+    "className": "org-employee ",
+    "color": "rgb(24, 24, 27)",
+    "background": "rgb(255, 255, 255)",
+    "fontFamily": "Paperlogy, system-ui, sans-serif",
+    "fontSize": "15px",
+    "display": "flex",
+    "gridTemplateColumns": "none",
+    "bbox": {
+      "x": 750,
+      "y": 761.09375,
+      "width": 680,
+      "height": 80.5
+    }
+  },
+  {
+    "id": "pixel-sprite",
+    "className": "oq-pixel-sprite ",
+    "color": "rgb(24, 24, 27)",
+    "background": "rgba(0, 0, 0, 0)",
+    "fontFamily": "Paperlogy, system-ui, sans-serif",
+    "fontSize": "15px",
+    "display": "block",
+    "gridTemplateColumns": "none",
+    "bbox": {
+      "x": 765,
+      "y": 787.34375,
+      "width": 32,
+      "height": 28
+    }
+  },
+  {
+    "id": "org-reserve-kang",
+    "className": "btn pri sm ",
+    "color": "rgb(255, 255, 255)",
+    "background": "rgb(109, 40, 217)",
+    "fontFamily": "Paperlogy, system-ui, sans-serif",
+    "fontSize": "12px",
+    "display": "flex",
+    "gridTemplateColumns": "none",
+    "bbox": {
+      "x": 1171,
+      "y": 785.34375,
+      "width": 120,
+      "height": 32
+    }
+  },
+  {
+    "id": "org-final-kang",
+    "className": "btn  sm ",
+    "color": "rgb(24, 24, 27)",
+    "background": "rgb(255, 255, 255)",
+    "fontFamily": "Paperlogy, system-ui, sans-serif",
+    "fontSize": "12px",
+    "display": "flex",
+    "gridTemplateColumns": "none",
+    "bbox": {
+      "x": 1299,
+      "y": 785.34375,
+      "width": 120,
+      "height": 32
+    }
+  },
+  {
+    "id": "org-emp-oh",
+    "className": "org-employee ",
+    "color": "rgb(24, 24, 27)",
+    "background": "rgb(255, 255, 255)",
+    "fontFamily": "Paperlogy, system-ui, sans-serif",
+    "fontSize": "15px",
+    "display": "flex",
+    "gridTemplateColumns": "none",
+    "bbox": {
+      "x": 750,
+      "y": 850.59375,
+      "width": 680,
+      "height": 80.5
+    }
+  },
+  {
+    "id": "pixel-sprite",
+    "className": "oq-pixel-sprite ",
+    "color": "rgb(24, 24, 27)",
+    "background": "rgba(0, 0, 0, 0)",
+    "fontFamily": "Paperlogy, system-ui, sans-serif",
+    "fontSize": "15px",
+    "display": "block",
+    "gridTemplateColumns": "none",
+    "bbox": {
+      "x": 765,
+      "y": 876.84375,
+      "width": 32,
+      "height": 28
+    }
+  },
+  {
+    "id": "org-reserve-oh",
+    "className": "btn pri sm ",
+    "color": "rgb(255, 255, 255)",
+    "background": "rgb(109, 40, 217)",
+    "fontFamily": "Paperlogy, system-ui, sans-serif",
+    "fontSize": "12px",
+    "display": "flex",
+    "gridTemplateColumns": "none",
+    "bbox": {
+      "x": 1171,
+      "y": 874.84375,
+      "width": 120,
+      "height": 32
+    }
+  },
+  {
+    "id": "org-final-oh",
+    "className": "btn  sm ",
+    "color": "rgb(24, 24, 27)",
+    "background": "rgb(255, 255, 255)",
+    "fontFamily": "Paperlogy, system-ui, sans-serif",
+    "fontSize": "12px",
+    "display": "flex",
+    "gridTemplateColumns": "none",
+    "bbox": {
+      "x": 1299,
+      "y": 874.84375,
+      "width": 120,
+      "height": 32
+    }
+  },
+  {
+    "id": "org-cancel",
+    "className": "btn   ",
+    "color": "rgb(24, 24, 27)",
+    "background": "rgb(255, 255, 255)",
+    "fontFamily": "Paperlogy, system-ui, sans-serif",
+    "fontSize": "15px",
+    "display": "flex",
+    "gridTemplateColumns": "none",
+    "bbox": {
+      "x": 1243.6875,
+      "y": 895.78125,
+      "width": 64.109375,
+      "height": 44
+    }
+  },
+  {
+    "id": "org-apply",
+    "className": "btn pri  ",
+    "color": "rgb(255, 255, 255)",
+    "background": "rgb(109, 40, 217)",
+    "fontFamily": "Paperlogy, system-ui, sans-serif",
+    "fontSize": "15px",
+    "display": "flex",
+    "gridTemplateColumns": "none",
+    "bbox": {
+      "x": 1317.796875,
+      "y": 895.78125,
+      "width": 115.203125,
+      "height": 44
+    }
+  }
+]

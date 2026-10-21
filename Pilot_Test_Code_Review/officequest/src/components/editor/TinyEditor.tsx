@@ -1,0 +1,11 @@
+'use client';
+import { useEffect, useRef } from 'react';
+import { Editor } from '@tinymce/tinymce-react';
+import type { Editor as TinyInstance } from 'tinymce';
+import { useDb } from '@/lib/db/DbProvider';
+import type { EditorProps } from './editor-api';
+export default function TinyEditor({value,onChange,testId,height=330,locked,onReady,onFail}:EditorProps&{onReady:()=>void;onFail:()=>void}){
+ const {theme}=useDb();const editor=useRef<TinyInstance|null>(null),change=useRef(onChange);change.current=onChange;
+ useEffect(()=>()=>{delete window.__OQ_EDITORS__?.[testId];},[testId,theme]);
+ return <div className="rich-editor" data-testid={testId} data-locked={locked} data-editor-kind="tinymce"><Editor key={theme} tinymceScriptSrc="/tinymce/tinymce.min.js" value={value} onEditorChange={onChange} onScriptsLoadError={onFail} onInit={(_,ed)=>{editor.current=ed;window.__OQ_EDITORS__??={};window.__OQ_EDITORS__[testId]={kind:'tinymce',getContent:()=>ed.getContent(),setContent:html=>{ed.setContent(html);change.current(html);}};onReady();}} init={{base_url:'/tinymce',suffix:'.min',height,min_height:height,max_height:430,autoresize_bottom_margin:12,plugins:'lists table link image code codesample paste autoresize',toolbar:'undo redo | formatselect fontselect | bold italic underline forecolor | alignleft aligncenter alignright | bullist numlist | link image table codesample',menubar:'file edit view insert format table tools',branding:false,paste_data_images:true,language:'ko',language_url:'/editor-ko.js',skin:theme==='dark'?'oxide-dark':'oxide',content_css:theme==='dark'?'dark':'default',font_formats:'Paperlogy=Paperlogy',content_style:`@font-face{font-family:Paperlogy;src:url('/fonts/paperlogy/Paperlogy-4Regular.woff2') format('woff2');font-weight:400}body{font-family:Paperlogy,sans-serif;font-size:14px;line-height:1.8;color:${theme==='dark'?'#e4e4e7':'#27272a'};}h3{font-size:16px;margin:12px 0 6px;font-weight:800}p{margin:8px 0}table{border-collapse:collapse;width:100%;margin:10px 0}td,th{padding:8px;border:1px solid #d4d4d8}img{max-width:100%}`,images_upload_handler:(blob,success)=>success(`data:${blob.blob().type};base64,${blob.base64()}`)}}/><div className="editor-version">TinyMCE 5.10.2</div></div>;
+}

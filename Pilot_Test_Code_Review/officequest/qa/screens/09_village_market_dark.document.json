@@ -1,0 +1,9 @@
+{
+  "fontFamily": "Paperlogy, system-ui, sans-serif",
+  "fontLoaded": true,
+  "background": "rgb(9, 9, 11)",
+  "viewport": {
+    "width": 1920,
+    "height": 1080
+  }
+}

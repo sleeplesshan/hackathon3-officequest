@@ -1,0 +1,12 @@
+import { test, expect, bootstrap, getDB, switchPersona } from './helpers';
+import { openOrg } from './market-helpers';
+
+test('orgchart has six sites and seven eligible players, supports employee/dept search, keeps balances private @p5',async({page})=>{
+  await bootstrap(page,{route:'/village/m1'});await openOrg(page);await expect(page.locator('[data-testid^="org-site-"]')).toHaveCount(6);await expect(page.locator('[data-testid^="org-emp-"]')).toHaveCount(7);await expect(page.getByTestId('org-emp-kim')).toHaveCount(0);await expect(page.getByTestId('org-emp-ops')).toHaveCount(0);
+  for(const id of ['lee','oh'])for(const action of ['reserve','final']){await expect(page.getByTestId(`org-${action}-${id}`)).toBeEnabled();await expect(page.getByTestId(`org-emp-${id}`)).not.toContainText('보유');}
+  await page.getByTestId('org-search').fill('HS2203');await expect(page.locator('[data-testid^="org-emp-"]')).toHaveCount(1);await expect(page.getByTestId('org-emp-kang')).toBeVisible();await page.getByTestId('org-search').fill('생산기술');await expect(page.locator('[data-testid^="org-emp-"]')).toHaveCount(2);await expect(page.getByTestId('org-emp-lee')).toBeVisible();await expect(page.getByTestId('org-emp-han')).toBeVisible();await page.getByTestId('org-search').fill('');
+  const before=await getDB(page);await page.getByTestId('org-reserve-jung').click();await expect(page.getByTestId('org-emp-jung')).toHaveAttribute('data-selected','true');expect(await getDB(page)).toEqual(before);await page.getByTestId('org-cancel').click();expect(await getDB(page)).toEqual(before);
+});
+test('final buyer selection commits designation on Apply and waits for buyer receipt @p5',async({page})=>{
+ await bootstrap(page,{route:'/village/m1'});await openOrg(page);const before=await getDB(page);await page.getByTestId('org-final-park').click();expect((await getDB(page)).items.find(i=>i.id==='m1')!.status).toBe('available');await page.getByTestId('org-apply').click();await expect(page.getByTestId('orgchart-modal')).toBeHidden();await expect(page.getByTestId('settlement-panel')).toHaveCount(0);let db=await getDB(page);expect(db.users).toEqual(before.users);expect(db.transactions).toEqual(before.transactions);expect(db.items.find(i=>i.id==='m1')).toMatchObject({status:'reserved',finalBuyerId:'park'});await switchPersona(page,'park');await page.getByTestId('buy-btn').click();db=await getDB(page);expect(db.users.kim!.points).toBe(2000);expect(db.users.park!.points).toBe(4700);expect(db.transactions).toHaveLength(before.transactions.length+2);
+});

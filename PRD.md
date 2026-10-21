@@ -1,9 +1,9 @@
-# PRD — 오피스퀘스트 (Office Quest) × 효성마을 · v2.6 (Autopilot 제출본)
+# PRD — 오피스퀘스트 (Office Quest) × 효성마을 · v2.7 (Autopilot 제출본)
 
 > **이 문서는 GitHub Copilot Agent Mode(Autopilot)가 사람에게 묻지 않고 끝까지 구현하기 위한 제품 요구사항 정의서입니다.**
 > 실행 절차·스택·검증 방법·막힘 대응은 `Harness.md`, 시각 규칙은 `DESIGN.md`와 `tokens.css`, 화면 구도는 `refs/01–10_*.png`가 담당합니다.
 > 원본 PRD(`해커톤3조_PRD.md`)의 요구사항은 **하나도 빼지 않고** 이 문서로 옮겼습니다. 원본과 다른 부분은 모두 §2 결정 테이블에 근거와 함께 기록했습니다.
-> v2.1: 검수봇·분석봇 검토 반영. v2.2: 팀원 피드백 3건(품질별 별점 보상 · 반려 최대 2회 · 운영자 모니터링 & 제재) 반영(맨 끝 **변경 이력**, D40–D53). v2.3: 검수봇·분석봇 v2.2 재검토 반영(D54–D61). v2.4: 효성 브랜드 팔레트(DESIGN v1.2, D2 갱신·D62). **v2.5: 참조 구현(v2.3 기준 테스트 빌드)과 빌드 의견서 31건 반영(D63–D88)** — 마켓 = 판매자 지정 → 구매자 수령 확인, 수령 되돌리기, 문의 = 답변형, 시연 첨부(URL 없음), 캐릭터 꾸미기, 효과음, 시간 만료 접근, 로컬 폰트 우선 등. 참조 구현의 위치·사용법은 §0.4. **v2.6: 검수봇·분석봇 v2.5 재검토 반영(D89–D91)** — 되돌리기 실패 문구 중립화, NPC·나눔 자동 답장이 지정을 약속하지 않음, 채택 없이 끝나는 문의의 현상금 규칙, 수령 대기 중 재지정·해제 허용, 오류 코드·가드 순서·자정 경계 명시. 바뀐 내용의 비개발자용 요약은 `CHANGES.md`.
+> v2.1: 검수봇·분석봇 검토 반영. v2.2: 팀원 피드백 3건(품질별 별점 보상 · 반려 최대 2회 · 운영자 모니터링 & 제재) 반영(맨 끝 **변경 이력**, D40–D53). v2.3: 검수봇·분석봇 v2.2 재검토 반영(D54–D61). v2.4: 효성 브랜드 팔레트(DESIGN v1.2, D2 갱신·D62). **v2.5: 참조 구현(v2.3 기준 테스트 빌드)과 빌드 의견서 31건 반영(D63–D88)** — 마켓 = 판매자 지정 → 구매자 수령 확인, 수령 되돌리기, 문의 = 답변형, 시연 첨부(URL 없음), 캐릭터 꾸미기, 효과음, 시간 만료 접근, 로컬 폰트 우선 등. 참조 구현의 위치·사용법은 §0.4. **v2.6: 검수봇·분석봇 v2.5 재검토 반영(D89–D91)** — 되돌리기 실패 문구 중립화, NPC·나눔 자동 답장이 지정을 약속하지 않음, 채택 없이 끝나는 문의의 현상금 규칙, 수령 대기 중 재지정·해제 허용, 오류 코드·가드 순서·자정 경계 명시. **v2.7: 파일럿 빌드 전체를 `Pilot_Test_Code_Review/`로 동봉하고 공식 참조 구현으로 지정**(읽기 전용, 문서가 이김, 다르게 만들 점은 §0.4 표). 바뀐 내용의 비개발자용 요약은 `CHANGES.md`.
 
 ---
 
@@ -19,6 +19,7 @@
 ./refs/01_dashboard_light.png … ./refs/10_village_detail_orgchart.png   ← 화면 레퍼런스 10장 (1920×1080)
 ./motion/officequest_intro.html   ← 20초 소개 모션 (살아있는 모션·스프라이트 레퍼런스, ?t=초 로 정지)
 ./reference/                ← v2.5 참조 구현 자료(읽기 전용): 캐릭터 PNG 24종(D76) · 검증된 스크립트 · 참조 화면 · 템플릿 (§0.4)
+./Pilot_Test_Code_Review/   ← v2.7 공식 참조 구현(읽기 전용): v2.3 문서로 끝까지 만든 파일럿 빌드 전체(officequest/ 앱·테스트·qa·scripts, Opinion.md, RUN.md, DUAL_BRAIN_AUDIT.md, 당시 PRD·Harness·DESIGN·tokens 사본). 빌드·import 금지 (§0.4, Harness §12.2)
 ./skills/{dual-brain,taste,mengto,sprite-gen}/ + ./skills/SOURCES.md   ← 스킬 원본 (Harness §2에서 사용 범위 지정)
                             dual-brain 최소 구성 = SKILL.md + README.ko.md. references/*.md는 있으면 사용, 없으면 Harness §0-1 MISSING 규칙
 ./source/mock/ ./source/motion/   ← 목업·영상 소스 (시드·스프라이트 포팅 원천, 읽기 전용)
@@ -34,7 +35,7 @@
 4. `refs/01–10` (구도·정보 배치·카피)
 5. `Harness.md` (절차·도구·검증. 기능 규칙은 정의하지 않음)
 6. `skills/*` (Harness §2가 허용한 범위 안에서만)
-7. `reference/` (v2.5 참조 구현 자료. **예시일 뿐 규칙이 아님** — PRD·DESIGN·Harness와 다르면 그 문서가 이김. 단 `reference/assets/character/*.png`는 D76에 따라 그대로 쓰는 제품 자산)
+7. `reference/`(v2.5 참조 구현 자료)와 `Pilot_Test_Code_Review/`(v2.7 공식 참조 구현, v2.3 기준 파일럿 빌드). **예시일 뿐 규칙이 아님** — PRD·DESIGN·Harness와 다르면 그 문서가 이김. 파일럿 안의 `PRD.md`·`Harness.md`·`DESIGN.md`·`tokens.css`(v2.3·v1.1 사본)와 `.github/copilot-instructions.md`는 역사 기록이며 명세가 아님. 단 `reference/assets/character/*.png`는 D76에 따라 그대로 쓰는 제품 자산)
 8. 원본 `해커톤3조_PRD.md` / 원본 `Harness.md` (역사 기록. 이 문서에 반영 완료)
 
 ### 0.3 표기 규칙
@@ -45,11 +46,35 @@
 - 모든 시간은 **Asia/Seoul (KST, UTC+9)** 기준. 날짜 경계는 KST 00:00.
 - 금액 단위 `P`(포인트), 경험치 `EXP`. 표시 시 천 단위 콤마(`1,500 P`).
 
-### 0.4 참조 구현 (v2.5)
-2026-10-21에 v2.3 문서로 실제 끝까지 빌드한 앱(이하 **참조 구현**)과 그 과정에서 남긴 의견서 31건(`Opinion.md`)을 검토해 이 문서에 반영했습니다. Autopilot이 실행될 때 참조 구현 폴더는 **없어도 됩니다**. 필요한 것은 이 문서·Harness·DESIGN과 `./reference/`에 모두 옮겼습니다.
+### 0.4 참조 구현 (v2.5, v2.7 갱신)
+2026-10-21에 v2.3 문서로 실제 끝까지 빌드한 앱(이하 **참조 구현** 또는 **파일럿**)과 그 과정에서 남긴 의견서 33건(`Opinion.md`)을 검토해 이 문서에 반영했습니다. **v2.7부터 파일럿 전체가 `./Pilot_Test_Code_Review/`에 동봉**되고, `Pilot_Test_Code_Review/officequest/`가 **공식 참조 구현**입니다. Autopilot은 구현 전·구현 중에 이 폴더를 **읽어야 합니다(SHOULD)**. 어디를 무엇 때문에 읽는지는 Harness §12.2, `Opinion.md`는 "실제로 걸려 넘어진 함정 목록"으로 읽습니다.
+- **사용 규칙**(Harness §12.2): 읽기 전용 · 앱에서 import하지 않음 · 파일럿 안에서 `npm install`·빌드·테스트를 실행하지 않음 · 통째로 복사하지 않음. 파일 하나를 가져오는 것은 **그 파일이 이미 현재 PRD를 만족할 때만** 허용하고, 가져온 뒤 고쳐 맞추고 해당 Phase 게이트를 다시 돌립니다. 파일럿의 `node_modules`·`.next`·`public/tinymce`·테스트 결과·영상은 저장소에 없습니다.
+- **없어도 끝까지 갑니다**: `Pilot_Test_Code_Review/`가 없으면 지금까지처럼 이 문서·Harness·DESIGN과 `./reference/`만으로 모든 Phase를 끝냅니다(Audit에 `MISSING: Pilot_Test_Code_Review` 한 줄).
+- **파일럿은 v2.3 기준입니다.** v2.4 브랜드 팔레트와 D63–D91 일부가 없거나 다릅니다. 아래 표의 항목은 **복사하지 말고 이 문서대로** 만듭니다(2026-10-21 파일럿 코드에서 직접 확인).
+
+| 영역 | 파일럿에 있는 것 (위치) | 이 문서가 정한 것 |
+|---|---|---|
+| 색 | 보라 단일 + 다크 사이버 시안 `--accent-cyan`(`src/styles/tokens.css`, `mock-base.css`), `brand.ts` 없음 | 효성 브랜드 팔레트 `--hs-*`, 시안 폐지(D2·D62), 루트 `tokens.css` v1.3 그대로 복사 |
+| 마켓 잔재 | 흐름은 지정 → 수령 확인으로 바뀌었지만 `item/request`·`approveRequest`·`pendingRequest`·`NPC_AUTO_APPROVE_MS`가 타입·상수에 남음(`types.ts`, `constants.ts`, `guards.ts`) | 요청·승인 타입과 상수 자체를 만들지 않음(D63, 타입 테스트) |
+| 포인트 부족 | `buy-btn`을 비활성(`BuyButton.tsx`) | 버튼 활성, 클릭 시 경고 모달(D63) |
+| 수령 대기 중 수정·삭제 | 허용(`guards.ts` `item/update`) | 수정·삭제는 잠금, 재지정·해제는 허용(§7.2) |
+| 되돌리기 실패 | 버튼 비활성 + "판매자가 정산 포인트를 사용해…"(`guards.ts`) | 버튼 활성, 중립 문구 토스트만(D89) |
+| 동료 잔액 | 거래 완료 패널에 상대방 거래 후 잔액 표시(`SettlementPanel.tsx`) | 본인 잔액만(D67). 조직도의 잔액 비표시는 파일럿도 같음 |
+| 자동 답장 | NPC 판매자에게도 "최종 구매자로 등록해 드릴게요", 나눔 "그냥 가져가시면 돼요!", handover "SharePoint 링크로…"(`teams-replies.ts`) | D90 문구, handover 첨부 문구(§8.12) |
+| 문의 | 답변이 달려도 삭제 가능, 마감 처리 없음(`guards.ts`) | 답변 ≥1이면 수정·삭제 잠금(D65), 마감 뒤 답변 마감·채택으로만 지급(D91) |
+| 가드 순서 | 타이머 검사가 상태 검사보다 먼저(`guards.ts`) | §5 평가 순서(상태 → 주체 → 제재 → 시간 → 한도 → 입력) |
+| 운영 지표 칩 | `admin-flag-count` = 전체 플래그 수(`AdminConsole.tsx`) | 열린 플래그만, 헤더 칩에만 testid(D85) |
+| 저장값 | `schemaVersion: 1` + 이관 코드(`persistence.ts`) | 스키마 v2 재시드(D78) |
+| 폰트 | PostCSS 플러그인 `scripts/local-fonts.cjs`로 `@font-face` 교체 | tokens.css v1.3 로컬 → CDN, PostCSS 플러그인 없음(D72) |
+| 정보 아이콘 | 생성 이미지 `public/assets/character/info-badge.png` | Lucide `info`(D76). 캐릭터 PNG 24장만 사용 |
+| CSS 클래스 | `.grow`(`app-layout.css`)·`.ring`(`mock-base.css`) | Tailwind와 겹치는 이름 금지(Harness §1.6-9, 규칙 12) |
+| testid·테스트 | 마켓 스크롤 영역 `village-products-scroll`(현재 `market-scroll`), `@feedback`·`@scroll` 태그, 스펙 이름·개수 다름(`07-market-pathA` 등 21개), `doctor` 스크립트 없음, `check-forbidden`에 규칙 11–13 없음 | Harness §4 태그 8종, §5.2 스펙 23개, `reference/scripts/` 최신본 |
+| QA 기록 | `qa/AC_MAP.md` = v2.3 AC 기준("69/69 E2E") | **형식만** 참고, 내용은 현재 AC로 새로 작성(`reference/templates/AC_MAP.template.md`) |
+
+확인 결과 차이가 없는 항목: 효성마을 목록 페이지네이션은 파일럿에도 없음(D73과 같음, 게시판만 10행/페이지), 비최종 구매자 코드 `NOT_RESERVED_BUYER`, 시연 첨부 URL 없음(D70), 조직도 잔액 비표시(D67), 자정 직후 새날 판정(§6.4).
 - **그대로 따를 패턴**: 순수 리듀서 + 공유 가드(`canX`)로 UI 비활성과 리듀서 거부를 같은 함수로 판정, 시간 판정 공용 모듈(`quest-access.ts`), Web Audio 합성 효과음 모듈(`audio.ts`), 첨부 세대 토큰, 공유 에디터 로더, 캐릭터 외형 모듈(`character.ts`). 세부는 Harness §12.
 - **참조 구현과 다르게 만들 것**(이 문서가 정답): 운영 지표는 "열린 high"(D85) · 답변이 달린 문의는 수정·삭제 잠금(D65) · 포인트 부족은 버튼 비활성이 아니라 모달(D63) · 저장값 이관 대신 스키마 v2 재시드(D78) · 폰트는 tokens.css v1.3 로컬 우선(D72, PostCSS 플러그인 없음) · 생성형 정보 아이콘 대신 Lucide `info`(D76) · Tailwind와 이름이 겹치는 CSS 클래스(`.ring`·`.grow` 등) 금지(Harness §1.6-9) · 모든 테스트에 Phase 태그(`@feedback`·`@scroll`·태그 없음 금지, Harness §4).
-- **참조 구현에서 발견된 문제와 대응**: 의견서 번호별 채택·기각과 이유는 `CHANGES.md`(이 패키지에 동봉된 비개발자용 요약, v2.5·v2.6 절)와 아래 §2 D63–D88에 있습니다.
+- **참조 구현에서 발견된 문제와 대응**: 의견서 번호별 채택·기각과 이유는 `CHANGES.md`(이 패키지에 동봉된 비개발자용 요약, v2.5–v2.7 절)와 아래 §2 D63–D91에 있습니다.
 
 ---
 
@@ -1139,4 +1164,5 @@ sm–md 모달. 헤더 "결과물 품질 평가" + 작업자 아바타·이름·
 | v2.6 | 2026-10-21 | D89 되돌리기 실패 중립 문구(`UNDO_UNAVAILABLE`), D90 NPC·나눔 답장과 `buy-guidance[data-state=npc]`, D91 마감 지난 문의(답변 마감·채택으로만 지급), AC-8.18.7 | 분석봇 v2.5 이의 1–3 |
 | v2.6 | 2026-10-21 | 가드 평가 순서(§5), 자정 경계 판정(§6.4), `quest/view` 거부 코드 | 분석봇 v2.5 권장-10·11 |
 | v2.6 | 2026-10-21 | AC-8.4.4 `maxB` 클램프, §9.1 q2 "답변 채택", handover 답장에서 SharePoint 링크 제거, AC-8.7.9(D83 검증 위치), §12 감리 문구, 변경 이력 순서, `CHANGES.md` 동봉 | 검수봇 v2.5 권장-6·7·8·11·12·14·15 |
+| v2.7 | 2026-10-21 | `Pilot_Test_Code_Review/`(파일럿 빌드 전체) 동봉·공식 참조 구현 지정, §0.1 트리·§0.2 우선순위 7·§0.4 사용 규칙과 "복사하지 말 것" 표(파일럿 코드에서 확인) | 사용자 요청(파일럿 빌드를 레퍼런스로) |
 | v2.0 | 2026-10-21 | 최초 Autopilot 제출본 | — |

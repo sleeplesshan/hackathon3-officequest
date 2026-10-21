@@ -1,4 +1,4 @@
-// Harness §5.5 금지 패턴 검사 (v2.5). 대상: src/** (src/styles/tokens.css 제외). 위반 시 exit 1.
+// Harness §5.5 금지 패턴 검사 (v2.5, v2.7). 대상: src/** (src/styles/tokens.css 제외). 위반 시 exit 1.
 import { readdirSync, readFileSync, statSync } from 'node:fs';
 import { join, relative } from 'node:path';
 
@@ -11,10 +11,18 @@ const URL_ALLOW = ['fastly.jsdelivr.net', 'www.w3.org', 'localhost'];
 // v2.5 규칙 12: Tailwind 유틸리티와 이름이 겹치는 커스텀 CSS 클래스 선택자 (Harness §1.6-9)
 const TW_CLASH = /(?:^|[\s,}>+~(])\.(ring|shadow|container|hidden|block|inline|flex|grid|table|border|rounded|truncate|blur|filter|transform|transition|outline|underline|italic|uppercase|lowercase|capitalize|static|fixed|absolute|relative|sticky|visible|invisible|collapse|contents|grow|shrink|isolate|sr-only|antialiased|ease-in|ease-out|ease-linear|animate-spin|animate-pulse|prose)(?=[\s,{:.\[>+~)])/m;
 
+// v2.7: 이 검사는 officequest/src만 본다. 저장소 루트의 파일럿 빌드(Pilot_Test_Code_Review/)와 빌드 산출물은 경로가 어떻게 잡혀도 건너뛴다.
+const SKIP_DIRS = new Set(['node_modules', '.next', 'Pilot_Test_Code_Review']);
+if (process.cwd().split(/[\\/]/).includes('Pilot_Test_Code_Review')) {
+  console.error('check-forbidden: run from officequest/, not from Pilot_Test_Code_Review/');
+  process.exit(2);
+}
+
 const files = [];
 (function walk(dir) {
   for (const name of readdirSync(dir)) {
     const p = join(dir, name);
+    if (SKIP_DIRS.has(name)) continue;
     if (statSync(p).isDirectory()) walk(p);
     else if (/\.(ts|tsx|css|mjs|js)$/.test(name)) files.push(p);
   }

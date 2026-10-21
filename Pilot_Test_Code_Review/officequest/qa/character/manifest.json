@@ -1,0 +1,257 @@
+{
+  "characterId": "officequest-original-pixel-wardrobe",
+  "engine": "component-row",
+  "game_input": "sprite-sheet-alpha.png",
+  "degraded_static_fallback": false,
+  "curation_applied": false,
+  "frame_variant": "pixel",
+  "sprite_sheet_alpha": "sprite-sheet-alpha.png",
+  "sprite_sheet_alpha_report": "sprite-sheet-alpha.report.json",
+  "base_image": "base-source.png",
+  "cell": {
+    "shape": "square",
+    "width": 24,
+    "height": 24,
+    "safe_margin_x": 2,
+    "safe_margin_y": 2,
+    "size": 24,
+    "safe_margin": 2
+  },
+  "chroma_key": {
+    "name": "green",
+    "hex": "#00FF00",
+    "rgb": [
+      0,
+      255,
+      0
+    ],
+    "selection": "manual"
+  },
+  "animation": {
+    "cellWidth": 24,
+    "cellHeight": 24,
+    "columns": 6,
+    "rows": {
+      "male-classic": {
+        "row": 0,
+        "frames": 6,
+        "fps": 1,
+        "durations_ms": [
+          1000,
+          1000,
+          1000,
+          1000,
+          1000,
+          1000
+        ],
+        "loop": false,
+        "frame_variant": "pixel"
+      },
+      "male-wave": {
+        "row": 1,
+        "frames": 6,
+        "fps": 1,
+        "durations_ms": [
+          1000,
+          1000,
+          1000,
+          1000,
+          1000,
+          1000
+        ],
+        "loop": false,
+        "frame_variant": "pixel"
+      },
+      "female-classic": {
+        "row": 2,
+        "frames": 6,
+        "fps": 1,
+        "durations_ms": [
+          1000,
+          1000,
+          1000,
+          1000,
+          1000,
+          1000
+        ],
+        "loop": false,
+        "frame_variant": "pixel"
+      },
+      "female-wave": {
+        "row": 3,
+        "frames": 6,
+        "fps": 1,
+        "durations_ms": [
+          1000,
+          1000,
+          1000,
+          1000,
+          1000,
+          1000
+        ],
+        "loop": false,
+        "frame_variant": "pixel"
+      }
+    }
+  },
+  "frame_layout": {
+    "sheetWidth": 144,
+    "sheetHeight": 96,
+    "cellWidth": 24,
+    "cellHeight": 24,
+    "rows": {
+      "male-classic": [
+        {
+          "x": 0,
+          "y": 0,
+          "w": 24,
+          "h": 24
+        },
+        {
+          "x": 24,
+          "y": 0,
+          "w": 24,
+          "h": 24
+        },
+        {
+          "x": 48,
+          "y": 0,
+          "w": 24,
+          "h": 24
+        },
+        {
+          "x": 72,
+          "y": 0,
+          "w": 24,
+          "h": 24
+        },
+        {
+          "x": 96,
+          "y": 0,
+          "w": 24,
+          "h": 24
+        },
+        {
+          "x": 120,
+          "y": 0,
+          "w": 24,
+          "h": 24
+        }
+      ],
+      "male-wave": [
+        {
+          "x": 0,
+          "y": 24,
+          "w": 24,
+          "h": 24
+        },
+        {
+          "x": 24,
+          "y": 24,
+          "w": 24,
+          "h": 24
+        },
+        {
+          "x": 48,
+          "y": 24,
+          "w": 24,
+          "h": 24
+        },
+        {
+          "x": 72,
+          "y": 24,
+          "w": 24,
+          "h": 24
+        },
+        {
+          "x": 96,
+          "y": 24,
+          "w": 24,
+          "h": 24
+        },
+        {
+          "x": 120,
+          "y": 24,
+          "w": 24,
+          "h": 24
+        }
+      ],
+      "female-classic": [
+        {
+          "x": 0,
+          "y": 48,
+          "w": 24,
+          "h": 24
+        },
+        {
+          "x": 24,
+          "y": 48,
+          "w": 24,
+          "h": 24
+        },
+        {
+          "x": 48,
+          "y": 48,
+          "w": 24,
+          "h": 24
+        },
+        {
+          "x": 72,
+          "y": 48,
+          "w": 24,
+          "h": 24
+        },
+        {
+          "x": 96,
+          "y": 48,
+          "w": 24,
+          "h": 24
+        },
+        {
+          "x": 120,
+          "y": 48,
+          "w": 24,
+          "h": 24
+        }
+      ],
+      "female-wave": [
+        {
+          "x": 0,
+          "y": 72,
+          "w": 24,
+          "h": 24
+        },
+        {
+          "x": 24,
+          "y": 72,
+          "w": 24,
+          "h": 24
+        },
+        {
+          "x": 48,
+          "y": 72,
+          "w": 24,
+          "h": 24
+        },
+        {
+          "x": 72,
+          "y": 72,
+          "w": 24,
+          "h": 24
+        },
+        {
+          "x": 96,
+          "y": 72,
+          "w": 24,
+          "h": 24
+        },
+        {
+          "x": 120,
+          "y": 72,
+          "w": 24,
+          "h": 24
+        }
+      ]
+    }
+  }
+}

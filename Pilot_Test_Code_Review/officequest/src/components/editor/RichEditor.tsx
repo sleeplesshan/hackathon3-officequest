@@ -1,0 +1,8 @@
+'use client';
+import { useCallback, useEffect, useState } from 'react';
+import TinyEditor from './TinyEditor';
+import FallbackEditor from './FallbackEditor';
+import type { EditorProps } from './editor-api';
+let loading:Promise<boolean>|null=null;
+function loadLocalEditor(){if((window as Window&{tinymce?:unknown}).tinymce)return Promise.resolve(true);if(loading)return loading;loading=new Promise(resolve=>{const script=document.createElement('script');script.src='/tinymce/tinymce.min.js';script.async=true;let finished=false;const finish=(success:boolean)=>{if(finished)return;finished=true;clearTimeout(timer);resolve(success);};const timer=setTimeout(()=>finish(false),8000);script.onload=()=>finish(Boolean((window as Window&{tinymce?:unknown}).tinymce));script.onerror=()=>finish(false);document.head.appendChild(script);});return loading;}
+export default function RichEditor(props:EditorProps){const [kind,setKind]=useState<'loading'|'tinymce'|'fallback'>(process.env.NEXT_PUBLIC_EDITOR==='fallback'?'fallback':'loading');const fail=useCallback(()=>setKind('fallback'),[]),loaded=useCallback(()=>setKind('tinymce'),[]);useEffect(()=>{if(kind!=='loading')return;let active=true;loadLocalEditor().then(success=>{if(active)setKind(success?'tinymce':'fallback');});return()=>{active=false;};},[kind]);return kind==='fallback'?<FallbackEditor {...props}/>:kind==='tinymce'?<TinyEditor {...props} onReady={loaded} onFail={fail}/>:<div className="rich-editor editor-loading" data-testid={props.testId} data-locked={props.locked} data-editor-kind="tinymce" style={{height:props.height??330}}>편집기를 준비하고 있어요...</div>;}

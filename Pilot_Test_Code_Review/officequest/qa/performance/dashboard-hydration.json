@@ -1,0 +1,10 @@
+{
+  "navigationStartMs": 0,
+  "responseEndMs": 3.6999998092651367,
+  "hydratedAtMs": 57.19999980926514,
+  "hydrationMs": 57.19999980926514,
+  "shouldThresholdMs": 1000,
+  "clock": "native browser performance; Date unmocked",
+  "browser": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/155.0.0.0 Safari/537.36",
+  "meetsShould": true
+}

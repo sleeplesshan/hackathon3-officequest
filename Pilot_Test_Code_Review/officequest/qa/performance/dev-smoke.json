@@ -1,0 +1,32 @@
+{
+  "command": "npm run dev (workspace wrapper)",
+  "url": "http://localhost:3000",
+  "routes": [
+    {
+      "path": "/",
+      "status": 200,
+      "hydrated": true
+    },
+    {
+      "path": "/quests/board",
+      "status": 200,
+      "hydrated": true
+    },
+    {
+      "path": "/quests/new",
+      "status": 200,
+      "hydrated": true
+    },
+    {
+      "path": "/village",
+      "status": 200,
+      "hydrated": true
+    },
+    {
+      "path": "/admin",
+      "status": 200,
+      "hydrated": true
+    }
+  ],
+  "consoleErrors": []
+}

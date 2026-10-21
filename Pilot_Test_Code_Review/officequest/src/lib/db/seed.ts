@@ -1,0 +1,54 @@
+import { SEASON1, SESSION_TIMER_MS } from '../constants';
+import { kstDayKey, toISO } from '../formulas';
+import { makeSharepointAttachment } from '../sharepoint';
+import type { Application, DB, DailyProgress, MarketItem, Quest, RatingRecord, User, VillageKey } from '../types';
+export const FIXED_SEED_NOW = Date.parse('2026-10-21T14:02:48+09:00');
+export const blankDaily = (dayKey:string):DailyProgress => ({dayKey,achieved:{login:false,post:false,complete:false,adopted:false},claimed:{login:false,post:false,complete:false,adopted:false}});
+const at = (stamp:string):string=>`2026-${stamp.replace(' ','T')}${stamp.includes(' ')?':00': 'T18:00:00'}+09:00`;
+export const VILLAGE_LABELS:Record<VillageKey,string>={mapo:'마포마을',hoehyeon:'회현마을',banpo:'반포마을',suseo:'수서마을',changwon:'창원마을',ulsan:'울산마을'};
+export const QUEST_FIELDS=['재무·엑셀 자동화','문서·PPT 디자인','데이터·BI','IT·시스템','인사·총무','생산·품질','기타'] as const;
+export const ITEM_CATEGORIES={digital:'디지털/가전',living:'생활/주방',fashion:'의류/잡화',books:'도서/티켓/쿠폰',hobby:'취미/기타'};
+export const ORG_SITES=[{key:'mapo',name:'마포 본사',count:128,depts:[['재무팀',24]]},{key:'hoehyeon',name:'회현',count:42,depts:[['총무팀',11]]},{key:'banpo',name:'반포',count:57,depts:[['AI혁신팀',14],['IT혁신팀',18]]},{key:'suseo',name:'수서',count:64,depts:[['인사팀',16]]},{key:'changwon',name:'창원공장',count:212,depts:[['생산기술팀',36],['품질경영팀',27],['설비보전팀',31]]},{key:'ulsan',name:'울산공장',count:186,depts:[['생산기술팀',29]]}] as const;
+export const Q7_BODY='<h3>요청 배경</h3><p>3분기 결산을 위해 사업부별 원가 데이터를 매주 수작업으로 취합하고 있습니다. SAP 추출 원본 엑셀을 피벗 시트로 자동 정리하는 매크로를 요청드립니다.</p><h3>요청 사항</h3><table><thead><tr><th>항목</th><th>내용</th><th>우선순위</th></tr></thead><tbody><tr><td>원본 시트 정리</td><td>SAP 추출 시트 → 사업부/계정별 자동 분류</td><td>필수</td></tr><tr><td>피벗 자동 생성</td><td>월별 · 사업부별 원가 피벗 + 전년 대비 증감</td><td>필수</td></tr><tr><td>실행 버튼</td><td>시트 상단 [갱신] 버튼 1클릭 실행</td><td>권장</td></tr></tbody></table>';
+function seedUsers():Record<string,User> {
+ const rows:[string,string,VillageKey,string,string,number,number,number,number,number,number,string][]=[
+ ['kim','김효성 대리','mapo','재무팀','HS21034',1168,1500,0,23,99,23,'head2'],['lee','이퀘스트 사원','changwon','생산기술팀','HS24017',650,300,1,8,33,8,'head1'],['park','박마스터 과장','banpo','AI혁신팀','HS15002',2740,5200,2,61,287,61,'head5'],['choi','최다이아 차장','banpo','IT혁신팀','HS16011',2360,4870,0,44,190,44,'head4'],['jung','정플래 대리','suseo','인사팀','HS19044',1850,2310,0,31,140,31,'head3'],['han','한울산 과장','ulsan','생산기술팀','HS17052',560,1980,0,9,41,9,'head1'],['kang','강창원 대리','changwon','품질경영팀','HS22031',430,960,0,6,29,6,'head1'],['oh','오신입 사원','hoehyeon','총무팀','HS26003',140,180,0,1,4,1,'head0'],['ops','최운영 매니저','mapo','사내문화팀','HS13001',0,0,0,0,0,0,'head0']];
+ return Object.fromEntries(rows.map(([id,name,village,dept,employeeNo,exp,points,completedToday,completedTotal,sum,count,headSprite])=>[id,{id,name,village,site:village,dept,employeeNo,exp,points,completedToday,completedTotal,rating:{sum,count},headSprite,seasonBadges:[],role:id==='ops'?'admin':'player',isPersona:['kim','lee','park','ops'].includes(id)}]));
+}
+const app=(userId:string,resolve='꼼꼼하게 확인하고 진행하겠습니다.'):Application=>({userId,resolve,appliedAt:at('10-21 09:30'),pledgeAgreedAt:at('10-21 09:30')});
+function seedQuests():Quest[]{
+ const rows:[number,Quest['type'],Quest['status'],string,string,number,string,string,string,number,string|null,number,string[],string|null][]=[
+ [7,'request','recruiting','3분기 원가 분석 엑셀 매크로 요청','kim',300,QUEST_FIELDS[0],'10-23 18:00','10-21 09:12',128,'Q3_원가분석_원본.xlsx',1.8,['lee','jung','oh'],null],
+ [6,'inquiry','recruiting','법인카드 해외결제 증빙 기준 문의','lee',50,QUEST_FIELDS[0],'10-22 18:00','10-21 08:40',57,null,0,['kang'],null],
+ [5,'request','in_progress','신입사원 온보딩 교육 PPT 디자인','jung',500,QUEST_FIELDS[1],'10-27 18:00','10-20 14:20',211,'온보딩_교육자료_초안.pptx',4.2,['park','choi','kang','oh'],'park'],
+ [4,'request','revision','울산공장 설비 점검표 양식 자동화','han',400,QUEST_FIELDS[5],'10-24 18:00','10-19 10:05',143,'설비점검표_양식.xlsx',.9,['lee','kang'],'lee'],
+ [3,'inquiry','recruiting','Power BI 대시보드 공유 권한 설정 문의','kang',150,QUEST_FIELDS[2],'10-26 18:00','10-19 16:40',34,null,0,[],null],
+ [2,'inquiry','done','SAP 전표 역분개 오류 해결 방법 문의','oh',100,QUEST_FIELDS[0],'10-17','10-17 09:30',96,null,0,['kim','lee'],'kim'],
+ [1,'request','done','사내 뉴스레터 10월호 원고 교정','park',200,QUEST_FIELDS[1],'10-15','10-15 10:00',302,'뉴스레터_10월호.docx',.6,['jung','choi','kang','oh','han'],'jung']];
+ return rows.map(([no,type,status,title,requesterId,bounty,field,due,created,views,file,size,appliers,workerId])=>{
+ const createdAt=at(created);const completedAt=status==='done'?at(no===2?'10-17 15:10':'10-15 17:20'):null;
+ const applications=appliers.map(u=>({...app(u),appliedAt:toISO(Date.parse(createdAt)+3600000),pledgeAgreedAt:toISO(Date.parse(createdAt)+3600000)}));if(no===7){applications[0]!.resolve='오늘 6시 전까지 끝내겠습니다!';applications[1]!.resolve='매크로 엑셀 자신 있어요. VBA 경력 5년입니다.';applications[2]!.resolve='배우면서 꼼꼼히 해보겠습니다.';['10:02','10:31','11:15'].forEach((time,i)=>{applications[i]!.appliedAt=at(`10-21 ${time}`);applications[i]!.pledgeAgreedAt=at(`10-21 ${time}`);});}if(no===6)applications[0]!.resolve='규정 문서 위치랑 예시 바로 드릴게요.';
+ return {no,type,status,title,requesterId,bounty,field,dueAt:at(due),createdAt,views,bodyHtml:no===7?Q7_BODY:`<p>${title} 업무를 함께 해결해 주실 동료를 찾습니다. 관련 자료와 진행 방법을 확인해 주세요.</p>`,attachments:file?[makeSharepointAttachment(file,Math.round(size*1048576),`q${no}-a1`)]:[],escrowHeld:status==='done'?0:bounty,applications,workerId,adoptedAt:workerId?createdAt:null,submissions:no===4?[{version:1,bodyHtml:'<p>설비 점검표 양식을 자동화하여 제출합니다.</p>',attachments:[],submittedAt:at('10-20 13:00'),review:{result:'rejected',reason:'점검 항목 12번이 누락됐어요. 체크박스 서식도 맞춰 주세요.',reviewedAt:at('10-20 14:00')}}]:completedAt?[{version:1,bodyHtml:'<p>요청하신 내용을 확인하고 결과물을 제출했습니다.</p>',attachments:[],submittedAt:completedAt,review:{result:'approved',reviewedAt:completedAt}}]:[],reviewPending:false,rejectCount:no===4?1:0,rating:completedAt?{stars:no===2?4:5,ratedAt:completedAt}:null,completedAt,pledgeAgreedAt:createdAt};
+ });
+}
+function seedItems():MarketItem[]{
+ const rows:[string,string,VillageKey,MarketItem['category'],number,MarketItem['status'],string,string|null,number,number,string,string][]=[
+ ['m1','27인치 QHD 모니터','mapo','digital',500,'available','kim',null,24,132,'monitor','10-21 12:00'],['m2','캡슐 커피머신 (캡슐 20개 포함)','hoehyeon','living',0,'reserved','oh','lee',41,208,'mug','10-21 09:00'],['m3','경영 전략 도서 5권 세트','ulsan','books',300,'reserved','han','kim',12,87,'book','10-20 10:00'],['m4','게임 패드 2개 세트','changwon','hobby',1200,'available','lee',null,33,301,'pad','10-20 09:00'],['m5','무선 기계식 키보드 (적축)','banpo','digital',800,'available','choi',null,19,154,'keyboard','10-19 11:00'],['m6','겨울 패딩 조끼 L 사이즈','suseo','fashion',0,'available','jung',null,27,176,'vest','10-19 09:00'],['m7','CGV 영화 예매권 2매','mapo','books',400,'available','park',null,36,245,'ticket','10-18 10:00'],['m8','캠핑 의자 2개 (접이식)','ulsan','hobby',600,'sold','han','kang',8,92,'chair','10-16 10:00']];
+ return rows.map(([id,title,village,category,price,status,sellerId,buyer,likeCount,views,spriteKey,created])=>({id,title,village,category,price,status,sellerId,mode:price===0?'free':'sale',reservedFor:status==='reserved'?buyer:null,buyerId:status==='sold'?buyer:null,soldAt:status==='sold'?at('10-18 12:40'):null,pendingRequest:null,likeCount,likedBy:[],views,createdAt:at(created),photos:[0,1,2].map(i=>({id:`${id}-photo-${i}`,source:'preset',spriteKey})),bodyHtml:id==='m1'?'<p>재택 근무용으로 1년 사용한 27인치 QHD(2560×1440) IPS 모니터입니다. 데드픽셀 없고 HDMI·DP 케이블 포함이에요. 마포 본사 1층 로비에서 점심시간 직거래 선호합니다.</p>':`<p>${title} 필요하신 동료에게 전합니다. 사용감은 있지만 상태가 좋고 정상적으로 이용할 수 있어요. 사내에서 편한 시간에 직접 전달하겠습니다.</p>`}));
+}
+export function getSeed(now:number):DB {
+ const dayKey=kstDayKey(now);const users=seedUsers();
+ const relative=(stamp:string)=>toISO(now+Date.parse(at(stamp))-FIXED_SEED_NOW);
+ const ratings:RatingRecord[]=[
+ {id:'rt1',questRef:'1',archived:false,requesterId:'park',workerId:'jung',stars:5,bounty:200,postedAt:at('10-15 10:00'),approvedAt:at('10-15 17:20')},
+ {id:'rt2',questRef:'2',archived:false,requesterId:'oh',workerId:'kim',stars:4,bounty:100,postedAt:at('10-17 09:30'),approvedAt:at('10-17 15:10')},
+ ...([['choi','kang',5,200,'10-14 09:00','10-14 16:20'],['choi','kang',5,300,'10-16 09:00','10-16 17:05'],['choi','kang',5,300,'10-19 09:00','10-19 16:40'],['han','jung',4,150,'10-12 10:00','10-13 15:00'],['jung','han',5,200,'10-14 10:00','10-15 11:30'],['han','jung',5,150,'10-17 10:00','10-18 14:00'],['jung','han',5,800,'10-20 09:00','10-20 09:12']] as const).map(([requesterId,workerId,stars,bounty,posted,approved],i)=>({id:`rt${i+3}`,questRef:`A-${101+i}`,archived:true,requesterId,workerId,stars,bounty,postedAt:relative(posted),approvedAt:relative(approved)}))];
+ const db:DB={schemaVersion:1,seededAt:toISO(now),dayKey,season:{...SEASON1},timer:{endsAt:now+SESSION_TIMER_MS},users,quests:seedQuests(),items:seedItems(),transactions:[],daily:Object.fromEntries(Object.keys(users).map(id=>[id,blankDaily(dayKey)])),teams:{},notifications:[],ratings,restrictions:[{id:'r1',userId:'kang',kind:'quest_post',reason:'단기간 반복 등록 소명 요청',startsAt:relative('10-10 10:00'),endsAt:relative('10-11 10:00'),createdBy:'ops',flagId:null,liftedAt:relative('10-10 17:30'),liftedBy:'ops',liftReason:'소명 확인 완료'}],flagStates:{},adminLog:[{id:'L1',at:relative('10-10 10:00'),actorId:'ops',action:'restrict',targetUserId:'kang',restrictionId:'r1',flagId:null,summary:'강창원 · 퀘스트 등록 제한 · 사유: 단기간 반복 등록 소명 요청'},{id:'L2',at:relative('10-10 17:30'),actorId:'ops',action:'lift',targetUserId:'kang',restrictionId:'r1',flagId:null,summary:'강창원 · 제재 해제 · 사유: 소명 확인 완료'}],counters:{nextQuestNo:8,nextItemNo:9,nextTxNo:1,nextId:100,nextRestrictionNo:2,nextLogNo:3}};
+ const tx=(type:DB['transactions'][number]['type'],userId:string,amount:number,refType:'quest'|'item',refId:string,time:string,counterpartyId?:string,memo='시드 거래 내역')=>db.transactions.push({id:`t${db.counters.nextTxNo++}`,type,userId,amount,balanceAfter:0,refType,refId,at:time,memo,...counterpartyId?{counterpartyId}:{}});
+ tx('market_purchase','kang',-600,'item','m8',at('10-18 12:40'),'han');tx('market_sale','han',600,'item','m8',at('10-18 12:40'),'kang');tx('quest_reward','kim',200,'quest','2',at('10-17 15:10'),'oh');tx('quest_reward','jung',300,'quest','1',at('10-15 17:20'),'park');
+ for(const q of db.quests)if(q.bounty>0)tx('bounty_escrow',q.requesterId,-q.bounty,'quest',String(q.no),q.createdAt);
+ ['10-15 12:10','10-17 12:20','10-20 12:15'].forEach((stamp,i)=>{tx('market_purchase','jung',-800,'item',`A-m${i+1}`,relative(stamp),'choi','아카이브 매물 (목록 비표시)');tx('market_sale','choi',800,'item',`A-m${i+1}`,relative(stamp),'jung','아카이브 매물 (목록 비표시)');});
+ for(const u of Object.values(users)){let balance=u.points;const ts=db.transactions.filter(t=>t.userId===u.id).sort((a,b)=>Date.parse(b.at)-Date.parse(a.at));for(const t of ts){t.balanceAfter=balance;balance-=t.amount;}}
+ return db;
+}
+export const createSeed=getSeed;

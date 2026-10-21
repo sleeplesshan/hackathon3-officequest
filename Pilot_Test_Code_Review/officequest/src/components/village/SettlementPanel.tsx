@@ -1,0 +1,8 @@
+'use client';
+import { ArrowRight, CheckCircle2 } from 'lucide-react';
+import { useDb } from '@/lib/db/DbProvider';
+import { Avatar } from '@/components/ui';
+import { formatNumber } from '@/lib/format';
+import type { MarketItem } from '@/lib/types';
+import PixelSprite from '@/components/pixel/PixelSprite';
+export default function SettlementPanel({item}:{item:MarketItem}){const {db}=useDb();if(!db||!item.buyerId)return null;const buyer=db.users[item.buyerId]!,seller=db.users[item.sellerId]!,records=db.transactions.filter(t=>t.refType==='item'&&t.refId===item.id),purchase=records.findLast(t=>t.type==='market_purchase'),sale=records.findLast(t=>t.type==='market_sale');return <section className="card pad settlement-panel" data-testid="settlement-panel"><header><CheckCircle2 size={23}/><h2>거래완료 · 포인트 정산</h2></header><div className="settlement-flow"><div className="settlement-user"><Avatar user={buyer} size={48}/><small>구매자 · {buyer.name}</small><strong>{formatNumber(purchase?.balanceAfter??buyer.points)} P</strong><span className="decrease">−{formatNumber(item.price)} P</span></div><div className="settlement-transfer"><div className="settlement-coins">{Array.from({length:10},(_,i)=><span key={i} style={{animationDelay:`${i*50}ms`}}><PixelSprite name="coin" scale={2}/></span>)}</div><ArrowRight size={35}/><small>포인트 순환</small></div><div className="settlement-user"><Avatar user={seller} size={48}/><small>판매자 · {seller.name}</small><strong>{formatNumber(sale?.balanceAfter??seller.points)} P</strong><span className="increase">+{formatNumber(item.price)} P</span></div></div><footer><CheckCircle2 size={15}/>거래완료 · {item.title} · {formatNumber(item.price)} P · 양측 거래 내역 기록</footer></section>;}

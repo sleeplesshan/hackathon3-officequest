@@ -1,0 +1,52 @@
+[
+  {
+    "ref": "01_dashboard_light",
+    "status": "PASS",
+    "comparison": "qa/compare/01.png"
+  },
+  {
+    "ref": "02_daily_quests_tiers",
+    "status": "PASS",
+    "comparison": "qa/compare/02.png"
+  },
+  {
+    "ref": "03_quest_board",
+    "status": "PASS",
+    "comparison": "qa/compare/03.png"
+  },
+  {
+    "ref": "04_quest_create",
+    "status": "PASS",
+    "comparison": "qa/compare/04.png"
+  },
+  {
+    "ref": "05_security_pledge_modal",
+    "status": "PASS",
+    "comparison": "qa/compare/05.png"
+  },
+  {
+    "ref": "06_quest_detail_recruiting",
+    "status": "PASS",
+    "comparison": "qa/compare/06.png"
+  },
+  {
+    "ref": "07_quest_detail_inprogress_teams",
+    "status": "PASS",
+    "comparison": "qa/compare/07.png"
+  },
+  {
+    "ref": "08_hyperframe_complete",
+    "status": "PASS",
+    "comparison": "qa/compare/08.png"
+  },
+  {
+    "ref": "09_village_market_dark",
+    "status": "PASS",
+    "comparison": "qa/compare/09.png"
+  },
+  {
+    "ref": "10_village_detail_orgchart",
+    "status": "PASS",
+    "comparison": "qa/compare/10.png"
+  }
+]

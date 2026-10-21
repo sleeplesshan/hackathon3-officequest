@@ -1,0 +1,9 @@
+{
+  "mode": "npm run dev",
+  "url": "http://localhost:3000",
+  "inquiryAnswer": true,
+  "dailyReward": true,
+  "fontLoaded": true,
+  "errors": [],
+  "external": []
+}

@@ -1,0 +1,8 @@
+{
+  "durationMs": 2.4000000953674316,
+  "thresholdMs": 200,
+  "meetsShould": true,
+  "method": "native performance.mark: capture click to points-chip MutationObserver",
+  "mode": "production next start",
+  "consoleErrors": []
+}

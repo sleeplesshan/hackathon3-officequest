@@ -1,0 +1,1538 @@
+[
+  {
+    "id": "gnb",
+    "className": "gnb ",
+    "color": "rgb(250, 250, 250)",
+    "background": "rgba(18, 18, 26, 0.72)",
+    "fontFamily": "Paperlogy, system-ui, sans-serif",
+    "fontSize": "15px",
+    "display": "flex",
+    "gridTemplateColumns": "none",
+    "bbox": {
+      "x": 24,
+      "y": 16,
+      "width": 1872,
+      "height": 64
+    }
+  },
+  {
+    "id": "pixel-sprite",
+    "className": "oq-pixel-sprite ",
+    "color": "rgb(250, 250, 250)",
+    "background": "rgba(0, 0, 0, 0)",
+    "fontFamily": "Paperlogy, system-ui, sans-serif",
+    "fontSize": "20px",
+    "display": "block",
+    "gridTemplateColumns": "none",
+    "bbox": {
+      "x": 44,
+      "y": 34,
+      "width": 28,
+      "height": 28
+    }
+  },
+  {
+    "id": "nav-dashboard",
+    "className": "tab ",
+    "color": "rgb(161, 161, 170)",
+    "background": "rgba(0, 0, 0, 0)",
+    "fontFamily": "Paperlogy, system-ui, sans-serif",
+    "fontSize": "15px",
+    "display": "flex",
+    "gridTemplateColumns": "none",
+    "bbox": {
+      "x": 342.671875,
+      "y": 29,
+      "width": 111.203125,
+      "height": 38
+    }
+  },
+  {
+    "id": "nav-quests",
+    "className": "tab ",
+    "color": "rgb(161, 161, 170)",
+    "background": "rgba(0, 0, 0, 0)",
+    "fontFamily": "Paperlogy, system-ui, sans-serif",
+    "fontSize": "15px",
+    "display": "flex",
+    "gridTemplateColumns": "none",
+    "bbox": {
+      "x": 455.875,
+      "y": 29,
+      "width": 127.40625,
+      "height": 38
+    }
+  },
+  {
+    "id": "nav-village",
+    "className": "tab on",
+    "color": "rgb(250, 250, 250)",
+    "background": "rgba(0, 0, 0, 0)",
+    "fontFamily": "Paperlogy, system-ui, sans-serif",
+    "fontSize": "15px",
+    "display": "flex",
+    "gridTemplateColumns": "none",
+    "bbox": {
+      "x": 585.28125,
+      "y": 29,
+      "width": 111.203125,
+      "height": 38
+    }
+  },
+  {
+    "id": "timer-display",
+    "className": "num",
+    "color": "rgb(255, 255, 255)",
+    "background": "rgba(0, 0, 0, 0)",
+    "fontFamily": "Paperlogy, system-ui, sans-serif",
+    "fontSize": "19px",
+    "display": "inline",
+    "gridTemplateColumns": "none",
+    "bbox": {
+      "x": 1055.015625,
+      "y": 42.34375,
+      "width": 80.1875,
+      "height": 23
+    }
+  },
+  {
+    "id": "timer-ctl-toggle",
+    "className": "z",
+    "color": "rgb(255, 255, 255)",
+    "background": "rgb(124, 58, 237)",
+    "fontFamily": "Paperlogy, system-ui, sans-serif",
+    "fontSize": "12px",
+    "display": "flex",
+    "gridTemplateColumns": "none",
+    "bbox": {
+      "x": 1159.78125,
+      "y": 30,
+      "width": 90.546875,
+      "height": 36
+    }
+  },
+  {
+    "id": "timer-ctl-plus30",
+    "className": null,
+    "color": "rgb(228, 228, 231)",
+    "background": "rgba(255, 255, 255, 0.08)",
+    "fontFamily": "Paperlogy, system-ui, sans-serif",
+    "fontSize": "12px",
+    "display": "flex",
+    "gridTemplateColumns": "none",
+    "bbox": {
+      "x": 1253.328125,
+      "y": 30,
+      "width": 51.609375,
+      "height": 36
+    }
+  },
+  {
+    "id": "timer-ctl-expire",
+    "className": null,
+    "color": "rgb(228, 228, 231)",
+    "background": "rgba(255, 255, 255, 0.08)",
+    "fontFamily": "Paperlogy, system-ui, sans-serif",
+    "fontSize": "12px",
+    "display": "flex",
+    "gridTemplateColumns": "none",
+    "bbox": {
+      "x": 1307.9375,
+      "y": 30,
+      "width": 72.546875,
+      "height": 36
+    }
+  },
+  {
+    "id": "timer-ctl-reset",
+    "className": null,
+    "color": "rgb(228, 228, 231)",
+    "background": "rgba(255, 255, 255, 0.08)",
+    "fontFamily": "Paperlogy, system-ui, sans-serif",
+    "fontSize": "12px",
+    "display": "flex",
+    "gridTemplateColumns": "none",
+    "bbox": {
+      "x": 1383.484375,
+      "y": 30,
+      "width": 31,
+      "height": 36
+    }
+  },
+  {
+    "id": "points-chip",
+    "className": "chip num",
+    "color": "rgb(250, 250, 250)",
+    "background": "rgb(18, 18, 26)",
+    "fontFamily": "Paperlogy, system-ui, sans-serif",
+    "fontSize": "15px",
+    "display": "flex",
+    "gridTemplateColumns": "none",
+    "bbox": {
+      "x": 1426.484375,
+      "y": 26,
+      "width": 108.1875,
+      "height": 44
+    }
+  },
+  {
+    "id": "pixel-sprite",
+    "className": "oq-pixel-sprite ",
+    "color": "rgb(250, 250, 250)",
+    "background": "rgba(0, 0, 0, 0)",
+    "fontFamily": "Paperlogy, system-ui, sans-serif",
+    "fontSize": "15px",
+    "display": "block",
+    "gridTemplateColumns": "none",
+    "bbox": {
+      "x": 1441.484375,
+      "y": 36,
+      "width": 24,
+      "height": 24
+    }
+  },
+  {
+    "id": "persona-switcher",
+    "className": "persona-current",
+    "color": "rgb(250, 250, 250)",
+    "background": "rgb(18, 18, 26)",
+    "fontFamily": "Paperlogy, system-ui, sans-serif",
+    "fontSize": "13px",
+    "display": "flex",
+    "gridTemplateColumns": "none",
+    "bbox": {
+      "x": 1542.671875,
+      "y": 26,
+      "width": 148.453125,
+      "height": 44
+    }
+  },
+  {
+    "id": "pixel-sprite",
+    "className": "oq-pixel-sprite ",
+    "color": "rgb(250, 250, 250)",
+    "background": "rgba(0, 0, 0, 0)",
+    "fontFamily": "Paperlogy, system-ui, sans-serif",
+    "fontSize": "13px",
+    "display": "block",
+    "gridTemplateColumns": "none",
+    "bbox": {
+      "x": 1547.671875,
+      "y": 34,
+      "width": 32,
+      "height": 28
+    }
+  },
+  {
+    "id": "theme-toggle",
+    "className": "thm",
+    "color": "rgb(212, 212, 216)",
+    "background": "rgb(18, 18, 26)",
+    "fontFamily": "Paperlogy, system-ui, sans-serif",
+    "fontSize": "13px",
+    "display": "flex",
+    "gridTemplateColumns": "none",
+    "bbox": {
+      "x": 1699.125,
+      "y": 26,
+      "width": 113.875,
+      "height": 44
+    }
+  },
+  {
+    "id": "sound-toggle",
+    "className": "sound-toggle",
+    "color": "rgb(168, 85, 247)",
+    "background": "rgb(18, 18, 26)",
+    "fontFamily": "Paperlogy, system-ui, sans-serif",
+    "fontSize": "15px",
+    "display": "grid",
+    "gridTemplateColumns": "30px",
+    "bbox": {
+      "x": 1821,
+      "y": 30,
+      "width": 32,
+      "height": 36
+    }
+  },
+  {
+    "id": "debug-menu",
+    "className": "debug-trigger",
+    "color": "rgb(168, 85, 247)",
+    "background": "rgba(0, 0, 0, 0)",
+    "fontFamily": "Paperlogy, system-ui, sans-serif",
+    "fontSize": "15px",
+    "display": "grid",
+    "gridTemplateColumns": "22px",
+    "bbox": {
+      "x": 1861,
+      "y": 33,
+      "width": 24,
+      "height": 30
+    }
+  },
+  {
+    "id": "app-root",
+    "className": "shell ws village-shell village-browse-shell",
+    "color": "rgb(250, 250, 250)",
+    "background": "rgba(0, 0, 0, 0)",
+    "fontFamily": "Paperlogy, system-ui, sans-serif",
+    "fontSize": "15px",
+    "display": "grid",
+    "gridTemplateColumns": "264px 1588px",
+    "bbox": {
+      "x": 0,
+      "y": 0,
+      "width": 1920,
+      "height": 1080
+    }
+  },
+  {
+    "id": "pixel-sprite",
+    "className": "oq-pixel-sprite ",
+    "color": "rgb(250, 250, 250)",
+    "background": "rgba(0, 0, 0, 0)",
+    "fontFamily": "Paperlogy, system-ui, sans-serif",
+    "fontSize": "15px",
+    "display": "block",
+    "gridTemplateColumns": "none",
+    "bbox": {
+      "x": 48,
+      "y": 127,
+      "width": 36,
+      "height": 36
+    }
+  },
+  {
+    "id": "village-new-btn",
+    "className": "btn pri  ",
+    "color": "rgb(255, 255, 255)",
+    "background": "rgb(168, 85, 247)",
+    "fontFamily": "Paperlogy, system-ui, sans-serif",
+    "fontSize": "14px",
+    "display": "flex",
+    "gridTemplateColumns": "none",
+    "bbox": {
+      "x": 39,
+      "y": 200,
+      "width": 234,
+      "height": 46
+    }
+  },
+  {
+    "id": "village-tab-all",
+    "className": "nv on",
+    "color": "rgb(250, 250, 250)",
+    "background": "rgba(168, 85, 247, 0.14)",
+    "fontFamily": "Paperlogy, system-ui, sans-serif",
+    "fontSize": "13px",
+    "display": "flex",
+    "gridTemplateColumns": "none",
+    "bbox": {
+      "x": 39,
+      "y": 298,
+      "width": 234,
+      "height": 46
+    }
+  },
+  {
+    "id": "village-tab-mapo",
+    "className": "nv ",
+    "color": "rgb(212, 212, 216)",
+    "background": "rgba(0, 0, 0, 0)",
+    "fontFamily": "Paperlogy, system-ui, sans-serif",
+    "fontSize": "13px",
+    "display": "flex",
+    "gridTemplateColumns": "none",
+    "bbox": {
+      "x": 39,
+      "y": 344,
+      "width": 234,
+      "height": 46
+    }
+  },
+  {
+    "id": "village-tab-hoehyeon",
+    "className": "nv ",
+    "color": "rgb(212, 212, 216)",
+    "background": "rgba(0, 0, 0, 0)",
+    "fontFamily": "Paperlogy, system-ui, sans-serif",
+    "fontSize": "13px",
+    "display": "flex",
+    "gridTemplateColumns": "none",
+    "bbox": {
+      "x": 39,
+      "y": 390,
+      "width": 234,
+      "height": 46
+    }
+  },
+  {
+    "id": "village-tab-banpo",
+    "className": "nv ",
+    "color": "rgb(212, 212, 216)",
+    "background": "rgba(0, 0, 0, 0)",
+    "fontFamily": "Paperlogy, system-ui, sans-serif",
+    "fontSize": "13px",
+    "display": "flex",
+    "gridTemplateColumns": "none",
+    "bbox": {
+      "x": 39,
+      "y": 436,
+      "width": 234,
+      "height": 46
+    }
+  },
+  {
+    "id": "village-tab-suseo",
+    "className": "nv ",
+    "color": "rgb(212, 212, 216)",
+    "background": "rgba(0, 0, 0, 0)",
+    "fontFamily": "Paperlogy, system-ui, sans-serif",
+    "fontSize": "13px",
+    "display": "flex",
+    "gridTemplateColumns": "none",
+    "bbox": {
+      "x": 39,
+      "y": 482,
+      "width": 234,
+      "height": 46
+    }
+  },
+  {
+    "id": "village-tab-changwon",
+    "className": "nv ",
+    "color": "rgb(212, 212, 216)",
+    "background": "rgba(0, 0, 0, 0)",
+    "fontFamily": "Paperlogy, system-ui, sans-serif",
+    "fontSize": "13px",
+    "display": "flex",
+    "gridTemplateColumns": "none",
+    "bbox": {
+      "x": 39,
+      "y": 528,
+      "width": 234,
+      "height": 46
+    }
+  },
+  {
+    "id": "village-tab-ulsan",
+    "className": "nv ",
+    "color": "rgb(212, 212, 216)",
+    "background": "rgba(0, 0, 0, 0)",
+    "fontFamily": "Paperlogy, system-ui, sans-serif",
+    "fontSize": "13px",
+    "display": "flex",
+    "gridTemplateColumns": "none",
+    "bbox": {
+      "x": 39,
+      "y": 574,
+      "width": 234,
+      "height": 46
+    }
+  },
+  {
+    "id": "my-trades-btn",
+    "className": "sidebox village-my-trades",
+    "color": "rgb(250, 250, 250)",
+    "background": "rgb(26, 26, 36)",
+    "fontFamily": "Paperlogy, system-ui, sans-serif",
+    "fontSize": "15px",
+    "display": "block",
+    "gridTemplateColumns": "none",
+    "bbox": {
+      "x": 39,
+      "y": 944.3125,
+      "width": 234,
+      "height": 90.6875
+    }
+  },
+  {
+    "id": "market-search",
+    "className": null,
+    "color": "rgb(250, 250, 250)",
+    "background": "rgba(0, 0, 0, 0)",
+    "fontFamily": "Paperlogy, system-ui, sans-serif",
+    "fontSize": "13px",
+    "display": "block",
+    "gridTemplateColumns": "none",
+    "bbox": {
+      "x": 1394.90625,
+      "y": 123,
+      "width": 326.09375,
+      "height": 19.5
+    }
+  },
+  {
+    "id": "market-sort",
+    "className": null,
+    "color": "rgb(250, 250, 250)",
+    "background": "rgb(18, 18, 26)",
+    "fontFamily": "Paperlogy, system-ui, sans-serif",
+    "fontSize": "13px",
+    "display": "inline-block",
+    "gridTemplateColumns": "none",
+    "bbox": {
+      "x": 1746,
+      "y": 110.75,
+      "width": 150,
+      "height": 44
+    }
+  },
+  {
+    "id": "market-cat-all",
+    "className": "fchip on",
+    "color": "rgb(9, 9, 11)",
+    "background": "rgb(250, 250, 250)",
+    "fontFamily": "Paperlogy, system-ui, sans-serif",
+    "fontSize": "12px",
+    "display": "flex",
+    "gridTemplateColumns": "none",
+    "bbox": {
+      "x": 308,
+      "y": 181.5,
+      "width": 64.6875,
+      "height": 36
+    }
+  },
+  {
+    "id": "market-cat-digital",
+    "className": "fchip ",
+    "color": "rgb(212, 212, 216)",
+    "background": "rgb(18, 18, 26)",
+    "fontFamily": "Paperlogy, system-ui, sans-serif",
+    "fontSize": "12px",
+    "display": "flex",
+    "gridTemplateColumns": "none",
+    "bbox": {
+      "x": 380.6875,
+      "y": 181.5,
+      "width": 100.3125,
+      "height": 36
+    }
+  },
+  {
+    "id": "market-cat-living",
+    "className": "fchip ",
+    "color": "rgb(212, 212, 216)",
+    "background": "rgb(18, 18, 26)",
+    "fontFamily": "Paperlogy, system-ui, sans-serif",
+    "fontSize": "12px",
+    "display": "flex",
+    "gridTemplateColumns": "none",
+    "bbox": {
+      "x": 489,
+      "y": 181.5,
+      "width": 89.90625,
+      "height": 36
+    }
+  },
+  {
+    "id": "market-cat-fashion",
+    "className": "fchip ",
+    "color": "rgb(212, 212, 216)",
+    "background": "rgb(18, 18, 26)",
+    "fontFamily": "Paperlogy, system-ui, sans-serif",
+    "fontSize": "12px",
+    "display": "flex",
+    "gridTemplateColumns": "none",
+    "bbox": {
+      "x": 586.90625,
+      "y": 181.5,
+      "width": 89.90625,
+      "height": 36
+    }
+  },
+  {
+    "id": "market-cat-books",
+    "className": "fchip ",
+    "color": "rgb(212, 212, 216)",
+    "background": "rgb(18, 18, 26)",
+    "fontFamily": "Paperlogy, system-ui, sans-serif",
+    "fontSize": "12px",
+    "display": "flex",
+    "gridTemplateColumns": "none",
+    "bbox": {
+      "x": 684.8125,
+      "y": 181.5,
+      "width": 115.125,
+      "height": 36
+    }
+  },
+  {
+    "id": "market-cat-hobby",
+    "className": "fchip ",
+    "color": "rgb(212, 212, 216)",
+    "background": "rgb(18, 18, 26)",
+    "fontFamily": "Paperlogy, system-ui, sans-serif",
+    "fontSize": "12px",
+    "display": "flex",
+    "gridTemplateColumns": "none",
+    "bbox": {
+      "x": 807.9375,
+      "y": 181.5,
+      "width": 89.90625,
+      "height": 36
+    }
+  },
+  {
+    "id": "market-only-available",
+    "className": "fchip ",
+    "color": "rgb(212, 212, 216)",
+    "background": "rgb(18, 18, 26)",
+    "fontFamily": "Paperlogy, system-ui, sans-serif",
+    "fontSize": "12px",
+    "display": "flex",
+    "gridTemplateColumns": "none",
+    "bbox": {
+      "x": 1694.296875,
+      "y": 181.5,
+      "width": 102.0625,
+      "height": 36
+    }
+  },
+  {
+    "id": "market-only-free",
+    "className": "fchip ",
+    "color": "rgb(212, 212, 216)",
+    "background": "rgb(18, 18, 26)",
+    "fontFamily": "Paperlogy, system-ui, sans-serif",
+    "fontSize": "12px",
+    "display": "flex",
+    "gridTemplateColumns": "none",
+    "bbox": {
+      "x": 1804.359375,
+      "y": 181.5,
+      "width": 91.640625,
+      "height": 36
+    }
+  },
+  {
+    "id": "village-products-scroll",
+    "className": "village-products",
+    "color": "rgb(250, 250, 250)",
+    "background": "rgba(0, 0, 0, 0)",
+    "fontFamily": "Paperlogy, system-ui, sans-serif",
+    "fontSize": "15px",
+    "display": "block",
+    "gridTemplateColumns": "none",
+    "bbox": {
+      "x": 304,
+      "y": 229.5,
+      "width": 1596,
+      "height": 826.5
+    }
+  },
+  {
+    "id": "item-card-m1",
+    "className": "card village-item-card ",
+    "color": "rgb(250, 250, 250)",
+    "background": "rgb(18, 18, 26)",
+    "fontFamily": "Paperlogy, system-ui, sans-serif",
+    "fontSize": "15px",
+    "display": "flex",
+    "gridTemplateColumns": "none",
+    "bbox": {
+      "x": 308,
+      "y": 233.5,
+      "width": 383.5,
+      "height": 326.9375
+    }
+  },
+  {
+    "id": "pixel-sprite",
+    "className": "oq-pixel-sprite ",
+    "color": "rgb(250, 250, 250)",
+    "background": "rgba(0, 0, 0, 0)",
+    "fontFamily": "Paperlogy, system-ui, sans-serif",
+    "fontSize": "15px",
+    "display": "block",
+    "gridTemplateColumns": "none",
+    "bbox": {
+      "x": 445.75,
+      "y": 260.5,
+      "width": 108,
+      "height": 108
+    }
+  },
+  {
+    "id": "item-status-m1",
+    "className": "badge s b-ok",
+    "color": "rgb(74, 222, 128)",
+    "background": "rgba(34, 197, 94, 0.14)",
+    "fontFamily": "Paperlogy, system-ui, sans-serif",
+    "fontSize": "10px",
+    "display": "inline-flex",
+    "gridTemplateColumns": "none",
+    "bbox": {
+      "x": 627.890625,
+      "y": 249,
+      "width": 50.609375,
+      "height": 22
+    }
+  },
+  {
+    "id": "item-like-m1",
+    "className": "",
+    "color": "rgb(244, 63, 94)",
+    "background": "rgba(0, 0, 0, 0)",
+    "fontFamily": "Paperlogy, system-ui, sans-serif",
+    "fontSize": "11px",
+    "display": "flex",
+    "gridTemplateColumns": "none",
+    "bbox": {
+      "x": 591.5625,
+      "y": 464.4375,
+      "width": 32.375,
+      "height": 26.5
+    }
+  },
+  {
+    "id": "item-like-count-m1",
+    "className": null,
+    "color": "rgb(244, 63, 94)",
+    "background": "rgba(0, 0, 0, 0)",
+    "fontFamily": "Paperlogy, system-ui, sans-serif",
+    "fontSize": "11px",
+    "display": "block",
+    "gridTemplateColumns": "none",
+    "bbox": {
+      "x": 609.5625,
+      "y": 469.4375,
+      "width": 14.375,
+      "height": 16.5
+    }
+  },
+  {
+    "id": "item-views-m1",
+    "className": null,
+    "color": "rgb(161, 161, 170)",
+    "background": "rgba(0, 0, 0, 0)",
+    "fontFamily": "Paperlogy, system-ui, sans-serif",
+    "fontSize": "11px",
+    "display": "block",
+    "gridTemplateColumns": "none",
+    "bbox": {
+      "x": 651.9375,
+      "y": 469.4375,
+      "width": 21.5625,
+      "height": 16.5
+    }
+  },
+  {
+    "id": "pixel-sprite",
+    "className": "oq-pixel-sprite ",
+    "color": "rgb(212, 212, 216)",
+    "background": "rgba(0, 0, 0, 0)",
+    "fontFamily": "Paperlogy, system-ui, sans-serif",
+    "fontSize": "11px",
+    "display": "block",
+    "gridTemplateColumns": "none",
+    "bbox": {
+      "x": 331,
+      "y": 523.4375,
+      "width": 16,
+      "height": 14
+    }
+  },
+  {
+    "id": "item-card-m2",
+    "className": "card village-item-card ",
+    "color": "rgb(250, 250, 250)",
+    "background": "rgb(18, 18, 26)",
+    "fontFamily": "Paperlogy, system-ui, sans-serif",
+    "fontSize": "15px",
+    "display": "flex",
+    "gridTemplateColumns": "none",
+    "bbox": {
+      "x": 709.5,
+      "y": 233.5,
+      "width": 383.5,
+      "height": 326.9375
+    }
+  },
+  {
+    "id": "pixel-sprite",
+    "className": "oq-pixel-sprite ",
+    "color": "rgb(250, 250, 250)",
+    "background": "rgba(0, 0, 0, 0)",
+    "fontFamily": "Paperlogy, system-ui, sans-serif",
+    "fontSize": "15px",
+    "display": "block",
+    "gridTemplateColumns": "none",
+    "bbox": {
+      "x": 847.25,
+      "y": 260.5,
+      "width": 108,
+      "height": 108
+    }
+  },
+  {
+    "id": "item-status-m2",
+    "className": "badge s b-wait",
+    "color": "rgb(251, 191, 36)",
+    "background": "rgba(245, 158, 11, 0.15)",
+    "fontFamily": "Paperlogy, system-ui, sans-serif",
+    "fontSize": "10px",
+    "display": "inline-flex",
+    "gridTemplateColumns": "none",
+    "bbox": {
+      "x": 1038.046875,
+      "y": 249,
+      "width": 41.953125,
+      "height": 22
+    }
+  },
+  {
+    "id": "item-like-m2",
+    "className": "",
+    "color": "rgb(244, 63, 94)",
+    "background": "rgba(0, 0, 0, 0)",
+    "fontFamily": "Paperlogy, system-ui, sans-serif",
+    "fontSize": "11px",
+    "display": "flex",
+    "gridTemplateColumns": "none",
+    "bbox": {
+      "x": 993.0625,
+      "y": 464.4375,
+      "width": 32.375,
+      "height": 26.5
+    }
+  },
+  {
+    "id": "item-like-count-m2",
+    "className": null,
+    "color": "rgb(244, 63, 94)",
+    "background": "rgba(0, 0, 0, 0)",
+    "fontFamily": "Paperlogy, system-ui, sans-serif",
+    "fontSize": "11px",
+    "display": "block",
+    "gridTemplateColumns": "none",
+    "bbox": {
+      "x": 1011.0625,
+      "y": 469.4375,
+      "width": 14.375,
+      "height": 16.5
+    }
+  },
+  {
+    "id": "item-views-m2",
+    "className": null,
+    "color": "rgb(161, 161, 170)",
+    "background": "rgba(0, 0, 0, 0)",
+    "fontFamily": "Paperlogy, system-ui, sans-serif",
+    "fontSize": "11px",
+    "display": "block",
+    "gridTemplateColumns": "none",
+    "bbox": {
+      "x": 1053.4375,
+      "y": 469.4375,
+      "width": 21.5625,
+      "height": 16.5
+    }
+  },
+  {
+    "id": "pixel-sprite",
+    "className": "oq-pixel-sprite ",
+    "color": "rgb(212, 212, 216)",
+    "background": "rgba(0, 0, 0, 0)",
+    "fontFamily": "Paperlogy, system-ui, sans-serif",
+    "fontSize": "11px",
+    "display": "block",
+    "gridTemplateColumns": "none",
+    "bbox": {
+      "x": 732.5,
+      "y": 523.4375,
+      "width": 16,
+      "height": 14
+    }
+  },
+  {
+    "id": "item-card-m3",
+    "className": "card village-item-card ",
+    "color": "rgb(250, 250, 250)",
+    "background": "rgb(18, 18, 26)",
+    "fontFamily": "Paperlogy, system-ui, sans-serif",
+    "fontSize": "15px",
+    "display": "flex",
+    "gridTemplateColumns": "none",
+    "bbox": {
+      "x": 1111,
+      "y": 233.5,
+      "width": 383.5,
+      "height": 326.9375
+    }
+  },
+  {
+    "id": "pixel-sprite",
+    "className": "oq-pixel-sprite ",
+    "color": "rgb(250, 250, 250)",
+    "background": "rgba(0, 0, 0, 0)",
+    "fontFamily": "Paperlogy, system-ui, sans-serif",
+    "fontSize": "15px",
+    "display": "block",
+    "gridTemplateColumns": "none",
+    "bbox": {
+      "x": 1248.75,
+      "y": 260.5,
+      "width": 108,
+      "height": 108
+    }
+  },
+  {
+    "id": "item-status-m3",
+    "className": "badge s b-wait",
+    "color": "rgb(251, 191, 36)",
+    "background": "rgba(245, 158, 11, 0.15)",
+    "fontFamily": "Paperlogy, system-ui, sans-serif",
+    "fontSize": "10px",
+    "display": "inline-flex",
+    "gridTemplateColumns": "none",
+    "bbox": {
+      "x": 1439.546875,
+      "y": 249,
+      "width": 41.953125,
+      "height": 22
+    }
+  },
+  {
+    "id": "item-like-m3",
+    "className": "",
+    "color": "rgb(244, 63, 94)",
+    "background": "rgba(0, 0, 0, 0)",
+    "fontFamily": "Paperlogy, system-ui, sans-serif",
+    "fontSize": "11px",
+    "display": "flex",
+    "gridTemplateColumns": "none",
+    "bbox": {
+      "x": 1401.75,
+      "y": 464.4375,
+      "width": 32.375,
+      "height": 26.5
+    }
+  },
+  {
+    "id": "item-like-count-m3",
+    "className": null,
+    "color": "rgb(244, 63, 94)",
+    "background": "rgba(0, 0, 0, 0)",
+    "fontFamily": "Paperlogy, system-ui, sans-serif",
+    "fontSize": "11px",
+    "display": "block",
+    "gridTemplateColumns": "none",
+    "bbox": {
+      "x": 1419.75,
+      "y": 469.4375,
+      "width": 14.375,
+      "height": 16.5
+    }
+  },
+  {
+    "id": "item-views-m3",
+    "className": null,
+    "color": "rgb(161, 161, 170)",
+    "background": "rgba(0, 0, 0, 0)",
+    "fontFamily": "Paperlogy, system-ui, sans-serif",
+    "fontSize": "11px",
+    "display": "block",
+    "gridTemplateColumns": "none",
+    "bbox": {
+      "x": 1462.125,
+      "y": 469.4375,
+      "width": 14.375,
+      "height": 16.5
+    }
+  },
+  {
+    "id": "pixel-sprite",
+    "className": "oq-pixel-sprite ",
+    "color": "rgb(212, 212, 216)",
+    "background": "rgba(0, 0, 0, 0)",
+    "fontFamily": "Paperlogy, system-ui, sans-serif",
+    "fontSize": "11px",
+    "display": "block",
+    "gridTemplateColumns": "none",
+    "bbox": {
+      "x": 1134,
+      "y": 523.4375,
+      "width": 16,
+      "height": 14
+    }
+  },
+  {
+    "id": "item-card-m4",
+    "className": "card village-item-card ",
+    "color": "rgb(250, 250, 250)",
+    "background": "rgb(18, 18, 26)",
+    "fontFamily": "Paperlogy, system-ui, sans-serif",
+    "fontSize": "15px",
+    "display": "flex",
+    "gridTemplateColumns": "none",
+    "bbox": {
+      "x": 1512.5,
+      "y": 233.5,
+      "width": 383.5,
+      "height": 326.9375
+    }
+  },
+  {
+    "id": "pixel-sprite",
+    "className": "oq-pixel-sprite ",
+    "color": "rgb(250, 250, 250)",
+    "background": "rgba(0, 0, 0, 0)",
+    "fontFamily": "Paperlogy, system-ui, sans-serif",
+    "fontSize": "15px",
+    "display": "block",
+    "gridTemplateColumns": "none",
+    "bbox": {
+      "x": 1650.25,
+      "y": 260.5,
+      "width": 108,
+      "height": 108
+    }
+  },
+  {
+    "id": "item-status-m4",
+    "className": "badge s b-ok",
+    "color": "rgb(74, 222, 128)",
+    "background": "rgba(34, 197, 94, 0.14)",
+    "fontFamily": "Paperlogy, system-ui, sans-serif",
+    "fontSize": "10px",
+    "display": "inline-flex",
+    "gridTemplateColumns": "none",
+    "bbox": {
+      "x": 1832.390625,
+      "y": 249,
+      "width": 50.609375,
+      "height": 22
+    }
+  },
+  {
+    "id": "item-like-m4",
+    "className": "",
+    "color": "rgb(244, 63, 94)",
+    "background": "rgba(0, 0, 0, 0)",
+    "fontFamily": "Paperlogy, system-ui, sans-serif",
+    "fontSize": "11px",
+    "display": "flex",
+    "gridTemplateColumns": "none",
+    "bbox": {
+      "x": 1796.0625,
+      "y": 464.4375,
+      "width": 32.375,
+      "height": 26.5
+    }
+  },
+  {
+    "id": "item-like-count-m4",
+    "className": null,
+    "color": "rgb(244, 63, 94)",
+    "background": "rgba(0, 0, 0, 0)",
+    "fontFamily": "Paperlogy, system-ui, sans-serif",
+    "fontSize": "11px",
+    "display": "block",
+    "gridTemplateColumns": "none",
+    "bbox": {
+      "x": 1814.0625,
+      "y": 469.4375,
+      "width": 14.375,
+      "height": 16.5
+    }
+  },
+  {
+    "id": "item-views-m4",
+    "className": null,
+    "color": "rgb(161, 161, 170)",
+    "background": "rgba(0, 0, 0, 0)",
+    "fontFamily": "Paperlogy, system-ui, sans-serif",
+    "fontSize": "11px",
+    "display": "block",
+    "gridTemplateColumns": "none",
+    "bbox": {
+      "x": 1856.4375,
+      "y": 469.4375,
+      "width": 21.5625,
+      "height": 16.5
+    }
+  },
+  {
+    "id": "pixel-sprite",
+    "className": "oq-pixel-sprite ",
+    "color": "rgb(212, 212, 216)",
+    "background": "rgba(0, 0, 0, 0)",
+    "fontFamily": "Paperlogy, system-ui, sans-serif",
+    "fontSize": "11px",
+    "display": "block",
+    "gridTemplateColumns": "none",
+    "bbox": {
+      "x": 1535.5,
+      "y": 523.4375,
+      "width": 16,
+      "height": 14
+    }
+  },
+  {
+    "id": "item-card-m5",
+    "className": "card village-item-card ",
+    "color": "rgb(250, 250, 250)",
+    "background": "rgb(18, 18, 26)",
+    "fontFamily": "Paperlogy, system-ui, sans-serif",
+    "fontSize": "15px",
+    "display": "flex",
+    "gridTemplateColumns": "none",
+    "bbox": {
+      "x": 308,
+      "y": 578.4375,
+      "width": 383.5,
+      "height": 326.9375
+    }
+  },
+  {
+    "id": "pixel-sprite",
+    "className": "oq-pixel-sprite ",
+    "color": "rgb(250, 250, 250)",
+    "background": "rgba(0, 0, 0, 0)",
+    "fontFamily": "Paperlogy, system-ui, sans-serif",
+    "fontSize": "15px",
+    "display": "block",
+    "gridTemplateColumns": "none",
+    "bbox": {
+      "x": 445.75,
+      "y": 605.4375,
+      "width": 108,
+      "height": 108
+    }
+  },
+  {
+    "id": "item-status-m5",
+    "className": "badge s b-ok",
+    "color": "rgb(74, 222, 128)",
+    "background": "rgba(34, 197, 94, 0.14)",
+    "fontFamily": "Paperlogy, system-ui, sans-serif",
+    "fontSize": "10px",
+    "display": "inline-flex",
+    "gridTemplateColumns": "none",
+    "bbox": {
+      "x": 627.890625,
+      "y": 593.9375,
+      "width": 50.609375,
+      "height": 22
+    }
+  },
+  {
+    "id": "item-like-m5",
+    "className": "",
+    "color": "rgb(244, 63, 94)",
+    "background": "rgba(0, 0, 0, 0)",
+    "fontFamily": "Paperlogy, system-ui, sans-serif",
+    "fontSize": "11px",
+    "display": "flex",
+    "gridTemplateColumns": "none",
+    "bbox": {
+      "x": 591.5625,
+      "y": 809.375,
+      "width": 32.375,
+      "height": 26.5
+    }
+  },
+  {
+    "id": "item-like-count-m5",
+    "className": null,
+    "color": "rgb(244, 63, 94)",
+    "background": "rgba(0, 0, 0, 0)",
+    "fontFamily": "Paperlogy, system-ui, sans-serif",
+    "fontSize": "11px",
+    "display": "block",
+    "gridTemplateColumns": "none",
+    "bbox": {
+      "x": 609.5625,
+      "y": 814.375,
+      "width": 14.375,
+      "height": 16.5
+    }
+  },
+  {
+    "id": "item-views-m5",
+    "className": null,
+    "color": "rgb(161, 161, 170)",
+    "background": "rgba(0, 0, 0, 0)",
+    "fontFamily": "Paperlogy, system-ui, sans-serif",
+    "fontSize": "11px",
+    "display": "block",
+    "gridTemplateColumns": "none",
+    "bbox": {
+      "x": 651.9375,
+      "y": 814.375,
+      "width": 21.5625,
+      "height": 16.5
+    }
+  },
+  {
+    "id": "pixel-sprite",
+    "className": "oq-pixel-sprite ",
+    "color": "rgb(212, 212, 216)",
+    "background": "rgba(0, 0, 0, 0)",
+    "fontFamily": "Paperlogy, system-ui, sans-serif",
+    "fontSize": "11px",
+    "display": "block",
+    "gridTemplateColumns": "none",
+    "bbox": {
+      "x": 331,
+      "y": 868.375,
+      "width": 16,
+      "height": 14
+    }
+  },
+  {
+    "id": "item-card-m6",
+    "className": "card village-item-card ",
+    "color": "rgb(250, 250, 250)",
+    "background": "rgb(18, 18, 26)",
+    "fontFamily": "Paperlogy, system-ui, sans-serif",
+    "fontSize": "15px",
+    "display": "flex",
+    "gridTemplateColumns": "none",
+    "bbox": {
+      "x": 709.5,
+      "y": 578.4375,
+      "width": 383.5,
+      "height": 326.9375
+    }
+  },
+  {
+    "id": "pixel-sprite",
+    "className": "oq-pixel-sprite ",
+    "color": "rgb(250, 250, 250)",
+    "background": "rgba(0, 0, 0, 0)",
+    "fontFamily": "Paperlogy, system-ui, sans-serif",
+    "fontSize": "15px",
+    "display": "block",
+    "gridTemplateColumns": "none",
+    "bbox": {
+      "x": 847.25,
+      "y": 605.4375,
+      "width": 108,
+      "height": 108
+    }
+  },
+  {
+    "id": "item-status-m6",
+    "className": "badge s b-ok",
+    "color": "rgb(74, 222, 128)",
+    "background": "rgba(34, 197, 94, 0.14)",
+    "fontFamily": "Paperlogy, system-ui, sans-serif",
+    "fontSize": "10px",
+    "display": "inline-flex",
+    "gridTemplateColumns": "none",
+    "bbox": {
+      "x": 1029.390625,
+      "y": 593.9375,
+      "width": 50.609375,
+      "height": 22
+    }
+  },
+  {
+    "id": "item-like-m6",
+    "className": "",
+    "color": "rgb(244, 63, 94)",
+    "background": "rgba(0, 0, 0, 0)",
+    "fontFamily": "Paperlogy, system-ui, sans-serif",
+    "fontSize": "11px",
+    "display": "flex",
+    "gridTemplateColumns": "none",
+    "bbox": {
+      "x": 993.0625,
+      "y": 809.375,
+      "width": 32.375,
+      "height": 26.5
+    }
+  },
+  {
+    "id": "item-like-count-m6",
+    "className": null,
+    "color": "rgb(244, 63, 94)",
+    "background": "rgba(0, 0, 0, 0)",
+    "fontFamily": "Paperlogy, system-ui, sans-serif",
+    "fontSize": "11px",
+    "display": "block",
+    "gridTemplateColumns": "none",
+    "bbox": {
+      "x": 1011.0625,
+      "y": 814.375,
+      "width": 14.375,
+      "height": 16.5
+    }
+  },
+  {
+    "id": "item-views-m6",
+    "className": null,
+    "color": "rgb(161, 161, 170)",
+    "background": "rgba(0, 0, 0, 0)",
+    "fontFamily": "Paperlogy, system-ui, sans-serif",
+    "fontSize": "11px",
+    "display": "block",
+    "gridTemplateColumns": "none",
+    "bbox": {
+      "x": 1053.4375,
+      "y": 814.375,
+      "width": 21.5625,
+      "height": 16.5
+    }
+  },
+  {
+    "id": "pixel-sprite",
+    "className": "oq-pixel-sprite ",
+    "color": "rgb(212, 212, 216)",
+    "background": "rgba(0, 0, 0, 0)",
+    "fontFamily": "Paperlogy, system-ui, sans-serif",
+    "fontSize": "11px",
+    "display": "block",
+    "gridTemplateColumns": "none",
+    "bbox": {
+      "x": 732.5,
+      "y": 868.375,
+      "width": 16,
+      "height": 14
+    }
+  },
+  {
+    "id": "item-card-m7",
+    "className": "card village-item-card ",
+    "color": "rgb(250, 250, 250)",
+    "background": "rgb(18, 18, 26)",
+    "fontFamily": "Paperlogy, system-ui, sans-serif",
+    "fontSize": "15px",
+    "display": "flex",
+    "gridTemplateColumns": "none",
+    "bbox": {
+      "x": 1111,
+      "y": 578.4375,
+      "width": 383.5,
+      "height": 326.9375
+    }
+  },
+  {
+    "id": "pixel-sprite",
+    "className": "oq-pixel-sprite ",
+    "color": "rgb(250, 250, 250)",
+    "background": "rgba(0, 0, 0, 0)",
+    "fontFamily": "Paperlogy, system-ui, sans-serif",
+    "fontSize": "15px",
+    "display": "block",
+    "gridTemplateColumns": "none",
+    "bbox": {
+      "x": 1248.75,
+      "y": 605.4375,
+      "width": 108,
+      "height": 108
+    }
+  },
+  {
+    "id": "item-status-m7",
+    "className": "badge s b-ok",
+    "color": "rgb(74, 222, 128)",
+    "background": "rgba(34, 197, 94, 0.14)",
+    "fontFamily": "Paperlogy, system-ui, sans-serif",
+    "fontSize": "10px",
+    "display": "inline-flex",
+    "gridTemplateColumns": "none",
+    "bbox": {
+      "x": 1430.890625,
+      "y": 593.9375,
+      "width": 50.609375,
+      "height": 22
+    }
+  },
+  {
+    "id": "item-like-m7",
+    "className": "",
+    "color": "rgb(244, 63, 94)",
+    "background": "rgba(0, 0, 0, 0)",
+    "fontFamily": "Paperlogy, system-ui, sans-serif",
+    "fontSize": "11px",
+    "display": "flex",
+    "gridTemplateColumns": "none",
+    "bbox": {
+      "x": 1394.5625,
+      "y": 809.375,
+      "width": 32.375,
+      "height": 26.5
+    }
+  },
+  {
+    "id": "item-like-count-m7",
+    "className": null,
+    "color": "rgb(244, 63, 94)",
+    "background": "rgba(0, 0, 0, 0)",
+    "fontFamily": "Paperlogy, system-ui, sans-serif",
+    "fontSize": "11px",
+    "display": "block",
+    "gridTemplateColumns": "none",
+    "bbox": {
+      "x": 1412.5625,
+      "y": 814.375,
+      "width": 14.375,
+      "height": 16.5
+    }
+  },
+  {
+    "id": "item-views-m7",
+    "className": null,
+    "color": "rgb(161, 161, 170)",
+    "background": "rgba(0, 0, 0, 0)",
+    "fontFamily": "Paperlogy, system-ui, sans-serif",
+    "fontSize": "11px",
+    "display": "block",
+    "gridTemplateColumns": "none",
+    "bbox": {
+      "x": 1454.9375,
+      "y": 814.375,
+      "width": 21.5625,
+      "height": 16.5
+    }
+  },
+  {
+    "id": "pixel-sprite",
+    "className": "oq-pixel-sprite ",
+    "color": "rgb(212, 212, 216)",
+    "background": "rgba(0, 0, 0, 0)",
+    "fontFamily": "Paperlogy, system-ui, sans-serif",
+    "fontSize": "11px",
+    "display": "block",
+    "gridTemplateColumns": "none",
+    "bbox": {
+      "x": 1134,
+      "y": 868.375,
+      "width": 16,
+      "height": 14
+    }
+  },
+  {
+    "id": "item-card-m8",
+    "className": "card village-item-card sold",
+    "color": "rgb(250, 250, 250)",
+    "background": "rgb(18, 18, 26)",
+    "fontFamily": "Paperlogy, system-ui, sans-serif",
+    "fontSize": "15px",
+    "display": "flex",
+    "gridTemplateColumns": "none",
+    "bbox": {
+      "x": 1512.5,
+      "y": 578.4375,
+      "width": 383.5,
+      "height": 326.9375
+    }
+  },
+  {
+    "id": "pixel-sprite",
+    "className": "oq-pixel-sprite ",
+    "color": "rgb(250, 250, 250)",
+    "background": "rgba(0, 0, 0, 0)",
+    "fontFamily": "Paperlogy, system-ui, sans-serif",
+    "fontSize": "15px",
+    "display": "block",
+    "gridTemplateColumns": "none",
+    "bbox": {
+      "x": 1650.25,
+      "y": 605.4375,
+      "width": 108,
+      "height": 108
+    }
+  },
+  {
+    "id": "item-status-m8",
+    "className": "badge s b-done",
+    "color": "rgb(161, 161, 170)",
+    "background": "rgb(39, 39, 42)",
+    "fontFamily": "Paperlogy, system-ui, sans-serif",
+    "fontSize": "10px",
+    "display": "inline-flex",
+    "gridTemplateColumns": "none",
+    "bbox": {
+      "x": 1832.390625,
+      "y": 593.9375,
+      "width": 50.609375,
+      "height": 22
+    }
+  },
+  {
+    "id": "item-like-m8",
+    "className": "",
+    "color": "rgb(244, 63, 94)",
+    "background": "rgba(0, 0, 0, 0)",
+    "fontFamily": "Paperlogy, system-ui, sans-serif",
+    "fontSize": "11px",
+    "display": "flex",
+    "gridTemplateColumns": "none",
+    "bbox": {
+      "x": 1810.4375,
+      "y": 809.375,
+      "width": 25.1875,
+      "height": 26.5
+    }
+  },
+  {
+    "id": "item-like-count-m8",
+    "className": null,
+    "color": "rgb(244, 63, 94)",
+    "background": "rgba(0, 0, 0, 0)",
+    "fontFamily": "Paperlogy, system-ui, sans-serif",
+    "fontSize": "11px",
+    "display": "block",
+    "gridTemplateColumns": "none",
+    "bbox": {
+      "x": 1828.4375,
+      "y": 814.375,
+      "width": 7.1875,
+      "height": 16.5
+    }
+  },
+  {
+    "id": "item-views-m8",
+    "className": null,
+    "color": "rgb(161, 161, 170)",
+    "background": "rgba(0, 0, 0, 0)",
+    "fontFamily": "Paperlogy, system-ui, sans-serif",
+    "fontSize": "11px",
+    "display": "block",
+    "gridTemplateColumns": "none",
+    "bbox": {
+      "x": 1863.625,
+      "y": 814.375,
+      "width": 14.375,
+      "height": 16.5
+    }
+  },
+  {
+    "id": "pixel-sprite",
+    "className": "oq-pixel-sprite ",
+    "color": "rgb(212, 212, 216)",
+    "background": "rgba(0, 0, 0, 0)",
+    "fontFamily": "Paperlogy, system-ui, sans-serif",
+    "fontSize": "11px",
+    "display": "block",
+    "gridTemplateColumns": "none",
+    "bbox": {
+      "x": 1535.5,
+      "y": 868.375,
+      "width": 16,
+      "height": 14
+    }
+  },
+  {
+    "id": "particle-canvas",
+    "className": "oq-particle-canvas",
+    "color": "rgb(250, 250, 250)",
+    "background": "rgba(0, 0, 0, 0)",
+    "fontFamily": "Paperlogy, system-ui, sans-serif",
+    "fontSize": "15px",
+    "display": "block",
+    "gridTemplateColumns": "none",
+    "bbox": {
+      "x": 0,
+      "y": 0,
+      "width": 1920,
+      "height": 1080
+    }
+  }
+]

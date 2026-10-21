@@ -1,0 +1,5 @@
+'use client';
+import { useState } from 'react';
+import { AlertTriangle } from 'lucide-react';
+import { Button, Modal } from '@/components/ui';
+export default function RejectModal({count,onClose,onConfirm}:{count:number;onClose:()=>void;onConfirm:(reason:string)=>void}){const [reason,setReason]=useState('');return <Modal title="결과물 보완 요청" testId="reject-modal" onClose={onClose} footer={<><Button onClick={onClose}>취소</Button><Button data-testid="reject-confirm" variant="reject" disabled={reason.trim().length<5} onClick={()=>onConfirm(reason.trim())}>반려하기</Button></>}>{count===1&&<div className="last-reject-warning" data-testid="reject-last-warning"><AlertTriangle size={20}/><div><b>이번이 마지막 반려예요</b><p>반려는 최대 2회예요. 필요한 보완 내용을 구체적으로 적어 주세요.</p></div></div>}<p className="muted">작업자가 보완할 내용을 5자 이상 작성해 주세요.</p><label className="field-label">보완 사유<textarea data-autofocus data-testid="reject-reason-input" value={reason} onChange={e=>setReason(e.target.value)} rows={5} placeholder="어떤 부분을 보완하면 좋을까요?"/></label></Modal>;}

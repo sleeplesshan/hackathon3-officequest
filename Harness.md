@@ -1,4 +1,4 @@
-# [AGENT HARNESS] 오피스퀘스트 (Office Quest) & 효성마을 Autopilot 실행 규약 · v2.6
+# [AGENT HARNESS] 오피스퀘스트 (Office Quest) & 효성마을 Autopilot 실행 규약 · v2.7
 
 이 문서는 GitHub Copilot Agent Mode(Autopilot)가 **오피스퀘스트 & 효성마을**을 사람의 개입 없이 끝까지 구현·검증하기 위한 **최상위 실행 제어 하네스(Execution Harness)**입니다. 에이전트는 모든 코드 생성, 상태 관리, UI 렌더링, 테스트 과정에서 이 문서의 규칙을 지켜야 합니다.
 
@@ -8,13 +8,14 @@
 - v2.2: 팀원 피드백 3건(별점 품질 보상 · 반려 최대 2회 · 운영자 모니터링 & 제재, PRD D40–D53). 기존 게이트·명령은 그대로이며 Phase **P5b**와 E2E `14`·`15`가 추가됐습니다.
 - v2.5: test 폴더 빌드(Codex 실행 결과)와 빌드 의견·팀원 피드백 01–31을 반영했습니다(PRD D63–D88). 진단 스크립트 `npm run doctor`, 금지 규칙 12·13, E2E `16`–`21`, 참조 구현 `reference/`(§12)가 추가됐습니다.
 - v2.6: 검수봇·분석봇 v2.5 재검토 반영(PRD D89–D91). AC 담당 스펙 보강(8.6.3 → P4b, 8.7.7–8.7.9·8.16.8–8.16.9·8.18.7), 오류 코드 통일, 수명 테스트 시각, 태그 확인 명령, B4·B26 판정 방식. 판정 내역(비개발자용)은 패키지의 `CHANGES.md`.
+- v2.7: 파일럿 빌드 전체를 `Pilot_Test_Code_Review/`로 동봉하고 **공식 참조 구현**으로 지정했습니다(§12.2: 읽을 경로·사용 규칙, PRD §0.4: 복사하지 말 것 표). 금지 패턴 검사·tsconfig·ESLint·Vitest·Playwright 설정이 이 폴더를 건너뛰도록 부록 A를 갱신하고 스크래치에서 실행 확인했습니다.
 - 이 문서의 어떤 단계에서도 **사용자에게 질문하지 않습니다.** 모호하면 §8 "묻지 말고 이렇게 결정" 표를 따르고, 표에 없으면 PRD → DESIGN → refs 순으로 근거를 찾아 결정한 뒤 `DUAL_BRAIN_AUDIT.md`에 기록합니다.
 
 ---
 
 ## 0. 시작 절차 (Autopilot이 가장 먼저 할 일)
 
-1. 저장소 루트에서 다음 순서로 **전부** 읽습니다: `PRD.md` → `Harness.md`(이 문서) → `DESIGN.md` → `tokens.css` → `refs/01–10_*.png`(이미지로 확인) → `skills/dual-brain/SKILL.md` → `skills/SOURCES.md` → (있으면) `reference/README.md`(§12, v2.5).
+1. 저장소 루트에서 다음 순서로 **전부** 읽습니다: `PRD.md` → `Harness.md`(이 문서) → `DESIGN.md` → `tokens.css` → `refs/01–10_*.png`(이미지로 확인) → `skills/dual-brain/SKILL.md` → `skills/SOURCES.md` → (있으면) `reference/README.md`(§12.1, v2.5) → (있으면, 훑어보기·선택) `Pilot_Test_Code_Review/Opinion.md`와 §12.2 표의 파일럿 경로(v2.7). 파일럿은 구현 중에도 해당 Phase의 경로를 다시 읽습니다(SHOULD). 파일럿 안의 `PRD.md`·`Harness.md`·`DESIGN.md`·`tokens.css`·`.github/`는 v2.3 사본이라 **읽지 않습니다**(명세 혼동 방지).
    - **MISSING 규칙**: 이 목록이나 이 문서가 가리키는 파일(예: `skills/dual-brain/references/memory.md`, `references/runtime.md`, `source/mock/*`)이 없으면 **건너뛰고** `DUAL_BRAIN_AUDIT.md`에 `MISSING: <경로> → 적용한 대체 규칙`을 한 줄 기록한 뒤 계속합니다(§7 B21). 없는 파일을 만들거나 내려받지 않습니다.
    - `skills/dual-brain/`의 최소 구성은 `SKILL.md` + `README.ko.md`입니다. 사용자 저장소 원본(dual-brain-main)이 통째로 있으면 그 안의 `references/*.md`도 사용합니다.
 2. 루트에 `.github/copilot-instructions.md`를 만들고 아래 내용을 그대로 넣습니다(이후 모든 Copilot 세션이 같은 규칙을 로드하도록).
@@ -26,6 +27,7 @@
    - Never ask the user. Use Harness.md §8 decision table; log every non-trivial decision in DUAL_BRAIN_AUDIT.md.
    - Done only when Harness.md §9 Definition of Done passes (or §9.3 conditional completion).
    - ./reference is an example implementation only (Harness §12). PRD/Harness win; copy only the files Harness names.
+   - ./Pilot_Test_Code_Review/officequest is the read-only v2.3 pilot build (Harness §12.2): read it for patterns and Opinion.md pitfalls; never import, install, build or test it, never copy wholesale; PRD §0.4 lists what NOT to copy.
    ```
 3. 루트에 `DUAL_BRAIN_AUDIT.md`(§10 템플릿)와 `.dual-brain/MEMORY.md`(§10.3)를 만듭니다.
 4. §4 Phase 0부터 순서대로 진행합니다. **게이트 규칙**:
@@ -76,6 +78,7 @@
 ./.dual-brain/MEMORY.md
 ./.github/copilot-instructions.md
 ./refs/01…10_*.png   ./motion/officequest_intro.html   ./skills/…   (읽기 전용 · 수정 금지)
+./reference/   ./Pilot_Test_Code_Review/   (v2.5 참조 자료 · v2.7 파일럿 빌드, 읽기 전용 · 수정·빌드 금지, §12)
 ./officequest/
   package.json  package-lock.json  .nvmrc  .npmrc  .gitignore
   next.config.ts  tsconfig.json  tailwind.config.ts  postcss.config.mjs
@@ -500,7 +503,7 @@ npm run doctor                         # v2.5: 진단표 + qa/doctor.json, 항�
 - `ref07`·`limitApprove`·`rejectLimit` 모두 `rejectCount`를 명시하고(0·0·2), 승인 전이므로 RatingRecord를 추가하지 않습니다.
 
 ### 5.5 금지 패턴 자동 검사 (`npm run qa:forbidden` = 부록 A-13 `scripts/check-forbidden.mjs`)
-검사 대상 `src/**`의 `.ts .tsx .css .mjs .js`(단 `src/styles/tokens.css` 복사본 제외). `tests/**`·`scripts/**`는 제외. 위반 시 exit 1. 검사 항목:
+검사 대상 `src/**`의 `.ts .tsx .css .mjs .js`(단 `src/styles/tokens.css` 복사본 제외). `tests/**`·`scripts/**`는 제외. (v2.7) `node_modules`·`.next`·`Pilot_Test_Code_Review` 디렉터리는 어디서든 건너뛰고, 파일럿 폴더 안에서 실행하면 exit 2로 거부합니다. 파일럿 코드는 규칙 12 등을 위반하므로(PRD §0.4) 검사 대상이 되면 안 됩니다. 위반 시 exit 1. 검사 항목:
 1. `tiny.cloud`, `apiKey=` 문자열
 2. URL 호스트 허용 목록 외 `http(s)://` — **허용 호스트: `fastly.jsdelivr.net`(Paperlogy CDN 폴백), `www.w3.org`(인라인 SVG `xmlns`), `localhost`**. (v2.5: `hyosung.sharepoint.com` 제거 — 시연 첨부는 URL을 만들지 않음, PRD D70)
 3. `onClick={() => {}}` (공백 변형 포함)
@@ -615,6 +618,8 @@ npm run doctor                         # v2.5: 진단표 + qa/doctor.json, 항�
 | (v2.6) NPC 판매자 스레드에서 거래를 약속하는 답장 | 쓰지 않음. `MARKET_NPC_NOTICE`(PRD D90) |
 | (v2.6) 답변이 있는 문의의 마감이 지남 | 답변 작성 닫음, 채택만 가능, 자동 환불 없음(PRD D91) |
 | (v2.6) 가드가 여러 개 동시에 실패 | PRD §5 평가 순서의 첫 code |
+| (v2.7) 파일럿 코드와 PRD가 다름 | PRD대로. §0.4 표에 없던 차이면 Audit `PILOT-DIFF` 기록(§12.2-4) |
+| (v2.7) 파일럿 파일을 가져와도 되는지 | 그 파일이 이미 현재 문서를 만족할 때만 1개씩, 맞춘 뒤 게이트 재실행(§12.2-3) |
 | (v2.5) 토스트가 여러 개 겹침 | 화면에 1개, danger > success > info(D84, `toast.test`) |
 | (v2.5) 참조 구현(`reference/`)과 PRD가 다름 | PRD·Harness가 이김. 참조 구현은 예시(§12, PRD §0.4의 차이 목록) |
 | (v2.5) 이전 빌드의 localStorage가 남아 있음 | 스키마 v2 불일치 → 시드 재적재 + 토스트(D78). 이관 코드 작성 금지 |
@@ -744,6 +749,7 @@ npm run test:visual          # 새로 빌드 후 §6 10장 DOM 단언 통과 + q
 - 사용자에게 질문하고 대기하기
 - 부록 A 설정 파일을 임의로 줄이거나 익명 default export로 바꾸기
 - Phase 태그 없는 테스트·§4 목록 밖 태그(`@feedback` 등), 아직 없는 기능을 앞 Phase 게이트에 넣기
+- (v2.7) `Pilot_Test_Code_Review/` 수정·import·빌드·테스트 실행·통째 복사, 그 안의 v2.3 PRD·Harness·DESIGN을 명세로 쓰기
 - (v2.5) 구매 요청·판매자 승인·NPC 자동 승인 되살리기, 동료 잔액 표시, 첨부 URL 생성, 음원 파일, 캐릭터 PNG 생성·편집, `reference/`를 앱 런타임에서 import(복사만 허용), Tailwind와 겹치는 CSS 클래스
 
 ---
@@ -779,7 +785,7 @@ npm run test:visual          # 새로 빌드 후 §6 10장 DOM 단언 통과 + q
     "paths": { "@/*": ["./src/*"] }
   },
   "include": ["next-env.d.ts", "src/**/*.ts", "src/**/*.tsx", "tests/**/*.ts", "*.ts", ".next/types/**/*.ts"],
-  "exclude": ["node_modules", "public", ".next", "playwright-report", "test-results"]
+  "exclude": ["node_modules", "public", ".next", "playwright-report", "test-results", "../Pilot_Test_Code_Review"]
 }
 ```
 
@@ -822,7 +828,7 @@ import { FlatCompat } from '@eslint/eslintrc';
 const compat = new FlatCompat({ baseDirectory: dirname(fileURLToPath(import.meta.url)) });
 
 const eslintConfig = [
-  { ignores: ['.next/**', 'node_modules/**', 'public/**', 'playwright-report/**', 'test-results/**', 'qa/**', 'next-env.d.ts'] },
+  { ignores: ['.next/**', 'node_modules/**', 'public/**', 'playwright-report/**', 'test-results/**', 'qa/**', 'next-env.d.ts', '**/Pilot_Test_Code_Review/**'] },
   ...compat.extends('next/core-web-vitals', 'next/typescript'),
   {
     rules: {
@@ -927,7 +933,7 @@ import { defineConfig } from 'vitest/config';
 process.env.TZ = 'Asia/Seoul';
 
 export default defineConfig({
-  test: { include: ['tests/unit/**/*.test.ts'], environment: 'node', env: { TZ: 'Asia/Seoul' } },
+  test: { include: ['tests/unit/**/*.test.ts'], exclude: ['**/node_modules/**', '**/Pilot_Test_Code_Review/**'], environment: 'node', env: { TZ: 'Asia/Seoul' } },
   resolve: { alias: { '@': fileURLToPath(new URL('./src', import.meta.url)) } },
 });
 ```
@@ -965,6 +971,7 @@ export default defineConfig({
     reuseExistingServer: false,
     timeout: 120_000,
   },
+  testIgnore: ['**/Pilot_Test_Code_Review/**'], // v2.7: 파일럿 빌드 테스트는 절대 실행하지 않음(§12.2)
   projects: [
     { name: 'e2e', testDir: 'tests/e2e', use: { viewport: { width: 1440, height: 900 } } },
     { name: 'visual', testDir: 'tests/visual', use: { viewport: { width: 1920, height: 1080 }, deviceScaleFactor: 1 } },
@@ -1117,7 +1124,7 @@ console.log('[verify-tokens] OK');
 
 `scripts/check-forbidden.mjs` (v2.5 = `reference/scripts/check-forbidden.mjs`, 규칙 12·13 추가, 허용 호스트에서 SharePoint 제거)
 ```js
-// Harness §5.5 금지 패턴 검사 (v2.5). 대상: src/** (src/styles/tokens.css 제외). 위반 시 exit 1.
+// Harness §5.5 금지 패턴 검사 (v2.5, v2.7). 대상: src/** (src/styles/tokens.css 제외). 위반 시 exit 1.
 import { readdirSync, readFileSync, statSync } from 'node:fs';
 import { join, relative } from 'node:path';
 
@@ -1130,10 +1137,18 @@ const URL_ALLOW = ['fastly.jsdelivr.net', 'www.w3.org', 'localhost'];
 // v2.5 규칙 12: Tailwind 유틸리티와 이름이 겹치는 커스텀 CSS 클래스 선택자 (Harness §1.6-9)
 const TW_CLASH = /(?:^|[\s,}>+~(])\.(ring|shadow|container|hidden|block|inline|flex|grid|table|border|rounded|truncate|blur|filter|transform|transition|outline|underline|italic|uppercase|lowercase|capitalize|static|fixed|absolute|relative|sticky|visible|invisible|collapse|contents|grow|shrink|isolate|sr-only|antialiased|ease-in|ease-out|ease-linear|animate-spin|animate-pulse|prose)(?=[\s,{:.\[>+~)])/m;
 
+// v2.7: 이 검사는 officequest/src만 본다. 저장소 루트의 파일럿 빌드(Pilot_Test_Code_Review/)와 빌드 산출물은 경로가 어떻게 잡혀도 건너뛴다.
+const SKIP_DIRS = new Set(['node_modules', '.next', 'Pilot_Test_Code_Review']);
+if (process.cwd().split(/[\\/]/).includes('Pilot_Test_Code_Review')) {
+  console.error('check-forbidden: run from officequest/, not from Pilot_Test_Code_Review/');
+  process.exit(2);
+}
+
 const files = [];
 (function walk(dir) {
   for (const name of readdirSync(dir)) {
     const p = join(dir, name);
+    if (SKIP_DIRS.has(name)) continue;
     if (statSync(p).isDirectory()) walk(p);
     else if (/\.(ts|tsx|css|mjs|js)$/.test(name)) files.push(p);
   }
@@ -1288,7 +1303,9 @@ console.log(`[doctor] FAIL ${summary.fail} · WARN ${summary.warn} (qa/doctor.js
 
 ---
 
-## 12. 참조 구현 `reference/` (v2.5)
+## 12. 참조 구현 (v2.5 `reference/`, v2.7 `Pilot_Test_Code_Review/`)
+
+### 12.1 `reference/` — 바로 복사해 쓰는 작은 자료 (v2.5)
 
 test 폴더에서 Codex가 이 문서 v2.3(브랜드 팔레트 v2.4 이전)으로 실제 빌드한 앱(vitest 224/224, `next build` 통과, 13개 라우트 1440×900 콘솔 오류 0)을 검토해 **작은 재사용 파일만** 골라 `./reference/`에 넣었습니다. 앱 소스 전체·`node_modules`·동영상·비밀정보는 넣지 않았습니다.
 
@@ -1306,6 +1323,48 @@ test 폴더에서 Codex가 이 문서 v2.3(브랜드 팔레트 v2.4 이전)으�
 2. `reference/`가 **없어도** 모든 Phase를 끝낼 수 있습니다. 스크립트는 부록 A 본문, PNG는 B26, 에디터 한국어 파일은 SHOULD라 생략 가능.
 3. 앱 코드에서 `../reference/`를 import하거나 런타임에 읽지 않습니다. 복사만 합니다.
 4. `reference/` 파일은 수정하지 않습니다(루트 문서와 같은 읽기 전용, §8).
+
+### 12.2 `Pilot_Test_Code_Review/` — 공식 참조 구현 (v2.7)
+
+v2.3 문서로 끝까지 만든 파일럿 빌드 전체입니다(앱 소스·테스트·qa·scripts·public 자산, `Opinion.md`, `RUN.md`, `DUAL_BRAIN_AUDIT.md`, `.dual-brain/`, `source/`, `refs/`, 당시 PRD·Harness·DESIGN·tokens 사본). `node_modules`·`.next`·`public/tinymce`·`playwright-report`·`test-results`·영상·중복 `skills/`는 넣지 않았습니다. **PRD·Harness·DESIGN이 이깁니다.** 파일럿은 v2.4 브랜드 팔레트와 D63–D91 일부를 모르므로, 따라 하기 전에 PRD §0.4 "복사하지 말 것" 표를 먼저 확인합니다.
+
+읽을 곳(경로는 `Pilot_Test_Code_Review/officequest/` 기준):
+
+| 경로 | 언제 | 무엇을 배우나 |
+|---|---|---|
+| `../Opinion.md` | P0 전 훑어보기, 각 Phase 시작 | 실제로 막힌 함정 33건과 그 원인. 같은 실수를 미리 피하는 체크리스트 |
+| `../RUN.md` · `../DUAL_BRAIN_AUDIT.md` · `../.dual-brain/MEMORY.md` | P0, Audit 작성 시 | 실행 순서, 감리 기록·메모리 작성 형식(내용은 v2.3 기준) |
+| `src/lib/types.ts` · `constants.ts` | P1 | DB·액션 유니언·오류 코드 구성 방식. 요청·승인 잔재 타입은 복사하지 않음 |
+| `src/lib/guards.ts` | P1 | `canAction`/`canX` 하나로 UI 비활성과 리듀서 거부를 같이 판정하는 구조, `getBuyState`, 새날(`newDay`) 처리. 평가 순서·되돌리기 문구는 PRD가 정답 |
+| `src/lib/db/reducer.ts` | P1 | 순수 리듀서, `structuredClone` 후 변경, Tx 기록·역분개(`undoReceipt`)·`reversedAt` |
+| `src/lib/quest-machine.ts` · `market-machine.ts` · `admin-machine.ts` | P1 | 2–3줄 re-export 모음(실제 상태 전이는 `reducer.ts`, 판정은 `guards.ts`). 테스트 import 경로를 기계별로 나누는 방식만 참고 |
+| `src/lib/formulas.ts` · `rating.ts` · `restrictions.ts` · `monitoring.ts` · `quest-access.ts` | P1 | 레벨·티어·별점 집계, 제재 상태 우선순위, R1–R5 플래그·수명, 시간 만료 열람 판정 |
+| `src/lib/rng.ts` · `clock.ts` · `ui/useNow.ts` | P1 | mulberry32, `now()`/`elapsedMs()` 분리, 1초 재평가 훅 |
+| `src/lib/db/seed.ts` · `scenarios.ts` · `selectors.ts` | P1 | PRD §9 시드 적재, `loadScenario` 시나리오(`seed`·`ref07`·`timerExpired`·`limitApprove`·`rejectLimit` — v2.5의 `finalBuyer`·`manyItems`는 없음, §5.4대로 추가), 목록 필터·카운트 셀렉터 |
+| `src/lib/db/DbProvider.tsx` · `useDb.ts` · `persistence.ts` · `sync.ts` | P1 | 목업 DB 저장소: `localStorage` + `BroadcastChannel` 동기화, 성공한 dispatch 뒤 피드백 호출. 저장값 이관은 따르지 않음(D78) |
+| `src/lib/test-hooks.ts` | P1·P3 | `window.__OQ_TEST__`(하이퍼 프레임·Teams 기록, `loadScenario`). 효과음 기록 `sounds`는 없으므로 §5.2 규칙대로 추가 |
+| `src/lib/teams-replies.ts` · `character.ts` · `audio.ts` · `sharepoint.ts`(시연 첨부) | P1·P3 | 키워드 답장 구조, 캐릭터 외형 해금, Web Audio 합성음, URL 없는 첨부 메타. 답장 문구는 PRD §8.12 |
+| `src/app/**/page.tsx` | P2–P5b | 라우트 구성(`/`, `/quests/daily`, `/quests/board`, `/quests/new`, `/quests/[no]`, `/quests/[no]/edit`, `/village`, `/village/new`, `/village/[id]`, `/village/[id]/edit`, `/admin`) |
+| `src/components/shell/` · `ui/` · `dashboard/` | P2 | AppShell·GNB·사이드바, UI 프리미티브(사유 툴팁 달린 `Button`), 대시보드 벤토 |
+| `src/components/pixel/` · `hyperframe/` · `character/` · `feedback/` | P3 | 스프라이트·파티클·하이퍼 프레임 A/B 타임라인, 캐릭터 꾸미기, 보상 패널 |
+| `src/components/editor/` · `modals/` · `quest/` | P4a·P4b | 공유 에디터 로더(`RichEditor`·`TinyEditor`·`FallbackEditor`), 보안서약, 퀘스트 폼·게시판·상세·문의 답변·별점·반려 |
+| `src/components/teams/` | P4b | 플로팅 Teams 창·입력 중 표시 |
+| `src/components/village/` · `org/` | P5 | 목록·상품 영역 스크롤(파일럿 testid `village-products-scroll` → 현재 이름은 `market-scroll`, §5.3)·상세·`BuyButton`·판매자 패널·거래 내역 드로어·조직도. 포인트 부족 비활성·상대 잔액 표시는 따르지 않음 |
+| `src/components/admin/` | P5b | 운영자 콘솔·제재·무혐의·해제 모달. 요약 칩 집계는 D85 |
+| `src/styles/*.css` | P2 이후 | 화면별 CSS 분리 방식. `.grow`·`.ring`·`--accent-cyan`은 복사하지 않음 |
+| `tests/unit/*.test.ts` · `domain-fixtures.ts` | P1 | 표 기반 단위 테스트 구성, 고정 시각·시드 픽스처 |
+| `tests/e2e/helpers.ts` · `quest-helpers.ts` · `market-helpers.ts` · `*.spec.ts` | P2–P6 | `bootstrap`·`approveWithStars`·`expectHyperFrame` 같은 헬퍼와 시나리오 진행. 태그·스펙 이름은 §4·§5.2 기준으로 다시 붙임 |
+| `tests/visual/refs.spec.ts` · `compare.spec.ts` · `comparison-helpers.ts` | P3–P6 | ref 촬영·DOM 단언·나란히 비교 이미지 생성 |
+| `scripts/*.mjs` | P0 | 스크립트 구조. 실제 사용은 `reference/scripts/` 최신본(부록 A). `local-fonts.cjs`는 쓰지 않음 |
+| `qa/AC_MAP.md` · `qa/VISUAL_QA.md` · `qa/compare/` | P6 | 기록 **형식**만. 내용은 v2.3 AC 기준이라 그대로 쓰지 않음 |
+| `public/assets/character/` · `qa/character/` | P3 | PNG 24장은 `reference/assets/character/`에서 복사(같은 파일). `info-badge.png`·생성 이력은 쓰지 않음 |
+
+규칙:
+1. **읽기 전용.** 이 폴더의 파일을 고치지 않고, 앱 코드에서 import하거나 런타임에 읽지 않습니다.
+2. **실행하지 않습니다.** 파일럿 안에서 `npm install`·`npm ci`·`next build`·`vitest`·`playwright`를 돌리지 않습니다. 게이트는 항상 `officequest/`에서 실행합니다. 부록 A의 `tsconfig`(exclude)·ESLint(ignores)·Vitest(exclude)·Playwright(`testIgnore`)·`check-forbidden`(SKIP_DIRS)이 이 폴더를 건너뜁니다(2026-10-21 스크래치에서 tsc·eslint·vitest list·playwright list 모두 파일럿 파일 0건 확인).
+3. **통째로 복사하지 않습니다.** 폴더·여러 파일을 한꺼번에 옮기지 않습니다. 파일 **하나**를 가져오는 것은 그 파일이 이미 현재 PRD·Harness·DESIGN을 만족할 때만 허용합니다. 가져온 뒤 import 경로·문구·testid를 현재 문서에 맞추고, 그 Phase 게이트를 다시 돌리고, Audit에 `PILOT-COPY: <파일> → <변경 요약>`을 남깁니다.
+4. **문서가 이깁니다.** 파일럿과 PRD가 다르면 PRD대로 만들고, 차이를 처음 발견하면(§0.4 표에 없으면) Audit에 `PILOT-DIFF: <경로> → <PRD 근거>`를 기록합니다.
+5. **없어도 끝까지 갑니다.** 폴더가 없으면 Audit에 `MISSING: Pilot_Test_Code_Review` 한 줄을 남기고 §12.1 `reference/`와 부록 A만으로 진행합니다(§0-1 MISSING 규칙).
 
 ---
 
@@ -1372,4 +1431,6 @@ test 폴더에서 Codex가 이 문서 v2.3(브랜드 팔레트 v2.4 이전)으�
 | v2.6 | 2026-10-21 | D89–D91 테스트(`07` 되돌리기 거부 토스트, `teams-replies` NPC·나눔, `inquiry` 마감), `buy-guidance[data-state=npc]`, `inquiry-due-banner`, §8 판정 4행 | 분석봇 v2.5 이의 1–3 |
 | v2.6 | 2026-10-21 | 태그 확인 명령(출력 `0`), B4 폰트 404 두 수집기 제외, B26 `skipIf` + §11 예외, 요약 칩 testid 위치, `16`을 AC-8.18.3과 통일, `guards.test` 평가 순서, `quest-access.test` 자정 경계 | 분석봇 v2.5 권장-4·5·7–11 |
 | v2.6 | 2026-10-21 | AC-8.3.3 → `19`, §5.1 행에 AC 번호, Visual 07 ↔ AC-8.7.8, 트리에 `brand.test`, §8 반응형 행, 감리 문구, AC-8.7.9(`15`), B23 순서, 변경 이력 순서, 제목 아이콘 제거, 자리표시자 설명, `CHANGES.md` 경로 | 검수봇 v2.5 권장-1–3·9–15 |
+| v2.7 | 2026-10-21 | §12.2 파일럿 빌드(`Pilot_Test_Code_Review/`) 공식 참조 구현: 읽을 경로 표·규칙 5개, §0-1 읽기 순서, copilot-instructions 1줄, §1.2 트리, §8 2행, §11 금지 | 사용자 요청(파일럿 빌드를 레퍼런스로) |
+| v2.7 | 2026-10-21 | 부록 A-2 tsconfig `exclude`·A-5 ESLint `ignores`·A-8 Vitest `exclude`·A-9 Playwright `testIgnore`·A-13 `check-forbidden` `SKIP_DIRS`(+ `reference/scripts/` 같은 내용)에 파일럿 폴더 제외, 스크래치 실행 확인 | 사용자 요청(게이트가 파일럿을 검사하지 않도록) |
 | v2.0 | 2026-10-21 | 최초 Autopilot 제출본 | — |
