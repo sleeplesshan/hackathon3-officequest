@@ -1,4 +1,4 @@
-# 🛡️ [AGENT HARNESS] 오피스퀘스트 (Office Quest) & 효성마을 Autopilot 실행 규약 · v2.2
+# 🛡️ [AGENT HARNESS] 오피스퀘스트 (Office Quest) & 효성마을 Autopilot 실행 규약 · v2.3
 
 이 문서는 GitHub Copilot Agent Mode(Autopilot)가 **오피스퀘스트 & 효성마을**을 사람의 개입 없이 끝까지 구현·검증하기 위한 **최상위 실행 제어 하네스(Execution Harness)**입니다. 에이전트는 모든 코드 생성, 상태 관리, UI 렌더링, 테스트 과정에서 이 문서의 규칙을 지켜야 합니다.
 
@@ -173,7 +173,7 @@ npm run fonts:fetch                    # 실패해도 exit 0 (B4)
 }
 ```
 
-- `test:e2e`·`test:visual`은 **항상 새로 빌드한 뒤** 실행합니다(낡은 `.next` 사용 방지, POSIX 전용 `test -f` 없음 → Windows 호환). Phase 게이트의 태그 필터는 `npm run test:e2e -- --grep "@p0|@p2"`처럼 `--` 뒤에 붙입니다(인자는 체인의 마지막 명령인 `playwright test`로 전달됨, 확인됨).
+- `test:e2e`·`test:visual`은 **항상 새로 빌드한 뒤** 실행합니다(낡은 `.next` 사용 방지, POSIX 전용 `test -f` 없음 → Windows 호환). Phase 게이트의 태그 필터는 `npm run test:e2e -- --grep "@p0\b|@p2\b"`처럼 `--` 뒤에 붙입니다(인자는 체인의 마지막 명령인 `playwright test`로 전달됨, 확인됨).
 
 ### 1.5 설정 파일 (부록 A를 그대로 복사 · 2026-10-21 실행 검증 완료)
 
@@ -184,11 +184,13 @@ npm run fonts:fetch                    # 실패해도 exit 0 (B4)
 - `postcss.config.mjs`·`tailwind.config.ts`도 같은 이유로 **이름 있는 const 후 default export**. `tailwind.config.ts`(A-7) = DESIGN.md §3.7 theme 그대로(v1.1: `spacing.sidebar = '264px'`) + `content` + `satisfies Config`.
 - `next.config.ts`(A-4): `reactStrictMode: true`, `eslint: { dirs: ['src','tests'], ignoreDuringBuilds: false }`, `typescript.ignoreBuildErrors: false`, `images.unoptimized: true`. `output: 'export'` 금지.
 - `playwright.config.ts`(A-9): `webServer.command = npx next start -p ${PORT}`(빌드는 npm 스크립트가 먼저 수행), **`reuseExistingServer: false`**, `workers 1`, `retries 0`, 프로젝트 `e2e`(1440×900)·`visual`(1920×1080), `PW_CHANNEL`/`PW_EXECUTABLE_PATH` 환경변수(B2).
-- `vitest.config.ts`(A-8): `tests/unit/**/*.test.ts`, `environment: 'node'`, `@` → `./src`.
+- `vitest.config.ts`(A-8): `tests/unit/**/*.test.ts`, `environment: 'node'`, `@` → `./src`, **`TZ = 'Asia/Seoul'` 고정**(v2.3).
 - `src/app/globals.css`(A-11) 순서: `@import '../styles/tokens.css'; @import '../styles/fonts.css'; @import '../styles/app-layout.css';` → `@tailwind base; @tailwind components; @tailwind utilities;`.
 - `src/styles/app-layout.css`(PRD D6): `:root{--gnb-h:64px;--gnb-offset:16px;--sidebar-w:264px;--aside-w:400px;--page-pad:24px;--container-max:none;--fs-h1:36px;--fs-h2:28px;--fs-h3:20px;--fs-num-xl:64px;--fs-num-l:26px;--fs-body:16px;--fs-body-s:15px;--fs-caption:13px}` (DESIGN §2.2 앱 열 값). P0에서는 앞 6개 변수만 있어도 됨(P2에서 완성).
 
 **검증 기록 (2026-10-21 15:2x KST, Linux · Node 20.19.2 · npm 11.21.0, 스크래치 `/tmp/oqv/officequest`)**: §1.3 ① 설치 exit 0 → 부록 A 파일 작성 → `verify:tokens` ✓ · `qa:forbidden` ✓ · **`.next` 없는 상태에서 `typecheck` ✓** · `lint --max-warnings=0` ✓ · `test:unit` 1/1 ✓ · `build` ✓(tsconfig 자동 수정 없음) · `npx playwright test --list` 1 test ✓ · `npx playwright install chromium`(no deps) ✓ · `npm run test:e2e -- --grep @p0` 1/1 ✓ · `npm ci` 후 루트 `postinstall`이 `public/tinymce` 생성 ✓ · `qa:forbidden` 음성 테스트(외부 URL·⚡ 검출) ✓ · **`setFixedTime` 하에서 1,800ms 대기 시 `Date.now()` 차이 0, `performance.now()` 차이 1,800** ✓ · `clock.install` + `runFor(3000)` → `Date.now()` +3,000(±5) ✓.
+
+**v2.3 추가 검증 (2026-10-21 15:57 KST, 같은 환경, 스크래치 `/tmp/oqv4`)**: 더미 태그 테스트로 `npx playwright test --list --grep "@p5"` → `@p5`·`@p5b` 둘 다 선택(문제 재현), `--grep "@p0\b|@p2\b|@p3\b|@p4a\b|@p4b\b|@p5\b"` → `@p5b` 제외, `…|@p5b\b` → 포함, `npm run <script> -- --grep "@p0\b|@p5\b"`로도 같은 결과(npm이 `\b`를 그대로 전달). `TZ=UTC npx vitest run`에서 A-8 TZ 고정이 있으면 `getHours()` = 14 ✓, 고정을 빼면 5로 실패(대조군). A-8 변경 후 `typecheck` ✓ · `lint --max-warnings=0` ✓.
 
 ### 1.6 아키텍처 규칙 (MUST)
 
@@ -317,21 +319,21 @@ npm run fonts:fetch                    # 실패해도 exit 0 (B4)
 
 모든 명령은 `officequest/`에서 실행합니다. 게이트 실패 시 같은 Phase에서 수정 → 재실행. 반복 실패 처리는 §0-4 규칙(5회 → 폴백 → `unresolved` 기록 후 진입 허용, §9에서 재검사)을 따릅니다.
 
-**테스트 Phase 태그**: 모든 E2E·Visual 테스트 제목 끝에 그 테스트가 **처음 통과할 수 있는 Phase 태그**를 붙입니다(`@p0` `@p2` `@p3` `@p4a` `@p4b` `@p5` `@p5b` `@p6`, §5.2·§6 표). 게이트는 **지금까지의 태그를 누적**해서 실행합니다(회귀 방지). 태그 없는 테스트는 금지합니다.
+**테스트 Phase 태그**: 모든 E2E·Visual 테스트 제목 끝에 그 테스트가 **처음 통과할 수 있는 Phase 태그**를 붙입니다(`@p0` `@p2` `@p3` `@p4a` `@p4b` `@p5` `@p5b` `@p6`, §5.2·§6 표). **grep은 태그마다 단어 경계 `\b`를 붙입니다**(v2.3): `--grep "@p5"`는 `@p5b`까지 고르므로(실측) 모든 게이트는 `"@p0\b|@p2\b|…|@p5\b"` 형식입니다. 새 태그를 만들거나 명령을 직접 쓸 때도 `\b`를 빼지 않습니다. 확인: `npx playwright test --list --grep "@p5\b"` 결과에 `@p5b` 테스트가 나오면 안 됨. 게이트는 **지금까지의 태그를 누적**해서 실행합니다(회귀 방지). 태그 없는 테스트는 금지합니다.
 
 | Phase | 담당 | 진입 조건 | 작업 | 종료 게이트 (전부 통과) |
 |---|---|---|---|---|
-| **P0 Bootstrap** | S1 | 문서 읽기 완료(§0) | §1.3 ①②③, 부록 A 파일 전부(빈 레이아웃 + `app-root` 페이지, `tests/unit/smoke.test.ts`, `tests/e2e/00-smoke.spec.ts`의 `@p0` 테스트), `.github/copilot-instructions.md`, Audit/Memory 파일 | `npm run verify:tokens` ✓ · `npm run qa:forbidden` ✓ · `npm run typecheck` ✓ · `npm run lint` ✓ · `npm run test:unit` ✓ · `npm run build` ✓ · `npx playwright test --list` ✓(≥1 test) · `npm run test:e2e -- --grep "@p0"` ✓(브라우저 ENV-BLOCKED면 `--list`까지만, B2) · `public/tinymce/tinymce.min.js` 존재(없으면 B3 기록) |
+| **P0 Bootstrap** | S1 | 문서 읽기 완료(§0) | §1.3 ①②③, 부록 A 파일 전부(빈 레이아웃 + `app-root` 페이지, `tests/unit/smoke.test.ts`, `tests/e2e/00-smoke.spec.ts`의 `@p0` 테스트), `.github/copilot-instructions.md`, Audit/Memory 파일 | `npm run verify:tokens` ✓ · `npm run qa:forbidden` ✓ · `npm run typecheck` ✓ · `npm run lint` ✓ · `npm run test:unit` ✓ · `npm run build` ✓ · `npx playwright test --list` ✓(≥1 test) · `npm run test:e2e -- --grep "@p0\b"` ✓(브라우저 ENV-BLOCKED면 `--list`까지만, B2) · `public/tinymce/tinymce.min.js` 존재(없으면 B3 기록) |
 | **P1 Domain & State** | S1 | P0 통과 | PRD §3·§5·§6·§7·§9 전부: constants, types, formulas, guards, quest/market machine, reducer, seed, scenarios(§5.4), persistence, sync, DbProvider, test-hooks. **v2.2 도메인**: `RATING_EXP`·별점 누적(§6.8), `rejectCount`(§6.9), 제재·운영자 가드·`admin/*` 액션·감사 로그(§6.10), `detectFlags`(§6.11), 운영자 `ops`, 시드 §4.4·§9.5–9.7 | `npm run test:unit` ✓ — **PRD §7.1·§7.2 표의 모든 행마다 테스트 1개 이상**, `rating.test`·`restrictions.test`·`monitoring.test` ✓(테스트 이름에 행 설명 포함), §6.2 불변식(시드 고정 무작위 액션 500스텝) ✓, seed(PRD §9 수치) ✓ · typecheck ✓ · lint ✓ · **Dual-Brain 체크포인트 #1** |
-| **P2 Shell & Design** | S2 | P1 통과 | tokens/fonts/layout CSS, ui 프리미티브, AppShell·GNB(타이머·`zap` 토글·+30분·만료·리셋·포인트·페르소나·테마·DEBUG), 사이드바 2종, 대시보드(`dash-rating` 포함), 일일 퀘스트 화면, 페르소나 전환기 4명(`ops`는 "운영자" 구분선 아래)·운영자일 때 `admin-badge`·랭킹 운영자 제외(티어표·캐릭터는 S3 스프라이트 placeholder 허용: 같은 크기 `<canvas data-testid=pixel-sprite data-tier>`) | build ✓ · lint ✓ · `npm run test:e2e -- --grep "@p0\|@p2"` ✓ · **Dual-Brain 체크포인트 #2** |
-| **P3 Pixel & Motion** | S3 (+ 오케스트레이터 통합) | P1 통과. 작업은 P2와 병렬 가능, **종료 게이트 판정은 P2 통과 후** | sprites.ts, PixelSprite, TierAura, ParticleCanvas, 하이퍼 프레임 A/B(+ reduced-motion), 코인/별 hover 버스트. 통합: 오케스트레이터가 `layout.tsx`에 `<HyperFrameHost/>` 마운트, 대시보드·티어표 placeholder를 `PixelSprite`로 교체 | `sprites.test.ts` ✓ · `npm run test:e2e -- --grep "@p0\|@p2\|@p3"` ✓(`12-hyperframe`: A/B 각각 1,650–1,950ms, `06-season`) · `npm run test:visual -- --grep "@p3"` ✓(Visual 01·02) |
-| **P4a Quest 작성·게시판** | S4 | P2·P3 통과 | RichEditor(Tiny/Fallback), SecurityPledgeModal, QuestForm + SharePoint 변환 + 하이퍼 프레임 A 연결, 게시판(필터·검색·URL 쿼리·조회수) | `npm run test:e2e -- --grep "@p0\|@p2\|@p3\|@p4a"` ✓(`03`, `11`) · `npm run test:visual -- --grep "@p3\|@p4a"` ✓(Visual 03–05) · **Dual-Brain 체크포인트 #3** |
-| **P4b Quest 상세·Teams** | S4 | P4a 통과 | 상세(모집중/진행중/보완요청/완료 × 역할), 지원·채택·제출·반려·승인 + 하이퍼 프레임 B, RejectModal, VirtualTeamsChat. **v2.2**: RatingModal(별점 → 승인, PRD §8.14), 하이퍼 프레임 B 별·EXP, 지원자·작업자 별점 표시, 반려 카운터·한도(§8.15) | `npm run test:e2e -- --grep "@p0\|@p2\|@p3\|@p4a\|@p4b"` ✓(`04`, `05`, `09`, `14`) · `npm run test:visual -- --grep "@p3\|@p4a\|@p4b"` ✓(Visual 06–08) · **Dual-Brain 체크포인트 #4** |
-| **P5 Village** | S4 | P4b 통과 | 목록·필터·좋아요, ItemForm·PhotoPicker, 상세·BuyButton·SellerPanel·정산 패널, OrgChartModal, 거래 내역 드로어, NPC 자동 승인 | `npm run test:e2e -- --grep "@p0\|@p2\|@p3\|@p4a\|@p4b\|@p5"` ✓(`00` 전체, `02`, `07`, `08`, `10`, `13`) · `npm run test:visual -- --grep "@p3\|@p4a\|@p4b\|@p5"` ✓(Visual 09·10) · **Dual-Brain 체크포인트 #5** |
-| **P5b Admin & Moderation** (v2.2) | S4 (+ S2: `nav-admin` 탭·`RestrictionBanner`·`/`→`/admin` 이동) | P5 통과 | `/admin` 운영자 콘솔(의심 활동·제재 현황·감사 로그, PRD §8.16), RestrictModal·DismissModal·LiftModal, 제재 사용자 UX(배너, `quest-submit`·`board-new-btn` 비활성, `buy-btn[data-state=restricted]`, 조직도 버튼 비활성, §8.17). ref 없음 → DESIGN 컴포넌트만(PRD D53) | `npm run test:e2e -- --grep "@p0\|@p2\|@p3\|@p4a\|@p4b\|@p5\|@p5b"` ✓(`15`) · `npm run test:visual -- --grep "@p3\|@p4a\|@p4b\|@p5"` ✓(회귀, 새 Visual 없음) · **Dual-Brain 체크포인트 #6** |
+| **P2 Shell & Design** | S2 | P1 통과 | tokens/fonts/layout CSS, ui 프리미티브, AppShell·GNB(타이머·`zap` 토글·+30분·만료·리셋·포인트·페르소나·테마·DEBUG), 사이드바 2종, 대시보드(`dash-rating` 포함), 일일 퀘스트 화면, 페르소나 전환기 4명(`ops`는 "운영자" 구분선 아래)·운영자일 때 `admin-badge`·랭킹 운영자 제외(티어표·캐릭터는 S3 스프라이트 placeholder 허용: 같은 크기 `<canvas data-testid=pixel-sprite data-tier>`) | build ✓ · lint ✓ · `npm run test:e2e -- --grep "@p0\b\|@p2\b"` ✓ · **Dual-Brain 체크포인트 #2** |
+| **P3 Pixel & Motion** | S3 (+ 오케스트레이터 통합) | P1 통과. 작업은 P2와 병렬 가능, **종료 게이트 판정은 P2 통과 후** | sprites.ts, PixelSprite, TierAura, ParticleCanvas, 하이퍼 프레임 A/B(+ reduced-motion), 코인/별 hover 버스트. 통합: 오케스트레이터가 `layout.tsx`에 `<HyperFrameHost/>` 마운트, 대시보드·티어표 placeholder를 `PixelSprite`로 교체 | `sprites.test.ts` ✓ · `npm run test:e2e -- --grep "@p0\b\|@p2\b\|@p3\b"` ✓(`12-hyperframe`: A/B 각각 1,650–1,950ms, `06-season`) · `npm run test:visual -- --grep "@p3\b"` ✓(Visual 01·02) |
+| **P4a Quest 작성·게시판** | S4 | P2·P3 통과 | RichEditor(Tiny/Fallback), SecurityPledgeModal, QuestForm + SharePoint 변환 + 하이퍼 프레임 A 연결, 게시판(필터·검색·URL 쿼리·조회수) | `npm run test:e2e -- --grep "@p0\b\|@p2\b\|@p3\b\|@p4a\b"` ✓(`03`, `11`) · `npm run test:visual -- --grep "@p3\b\|@p4a\b"` ✓(Visual 03–05) · **Dual-Brain 체크포인트 #3** |
+| **P4b Quest 상세·Teams** | S4 | P4a 통과 | 상세(모집중/진행중/보완요청/완료 × 역할), 지원·채택·제출·반려·승인 + 하이퍼 프레임 B, RejectModal, VirtualTeamsChat. **v2.2**: RatingModal(별점 → 승인, PRD §8.14), 하이퍼 프레임 B 별·EXP, 지원자·작업자 별점 표시, 반려 카운터·한도(§8.15) | `npm run test:e2e -- --grep "@p0\b\|@p2\b\|@p3\b\|@p4a\b\|@p4b\b"` ✓(`04`, `05`, `09`, `14`) · `npm run test:visual -- --grep "@p3\b\|@p4a\b\|@p4b\b"` ✓(Visual 06–08) · **Dual-Brain 체크포인트 #4** |
+| **P5 Village** | S4 | P4b 통과 | 목록·필터·좋아요, ItemForm·PhotoPicker, 상세·BuyButton·SellerPanel·정산 패널, OrgChartModal, 거래 내역 드로어, NPC 자동 승인 | `npm run test:e2e -- --grep "@p0\b\|@p2\b\|@p3\b\|@p4a\b\|@p4b\b\|@p5\b"` ✓(`00` 전체, `02`, `07`, `08`, `10`, `13`) · `npm run test:visual -- --grep "@p3\b\|@p4a\b\|@p4b\b\|@p5\b"` ✓(Visual 09·10) · **Dual-Brain 체크포인트 #5** |
+| **P5b Admin & Moderation** (v2.2) | S4 (+ S2: `nav-admin` 탭·`RestrictionBanner`·`/`→`/admin` 이동) | P5 통과 | `/admin` 운영자 콘솔(의심 활동·제재 현황·감사 로그, PRD §8.16, **`/admin` 라우트는 이 Phase에서 처음 생김** — P5 `00-smoke` 라우트 목록에 없음), `useNow(1000)` 만료 재평가(PRD §6.10), 시드 신선도 경고(D61), RestrictModal·DismissModal·LiftModal, 제재 사용자 UX(배너, `quest-submit`·`board-new-btn` 비활성, `buy-btn[data-state=restricted]`, 조직도 버튼 비활성, §8.17). ref 없음 → DESIGN 컴포넌트만(PRD D53) | `npm run test:e2e -- --grep "@p0\b\|@p2\b\|@p3\b\|@p4a\b\|@p4b\b\|@p5\b\|@p5b\b"` ✓(`15`) · `npm run test:visual -- --grep "@p3\b\|@p4a\b\|@p4b\b\|@p5\b"` ✓(회귀, 새 Visual 없음) · **Dual-Brain 체크포인트 #6** |
 | **P6 QA & Final Audit** | S5 + Orchestrator | P5b 통과 | `99-full-flow`, `compare.spec`(나란히 비교 이미지), 전체 Visual QA, 금지 패턴 검사, 콘솔 에러 0, 최종 Dual-Brain 감리, Audit 마감 | **§9 Definition of Done 전 항목**(태그 필터 없이 전체 실행) |
 
-- 표의 `\|`는 표 렌더링용 이스케이프입니다. 실제 셸에서는 `--grep "@p0|@p2"`처럼 `|` 하나로 씁니다.
+- 표의 `\|`는 표 렌더링용 이스케이프입니다. 실제 셸에서는 `--grep "@p0\b|@p2\b"`처럼 `|` 하나로 씁니다. `\b`는 그대로 둡니다(큰따옴표 안에서 셸이 바꾸지 않고, Playwright 정규식의 단어 경계가 됨).
 - git 커밋: 각 Phase 종료 게이트 통과 시 1커밋(`phase N: …`).
 
 ---
@@ -351,22 +353,22 @@ npm run fonts:fetch                    # 실패해도 exit 0 (B4)
 | `teams-replies.test.ts` | 키워드 우선순위, 기본 문구 순환, 네고 가격 계산(10단위 내림) |
 | `sprites.test.ts` | §2 Skill 3 게이트 |
 | `teams-replies.test.ts`·`quest-machine.test.ts` 보강 | `teams/reply`는 `pendingReplyFor`가 있을 때 1회만 성공(두 번째 `INVALID_STATE`), NPC 자동 승인 2회 호출 시 1회만 반영(StrictMode 멱등) |
-| `smoke.test.ts` | P0 스모크(`clock.now()` > 0) |
-| `rating.test.ts` (v2.2) | **별점 매핑 5건**(1★→+50 · 2★→+75 · 3★→+100 · 4★→+125 · 5★→+150 EXP, 각 건에서 P 증가 = 100+B로 동일, AC-8.14.2), `formatRating`(99/23→"4.3", 41/9→"4.6", 38/9→"4.2", 0건→"평가 없음"), §4.4 시드 `count = completedTotal`, 승인 시 sum/count·RatingRecord·`quest.rating` 기록, 일일 미션 EXP +50 불변 |
-| `quest-machine.test.ts` 보강 (v2.2) | stars 없음/0/6 → `RATING_REQUIRED`(DB 불변), 반려 1·2회 `rejectCount` 증가, **3번째 반려 → `REJECT_LIMIT`**, 2/2 이후 재제출·승인(1★) 가능, `rejectLimit` 시나리오 1★ → lee 650→700 |
-| `restrictions.test.ts` (v2.2) | 비운영자의 `admin/*` → `FORBIDDEN`, 운영자의 `quest/*`·`item/*`·`daily/claim` → `FORBIDDEN`(view 제외), `admin/restrict` = 종류별 Restriction + 로그 1건씩·`flagId` → actioned, 같은 종류 중복 → `ALREADY_RESTRICTED`, 사유 4자 → `VALIDATION`, `quest/create`·`item/request` → `RESTRICTED`, 조직도 대상 제재 → reserve/sellTo 거부, 가드 순서(FORBIDDEN → RESTRICTED → TIMER_EXPIRED), **만료**(3일 제재: now+3d−1ms 활성, now+3d 비활성), 무기한, `admin/lift`·`admin/dismissFlag` 로그, adminLog append-only(이전 항목 불변) |
-| `monitoring.test.ts` (v2.2) | 시드 → PRD §9.7의 **5개 id·순서·심각도·근거 수 정확히 일치**, R1–R5 각각 임계값 충족/미달(−1) 쌍 테스트, 14일 경계(정확히 14일 전 포함, 1ms 더 이전 제외), 운영자 제외, 동일 입력 → 동일 출력, `flagStates` 병합 |
-| `seed.test.ts`·`invariants.test.ts` 보강 (v2.2) | 운영자 `ops`(role admin, points 0, 랭킹·조직도 제외), 게시판 7·물품 8·카운트 불변(D52), ratings 9건·restrictions 1건(해제됨)·adminLog 2건 / 무작위 액션에 별점 승인·운영자 액션 포함해도 포인트 불변식 유지 |
+| `smoke.test.ts` | P0 스모크(`clock.now()` > 0) + **시간대 고정 확인**(`2026-10-21T05:02:48Z`의 `getHours()` = 14, 부록 A-8 TZ 고정) |
+| `rating.test.ts` (v2.2) | **별점 매핑 5건**(별 1개→+50 · 별 2개→+75 · 별 3개→+100 · 별 4개→+125 · 별 5개→+150 EXP, 각 건에서 P 증가 = 100+B로 동일, AC-8.14.2), `formatRating`(99/23→"4.3", 41/9→"4.6", 38/9→"4.2", 0건→"평가 없음"), §4.4 시드 `count = completedTotal`, 승인 시 sum/count·RatingRecord·`quest.rating` 기록, 일일 미션 EXP +50 불변 |
+| `quest-machine.test.ts` 보강 (v2.2) | stars 없음/0/6 → `RATING_REQUIRED`(DB 불변), 반려 1·2회 `rejectCount` 증가, **3번째 반려 → `REJECT_LIMIT`**, 2/2 이후 재제출·승인(별 1개) 가능, `rejectLimit` 시나리오 별 1개 → lee EXP 650→700·P 300→700·별점 3.8(9건), **반려 2/2 + 작업자 completedToday 2/2 → `canApprove` = `DAILY_LIMIT`(D12 사유)·`canReject` = `REJECT_LIMIT`, KST 다음 날로 시계 이동 후 `canApprove` ok**(PRD §6.9) |
+| `restrictions.test.ts` (v2.2) | 비운영자의 `admin/*` → `FORBIDDEN`, 운영자의 `quest/*`·`item/*`·`daily/claim` → `FORBIDDEN`(view 제외), `admin/restrict` = 종류별 Restriction + 로그 1건씩·`flagId` → actioned(FlagState에 `lastAt`·`evidenceCount`), **kinds `['purchase','quest_post']`로 넣어도 id는 quest_post = r{n}, purchase = r{n+1}**(D56), **한 종류만 활성인 2종 요청 → 나머지 1건만 생성 + 로그 1건**, **전부 활성 → `INVALID_STATE`·DB 불변**(D55), 닫힌 flagId로 제재 → `INVALID_STATE`, 사유 4자 → `VALIDATION`, **상태 우선순위**(시드 r1 = `lifted`, 해제+만료 동시 → `lifted`, D54), **`admin/lift` 재해제·만료 제재 해제 → `INVALID_STATE`, `admin/dismissFlag` 재처리·없는 id → `INVALID_STATE`, 같은 액션 2회 dispatch → 로그 1건**(D57), `quest/create`·`item/request` → `RESTRICTED`, 조직도 대상 제재 → reserve/sellTo 거부, 가드 순서(FORBIDDEN → RESTRICTED → TIMER_EXPIRED), **만료**(3일 제재: now+3d−1ms 활성, now+3d 비활성), 무기한, `admin/lift`·`admin/dismissFlag` 로그, adminLog append-only(이전 항목 불변) |
+| `monitoring.test.ts` (v2.2, v2.3 갱신) | 시드 → PRD §9.7의 **4개 id·순서·심각도·근거 수·`alsoMatched` 정확히 일치**, R1–R5 각각 임계값 충족/미달(−1) 쌍 테스트, **R1·R3 중복 제거**(전부 별 5개 3건 → `pair_5star`만 + `alsoMatched:['pair_repeat']`, 별 4개 섞인 3건 → `pair_repeat`만, D59), **R5**(2,500 P 1건 → 없음, 1,000 P×2건 → 성립, 0 P×3건 → 없음, D58), **재발**(무혐의 후 새 근거 → `open`·`newEvidence=1`, 새 근거 없으면 `dismissed` 유지, D60), **수명**(seedNow +6.04일 → 3건, +7.10일 → 2건, +7.92일 → 1건, +12.80일 → 0건, PRD §9.7), `isSeedStale`(+5일 − 1ms false, +5일 true, D61), 14일 경계(정확히 14일 전 포함, 1ms 더 이전 제외), 운영자 제외, 동일 입력 → 동일 출력, `flagStates` 병합 |
+| `seed.test.ts`·`invariants.test.ts` 보강 (v2.2, v2.3 갱신) | 운영자 `ops`(role admin, points 0, 랭킹·조직도 제외), 게시판 7·물품 8·카운트 불변(D52), ratings 9건·restrictions 1건(`restrictionStatus` = `lifted`)·adminLog 2건 / 무작위 액션에 별점 승인·운영자 액션 포함해도 포인트 불변식 유지 + **별점 불변식 3개**(PRD §6.8: `rating.count === completedTotal`, 시드 이후 RatingRecord 합 = 집계 증가분, 승인 1회 = 원장 1건). "집계 = 원장 합"은 불변식이 아님 |
 
 ### 5.2 E2E 스펙 목록 (`tests/e2e/`, Playwright, 1440×900, prod 빌드)
 
 | 파일 | 태그 | 커버하는 PRD AC / 규칙 |
 |---|---|---|
-| `00-smoke.spec.ts` | `@p0` 1개 + `@p5` | `@p0`: `/` 200 + `app-root` 표시(P0 이후에도 유효하도록 "Hello" 문구는 단언하지 않음). `@p5`: 모든 라우트 200·하이드레이션·콘솔 에러 0·외부 이미지 요청 0·Tiny Cloud 요청 0·404 리소스 0, 시드 개수, Paperlogy 로드(네트워크 가능 시) |
+| `00-smoke.spec.ts` | `@p0` 1개 + `@p5` | `@p0`: `/` 200 + `app-root` 표시(P0 이후에도 유효하도록 "Hello" 문구는 단언하지 않음). `@p5`: **PRD §1.3의 `/admin`을 뺀** 모든 라우트 200(`/admin`은 `15` `@p5b`에서 단언)·하이드레이션·콘솔 에러 0·외부 이미지 요청 0·Tiny Cloud 요청 0·404 리소스 0, 시드 개수, Paperlogy 로드(네트워크 가능 시) |
 | `01-shell-persona-theme.spec.ts` | `@p2` | AC-8.1.1–8.1.5, D27, AC-8.1.6 중 P2 부분(`persona-option-ops` 존재, 운영자 전환 시 `admin-badge` 표시·`points-chip` 없음·랭킹에 운영자 없음 — `/quests/board`에서 전환), AC-8.2.5(`dash-rating`), **AC-8.2.4**(뷰포트 1200×900에서 2열·가로 스크롤 없음). AC-8.1.4 감소 검증은 이 파일의 별도 테스트에서 `bootstrap(page,{fixedTime:null})` → `page.clock.install({ time: '2026-10-21T14:02:48+09:00' })` → `goto` → `page.clock.runFor(3000)` → `timer-display`가 `01:59:56`–`01:59:58` |
 | `02-timer.spec.ts` | `@p5` | PRD §6.6 전부: `page.clock.install({ time })` → `fastForward('02:00:00')`로 00:00:00 → 등록·지원·제출 비활성 + 사유 툴팁, 게시판·상세 열람 가능, 효성마을 구매·등록·좋아요 가능(AC-8.9.3), 토글 리셋, +30분 |
 | `03-quest-create.spec.ts` | `@p4a` | AC-8.4.1–8.4.6, AC-8.5.1–8.5.3, AC-8.3.2, AC-8.8.1(A) |
-| `04-quest-lifecycle.spec.ts` | `@p4b` | AC-8.7.1–8.7.6, 모집중 삭제 환불, AC-8.8.1(B)·8.8.2. 승인은 **별점 모달에서 3★**(+100 EXP, v2.1 수치 불변) |
+| `04-quest-lifecycle.spec.ts` | `@p4b` | AC-8.7.1–8.7.6, 모집중 삭제 환불, AC-8.8.1(B)·8.8.2. 승인은 **별점 모달에서 별 3개**(+100 EXP, v2.1 수치 불변) |
 | `05-limits-daily.spec.ts` | `@p4b` | D12: park 2/2 지원 불가(시드), **2/2 작업자 승인 불가 = `loadScenario('limitApprove')`**(§5.4) + `[반려]`는 가능. AC-8.3.1·8.3.3 |
 | `06-season.spec.ts` | `@p3` | AC-8.2.1–8.2.3(`dash-season-label`=2026 Season 2, `seasonBadges`에 Season 1), 시즌 초기화 후 포인트 유지, 진행률 78%(D37) |
 | `07-market-pathA.spec.ts` | `@p5` | AC-8.9.1–8.9.3, AC-8.10.1–8.10.2, AC-8.11.1·8.11.2·8.11.5·8.11.6, NPC 자동 승인(D16) |
@@ -376,11 +378,11 @@ npm run fonts:fetch                    # 실패해도 exit 0 (B4)
 | `11-board.spec.ts` | `@p4a` | AC-8.6.1–8.6.4(시드 7행 순서, 필터·검색 URL 쿼리 유지 + 새로고침, 카운트, 행 클릭 조회수 +1, `?mine=`) |
 | `12-hyperframe.spec.ts` | `@p3` | `__OQ_TEST__.playHyperFrame('post'\|'clear')`로 A/B 각각 AC-8.8.1, 큐잉(AC-8.8.2), `emulateMedia({reducedMotion:'reduce'})`에서도 1,800ms(D28) |
 | `13-sync-persistence.spec.ts` | `@p5` | 같은 context 두 페이지: A에서 좋아요/등록 → B에 300ms 내 반영(PRD §10), 새로고침 후 유지, 스키마 불일치 시 재시드 |
-| `14-rating-reject.spec.ts` (v2.2) | `@p4b` | AC-8.14.1(모달·확인 비활성·취소 무변화), **AC-8.14.3 5★**(`ref07`: lee 650→800 Lv.9, 300→700 P, "+150 EXP", `data-stars=5`, 4.2 · 평가 9건), AC-8.14.4(q7 지원자 별점: lee 4.1·8건, jung 4.5·31건, oh 4.0·1건), AC-8.15.1(q4 작업자 lee 화면 `반려 1/2`; `ref07`에서 반려→재제출→반려로 2/2), AC-8.15.2(마지막 반려 경고), AC-8.15.3(`rejectLimit`: 반려 비활성+툴팁, 1★ 승인 → lee 650→700) |
-| `15-admin-moderation.spec.ts` (v2.2) | `@p5b` | AC-8.1.6 나머지(`nav-admin` 운영자만), AC-8.16.1(비운영자 `admin-forbidden`, 운영자 `/`→`/admin`), AC-8.16.2(플래그 5행·순서·근거), AC-8.16.3(`flag-restrict-btn-pair_repeat__choi__kang` → kang 등록 제한 7일 → actioned + 로그; `restrict-new-btn` → kim 등록+구매 3일), AC-8.17.1·8.17.2(kim 전환: 배너, `quest-submit`·`board-new-btn` 비활성 + 사유, `/village/m4` `buy-btn[data-state=restricted]`; lee로 m1 조직도에서 kim 버튼 비활성), AC-8.16.4(해제 → kim `buy-btn[data-state=buy]`), AC-8.16.5(`fast_high_bounty__A-107` 무혐의). AC-8.16.6은 `restrictions.test` |
-| `99-full-flow.spec.ts` | `@p6` | **PRD §11 정식 시나리오 10단계, 기대 수치 그대로 단언**(5단계 `반려 1/2`, 7단계 3★ → lee 750 Lv.8 · 4.0 · 평가 9건) |
+| `14-rating-reject.spec.ts` (v2.2) | `@p4b` | AC-8.14.1(모달·확인 비활성·취소 무변화), **AC-8.14.3 별 5개**(`ref07`: lee 650→800 Lv.9, 300→700 P, "+150 EXP", `data-stars=5`, 4.2 · 평가 9건), AC-8.14.4(q7 지원자 별점: lee 4.1·8건, jung 4.5·31건, oh 4.0·1건; **`ref07`에서 kim 화면 `worker-rating` = "4.1 · 평가 8건"**), AC-8.15.1(q4 작업자 lee 화면 `반려 1/2`; `ref07`에서 반려→재제출→반려로 2/2), AC-8.15.2(마지막 반려 경고), AC-8.15.3(`rejectLimit`: 반려 비활성+툴팁 "…(별 1개도 가능)", 별 1개 승인 → lee EXP 650→700 Lv.8, **300→700 P**, **3.8 · 평가 9건**) |
+| `15-admin-moderation.spec.ts` (v2.2) | `@p5b` | AC-8.1.6 나머지(`nav-admin` 운영자만), `/admin` 200, AC-8.16.1(비운영자 `admin-forbidden`, 운영자 `/`→`/admin`), AC-8.16.2(플래그 **4행**·순서·근거·`pair_5star__choi__kang` 보조 배지), AC-8.16.3(`flag-restrict-btn-pair_5star__choi__kang` → kang 등록 제한 7일 → **`restriction-row-r2`** 활성 + 플래그 actioned + 로그; `restrict-new-btn` → kim 등록+구매 3일 → **`restriction-row-r3[data-kind=quest_post]`·`restriction-row-r4[data-kind=purchase]`**, 다시 모달에서 kim 선택 시 두 종류 체크 비활성), AC-8.17.1·8.17.2(kim 전환: 배너, `quest-submit`·`board-new-btn` 비활성 + 사유, `/village/m4` `buy-btn[data-state=restricted]`; **lee로 전환 → `/village/m4`(판매자 lee, 1,200 P) → `open-orgchart-btn` → `org-reserve-kim`·`org-final-kim` 비활성 + 사유 "구매 제한 중인 직원이에요"** — kim은 1,500 P라 포인트 부족이 아닌 제재만으로 비활성), AC-8.16.4(**`restriction-lift-btn-r4`** 해제 → kim `buy-btn[data-state=buy]`, r3은 활성 유지), AC-8.16.5(`fast_high_bounty__A-107` 무혐의). **만료 재렌더 테스트**(별도 테스트: `bootstrap(page,{fixedTime:null})` → `page.clock.install({ time: '2026-10-21T14:02:48+09:00' })` → ops가 kim 구매 제한 1일 → kim으로 `/village/m4` `buy-btn[data-state=restricted]` → `page.clock.fastForward('24:00:00')` → 새로고침 없이 `buy-btn[data-state=buy]`·`restriction-banner` 없음, AC-8.16.6). AC-8.16.6 경계값·AC-8.16.7은 `restrictions.test`·`monitoring.test` |
+| `99-full-flow.spec.ts` | `@p6` | **PRD §11 정식 시나리오 10단계, 기대 수치 그대로 단언**(5단계 `반려 1/2`, 7단계 별 3개 → lee 750 Lv.8 · 4.0 · 평가 9건) |
 
-**MUST AC → 테스트 매핑 확인**: P6에서 S5가 PRD §8의 MUST AC 목록(**v2.2: AC-8.1.6, 8.2.5, 8.14.1–8.14.4, 8.15.1–8.15.3, 8.16.1–8.16.6, 8.17.1–8.17.2 포함**)을 위 표·§5.1과 대조해 `qa/AC_MAP.md`(`| AC | 테스트 파일 · 테스트 이름 |`)를 만들고, 빈 칸이 0이어야 합니다. 단위 테스트로만 검증하는 AC(8.14.2 별점 매핑 5건, 8.16.6 만료)는 단위 테스트 이름을 적습니다. SHOULD AC(8.1.2의 200ms, 8.8.3, §10 1초)는 측정값만 Audit에 기록합니다.
+**MUST AC → 테스트 매핑 확인**: P6에서 S5가 PRD §8의 MUST AC 목록(**v2.2–v2.3: AC-8.1.6, 8.2.5, 8.14.1–8.14.4, 8.15.1–8.15.3, 8.16.1–8.16.7, 8.17.1–8.17.2 포함**)을 위 표·§5.1과 대조해 `qa/AC_MAP.md`(`| AC | 테스트 파일 · 테스트 이름 |`)를 만들고, 빈 칸이 0이어야 합니다. 단위 테스트로만 검증하는 AC(8.14.2 별점 매핑 5건, 8.16.6 경계값, 8.16.7 멱등·부분 제재·재발)는 단위 테스트 이름을 적습니다. SHOULD AC(8.1.2의 200ms, 8.8.3, §10 1초)는 측정값만 Audit에 기록합니다.
 
 **E2E 공통 규칙** (`tests/e2e/helpers.ts`):
 - `bootstrap(page, { persona='kim', theme='light', fixedTime='2026-10-21T14:02:48+09:00', fresh=true })`: `page.addInitScript`로 **`localStorage['oq:booted']`가 없을 때만** `localStorage.clear()` 후 `oq:booted='1'`, `oq:test='1'`, UI 상태(`oq:v1:ui`)를 설정합니다. 플래그가 `localStorage`에 있으므로 **같은 context의 두 번째 페이지(13-sync)나 페이지 이동·새로고침이 DB를 지우지 않습니다**(`sessionStorage`는 탭마다 달라 쓰지 않음). Playwright는 테스트마다 새 context라 테스트 간 격리는 유지됩니다. `fresh:false`면 초기화 스크립트를 건너뜁니다.
@@ -417,7 +419,7 @@ npm run fonts:fetch                    # 실패해도 exit 0 (B4)
 | 물품 폼 | `item-form` · `item-village-select` · `item-category-select` · `item-mode-sale` · `item-mode-free` · `item-price-input` · `item-title` · `item-body-editor` · `item-photo-preset-{monitor\|mug\|book\|pad\|keyboard\|vest\|ticket\|chair}` · `item-photo-input` · `item-photo-thumb` · `item-submit` |
 | 물품 상세 | `item-detail` · `buy-btn`(+`data-state`, PRD §7.3) · `insufficient-modal` · `insufficient-close` · `item-teams-btn` · `seller-panel` · `seller-request-card` · `seller-approve-btn` · `seller-decline-btn` · `seller-status-menu` · `open-orgchart-btn` · `release-reservation-btn` · `item-edit-btn` · `item-delete-btn` · `settlement-panel` · `item-price` |
 | 조직도 | `orgchart-modal` · `org-search` · `org-filter-affordable` · `org-site-{mapo\|hoehyeon\|banpo\|suseo\|changwon\|ulsan}` · `org-dept-{site}-{dept}` · `org-emp-{u}`(+`data-selected`) · `org-reserve-{u}` · `org-final-{u}` · `org-apply` · `org-cancel` |
-| 운영자 콘솔 | `admin-page` · `admin-forbidden` · `admin-tab-{flags\|restrictions\|log}` · `admin-flag-count` · `flag-row-{flagId}`(+`data-rule`, `data-severity`, `data-status`) · `flag-evidence-{flagId}` · `flag-restrict-btn-{flagId}` · `flag-dismiss-btn-{flagId}` · `dismiss-modal` · `dismiss-reason-input` · `dismiss-confirm` · `restrict-new-btn` · `restrict-modal` · `restrict-user-select` · `restrict-kind-{quest_post\|purchase}` · `restrict-duration-{1d\|3d\|7d\|indefinite}` · `restrict-reason-input` · `restrict-confirm` · `restriction-row-{id}`(+`data-status`=`active\|expired\|lifted`) · `restriction-lift-btn-{id}` · `lift-modal` · `lift-reason-input` · `lift-confirm` · `admin-log-row`(+`data-action`) |
+| 운영자 콘솔 | `admin-page` · `admin-forbidden` · `admin-tab-{flags\|restrictions\|log}` · `admin-flag-count` · `admin-stale-seed` · `flag-row-{flagId}`(+`data-rule`, `data-severity`, `data-status`, `data-also`) · `flag-new-evidence-{flagId}` · `flag-evidence-{flagId}` · `flag-restrict-btn-{flagId}` · `flag-dismiss-btn-{flagId}` · `dismiss-modal` · `dismiss-reason-input` · `dismiss-confirm` · `restrict-new-btn` · `restrict-modal` · `restrict-user-select` · `restrict-kind-{quest_post\|purchase}` · `restrict-duration-{1d\|3d\|7d\|indefinite}` · `restrict-reason-input` · `restrict-confirm` · `restriction-row-{id}`(+`data-status`=`active\|expired\|lifted`, `data-kind`, `data-user`) · `restriction-lift-btn-{id}` · `lift-modal` · `lift-reason-input` · `lift-confirm` · `admin-log-row`(+`data-action`) |
 
 ### 5.4 테스트 모드 훅 (`src/lib/test-hooks.ts`)
 `localStorage['oq:test']==='1'`일 때만 활성(런타임 플래그, 별도 빌드 없음). 프로덕션 동작은 동일.
@@ -531,10 +533,12 @@ npm run fonts:fetch                    # 실패해도 exit 0 (B4)
 | 문서가 가리키는 파일이 없음 | §0-1 MISSING 규칙(B21) |
 | 환경 때문에 명령 자체를 실행할 수 없음 | §7 폴백 후 §9.3 조건부 완료. 무한 재시도 금지 |
 | 별점 모달·운영자 콘솔의 시각 기준이 없음 | PRD D53: DESIGN 컴포넌트 조합. 새 색·새 컴포넌트 만들지 않음. 표는 게시판 표(§8.6) 스타일 재사용 |
-| 반려 2회 후 다른 해결 경로(운영자 중재 등)를 넣고 싶음 | 넣지 않음(PRD D45: 승인만, 1★ 가능) |
+| 반려 2회 후 다른 해결 경로(운영자 중재 등)를 넣고 싶음 | 넣지 않음(PRD D45: 승인만, 별 1개 가능) |
 | 의심 활동 임계값·기간 조정이 필요해 보임 | `MONITOR_RULES`·`MONITOR_WINDOW_DAYS` 상수 그대로(PRD §3). 바꾸면 §9.7 기대값이 깨짐 |
 | 운영자가 퀘스트·거래 버튼을 눌러야 할 것 같음 | 하지 않음. 운영자는 열람만, 쓰기 액션은 `FORBIDDEN`(PRD D47) |
-| 제재 기간 표시·만료 처리 방식 | PRD §6.10: `clock.now()` 비교로 자동 만료, 별도 타이머·액션 없음 |
+| 제재 기간 표시·만료 처리 방식 | PRD §6.10: `clock.now()` 비교로 자동 만료, 별도 만료 액션·로그 없음. 화면은 `useNow(1000)`으로 다시 평가 |
+| 이미 해제·처리된 항목을 다시 처리 / 일부 종류만 활성인 제재 | PRD D57: `INVALID_STATE`, 로그 없음 / D55: 나머지 종류만 생성 |
+| 같은 쌍의 R1·R3, 고가 1건 거래, 무혐의 후 재발 | PRD D59 / D58 / D60 그대로. 시드 기대 플래그는 4건 |
 | taste 스킬이 보라·글래스·그라데이션을 지적 | §2 Skill 1 표에 따라 허용 범위인지 확인, 범위 안이면 무시 |
 | sprite-gen 스킬이 Python/API 설치를 요구 | 하지 않음(§2 Skill 3) |
 | dual-brain 서브에이전트 생성 불가 | single-agent fallback(§2 Skill 4-3) |
@@ -564,7 +568,7 @@ npm run test:visual          # 새로 빌드 후 §6 10장 DOM 단언 통과 + q
 - [ ] PRD §9 시드: 퀘스트 7건(모집중 3·진행중 1·보완요청 1·완료 2), 물품 8건(6개 마을·거래가능·예약중·거래완료·무료나눔) — `seed.test.ts`·`00-smoke`로 증명
 - [ ] PRD §11 전체 플로우 수치(kim 1,500→1,200→0 / lee 300→700→1,900 / lee Lv.7→8 / 2/2) — `99-full-flow` 통과
 - [ ] `qa/AC_MAP.md`: PRD §8의 MUST AC 전부 테스트에 매핑(빈 칸 0, v2.2 AC-8.1.6·8.2.5·8.14–8.17 포함)
-- [ ] v2.2: `rating.test` 별점 매핑 5건, `monitoring.test` 시드 플래그 5건(PRD §9.7), `14-rating-reject`(5★ 포함)·`15-admin-moderation` 통과
+- [ ] v2.2–v2.3: `rating.test` 별점 매핑 5건, `monitoring.test` 시드 플래그 **4건**(PRD §9.7), `14-rating-reject`(별 5개 포함)·`15-admin-moderation` 통과
 - [ ] `qa/VISUAL_QA.md`: ref 10장의 **DOM 단언 전부 PASS**(또는 근거 있는 `ENV-SKIP`). 구도 체크는 기록용(§6-3)
 - [ ] `DUAL_BRAIN_AUDIT.md`: 체크포인트 #1–#6 + 최종 감리, 모든 지적이 fixed/rejected/unresolved로 판정, `unresolved` 중 MUST 요구사항 0건(ENV-BLOCKED 제외)
 - [ ] 콘솔 에러 0, 외부 이미지 요청 0, Tiny Cloud 요청 0 (`00-smoke`)
@@ -581,12 +585,17 @@ npm run test:visual          # 새로 빌드 후 §6 10장 DOM 단언 통과 + q
 
 ---
 
+### 9.4 시연 준비 (v2.3, PRD D61)
+- 시연 당일 시작 직전에 GNB DEBUG → `[데이터 초기화]`(`debug-reset-data`) 1회. 아카이브 의심 사례가 `seedNow` 기준으로 다시 만들어져 운영자 콘솔이 4건으로 시작합니다(초기화하지 않으면 시드 적재 +6.04일부터 줄어듦, PRD §9.7 수명).
+- 운영자 콘솔에 `admin-stale-seed` 경고가 보이면 같은 초기화를 합니다.
+- 현상금 500 P 이상 퀘스트를 30분 안에 승인하면 R4 high 플래그가 새로 생깁니다(의도된 동작). 다른 데모 흐름에서 원치 않으면 30분 뒤에 승인합니다.
+
 ## 10. `DUAL_BRAIN_AUDIT.md` 형식
 
 ### 10.1 파일 맨 위 (항상 최신 유지)
 ```md
 # DUAL_BRAIN_AUDIT — Office Quest
-- 현재 Phase: P4b Quest 상세·Teams / 다음 작업: RejectModal + `npm run test:e2e -- --grep "@p0|@p2|@p3|@p4a|@p4b"` 재실행
+- 현재 Phase: P4b Quest 상세·Teams / 다음 작업: RejectModal + `npm run test:e2e -- --grep "@p0\b|@p2\b|@p3\b|@p4a\b|@p4b\b"` 재실행
 - 리뷰 모드: subagents (Right=…, Left=…) | single-agent fallback
 - 결과 요약 (최종): verify:tokens ✓ · qa:forbidden ✓ · typecheck ✓ · lint ✓ · unit 64/64 ✓ · build ✓ · e2e 17/17 ✓ · visual 10/10 ✓ — 2026-10-22 03:10 KST
 - 상태: DONE | CONDITIONAL-DONE (ENV-BLOCKED: …)
@@ -608,7 +617,8 @@ npm run test:visual          # 새로 빌드 후 §6 10장 DOM 단언 통과 + q
 **메모리 변경**: (없음 | Hot에 'X' 추가)
 ```
 - 좌뇌 필수 확인 항목(매 체크포인트, 해당되는 것): 에스크로 선차감·환불, 일 2회 한도(지원·승인), 2시간 타이머 3개 버튼 비활성 + 효성마을 예외, 문의/요청 첨부 분기, 예약자 전용 구매, 포인트 불변식, TypeScript strict 무결성, 빌드·E2E 결과.
-  - v2.2 추가: **별점 → EXP 매핑 5종과 P 불변**(3★ = 기존 수치), 별점 평균 반올림·평가 수 누적, **반려 2회 한도**(3번째 `REJECT_LIMIT`, 이후 승인만), **운영자 권한 경계**(비운영자 `admin/*` 거부, 운영자 플레이어 액션 거부), **제재 가드**(등록·구매·조직도 대상, 가드 순서, 만료 시각 경계), 감사 로그 append-only, `detectFlags` 결정성·14일 경계·시드 5건, 운영자가 랭킹·조직도·불변식에서 제외됨.
+  - v2.3 추가: 게이트 grep 단어 경계(`@p5\b`가 `@p5b`를 고르지 않음), 제재 상태 우선순위·멱등(`INVALID_STATE`)·부분 제재·id 정규 순서, 플래그 4건·재발·수명, 별점 집계↔원장 불변식, vitest TZ 고정.
+  - v2.2 추가: **별점 → EXP 매핑 5종과 P 불변**(별 3개 = 기존 수치), 별점 평균 반올림·평가 수 누적, **반려 2회 한도**(3번째 `REJECT_LIMIT`, 이후 승인만), **운영자 권한 경계**(비운영자 `admin/*` 거부, 운영자 플레이어 액션 거부), **제재 가드**(등록·구매·조직도 대상, 가드 순서, 만료 시각 경계), 감사 로그 append-only, `detectFlags` 결정성·14일 경계·시드 5건, 운영자가 랭킹·조직도·불변식에서 제외됨.
 - 우뇌 필수 확인 항목(v2.2 추가: 별점 모달이 승인 흐름을 끊지 않는지, 운영자 콘솔 표의 근거 가독성, 제재 배너·비활성 사유가 사용자에게 이해되는지, 새 UI가 DESIGN 컴포넌트만 쓰는지): Paperlogy 실제 로드, 보라 라이트/다크 대비(본문 AA), 벤토 위계·정렬, 도트 스프라이트 선명도(정수 배율), 하이퍼 프레임 임팩트·프레임 드랍, 빈 화면·깨진 UI, taste/mengto 슬롭 체크(§2), refs 구도 일치.
 
 ### 10.3 `.dual-brain/MEMORY.md` 초기 내용
@@ -619,7 +629,7 @@ npm run test:visual          # 새로 빌드 후 §6 10장 DOM 단언 통과 + q
 - 앱 위치 ./officequest, 고정 버전 Harness §1.1 (근거: PRD D23, Harness §1.1)
 - 하이퍼 프레임 1,800ms, JS 타이머 닫힘, 경과시간은 performance.now (근거: PRD D3, D28, D38)
 - E2E 게이트는 Phase 태그 누적 grep, test:e2e는 항상 새 빌드 (근거: Harness §4, §1.4)
-- 별점 EXP 50/75/100/125/150, 3★ = 기존 수치, 반려 최대 2회, 운영자 ops는 플레이어 아님 (근거: PRD D40, D45, D47)
+- 별점 EXP 50/75/100/125/150, 별 3개 = 기존 수치, 반려 최대 2회, 운영자 ops는 플레이어 아님 (근거: PRD D40, D45, D47)
 ## Warm
 ## Cold
 ## Archived
@@ -813,8 +823,11 @@ export default config;
 import { fileURLToPath } from 'node:url';
 import { defineConfig } from 'vitest/config';
 
+// 단위 테스트 시간대 고정(PRD §0.3 KST). OS 시간대(UTC CI 등)와 무관하게 같은 결과. Windows에서도 동작(npm 스크립트의 TZ= 접두어 대신).
+process.env.TZ = 'Asia/Seoul';
+
 export default defineConfig({
-  test: { include: ['tests/unit/**/*.test.ts'], environment: 'node' },
+  test: { include: ['tests/unit/**/*.test.ts'], environment: 'node', env: { TZ: 'Asia/Seoul' } },
   resolve: { alias: { '@': fileURLToPath(new URL('./src', import.meta.url)) } },
 });
 ```
@@ -1051,6 +1064,9 @@ describe('P0 smoke', () => {
   it('clock.now returns epoch ms', () => {
     expect(now()).toBeGreaterThan(0);
   });
+  it('unit tests run in Asia/Seoul', () => {
+    expect(new Date('2026-10-21T05:02:48Z').getHours()).toBe(14);
+  });
 });
 ```
 
@@ -1101,8 +1117,20 @@ test('P0 root responds 200 and renders app-root @p0', async ({ page }) => {
 | v2.1 | 2026-10-21 | `fetch-fonts.mjs` = tokens.css의 6개 URL, 같은 파일명, 실패해도 exit 0 | 분석봇 보통(폰트 출처) |
 | v2.1 | 2026-10-21 | TinyMCE 5.10.2 유지 + Audit 사유(PRD D39) | 분석봇 보통(5.10.9) |
 | v2.1 | 2026-10-21 | 시즌 진행률 78%(`Math.ceil`) 단위 테스트 기대값 | 분석봇 보통(77 vs 78) |
-| v2.2 | 2026-10-21 | 별점 품질 보상: P1 도메인(`rating.ts`), P4b `RatingModal`·하이퍼 프레임 별·별점 표시, `approveWithStars` 헬퍼, `rating.test`(매핑 5건), `14-rating-reject`(5★ E2E), `04`·`99`는 3★로 기존 수치 유지, Visual 08 payload `stars:3` | 팀원 피드백 1 |
+| v2.2 | 2026-10-21 | 별점 품질 보상: P1 도메인(`rating.ts`), P4b `RatingModal`·하이퍼 프레임 별·별점 표시, `approveWithStars` 헬퍼, `rating.test`(매핑 5건), `14-rating-reject`(별 5개 E2E), `04`·`99`는 별 3개로 기존 수치 유지, Visual 08 payload `stars:3` | 팀원 피드백 1 |
 | v2.2 | 2026-10-21 | 반려 최대 2회: `quest-machine.test` 보강, `rejectLimit` 시나리오, `14`에 카운터·마지막 경고·한도 테스트, testid `reject-count`·`reject-last-warning` | 팀원 피드백 2 |
 | v2.2 | 2026-10-21 | 운영자 모니터링 & 제재: 폴더(`monitoring.ts`·`restrictions.ts`·`admin-machine.ts`, `components/admin/**`, `app/admin`), 소유권(S4 admin, S2 배너·탭), **P5b Phase + 체크포인트 #6**(P6 진입 = P5b 통과), `restrictions.test`·`monitoring.test`, `15-admin-moderation`, 운영자 testid, §8 결정 5행, 좌뇌/우뇌 체크 항목 | 팀원 피드백 3 |
 | v2.2 | 2026-10-21 | 새 UI는 Visual QA 비교 제외(§6 머리말), AC_MAP에 v2.2 AC 포함, DoD E2E 15 → 17개, 체크포인트 #1–#6 | 팀원 피드백 1–3 |
+| v2.3 | 2026-10-21 | 본문의 별 문자(U+2605) 표기를 "별 N개"로 통일(PRD §0.3, `qa:forbidden` 규칙 6과 일치) | 검수봇 v2.2 높음-1 |
+| v2.3 | 2026-10-21 | `15-admin-moderation`: 조직도 단계를 lee → m4(판매자 lee) → `org-reserve-kim`·`org-final-kim` 비활성 + "구매 제한 중인 직원이에요"로 교체(m1은 판매자 kim이라 실행 불가) | 검수봇 v2.2 높음-2 |
+| v2.3 | 2026-10-21 | `quest-machine.test`에 반려 2/2 + 완료 2/2 조합 1건 | 검수봇 v2.2 보통-2 |
+| v2.3 | 2026-10-21 | `14-rating-reject`: `ref07` kim 화면 `worker-rating` = "4.1 · 평가 8건" | 검수봇 v2.2 보통-4 |
+| v2.3 | 2026-10-21 | `14`·`quest-machine.test`의 `rejectLimit` 기대값에 P 300→700, 3.8 · 평가 9건 | 검수봇 v2.2 보통-5 |
+| v2.3 | 2026-10-21 | 모든 게이트 `--grep`에 태그별 `\b`(단어 경계), 태그 규칙·셸 안내, Playwright `--list`로 실측(§1.5 v2.3 검증) | 분석봇 v2.2 차단-1 |
+| v2.3 | 2026-10-21 | `15`의 조직도 단계 m1 → m4(검수봇 높음-2와 같은 수정), 제재 id r2/r3/r4·`data-kind`, `restriction-lift-btn-r4`, 플래그 4행·`pair_5star__choi__kang`로 제재 | 분석봇 v2.2 차단-2 · 높음(id 결정성) |
+| v2.3 | 2026-10-21 | `00-smoke` `@p5` 라우트 목록에서 `/admin` 제외, `/admin` 200은 `15`(@p5b) | 분석봇 v2.2 높음(/admin 라우트) |
+| v2.3 | 2026-10-21 | `restrictions.test`: 상태 우선순위(r1 = lifted), 재해제·재처리 `INVALID_STATE`, 부분 제재, kinds 순서 무관 id, 중복 dispatch 로그 1건 (`ALREADY_RESTRICTED` 삭제) | 분석봇 v2.2 높음(우선순위·멱등·부분 제재·id) |
+| v2.3 | 2026-10-21 | `15`에 `clock.fastForward` 만료 재렌더 테스트, testid `admin-stale-seed`·`flag-new-evidence-*`·`data-also`·`data-user` | 분석봇 v2.2 보통(만료 재렌더 · 재발 · 시드 수명) |
+| v2.3 | 2026-10-21 | vitest `TZ='Asia/Seoul'` 고정(A-8, Windows 호환) + `smoke.test` 시간대 단언 | 분석봇 v2.2 보통(시간대) |
+| v2.3 | 2026-10-21 | `monitoring.test`: 시드 4건, R1/R3 중복 제거, R5 새 조건, 재발, 수명, `isSeedStale`; `invariants.test` 별점 불변식 3개; §9.4 시연 준비; §8 결정 행 2개 | 분석봇 v2.2 보통(오탐·중복 · 재발 · 시드 수명 · 집계↔원장) |
 | v2.0 | 2026-10-21 | 최초 Autopilot 제출본 | — |

@@ -1,9 +1,9 @@
-# PRD — 오피스퀘스트 (Office Quest) × 효성마을 · v2.2 (Autopilot 제출본)
+# PRD — 오피스퀘스트 (Office Quest) × 효성마을 · v2.3 (Autopilot 제출본)
 
 > **이 문서는 GitHub Copilot Agent Mode(Autopilot)가 사람에게 묻지 않고 끝까지 구현하기 위한 제품 요구사항 정의서입니다.**
 > 실행 절차·스택·검증 방법·막힘 대응은 `Harness.md`, 시각 규칙은 `DESIGN.md`와 `tokens.css`, 화면 구도는 `refs/01–10_*.png`가 담당합니다.
 > 원본 PRD(`해커톤3조_PRD.md`)의 요구사항은 **하나도 빼지 않고** 이 문서로 옮겼습니다. 원본과 다른 부분은 모두 §2 결정 테이블에 근거와 함께 기록했습니다.
-> v2.1: 검수봇·분석봇 검토 반영. v2.2: 팀원 피드백 3건(품질별 별점 보상 · 반려 최대 2회 · 운영자 모니터링 & 제재) 반영(맨 끝 **변경 이력**, D40–D53).
+> v2.1: 검수봇·분석봇 검토 반영. v2.2: 팀원 피드백 3건(품질별 별점 보상 · 반려 최대 2회 · 운영자 모니터링 & 제재) 반영(맨 끝 **변경 이력**, D40–D53). v2.3: 검수봇·분석봇 v2.2 재검토 반영(D54–D61).
 
 ---
 
@@ -39,6 +39,7 @@
 - **MUST** = 미충족 시 DoD 실패. **SHOULD** = 구현하되 시간 부족 시 `DUAL_BRAIN_AUDIT.md`에 사유 기록 후 생략 가능. **MAY** = 선택.
 - `AC-x.y` = 수용 기준(Acceptance Criteria). **MUST AC는 각각 Harness §5.2 AC→테스트 매핑 표의 테스트 하나 이상에 매핑**됩니다. SHOULD AC는 측정 방법이 있으면 기록만 하고 게이트에 넣지 않습니다.
 - 이 문서의 ⚡ ♥ 👁 같은 기호는 **아이콘을 가리키는 표기**입니다. 코드·UI 텍스트에는 넣지 않고 Lucide 아이콘을 씁니다(D21).
+- **별(U+2605)·☆ 등 별 기호도 같은 규칙**: 코드·UI 문자열에 쓰지 않습니다(Extended_Pictographic → `qa:forbidden` 실패). 별 모양은 Lucide `star` 아이콘, 텍스트는 "별 N개"·"별점 N"·"만점". 이 문서 본문도 별점은 "별 N개"로 표기합니다.
 - 모든 시간은 **Asia/Seoul (KST, UTC+9)** 기준. 날짜 경계는 KST 00:00.
 - 금액 단위 `P`(포인트), 경험치 `EXP`. 표시 시 천 단위 콤마(`1,500 P`).
 
@@ -118,20 +119,28 @@ Autopilot은 아래 결정을 **재논의하지 않고** 그대로 구현합니�
 | D37 | 시즌 진행률 표시 반올림(실값 77.48%) | refs/01 "78%" | **`Math.ceil(ratio×100)`** → 78%. `formulas.test`가 78을 기대 | ref 일치, 결정성 |
 | D38 | 지속시간(하이퍼 프레임 1.8초·Teams 1.2초) 측정 시계 | Harness §1.6-2 vs Playwright `setFixedTime` | 도메인 시각(타이머·dayKey·createdAt)은 `clock.now()`(=`Date.now()`), **경과시간 기록(openedAt/closedAt 등)은 `performance.now()`**. `setFixedTime`은 `Date`만 고정하고 `performance.now()`는 진행함(2026-10-21 실행 확인) | 검수봇 차단-2 · 분석봇 차단 |
 | D39 | TinyMCE 5.x 최신 패치(5.10.9) 존재 | npm registry | 원본 지정 **5.10.2 유지**(API·설정 동일). Audit에 "5.10.2 원본 고정" 사유 1줄 기록 | 원본 PRD MUST |
-| D40 | 품질별 보상: 별점→EXP 매핑 | 팀원 피드백 v2.2 | 승인 시 별점 **1–5 필수**(기본값 없음). EXP = `RATING_EXP[stars]` = 1★ 50 · 2★ 75 · **3★ 100** · 4★ 125 · 5★ 150. 기본 100 P와 현상금 B는 별점과 무관. 일일 미션 EXP(+50)는 그대로 | 3★ = 기존 100 EXP → §11 정식 수치 유지 |
-| D41 | 별점 평균 표시 | 팀원 피드백 | 사용자별 누적 `rating = { sum, count }`(시즌 초기화 영향 없음). 표시 = `count === 0 ? '평가 없음' : (Math.round(sum / count * 10) / 10).toFixed(1)` + " · 평가 {count}건". 별 모양은 **Lucide `star` 아이콘**(★ U+2605는 Extended_Pictographic이라 텍스트 금지, D21) | 결정적 반올림, 금지 패턴 검사와 일치 |
+| D40 | 품질별 보상: 별점→EXP 매핑 | 팀원 피드백 v2.2 | 승인 시 별점 **1–5 필수**(기본값 없음). EXP = `RATING_EXP[stars]` = 별 1개 50 · 별 2개 75 · **별 3개 100** · 별 4개 125 · 별 5개 150. 기본 100 P와 현상금 B는 별점과 무관. 일일 미션 EXP(+50)는 그대로 | 별 3개 = 기존 100 EXP → §11 정식 수치 유지 |
+| D41 | 별점 평균 표시 | 팀원 피드백 | 사용자별 누적 `rating = { sum, count }`(시즌 초기화 영향 없음). 표시 = `count === 0 ? '평가 없음' : (Math.round(sum / count * 10) / 10).toFixed(1)` + " · 평가 {count}건". 별 모양은 **Lucide `star` 아이콘**(별 문자 U+2605는 Extended_Pictographic이라 텍스트 금지, §0.3·D21) | 결정적 반올림, 금지 패턴 검사와 일치 |
 | D42 | 별점 표시 위치 | 팀원 피드백 | 지원자 행(`applicant-rating-{u}`), 채택된 작업자 스트립(`worker-rating`), 대시보드 캐릭터 카드(`dash-rating`). 랭킹·게시판에는 표시하지 않음 | 채택 판단에 필요한 곳만 |
 | D43 | 별점 모달과 하이퍼 프레임 순서 | 팀원 피드백 | `[퀘스트 완료 (승인)]` → **별점 모달** → `[별점 주고 승인]` 클릭 시 `quest/approve{stars}` 커밋(D24처럼 즉시) → 하이퍼 프레임 B(보상 카드 EXP = 별점 EXP, 별 n개 표시). 모달 취소 = 변화 없음 | 하이퍼 프레임 1,800ms 규칙(D3) 유지 |
 | D44 | 시드 별점 | 팀원 피드백 | `rating.count = completedTotal`(과거 완료는 모두 평가된 것으로 간주). 합계는 §4.4 표. 운영자는 평가 대상 아님 | 누적 완료 수와 일관 |
-| D45 | 반려 횟수 한도 | 팀원 피드백 | 퀘스트당 `rejectCount` 최대 **2**. 2회 반려 후 `[반려 (보완 요청)]` 비활성 + 툴팁 "반려는 퀘스트당 최대 2회예요 · 별점과 함께 승인해 주세요(1★ 가능)". 최종 경로는 **승인(별점 1★ 가능)만**. 운영자 중재 요청은 만들지 않음(단일 종료 경로 → 시연·테스트 결정성, 운영자는 §6.10 모니터링으로 사후 개입) | 무한 반려 루프 차단 |
+| D45 | 반려 횟수 한도 | 팀원 피드백 | 퀘스트당 `rejectCount` 최대 **2**. 2회 반려 후 `[반려 (보완 요청)]` 비활성 + 툴팁 "반려는 퀘스트당 최대 2회예요 · 별점과 함께 승인해 주세요(별 1개도 가능)". 최종 경로는 **승인(별 1개도 가능)만**. 작업자 일일 완료 한도(D12)와 겹치면 D12가 우선(§6.9). 운영자 중재 요청은 만들지 않음(단일 종료 경로 → 시연·테스트 결정성, 운영자는 §6.10 모니터링으로 사후 개입) | 무한 반려 루프 차단 |
 | D46 | 반려 카운터 표시 | 팀원 피드백 | 상세의 검수 바와 제출 카드에 `반려 n/2`(`reject-count`, `data-count`). 두 번째 반려 모달에는 "이번이 마지막 반려예요" 경고. 게시판 배지는 그대로(D13) | 정보는 상세에서만 |
 | D47 | 운영자 페르소나 | 팀원 피드백 | `ops` = **최운영 매니저 · 사내문화팀 · 마포 본사 · HS13001**, `role: 'admin'`, `isPersona: true`. 페르소나 전환기 맨 아래 "운영자" 구분선 뒤에 표시. **플레이어가 아님**: 랭킹·조직도·일일 퀘스트·별점·모니터링 대상에서 제외, 포인트 0 고정, GNB 포인트 칩 대신 `admin-badge`("운영자"). 퀘스트·효성마을 쓰기 액션은 모두 `FORBIDDEN`("운영자 계정은 업무 퀘스트·효성마을 거래에 참여하지 않아요"). 열람은 가능 | 기존 3인 페르소나 수치·조직도 검색 결과 불변 |
 | D48 | 운영자 콘솔 접근 | 팀원 피드백 | `/admin`(`?tab=flags\|restrictions\|log`). GNB 탭 `운영자 콘솔`(`nav-admin`)은 운영자일 때만 4번째로 표시(다른 페르소나는 기존 3탭, D1 유지). 운영자가 `/`에 오면 `/admin`으로 클라이언트 이동. 운영자가 아니면 `/admin`은 200 + `admin-forbidden` 패널("운영자만 볼 수 있어요" + `[대시보드로]`) | 실제 인증 없음(시연), 테스트 결정성 |
-| D49 | 의심 활동 규칙 | 팀원 피드백 | 순수 함수 `detectFlags(db, now)`(§6.11), 최근 **14일**, 규칙 5종(R1 같은 요청자→작업자 완료 ≥3 · R2 상호 승인 A↔B 각 ≥2 · R3 같은 쌍 평가 ≥3건 전부 5★ · R4 현상금 ≥500 & 등록→승인 ≤30분 · R5 같은 판매자↔구매자 거래 ≥3건 또는 합계 ≥2,000 P). 플래그 ID는 결정적. 판정 데이터는 별점 원장 `db.ratings` + 거래 내역 | 설명 가능한 근거, 재현 가능 |
-| D50 | 제재 종류·기간 | 팀원 피드백 | 종류 `quest_post`(퀘스트 등록 제한) · `purchase`(구매 제한), 하나 또는 둘 다. 기간 1일 · 3일 · 7일 · 무기한, 사유 5–100자 필수. 해제도 사유 5–100자. 만료는 `clock.now() ≥ endsAt`로 자동(별도 액션 없음). 같은 사용자·같은 종류의 활성 제재는 1건 | 단순·검증 가능 |
+| D49 | 의심 활동 규칙 | 팀원 피드백 | 순수 함수 `detectFlags(db, now)`(§6.11), 최근 **14일**, 규칙 5종(R1 같은 요청자→작업자 완료 ≥3 · R2 상호 승인 A↔B 각 ≥2 · R3 같은 쌍 평가 ≥3건 전부 별 5개 · R4 현상금 ≥500 & 등록→승인 ≤30분 · R5 같은 판매자↔구매자 0 P 초과 거래 ≥3건, 또는 ≥2건이면서 합계 ≥2,000 P — v2.3 D58. 같은 쌍에 R3이 성립하면 R1은 따로 만들지 않음 — D59). 플래그 ID는 결정적. 판정 데이터는 별점 원장 `db.ratings` + 거래 내역 | 설명 가능한 근거, 재현 가능 |
+| D50 | 제재 종류·기간 | 팀원 피드백 | 종류 `quest_post`(퀘스트 등록 제한) · `purchase`(구매 제한), 하나 또는 둘 다(일부가 이미 활성이면 D55). 기간 1일 · 3일 · 7일 · 무기한, 사유 5–100자 필수. 해제도 사유 5–100자. 만료는 `clock.now() ≥ endsAt`로 자동(별도 액션 없음). 같은 사용자·같은 종류의 활성 제재는 1건 | 단순·검증 가능 |
 | D51 | 제재의 효과 범위 | 팀원 피드백 | `quest_post`: `quest/create`만 차단(지원·제출·승인·반려는 가능). `purchase`: `item/request` 차단 + 조직도에서 해당 직원 `[예약자 지정]`·`[최종 구매자 지정]` 비활성("구매 제한 중인 직원이에요"). 이미 들어간 구매 요청은 유지. 가드 순서: 운영자 `FORBIDDEN` → `RESTRICTED` → `TIMER_EXPIRED` → 기존 가드 | 요구 범위 그대로 |
 | D52 | 플래그 시드 데이터 위치 | 팀원 피드백 | 시드 의심 사례는 **아카이브 기록**(퀘스트 `A-101…A-107`, 매물 `A-m1…A-m3`)으로 `db.ratings`·`db.transactions`에만 존재하고 게시판·마켓 목록에는 나오지 않음 | 게시판 7건·물품 8건·카운트(AC-8.6.1, 8.9.1) 불변 |
 | D53 | 새 UI의 디자인 근거 | 팀원 피드백 | 별점 모달·운영자 콘솔·제재 배너에는 ref가 없음. DESIGN.md 컴포넌트(모달 §7, 표·배지·칩·버튼, 비활성 규칙 §7.1)만으로 구성하고 **Visual QA 픽셀/구도 비교 대상에서 제외**(DOM 단언은 E2E가 담당). 기존 ref 화면에 추가된 별점 텍스트·반려 카운터는 구도 체크에서 허용 차이 | 근거 없는 시각 지어내기 방지 |
+| D54 | 제재 상태 우선순위 | 분석봇 v2.2 높음 | `restrictionStatus(r, now)` = `r.liftedAt != null ? 'lifted' : (r.endsAt != null && now >= Date.parse(r.endsAt) ? 'expired' : 'active')`. **해제가 만료보다 우선**(시드 r1 = 종료 시각이 지났지만 `lifted`) | 표시·testid `data-status` 결정성 |
+| D55 | 일부 종류가 이미 활성인 제재 | 분석봇 v2.2 높음(사용자 지정 방식) | `admin/restrict`는 요청 kinds 중 **활성이 아닌 종류만** 생성(각각 Restriction + 로그 1건). 요청 kinds가 **전부 이미 활성일 때만** `INVALID_STATE`(DB 불변). 기존 활성 제재는 연장·덮어쓰기 안 함(바꾸려면 해제 후 재제재). 모달에서 이미 활성인 종류 체크박스는 비활성 + 사유 "이미 제재 중이에요 ({MM.DD HH:mm}까지)" | 부분 성공을 명시, 오류 코드 1개로 단순화(`ALREADY_RESTRICTED` 폐지) |
+| D56 | 제재 id 결정성 | 분석봇 v2.2 높음 | 생성 전에 kinds를 **정규 순서 `['quest_post','purchase']`**로 정렬하고 그 순서로 `r{nextRestrictionNo}`를 부여. 입력 배열 순서와 무관. 시드 이후 E2E 기대값: kang 등록 제한 = `r2`, kim 등록 = `r3`, kim 구매 = `r4`. 제재 행에 `data-kind` | 테스트가 해제할 id를 고정 |
+| D57 | 해제·무혐의 멱등성 | 분석봇 v2.2 높음 | `admin/lift`: 대상 제재가 `active`가 아니면(이미 해제·만료·없음) `INVALID_STATE`. `admin/dismissFlag`: 현재 `detectFlags` 결과에 없는 id이거나 유효 상태가 `open`이 아니면 `INVALID_STATE`. `admin/restrict`의 `flagId`도 같은 조건(열린 플래그만). 중복 dispatch(StrictMode·두 탭)에도 로그는 1건 | Harness §1.6-5 멱등 원칙 |
+| D58 | R5 오탐 축소 | 분석봇 v2.2 보통 | 0 P(무료나눔) 거래 제외. 성립 = 건수 ≥ 3 **또는** (건수 ≥ 2 **그리고** 합계 ≥ 2,000 P). 고가 물품 1건 거래는 플래그 아님 | 시드 사례 C(800 P × 3건)는 그대로 성립 |
+| D59 | R1·R3 중복 제거 | 분석봇 v2.2 보통 | 같은 (a → b) 쌍에 R3(`pair_5star`)이 성립하면 R1(`pair_repeat`)은 만들지 않고 R3 플래그의 `alsoMatched = ['pair_repeat']`로 표시(행 1개 + 보조 규칙 배지 "반복 완료"). R3이 성립하지 않을 때만 R1 단독 플래그 | 같은 사례 2행 방지. 시드 플래그 5 → **4건**(§9.7) |
+| D60 | 처리된 플래그의 재발 | 분석봇 v2.2 보통 | `FlagState`에 처리 시점의 `lastAt`·`evidenceCount` 저장. 현재 플래그의 `lastAt`이 저장값보다 늦으면(처리 후 새 근거) 유효 상태 = `open` + `newEvidence = 저장 시각 이후 근거 수`(배지 "새 근거 n건"). 다시 무혐의·제재 가능 | 무혐의 후 재발 누락 방지 |
+| D61 | 시드 신선도·시연 당일 | 분석봇 v2.2 보통 | 아카이브 기록은 `seedNow` 상대 시각이라 시드 적재 후 **약 6일**(+6.04일)부터 플래그가 14일 창 밖으로 빠짐(§9.7 수명 표). 운영자 콘솔은 `now − seededAt ≥ SEED_STALE_DAYS(5일)`이면 `admin-stale-seed` 경고("시드 적재 후 5일이 지나 의심 활동 사례가 줄어들 수 있어요 · 시연 전 [데이터 초기화]", 버튼은 기존 `debug-reset-data`와 같은 동작). 시연 당일 시작 전 `[데이터 초기화]` 1회(Harness §9.4) | 시연에서 표가 줄어드는 사고 방지 |
 
 ---
 
@@ -145,9 +154,10 @@ export const QUEST_REWARD_EXP = 100;                     // = RATING_EXP[3] (기
 export const RATING_EXP = { 1: 50, 2: 75, 3: 100, 4: 125, 5: 150 } as const;   // D40
 export const REJECT_LIMIT = 2;                           // D45
 export const MONITOR_WINDOW_DAYS = 14;                   // D49
-export const MONITOR_RULES = { pairRepeatMin: 3, reciprocalMin: 2, pair5StarMin: 3, fastBountyMin: 500, fastMinutesMax: 30, marketPairCountMin: 3, marketPairSumMin: 2000 } as const;
+export const MONITOR_RULES = { pairRepeatMin: 3, reciprocalMin: 2, pair5StarMin: 3, fastBountyMin: 500, fastMinutesMax: 30, marketPairCountMin: 3, marketPairSumCountMin: 2, marketPairSumMin: 2000 } as const;   // R5 = count ≥ 3 || (count ≥ 2 && sum ≥ 2000), 0 P 제외 (D58)
 export const RESTRICTION_DURATIONS = { '1d': 1, '3d': 3, '7d': 7, indefinite: null } as const;   // 일 수, D50
 export const ADMIN_ID = 'ops';
+export const SEED_STALE_DAYS = 5;   // D61
 export const DAILY_MISSION_REWARD_P = 10;
 export const DAILY_MISSION_REWARD_EXP = 50;
 export const DAILY_COMPLETE_LIMIT = 2;
@@ -369,16 +379,18 @@ export interface Restriction {
   createdBy: UserId; flagId: string | null;
   liftedAt: ISODate | null; liftedBy: UserId | null; liftReason: string | null;
 }
-// 활성 = liftedAt === null && (endsAt === null || now < endsAt)
+// 상태 = restrictionStatus(r, now): liftedAt 있으면 'lifted'(만료보다 우선) → endsAt ≤ now면 'expired' → 'active' (D54)
 export type FlagRule = 'pair_repeat' | 'reciprocal' | 'pair_5star' | 'fast_high_bounty' | 'market_pair';
 export interface Flag {                   // 계산 결과 (저장하지 않음)
   id: string;                             // `${rule}__${a}__${b}` (상호 규칙은 a,b 정렬) 또는 `fast_high_bounty__${questRef}`
   rule: FlagRule; severity: 'high' | 'medium';
   subjects: UserId[]; lastAt: ISODate;
   evidence: { kind: 'rating' | 'tx'; refId: string; text: string; at: ISODate }[];
-  status: 'open' | 'actioned' | 'dismissed';   // flagStates에서 병합, 기본 open
+  status: 'open' | 'actioned' | 'dismissed';   // flagStates에서 병합, 기본 open, 새 근거면 open (D60)
+  alsoMatched: FlagRule[];                // R3이 R1을 흡수하면 ['pair_repeat'] (D59), 그 외 []
+  newEvidence: number;                    // 처리 후 새로 생긴 근거 수 (D60), 처리 전 0
 }
-export interface FlagState { status: 'actioned' | 'dismissed'; by: UserId; at: ISODate; note: string }
+export interface FlagState { status: 'actioned' | 'dismissed'; by: UserId; at: ISODate; note: string; lastAt: ISODate; evidenceCount: number }   // lastAt·evidenceCount = 처리 시점 플래그 값 (D60)
 export interface AdminLogEntry {
   id: string;                             // 'L1'…
   at: ISODate; actorId: UserId;
@@ -401,7 +413,7 @@ export interface ItemInput {
 export type DomainErrorCode =
   | 'TIMER_EXPIRED' | 'DAILY_LIMIT' | 'INSUFFICIENT_POINTS' | 'NOT_RESERVED_BUYER' | 'FORBIDDEN'
   | 'INVALID_STATE' | 'PLEDGE_REQUIRED' | 'VALIDATION' | 'ALREADY_APPLIED' | 'PENDING_REQUEST_EXISTS'
-  | 'RATING_REQUIRED' | 'REJECT_LIMIT' | 'RESTRICTED' | 'ALREADY_RESTRICTED';
+  | 'RATING_REQUIRED' | 'REJECT_LIMIT' | 'RESTRICTED';   // 이미 활성·이미 해제·이미 처리 = INVALID_STATE (D55, D57)
 export class DomainError extends Error { constructor(public code: DomainErrorCode, message: string) { super(message) } }
 ```
 
@@ -436,7 +448,7 @@ export type Action =
 ```
 `teams/reply`는 `thread.pendingReplyFor !== null`일 때만 성공하고(답장 1개 추가 후 `null`로), 아니면 `INVALID_STATE`(UI는 조용히 무시). 따라서 effect가 두 번 실행돼도 답장은 1개입니다. 같은 이유로 NPC 자동 승인은 `pendingRequest`가 있을 때만 성공합니다.
 
-`admin/*` 액션은 actor가 `role:'admin'`일 때만 성공(아니면 `FORBIDDEN`). 대상이 운영자면 `VALIDATION`. `admin/restrict`는 kinds마다 Restriction 1건 + AdminLogEntry 1건을 만들고, `flagId`가 있으면 `flagStates[flagId] = actioned`. 같은 종류 활성 제재가 있으면 `ALREADY_RESTRICTED`. 운영자가 플레이어 액션(`quest/*`·`item/*`·`daily/claim`)을 하면 `FORBIDDEN`(`quest/view`·`item/view` 제외).
+`admin/*` 액션은 actor가 `role:'admin'`일 때만 성공(아니면 `FORBIDDEN`). 대상이 운영자면 `VALIDATION`. `admin/restrict`는 kinds를 정규 순서(`quest_post` → `purchase`)로 정렬하고(D56), **아직 활성이 아닌 종류마다** Restriction 1건 + AdminLogEntry 1건을 만들며, `flagId`가 있으면 `flagStates[flagId] = { status:'actioned', …, lastAt, evidenceCount }`. 요청 kinds가 전부 이미 활성이면 `INVALID_STATE`(D55). `flagId`가 열린 플래그가 아니면 `INVALID_STATE`. `admin/lift`는 대상이 `active`일 때만, `admin/dismissFlag`는 열린 플래그일 때만 성공하고 아니면 `INVALID_STATE`(D57). 운영자가 플레이어 액션(`quest/*`·`item/*`·`daily/claim`)을 하면 `FORBIDDEN`(`quest/view`·`item/view` 제외).
 
 리듀서는 실패 시 `DomainError`를 던지고 **DB를 변경하지 않습니다**. UI는 같은 가드 함수(`canX(db, actor, ...)` → `{ ok: true } | { ok: false; code; reason }`)를 써서 버튼 비활성과 사유 라벨을 만듭니다. 가드와 리듀서가 같은 함수를 공유해야 합니다(MUST).
 
@@ -507,16 +519,20 @@ tier(level)       = bronze(1–4) | silver(5–9) | gold(10–14) | platinum(15�
 
 ### 6.8 별점 보상 (D40–D44)
 - `ratingExp(s) = RATING_EXP[s]`: 1→50, 2→75, 3→100, 4→125, 5→150. `formatRating(r)` = D41.
-- 레벨·티어는 기존 §6.1 수식 그대로(EXP만 달라짐). 예: lee 650 EXP에서 3★ → 750 Lv.8, 5★ → 800 Lv.9, 1★ → 700 Lv.8.
+- 레벨·티어는 기존 §6.1 수식 그대로(EXP만 달라짐). 예: lee 650 EXP에서 별 3개 → 750 Lv.8, 별 5개 → 800 Lv.9, 별 1개 → 700 Lv.8.
 - 별점은 요청자만, 승인 시 1회. 수정·취소 없음. 운영자는 별점을 주거나 받지 않음.
+- **집계와 원장은 별개** (v2.3): `user.rating`은 과거분까지 포함한 누적 집계(§4.4 시드), `db.ratings` 원장은 최근 기록(시드 rt1–rt9 + 이후 승인)만 담고 **모니터링은 원장만** 사용. 따라서 "집계 = 원장 합"은 불변식이 아님(lee의 시드 8건은 원장에 없음). 대신 맞춰야 하는 불변식: ① 모든 플레이어 `rating.count === completedTotal` ② 시드 이후 추가된 RatingRecord(id ∉ rt1–rt9)의 작업자별 건수·별 합 = `rating`의 시드값 대비 증가분 ③ 승인 1회 = RatingRecord 정확히 1건 추가(Harness `invariants.test`).
 
 ### 6.9 반려 한도 (D45)
 - `quest/reject` 성공 시 `rejectCount += 1`. 가드: `rejectCount < REJECT_LIMIT` 아니면 `REJECT_LIMIT`.
 - `rejectCount === 2`이고 `reviewPending === true`면 요청자에게 남은 행동은 `[퀘스트 완료 (승인)]`(별점 1–5) 뿐. 작업자 재제출은 반려 횟수와 무관하게 가능(타이머 가드는 유지).
+- **반려 2/2 + 작업자 오늘 완료 2/2(D12) 겹침**: D12가 우선. `approve-btn` 비활성 + D12 사유 "작업자의 오늘 완료 한도(2/2) 도달 · 내일 승인할 수 있어요", `reject-btn` 비활성 + D45 툴팁. 상태는 그대로 유지되고, KST 다음 날 `completedToday` 초기화 후 승인 가능(막다른 상태 아님, 데이터 변경 없음). 단위 테스트 1건 MUST(Harness §5.1).
 
 ### 6.10 운영자 · 제재 (D47, D50, D51)
-- `activeRestrictions(db, userId, now)` = `liftedAt == null && (endsAt == null || now < Date.parse(endsAt))`.
+- `restrictionStatus(r, now)` = `r.liftedAt != null ? 'lifted' : (r.endsAt != null && now >= Date.parse(r.endsAt) ? 'expired' : 'active')`(D54). `activeRestrictions(db, userId, now)` = 그 사용자의 `restrictionStatus === 'active'`인 제재.
+- **만료 시 화면 갱신**: 제재·배너·버튼 가드는 DB가 바뀌지 않아도 시간이 흐르면 결과가 달라지므로, 공용 훅 `useNow(1000)`(1초 틱, GNB 타이머 틱과 같은 소스, `clock.now()` 사용)의 값을 `canX(db, actor, now)`에 넣어 다시 평가합니다. 새로고침 없이 만료 시각 1초 안에 배너가 사라지고 버튼이 다시 활성(Harness `15`의 clock 테스트).
 - `endsAt = startsAt + days × 24h`(무기한은 null). 만료 시 자동으로 비활성(액션·로그 없음, 제재 표에서 "만료" 배지).
+- 시각 표기(`{MM.DD HH:mm}`, evidence의 "10.14 16:20")는 `Intl.DateTimeFormat('ko-KR', { timeZone: 'Asia/Seoul', … })`만 사용(OS 시간대 무관, Harness 부록 A-8 vitest TZ 고정).
 - 사유 라벨(정확한 문구): 등록 제한 "운영자 제재로 퀘스트 등록이 제한됐어요 ({MM.DD HH:mm}까지 · 사유: {reason})", 무기한이면 "(해제 시까지 · 사유: …)". 구매 제한 "운영자 제재로 구매가 제한됐어요 ({…}까지 · 사유: {reason})".
 - 제재받은 사용자의 모든 화면 상단에 `restriction-banner`(warning 색, Lucide `shield-alert`): "운영자 제재 중 · {종류 목록} · {기간} · 사유: {reason}". 운영자 화면에는 표시 안 함.
 
@@ -524,13 +540,14 @@ tier(level)       = bronze(1–4) | silver(5–9) | gold(10–14) | platinum(15�
 최근 14일(`now − 14일 ≤ at ≤ now`)의 `db.ratings`(approvedAt 기준)와 `db.transactions`(`market_purchase`, at 기준)만 사용. 운영자는 대상 아님. 결과는 `severity`(high 먼저) → `lastAt` 내림차순 → `id` 오름차순으로 정렬.
 | 규칙 | 조건 | id | 심각도 | 근거(evidence) |
 |---|---|---|---|---|
-| R1 `pair_repeat` | 같은 (요청자 a → 작업자 b) 완료 ≥ 3 | `pair_repeat__a__b` | medium | 해당 RatingRecord 전부 |
+| R1 `pair_repeat` | 같은 (요청자 a → 작업자 b) 완료 ≥ 3 **이고 같은 쌍에 R3이 성립하지 않음**(성립하면 R3의 `alsoMatched`로, D59) | `pair_repeat__a__b` | medium | 해당 RatingRecord 전부 |
 | R2 `reciprocal` | a→b 완료 ≥ 2 **그리고** b→a 완료 ≥ 2 | `reciprocal__x__y`(정렬) | high | 양방향 RatingRecord 전부 |
-| R3 `pair_5star` | 같은 (a → b) 평가 ≥ 3건이고 전부 5★ | `pair_5star__a__b` | medium | 해당 RatingRecord |
+| R3 `pair_5star` | 같은 (a → b) 평가 ≥ 3건이고 전부 별점 5(만점) | `pair_5star__a__b` | medium | 해당 RatingRecord |
 | R4 `fast_high_bounty` | bounty ≥ 500 이고 approvedAt − postedAt ≤ 30분 | `fast_high_bounty__{questRef}` | high | 그 RatingRecord 1건 |
-| R5 `market_pair` | 같은 두 사람(방향 무관) 사이 `market_purchase` ≥ 3건 **또는** 합계 ≥ 2,000 P | `market_pair__x__y`(정렬) | medium | 해당 구매 Tx 전부(구매자·판매자·금액·시각) |
-- `evidence[].text` 예: "A-101 · 최다이아 → 강창원 · 5★ · 현상금 200 P · 10.14 16:20", "Tx t31 · 정플래 → 최다이아 · 800 P · 10.15 12:10".
-- `status` = `flagStates[id]?.status ?? 'open'`. 같은 DB·같은 now → 같은 결과(결정성, 단위 테스트 MUST).
+| R5 `market_pair` | 같은 두 사람(방향 무관) 사이 0 P 초과 `market_purchase`가 ≥ 3건, **또는** ≥ 2건이면서 합계 ≥ 2,000 P(D58) | `market_pair__x__y`(정렬) | medium | 해당 구매 Tx 전부(구매자·판매자·금액·시각) |
+- `evidence[].text` 예: "A-101 · 최다이아 → 강창원 · 별점 5 · 현상금 200 P · 10.14 16:20", "Tx t31 · 정플래 → 최다이아 · 800 P · 10.15 12:10".
+- `status`(D60): `st = flagStates[id]`가 없으면 `open`. 있으면 `Date.parse(flag.lastAt) > Date.parse(st.lastAt)`일 때 `open` + `newEvidence = (st.lastAt 이후 근거 수)`, 아니면 `st.status`. 같은 DB·같은 now → 같은 결과(결정성, 단위 테스트 MUST).
+- 시연 메모: 시연 중 현상금 ≥ 500 퀘스트를 30분 안에 승인하면 R4 high가 바로 생깁니다(의도된 동작). 정식 시나리오 §11은 현상금 300이라 해당 없음.
 
 ---
 
@@ -655,15 +672,15 @@ md 모달(640px), 헤더 "사내 정보보안 서약서" + shield 아이콘, 조
 | 모집중 · 요청자 | `[수정]` `[삭제]` 활성(삭제 툴팁 "삭제 시 현상금 BP가 전액 환불돼요"), 결과물 에디터 잠금 패널("결과물 제출 에디터가 잠겨 있어요", "채택 전 잠금" 배지), 진행 규칙 4칸, aside: 보상 카드(100+B P, "에스크로 보관중"), **지원자 리스트**(티어 배지·부서·마을·**별점 평균 + 평가 수**(`applicant-rating-{u}`, D42)·각오·보안서약 동의 시각·`[채택하기]`) — ref06 |
 | 모집중 · 타인 | `[지원하기]`(타이머·한도·중복 가드 + 사유), 지원 완료 시 "지원 완료 · 채택 대기" 비활성, 잠금 패널 동일, 지원자 리스트(채택 버튼 없음) |
 | 진행중/보완요청 · 요청자 | `[수정]` `[삭제]` 잠금(툴팁 "진행중·완료 상태에서는 수정/삭제할 수 없어요"), 채택된 작업자 스트립 + `[팀즈 대화하기 · 업무 인수인계]`, 제출 결과물 카드(최신 버전, "검수 대기" 배지, 본문·첨부), 작업자 별점(`worker-rating`), 반려 카운터 `반려 n/2`(`reject-count`), reviewPending이면 `[반려 (보완 요청)]`(2/2면 비활성 + D45 툴팁) `[퀘스트 완료 (승인)]`(→ 별점 모달 §8.14) + 안내 "승인 즉시 작업자에게 100 P + 현상금 B P, 별점에 따라 50–150 EXP가 지급돼요", aside: 진행 상태 타임라인 — ref07 |
-| 진행중/보완요청 · 작업자 | 같은 스트립(상대 = 요청자) + 팀즈 버튼, **결과물 에디터 열림**(success 배지 "결과물 에디터 열림") + 첨부(D22) + `[결과물 제출하기]`(reviewPending=true면 비활성 "검수 대기 중이에요"), 보완요청이면 반려 사유 박스(revise 색) 상단 표시 |
+| 진행중/보완요청 · 작업자 | 같은 스트립(상대 = 요청자) + 팀즈 버튼, 반려 카운터 `반려 n/2`(`reject-count`, D46 — 요청자가 NPC인 q4는 이 화면으로 검증), **결과물 에디터 열림**(success 배지 "결과물 에디터 열림") + 첨부(D22) + `[결과물 제출하기]`(reviewPending=true면 비활성 "검수 대기 중이에요"), 보완요청이면 반려 사유 박스(revise 색) 상단 표시 |
 | 진행중/보완요청 · 제3자 | 읽기 전용(제출 이력 비공개, "진행중인 퀘스트예요") |
-| 완료 · 누구나 | 상태 배지 완료, 최종 승인 버전, 보상 지급 내역("이퀘스트 사원 · +400 P · +100 EXP"), 수정/삭제 잠금 |
+| 완료 · 누구나 | 상태 배지 완료, 최종 승인 버전, 보상 지급 내역("{작업자} · +{100+B} P · +{RATING_EXP[stars]} EXP · 별 {stars}개", 별은 Lucide `star` 아이콘 + 숫자. 시드: q2 = "+200 P · +125 EXP · 별 4개", q1 = "+300 P · +150 EXP · 별 5개"), 수정/삭제 잠금 |
 
 반려 모달: 사유 textarea(≥5자), `[반려하기]`. 
 - AC-8.7.1 채택 전 작업자 에디터는 모든 사용자에게 `data-locked="true"`이며 입력 불가.
 - AC-8.7.2 채택은 1명만: 채택 즉시 다른 `[채택하기]` 버튼이 사라지고 상태가 `진행중`, 수정/삭제 잠금.
 - AC-8.7.3 반려 → 상태 "진행중 · 보완요청", 작업자 화면에 사유 표시, 재제출 가능, 재제출 후 v2 표시.
-- AC-8.7.4 승인 → **별점 모달**(§8.14)에서 별점 선택·확인 → **하이퍼 프레임 B** 1,800ms(±150ms) → 상태 완료, 작업자 +100+B P · +RATING_EXP[별점] EXP(3★ = +100), `completedToday +1`, 작업자 별점 평균 갱신.
+- AC-8.7.4 승인 → **별점 모달**(§8.14)에서 별점 선택·확인 → **하이퍼 프레임 B** 1,800ms(±150ms) → 상태 완료, 작업자 +100+B P · +RATING_EXP[별점] EXP(별 3개 = +100), `completedToday +1`, 작업자 별점 평균 갱신.
 - AC-8.7.5 일일 한도(D12)와 타이머(§6.6) 가드가 버튼 비활성 + 사유 라벨 + 툴팁으로 표현된다.
 - AC-8.7.6 팀즈 버튼은 요청자·작업자에게만, 진행중·보완요청·완료 상태에서만 보인다.
 
@@ -720,29 +737,30 @@ lg 모달. 헤더 "그룹웨어 조직도" + "예약자 / 최종 구매자 지�
 - AC-8.13.2 선택만으로는 상태가 바뀌지 않고 `[적용하기]` 시 커밋.
 
 ### 8.14 별점 모달 `RatingModal` (ref 없음 — DESIGN §7 모달, D53)
-sm–md 모달. 헤더 "결과물 품질 평가" + 작업자 아바타·이름·현재 별점 평균. 별 5개 버튼(Lucide `star`, 44px 터치 영역, `role="radiogroup"`, 각 `role="radio"` `aria-checked`, ←/→ 키로 이동), 선택 전 안내 "별점을 선택해 주세요", 선택 후 미리보기 `+{100+B} P · +{RATING_EXP[s]} EXP`(`rating-exp-preview`)와 매핑 표(1★ 50 · 2★ 75 · 3★ 100 · 4★ 125 · 5★ 150 EXP). 푸터 `[취소]` `[별점 주고 승인]`(`rating-confirm`, 선택 전 비활성 + 사유 "별점을 선택해야 승인할 수 있어요").
+sm–md 모달. 헤더 "결과물 품질 평가" + 작업자 아바타·이름·현재 별점 평균. 별 5개 버튼(Lucide `star`, 44px 터치 영역, `role="radiogroup"`, 각 `role="radio"` `aria-checked`, ←/→ 키로 이동), 선택 전 안내 "별점을 선택해 주세요", 선택 후 미리보기 `+{100+B} P · +{RATING_EXP[s]} EXP`(`rating-exp-preview`)와 매핑 표("별 1개 50 · 별 2개 75 · 별 3개 100 · 별 4개 125 · 별 5개 150 EXP", 각 항목 앞 Lucide `star` 아이콘 가능). 푸터 `[취소]` `[별점 주고 승인]`(`rating-confirm`, 선택 전 비활성 + 사유 "별점을 선택해야 승인할 수 있어요").
 - AC-8.14.1 승인 버튼 클릭 시 모달이 열리고 별점 선택 전에는 확인 버튼이 비활성이다. 취소/ESC → 상태·포인트·EXP 변화 없음.
 - AC-8.14.2 각 별점 s에 대해 작업자 EXP 증가 = RATING_EXP[s](단위 테스트 5건), 포인트 증가 = 100 + B(별점 무관).
-- AC-8.14.3 5★ 승인(E2E, `ref07`): lee 650 → **800 EXP(Lv.9)**, 300 → **700 P**, 하이퍼 프레임 B 보상 카드 "+150 EXP"·`data-stars=5`, "LEVEL UP!" "실버 Lv.7 → Lv.9", lee 별점 4.1·8건 → **4.2 · 평가 9건**.
+- AC-8.14.3 별 5개 승인(E2E, `ref07`): lee 650 → **800 EXP(Lv.9)**, 300 → **700 P**, 하이퍼 프레임 B 보상 카드 "+150 EXP"·`data-stars=5`, "LEVEL UP!" "실버 Lv.7 → Lv.9", lee 별점 4.1·8건 → **4.2 · 평가 9건**.
 - AC-8.14.4 지원자 행·작업자 스트립·대시보드에 D41 형식의 별점 평균이 보인다(시드: lee "4.1 · 평가 8건", jung "4.5 · 평가 31건", oh "4.0 · 평가 1건").
 
 ### 8.15 반려 한도 UI (D45, D46)
 - AC-8.15.1 반려할 때마다 `reject-count`가 `반려 1/2` → `반려 2/2`로 바뀐다(시드 q4 = `반려 1/2`).
 - AC-8.15.2 두 번째 반려 모달에 "이번이 마지막 반려예요" 경고가 보인다.
-- AC-8.15.3 `rejectCount = 2`이고 검수 대기면 `reject-btn` 비활성 + 툴팁 "반려는 퀘스트당 최대 2회예요 · 별점과 함께 승인해 주세요(1★ 가능)", `approve-btn`은 활성. 1★ 승인 시 작업자 +50 EXP(`rejectLimit` 시나리오: lee 650 → 700, Lv.8).
+- AC-8.15.3 `rejectCount = 2`이고 검수 대기면 `reject-btn` 비활성 + 툴팁 "반려는 퀘스트당 최대 2회예요 · 별점과 함께 승인해 주세요(별 1개도 가능)", `approve-btn`은 활성. 별 1개 승인 시 작업자 +50 EXP, 포인트는 별점 무관 +100+B(`rejectLimit` 시나리오: lee EXP 650 → 700 Lv.8, **300 → 700 P**, 별점 (33+1)/9 = 3.78 → **3.8 · 평가 9건**).
 
 ### 8.16 운영자 콘솔 `/admin` (ref 없음 — DESIGN 컴포넌트, Visual QA 제외, D48·D53)
 좌측 사이드바(264px, "운영자 콘솔": `의심 활동 n` · `제재 현황 n(활성)` · `감사 로그 n`), 본문 헤더 "운영 모니터링" + 요약 칩(열린 플래그 n · high n · 활성 제재 n). 탭 3개(`admin-tab-{flags|restrictions|log}`, URL `?tab=` 유지):
-- **의심 활동**: 표(심각도 배지 · 규칙명 · 대상 직원(아바타·이름·부서) · 근거 요약(첫 근거 + "외 n건") · 최근 발생 · 상태 배지(열림/조치됨/무혐의) · 조치). 행 펼침 → 근거 목록(`flag-evidence-{id}`, evidence 전부). 행 버튼 `[제재하기]`(제재 모달, 대상 = 플래그의 subjects 중 선택, 기본 첫 번째) · `[무혐의 처리]`(사유 5–100자 모달). 규칙명: R1 "동일 요청자→작업자 반복 완료", R2 "상호 승인", R3 "특정 쌍 5★ 독점", R4 "고액 현상금 초고속 승인", R5 "동일 상대 반복 거래".
-- **제재 현황**: `[직원 제재]`(`restrict-new-btn`, 플래그 없이 제재) + 표(직원 · 종류 배지 · 사유 · 시작 · 종료(무기한) · 상태(활성/만료/해제) · `[해제]`(활성만, 사유 5–100자)).
+- **의심 활동**: 표(심각도 배지 · 규칙명 · 대상 직원(아바타·이름·부서) · 근거 요약(첫 근거 + "외 n건") · 최근 발생 · 상태 배지(열림/조치됨/무혐의, 재발이면 "새 근거 n건" 배지) · 보조 규칙 배지(`alsoMatched`, 예: "반복 완료") · 조치(열린 행만)). 행 펼침 → 근거 목록(`flag-evidence-{id}`, evidence 전부). 행 버튼 `[제재하기]`(제재 모달, 대상 = 플래그의 subjects 중 선택, 기본 첫 번째) · `[무혐의 처리]`(사유 5–100자 모달). 규칙명: R1 "동일 요청자→작업자 반복 완료", R2 "상호 승인", R3 "특정 쌍 만점 독점", R4 "고액 현상금 초고속 승인", R5 "동일 상대 반복 거래".
+- **제재 현황**: `[직원 제재]`(`restrict-new-btn`, 플래그 없이 제재) + 표(직원 · 종류 배지 · 사유 · 시작 · 종료(무기한) · 상태(활성/만료/해제, D54) · `[해제]`(활성만, 사유 5–100자)). 행은 `restriction-row-{id}`(+`data-status`, `data-kind`, `data-user`). 시드 신선도 경고 `admin-stale-seed`(D61)는 본문 헤더 아래.
 - **감사 로그**: 최신순 표(시각 · 운영자 · 행동(제재/해제/무혐의) · 대상 · 요약). 읽기 전용, 삭제·수정 UI 없음.
-- **제재 모달**(`restrict-modal`, DESIGN §7 모달): 대상 직원 셀렉트(운영자 제외 전 직원), 종류 체크 2개(최소 1개), 기간 세그먼트 1일·3일·7일·무기한(기본 3일), 사유 textarea(5–100자), 확인 `[제재 적용]`(조건 미충족 시 비활성 + 사유).
+- **제재 모달**(`restrict-modal`, DESIGN §7 모달): 대상 직원 셀렉트(운영자 제외 전 직원), 종류 체크 2개(최소 1개, 이미 활성인 종류는 비활성 + D55 사유), 기간 세그먼트 1일·3일·7일·무기한(기본 3일), 사유 textarea(5–100자), 확인 `[제재 적용]`(조건 미충족 시 비활성 + 사유).
 - AC-8.16.1 운영자가 아니면 `nav-admin`이 없고 `/admin`은 `admin-forbidden`만 보인다. 운영자는 `/` 접근 시 `/admin`으로 이동한다.
-- AC-8.16.2 시드에서 의심 활동 표에 **정확히 5행**(§9.7 id), high 2건이 위에 있고, 각 행 근거가 1건 이상이다.
+- AC-8.16.2 시드에서 의심 활동 표에 **정확히 4행**(§9.7 id·순서), high 2건이 위에 있고, 각 행 근거가 1건 이상이며, `pair_5star__choi__kang` 행에 보조 배지 "반복 완료"가 있다.
 - AC-8.16.3 제재 적용 → 제재 현황에 활성 행, 감사 로그에 `restrict` 행, 플래그에서 시작했으면 그 플래그 상태 "조치됨".
 - AC-8.16.4 해제 → 상태 "해제", 감사 로그 `lift` 행, 대상 사용자의 버튼이 즉시 다시 활성(다른 탭 포함).
 - AC-8.16.5 무혐의 처리 → 상태 "무혐의", 감사 로그 `dismiss_flag` 행.
-- AC-8.16.6 기간이 지나면(clock) 제재가 자동으로 "만료"가 되고 효과가 사라진다(단위 테스트).
+- AC-8.16.6 기간이 지나면(clock) 제재가 자동으로 "만료"가 되고 효과가 사라진다(단위 테스트). 열어 둔 화면도 새로고침 없이 1초 안에 갱신된다(E2E, `useNow`).
+- AC-8.16.7 (v2.3) 해제된 제재 재해제·처리된 플래그 재처리 → `INVALID_STATE`, 로그 추가 없음. 일부 종류가 활성인 2종 제재 → 나머지 종류만 생성. 무혐의 후 새 근거 → 다시 "열림" + "새 근거 n건"(단위 테스트).
 
 ### 8.17 제재받은 사용자 화면 (D51, ref 없음)
 - AC-8.17.1 `quest_post` 제재 중: `restriction-banner` 표시, `quest-submit`·`board-new-btn` 비활성 + §6.10 사유 툴팁(`disabled-reason`). 지원·제출은 가능.
@@ -762,7 +780,7 @@ sm–md 모달. 헤더 "결과물 품질 평가" + 작업자 아바타·이름·
 | 3 | 문의 | 모집중 | Power BI 대시보드 공유 권한 설정 문의 | kang | 150 | 데이터·BI | 10-26 18:00 | 10-19 16:40 | 34 | — | (없음) | — |
 | 2 | 문의 | 완료 | SAP 전표 역분개 오류 해결 방법 문의 | oh | 100 | 재무·엑셀 자동화 | 10-17 | 10-17 09:30 | 96 | — | kim(채택) · lee | kim / v1 승인 10-17 15:10 |
 | 1 | 요청 | 완료 | 사내 뉴스레터 10월호 원고 교정 | park | 200 | 문서·PPT 디자인 | 10-15 | 10-15 10:00 | 302 | SP `뉴스레터_10월호.docx` 0.6 MB | jung(채택) · choi · kang · oh · han | jung / v1 승인 10-15 17:20 |
-- `rejectCount`: q4 = 1(v1 반려), 나머지 0. `rating`: q2 = 4★(10-17 15:10, oh→kim), q1 = 5★(10-15 17:20, park→jung), 나머지 null. (시드 EXP는 이미 반영된 값이므로 다시 더하지 않음, D18과 같은 원칙)
+- `rejectCount`: q4 = 1(v1 반려), 나머지 0. `rating`: q2 = 별 4개(10-17 15:10, oh→kim), q1 = 별 5개(10-15 17:20, park→jung), 나머지 null. (시드 EXP는 이미 반영된 값이므로 다시 더하지 않음, D18과 같은 원칙)
 - q7 본문 = refs/06의 "요청 배경 + 요청 사항 표(원본 시트 정리/피벗 자동 생성/실행 버튼)" HTML.
 - escrowHeld: 7=300, 6=50, 5=500, 4=400, 3=150, 2=0, 1=0. `counters.nextQuestNo = 8`.
 
@@ -805,19 +823,19 @@ sm–md 모달. 헤더 "결과물 품질 평가" + 작업자 아바타·이름·
 | rt9 | A-107 | true | jung → han | 5 | 800 | 10-20 09:00 | **10-20 09:12** |
 
 ### 9.6 운영 시드 (D47–D52)
-- `restrictions`: `r1` = kang · `quest_post` · 사유 "단기간 반복 등록 소명 요청" · 10-10 10:00 → 10-11 10:00 · 해제 10-10 17:30(ops, "소명 확인 완료"). 활성 제재 0건. `counters.nextRestrictionNo = 2`.
+- `restrictions`: `r1` = kang · `quest_post` · 사유 "단기간 반복 등록 소명 요청" · 10-10 10:00 → 10-11 10:00 · 해제 10-10 17:30(ops, "소명 확인 완료") → 상태 **`lifted`**(종료 시각도 지났지만 D54로 해제 우선). 활성 제재 0건. `counters.nextRestrictionNo = 2`.
 - `adminLog`: `L1` 10-10 10:00 restrict(kang, r1) · `L2` 10-10 17:30 lift(kang, r1). `counters.nextLogNo = 3`. `flagStates = {}`.
 
-### 9.7 시드 기준 기대 플래그 (`detectFlags`, now = 2026-10-21 14:02:48, 정렬 §6.11) — 3개 사례 · 5건
+### 9.7 시드 기준 기대 플래그 (`detectFlags`, now = 2026-10-21 14:02:48, 정렬 §6.11) — 3개 사례 · 4건 (v2.3, D58·D59 적용 후 재계산)
 | 순서 | id | 규칙 | 심각도 | 대상 | 근거 |
 |---|---|---|---|---|---|
 | 1 | `fast_high_bounty__A-107` | R4 | high | jung, han | rt9 (800 P, 12분) |
 | 2 | `reciprocal__han__jung` | R2 | high | han, jung | rt6·rt7·rt8·rt9 |
 | 3 | `market_pair__choi__jung` | R5 | medium | choi, jung | 구매 Tx 3건, 합계 2,400 P |
-| 4 | `pair_5star__choi__kang` | R3 | medium | choi, kang | rt3·rt4·rt5 |
-| 5 | `pair_repeat__choi__kang` | R1 | medium | choi, kang | rt3·rt4·rt5 |
-- 순서 근거: high 먼저 → `lastAt` 내림차순(rt9 10-20 09:12로 둘이 같음 → id 오름차순) → medium: market 10-20 12:15, 그 다음 rt5 10-19 16:40을 공유하는 두 건은 id 오름차순(`pair_5star` < `pair_repeat`).
+| 4 | `pair_5star__choi__kang` | R3 (`alsoMatched` = R1) | medium | choi, kang | rt3·rt4·rt5 |
+- 순서 근거: high 먼저 → `lastAt` 내림차순(rt9 10-20 09:12로 둘이 같음 → id 오름차순) → medium: market 10-20 12:15, 그 다음 `pair_5star__choi__kang`(rt5 10-19 16:40). `pair_repeat__choi__kang`은 D59로 생성되지 않음. 비대상: park→jung·oh→kim 각 1건, kang↔han 거래 1건 600 P(D58로도 미성립).
 - 페르소나(kim·lee·park)와 관련된 플래그는 0건(시연 페르소나는 깨끗한 상태로 시작).
+- **수명**(시드 적재 후 시간이 흐를 때, 스크립트로 계산, D61): +6.04일(10-27 15:00, rt6 이탈) → 3건(reciprocal 소멸) · +7.10일(10-28 16:20, rt3 이탈) → 2건 · +7.92일(10-29 12:10, A-m1 이탈 → 2건 1,600 P) → 1건 · +12.80일(11-03 09:12) → 0건. 그래서 시연 당일엔 `[데이터 초기화]` 후 시작합니다.
 
 ---
 
@@ -847,7 +865,7 @@ sm–md 모달. 헤더 "결과물 품질 평가" + 작업자 아바타·이름·
 | 4 | 페르소나 → lee → 결과물 본문 입력 + `e2e_결과.xlsx` 첨부 → `[결과물 제출하기]` | v1 제출, "검수 대기" |
 | 5 | 페르소나 → kim → `[반려 (보완 요청)]` → 사유 "표 서식 보완 부탁드려요" | 상태 "진행중 · 보완요청", `reject-count` **반려 1/2** |
 | 6 | 페르소나 → lee → 사유 확인 → 재제출 | v2, 상태 진행중(검수 대기) |
-| 7 | 페르소나 → kim → `[퀘스트 완료 (승인)]` → 별점 모달에서 **3★**(`rating-star-3`) → `[별점 주고 승인]` | 하이퍼 프레임 B(LEVEL UP!, 실버 Lv.7 → Lv.8, 보상 "+100 EXP", `data-stars=3`) 1.8초 후 닫힘, 상태 완료. lee: **300 → 700 P**, EXP 650 → 750(Lv.8), 오늘 완료 1/2 → **2/2**, 별점 4.1·8건 → **4.0 · 평가 9건** |
+| 7 | 페르소나 → kim → `[퀘스트 완료 (승인)]` → 별점 모달에서 **별 3개**(`rating-star-3`) → `[별점 주고 승인]` | 하이퍼 프레임 B(LEVEL UP!, 실버 Lv.7 → Lv.8, 보상 "+100 EXP", `data-stars=3`) 1.8초 후 닫힘, 상태 완료. lee: **300 → 700 P**, EXP 650 → 750(Lv.8), 오늘 완료 1/2 → **2/2**, 별점 4.1·8건 → **4.0 · 평가 9건** |
 | 8 | kim → 효성마을 → m4 게임 패드(1,200 P) → `[샀어요 · 구매 요청]` | 버튼 "구매 요청 완료 · 판매자 승인 대기", kim 여전히 1,200 P |
 | 9 | 페르소나 → lee → m4 → 구매 확인 요청 카드 `[거래 승인]` | m4 거래완료, lee **700 → 1,900 P**, kim **1,200 → 0 P**, 양측 거래 내역에 각 1행 |
 | 10 | 콘솔 에러 수 확인 | 0건 |
@@ -889,7 +907,21 @@ sm–md 모달. 헤더 "결과물 품질 평가" + 작업자 아바타·이름·
 | v2.1 | 2026-10-21 | D39 TinyMCE 5.10.2 유지 + Audit 사유 기록 | 분석봇 보통(5.10.9 존재) |
 | v2.1 | 2026-10-21 | D6에 DESIGN v1.1 264px 정정 반영 | 분석봇 높음(사이드바 280 vs 264) |
 | v2.1 | 2026-10-21 | §12에 Visual QA 판정 범위·조건부 완료 추가 | 분석봇 보통 · 검수봇 높음-6 |
-| v2.2 | 2026-10-21 | 품질별 보상: 승인 시 별점 1–5 필수, EXP 50/75/100/125/150, 기본 P·현상금 불변(D40·D43), 별점 평균 누적·표시(D41·D42, §4.4 시드 D44), 별점 모달 §8.14, 하이퍼 프레임 별 표시, §11 7단계 = 3★(수치 불변) | 팀원 피드백 1 |
-| v2.2 | 2026-10-21 | 반려 퀘스트당 최대 2회, 이후 승인(1★ 가능)만, `반려 n/2` 카운터, 마지막 반려 경고(D45·D46, §6.9, §8.15, §7.1) | 팀원 피드백 2 |
+| v2.2 | 2026-10-21 | 품질별 보상: 승인 시 별점 1–5 필수, EXP 50/75/100/125/150, 기본 P·현상금 불변(D40·D43), 별점 평균 누적·표시(D41·D42, §4.4 시드 D44), 별점 모달 §8.14, 하이퍼 프레임 별 표시, §11 7단계 = 별 3개(수치 불변) | 팀원 피드백 1 |
+| v2.2 | 2026-10-21 | 반려 퀘스트당 최대 2회, 이후 승인(별 1개도 가능)만, `반려 n/2` 카운터, 마지막 반려 경고(D45·D46, §6.9, §8.15, §7.1) | 팀원 피드백 2 |
 | v2.2 | 2026-10-21 | 운영자 페르소나 `ops`(D47), `/admin` 콘솔(D48, §8.16), 의심 활동 규칙 5종(D49, §6.11), 제재 등록/구매 제한·기간·해제·감사 로그(D50·D51, §6.10, §8.17), 아카이브 시드 3사례 5플래그(D52, §9.5–9.7), 새 UI는 DESIGN 컴포넌트·Visual QA 제외(D53) | 팀원 피드백 3 |
+| v2.3 | 2026-10-21 | 별 문자(U+2605)를 UI 문자열·예시에서 모두 제거: D45·AC-8.15.3 툴팁 "(별 1개도 가능)", §8.14 매핑 표 "별 1개 50 … 별 5개 150 EXP", §6.11 근거 예시 "별점 5", R3 규칙명 "특정 쌍 만점 독점", §0.3 기호 규칙에 별 추가, 본문 표기 "별 N개"로 통일 | 검수봇 v2.2 높음-1 |
+| v2.3 | 2026-10-21 | §8.7 작업자 행에 반려 카운터 `반려 n/2`(`reject-count`) | 검수봇 v2.2 보통-1 |
+| v2.3 | 2026-10-21 | §6.9·D45: 반려 2/2 + 작업자 완료 2/2 겹침 시 D12 우선, 다음 날 승인 가능 | 검수봇 v2.2 보통-2 |
+| v2.3 | 2026-10-21 | §8.7 완료 화면 보상 문구 `+{RATING_EXP[stars]} EXP`(시드 q2 +125, q1 +150) | 검수봇 v2.2 보통-3 |
+| v2.3 | 2026-10-21 | AC-8.15.3 별 1개 승인 기대값 추가: lee 300 → 700 P, 3.8 · 평가 9건 | 검수봇 v2.2 보통-5 |
+| v2.3 | 2026-10-21 | 제재 상태 우선순위 `lifted` > `expired` > `active`(D54, §6.10, 시드 r1 = lifted) | 분석봇 v2.2 높음(상태 우선순위) |
+| v2.3 | 2026-10-21 | `admin/lift`·`admin/dismissFlag`·flagId 제재의 멱등 가드 `INVALID_STATE`(D57, §5 액션 규칙, AC-8.16.7) | 분석봇 v2.2 높음(멱등성) |
+| v2.3 | 2026-10-21 | 2종 제재 중 일부 활성 → 나머지 종류만 생성, 전부 활성일 때만 `INVALID_STATE`, `ALREADY_RESTRICTED` 폐지, 모달 비활성 사유(D55) | 분석봇 v2.2 높음(부분 제재) |
+| v2.3 | 2026-10-21 | 제재 id = kinds 정규 순서로 부여(kim r3 = 등록, r4 = 구매), 행 `data-kind`·`data-user`(D56) | 분석봇 v2.2 높음(id 결정성) |
+| v2.3 | 2026-10-21 | 만료 시 `useNow(1000)`로 재평가(§6.10), 시각 표기는 `Intl` + `Asia/Seoul` 고정 | 분석봇 v2.2 보통(만료 재렌더 · 시간대) |
+| v2.3 | 2026-10-21 | 시드 신선도 경고 `admin-stale-seed`·`SEED_STALE_DAYS`, 시연 당일 초기화, §9.7 플래그 수명 표(D61) | 분석봇 v2.2 보통(시드 수명) |
+| v2.3 | 2026-10-21 | 처리된 플래그 재발: FlagState `lastAt`·`evidenceCount`, `newEvidence`(D60) | 분석봇 v2.2 보통(재발 누락) |
+| v2.3 | 2026-10-21 | R5 = 0 P 제외 + (≥3건 또는 ≥2건·합계 ≥2,000)(D58), R3이 R1 흡수(`alsoMatched`, D59) → 시드 플래그 **5 → 4건** 재계산(§9.7, AC-8.16.2), R4 시연 메모 | 분석봇 v2.2 보통(오탐·중복) |
+| v2.3 | 2026-10-21 | 별점 집계 ↔ 원장 관계와 맞춰야 할 불변식 3개(§6.8) | 분석봇 v2.2 보통(집계·원장) |
 | v2.0 | 2026-10-21 | 최초 Autopilot 제출본 | — |
