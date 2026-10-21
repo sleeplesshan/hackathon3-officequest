@@ -1,0 +1,441 @@
+{
+  "icon": {
+    "provider": "built-in image_gen",
+    "file": "public/assets/character/info-badge.png",
+    "prompt": "qa/character/info-icon-prompt.txt"
+  },
+  "characters": {
+    "provider": "sprite-gen codex (GPT subscription, explicitly confirmed)",
+    "style_reference": "Original code palette/rows: src/components/pixel/sprites.ts char0, rasterized exactly at 24x24 and integer nearest-neighbor enlarged for reference input.",
+    "engine_revision": "472a5b08401d",
+    "stages": [
+      "prepare",
+      "gen-set",
+      "extract --segmentation projection",
+      "compose-atlas",
+      "export-pngs",
+      "compose-gif",
+      "inspect"
+    ],
+    "native_size": [
+      24,
+      24
+    ],
+    "count": 24,
+    "states": [
+      "male-classic",
+      "male-wave",
+      "female-classic",
+      "female-wave"
+    ],
+    "tier_order": [
+      "bronze",
+      "silver",
+      "gold",
+      "platinum",
+      "diamond",
+      "master"
+    ],
+    "assets": [
+      {
+        "file": "male-classic-bronze.png",
+        "size": [
+          24,
+          24
+        ],
+        "bbox": [
+          5,
+          5,
+          19,
+          22
+        ],
+        "sha256": "9448ab479b51759f036a15a392dd2c8ebbbf387657586043486c0a67c5e515ad"
+      },
+      {
+        "file": "male-classic-silver.png",
+        "size": [
+          24,
+          24
+        ],
+        "bbox": [
+          4,
+          5,
+          19,
+          22
+        ],
+        "sha256": "5872fe13be0d111978a995d0c4b606a24d4a03cf5e7cb905ea45b7b356749812"
+      },
+      {
+        "file": "male-classic-gold.png",
+        "size": [
+          24,
+          24
+        ],
+        "bbox": [
+          5,
+          3,
+          19,
+          22
+        ],
+        "sha256": "108c10966f83bb5efb746a551f009ccd3bab9ca8a9ddd1bdf945c021c5ad9e7e"
+      },
+      {
+        "file": "male-classic-platinum.png",
+        "size": [
+          24,
+          24
+        ],
+        "bbox": [
+          5,
+          5,
+          18,
+          22
+        ],
+        "sha256": "e027e18772bdcd9c1031577e7155f29e6cab4209f062b5ba3c237eeb158b7098"
+      },
+      {
+        "file": "male-classic-diamond.png",
+        "size": [
+          24,
+          24
+        ],
+        "bbox": [
+          3,
+          5,
+          21,
+          22
+        ],
+        "sha256": "8924c2f27dc7dcaf4d83b62b6af212991c9617eac6576a63c556c666cbef0251"
+      },
+      {
+        "file": "male-classic-master.png",
+        "size": [
+          24,
+          24
+        ],
+        "bbox": [
+          5,
+          5,
+          20,
+          22
+        ],
+        "sha256": "50e336d5fb5f70b933c4ca1717e9d22641facd7d81ef74c668caa92d1b285ab6"
+      },
+      {
+        "file": "male-wave-bronze.png",
+        "size": [
+          24,
+          24
+        ],
+        "bbox": [
+          5,
+          5,
+          19,
+          22
+        ],
+        "sha256": "bbd49b34617934cd974d4e365552b85d45c25f476311d6dcade1af71234809e7"
+      },
+      {
+        "file": "male-wave-silver.png",
+        "size": [
+          24,
+          24
+        ],
+        "bbox": [
+          4,
+          5,
+          20,
+          22
+        ],
+        "sha256": "1108c7a088b50a01ba726b77f4a5ff4f42651b253b613faf2ab812a3e6b18878"
+      },
+      {
+        "file": "male-wave-gold.png",
+        "size": [
+          24,
+          24
+        ],
+        "bbox": [
+          4,
+          3,
+          20,
+          22
+        ],
+        "sha256": "ab13c90524a99ff8a05345cd01e4adbc432c61c70db9b1077c67620adb715da2"
+      },
+      {
+        "file": "male-wave-platinum.png",
+        "size": [
+          24,
+          24
+        ],
+        "bbox": [
+          5,
+          5,
+          19,
+          22
+        ],
+        "sha256": "a30e401f19ff6dab16256b1f441db2bdd3e5fc952d2ddcfe5ab6519202dbfa78"
+      },
+      {
+        "file": "male-wave-diamond.png",
+        "size": [
+          24,
+          24
+        ],
+        "bbox": [
+          3,
+          5,
+          20,
+          22
+        ],
+        "sha256": "dcd09c290d7e4aa2595c4123dcbf5b70c9fb4005e3b370711b3a38feb44fb269"
+      },
+      {
+        "file": "male-wave-master.png",
+        "size": [
+          24,
+          24
+        ],
+        "bbox": [
+          3,
+          5,
+          21,
+          22
+        ],
+        "sha256": "fbc6816605446fcb2aaecbd18c12ee5b1d8f3b52cf8b1cff630f7a96ec724e04"
+      },
+      {
+        "file": "female-classic-bronze.png",
+        "size": [
+          24,
+          24
+        ],
+        "bbox": [
+          5,
+          5,
+          19,
+          22
+        ],
+        "sha256": "a089b1be9d7296e46a51e45da7ecfac07e67280f49337ee1799064cba78177d9"
+      },
+      {
+        "file": "female-classic-silver.png",
+        "size": [
+          24,
+          24
+        ],
+        "bbox": [
+          4,
+          5,
+          20,
+          22
+        ],
+        "sha256": "70372149846fad7ce74de5755d7773c434a145b3b5f09e6f0881422a57e99dbc"
+      },
+      {
+        "file": "female-classic-gold.png",
+        "size": [
+          24,
+          24
+        ],
+        "bbox": [
+          4,
+          4,
+          19,
+          22
+        ],
+        "sha256": "b4345159b408efde866a8b92ab6f7f481c45d25ce560a661935015ad7fb6a677"
+      },
+      {
+        "file": "female-classic-platinum.png",
+        "size": [
+          24,
+          24
+        ],
+        "bbox": [
+          5,
+          5,
+          18,
+          22
+        ],
+        "sha256": "28f5bf8bd2be0c0c8ef3d9856f900a60a2062fd6ff33060495e83a1a128e780a"
+      },
+      {
+        "file": "female-classic-diamond.png",
+        "size": [
+          24,
+          24
+        ],
+        "bbox": [
+          3,
+          5,
+          21,
+          22
+        ],
+        "sha256": "ced5a865073b9f895a67373f7efb239a9d864a518f98f515c1e7f1fb7ebf4c9c"
+      },
+      {
+        "file": "female-classic-master.png",
+        "size": [
+          24,
+          24
+        ],
+        "bbox": [
+          2,
+          5,
+          22,
+          22
+        ],
+        "sha256": "fc5a90d08c19b2a10a1adee7dee2f5ff5fb4c6e0acd35fd97e6e10390ba2a7dc"
+      },
+      {
+        "file": "female-wave-bronze.png",
+        "size": [
+          24,
+          24
+        ],
+        "bbox": [
+          5,
+          6,
+          19,
+          22
+        ],
+        "sha256": "7345ffe034f4794d7e2d3821029314fdf1da857260d11ff07f2448d6488e9c38"
+      },
+      {
+        "file": "female-wave-silver.png",
+        "size": [
+          24,
+          24
+        ],
+        "bbox": [
+          5,
+          6,
+          18,
+          22
+        ],
+        "sha256": "afd06b23a49af77f6bbf4ba50ffe6f0a371e71ce7216aeaa48fb46ce9dfda6e0"
+      },
+      {
+        "file": "female-wave-gold.png",
+        "size": [
+          24,
+          24
+        ],
+        "bbox": [
+          5,
+          4,
+          18,
+          22
+        ],
+        "sha256": "b4493704ed62b6771dfce54e6a457845179eab404404afd6d60455a1935b5c0d"
+      },
+      {
+        "file": "female-wave-platinum.png",
+        "size": [
+          24,
+          24
+        ],
+        "bbox": [
+          5,
+          6,
+          18,
+          22
+        ],
+        "sha256": "0316ed05778523dcfcf8f710e681bb66a039eb8ca14f44db7c4aa3c48d78ad60"
+      },
+      {
+        "file": "female-wave-diamond.png",
+        "size": [
+          24,
+          24
+        ],
+        "bbox": [
+          5,
+          6,
+          19,
+          22
+        ],
+        "sha256": "6bcbf25d96b4e72aca1c9ec26a8e806f5e99fc2d20a639beb6437462f3575643"
+      },
+      {
+        "file": "female-wave-master.png",
+        "size": [
+          24,
+          24
+        ],
+        "bbox": [
+          4,
+          6,
+          20,
+          22
+        ],
+        "sha256": "e4ee73b0894f7d42787f18c7ceb2307f007e26ea1b9a17e88c8895546fed5016"
+      }
+    ],
+    "extract_errors": [],
+    "extract_warnings": [
+      "male-classic: dropped 5 collapsed per-frame pitch(es) below 13.94",
+      "male-classic: dropped 5 collapsed per-frame pitch(es) below 14.40",
+      "male-classic: pitch crosscheck: axis ratio y/x disagrees — run-length 1.075 vs grid 1.033 (4.1%); one axis may have collapsed to the other",
+      "male-classic: frame 1 own pitch 11.68x12.00 is outside the consensus pitch family 23.24x24.00 — harmonic/collapsed misdetection; snapped at consensus",
+      "male-classic: frame 2 own pitch 12.00x12.00 is outside the consensus pitch family 23.24x24.00 — harmonic/collapsed misdetection; snapped at consensus",
+      "male-classic: frame 3 own pitch 12.00x12.00 is outside the consensus pitch family 23.24x24.00 — harmonic/collapsed misdetection; snapped at consensus",
+      "male-classic: frame 4 own pitch 11.56x12.00 is outside the consensus pitch family 23.24x24.00 — harmonic/collapsed misdetection; snapped at consensus",
+      "male-classic: frame 5 own pitch 11.50x12.00 is outside the consensus pitch family 23.24x24.00 — harmonic/collapsed misdetection; snapped at consensus",
+      "male-wave: dropped 5 collapsed per-frame pitch(es) below 12.60",
+      "male-wave: dropped 5 collapsed per-frame pitch(es) below 14.39",
+      "male-wave: frame 1 own pitch 9.68x7.35 is outside the consensus pitch family 21.00x23.98 — harmonic/collapsed misdetection; snapped at consensus",
+      "male-wave: frame 2 own pitch 7.39x7.39 is outside the consensus pitch family 21.00x23.98 — harmonic/collapsed misdetection; snapped at consensus",
+      "male-wave: frame 3 own pitch 11.00x11.00 is outside the consensus pitch family 21.00x23.98 — harmonic/collapsed misdetection; snapped at consensus",
+      "male-wave: frame 4 own pitch 8.52x7.37 is outside the consensus pitch family 21.00x23.98 — harmonic/collapsed misdetection; snapped at consensus",
+      "male-wave: frame 5 own pitch 10.38x11.00 is outside the consensus pitch family 21.00x23.98 — harmonic/collapsed misdetection; snapped at consensus",
+      "female-classic: frame 1 own pitch 16.00x21.00 is outside the consensus pitch family 19.98x21.00 — harmonic/collapsed misdetection; snapped at consensus",
+      "female-wave: dropped 4 collapsed per-frame pitch(es) below 14.39",
+      "female-wave: dropped 4 collapsed per-frame pitch(es) below 14.39",
+      "female-wave: pitch crosscheck: run-length mode estimates y=10.96 but grid detection returned y=23.98 — likely a multiple/harmonic misdetection",
+      "female-wave: frame 1 own pitch 11.40x12.00 is outside the consensus pitch family 23.98x23.98 — harmonic/collapsed misdetection; snapped at consensus",
+      "female-wave: frame 2 own pitch 6.00x6.00 is outside the consensus pitch family 23.98x23.98 — harmonic/collapsed misdetection; snapped at consensus",
+      "female-wave: frame 3 own pitch 11.32x12.20 is outside the consensus pitch family 23.98x23.98 — harmonic/collapsed misdetection; snapped at consensus",
+      "female-wave: frame 4 own pitch 11.44x12.26 is outside the consensus pitch family 23.98x23.98 — harmonic/collapsed misdetection; snapped at consensus",
+      "palette: pinned (48 colors, palette.lock.json)",
+      "pixel unfake: pitch=(23.24, 24.0),(21.0, 23.98),[(19.98, 21.0), (19.98, 21.0), 21.0, (19.48, 21.0), 21.0, (19.5, 21.0)],[(22.9, 23.98), 23.98, 23.98, 23.98, 23.98, 23.98] scale=1x logical<=24x24 palette=48"
+    ],
+    "inspect_errors": [],
+    "inspect_warnings": [
+      "male-classic: dropped 5 collapsed per-frame pitch(es) below 13.94",
+      "male-classic: dropped 5 collapsed per-frame pitch(es) below 14.40",
+      "male-classic: pitch crosscheck: axis ratio y/x disagrees — run-length 1.075 vs grid 1.033 (4.1%); one axis may have collapsed to the other",
+      "male-classic: frame 1 own pitch 11.68x12.00 is outside the consensus pitch family 23.24x24.00 — harmonic/collapsed misdetection; snapped at consensus",
+      "male-classic: frame 2 own pitch 12.00x12.00 is outside the consensus pitch family 23.24x24.00 — harmonic/collapsed misdetection; snapped at consensus",
+      "male-classic: frame 3 own pitch 12.00x12.00 is outside the consensus pitch family 23.24x24.00 — harmonic/collapsed misdetection; snapped at consensus",
+      "male-classic: frame 4 own pitch 11.56x12.00 is outside the consensus pitch family 23.24x24.00 — harmonic/collapsed misdetection; snapped at consensus",
+      "male-classic: frame 5 own pitch 11.50x12.00 is outside the consensus pitch family 23.24x24.00 — harmonic/collapsed misdetection; snapped at consensus",
+      "male-wave: dropped 5 collapsed per-frame pitch(es) below 12.60",
+      "male-wave: dropped 5 collapsed per-frame pitch(es) below 14.39",
+      "male-wave: frame 1 own pitch 9.68x7.35 is outside the consensus pitch family 21.00x23.98 — harmonic/collapsed misdetection; snapped at consensus",
+      "male-wave: frame 2 own pitch 7.39x7.39 is outside the consensus pitch family 21.00x23.98 — harmonic/collapsed misdetection; snapped at consensus",
+      "male-wave: frame 3 own pitch 11.00x11.00 is outside the consensus pitch family 21.00x23.98 — harmonic/collapsed misdetection; snapped at consensus",
+      "male-wave: frame 4 own pitch 8.52x7.37 is outside the consensus pitch family 21.00x23.98 — harmonic/collapsed misdetection; snapped at consensus",
+      "male-wave: frame 5 own pitch 10.38x11.00 is outside the consensus pitch family 21.00x23.98 — harmonic/collapsed misdetection; snapped at consensus",
+      "female-classic: frame 1 own pitch 16.00x21.00 is outside the consensus pitch family 19.98x21.00 — harmonic/collapsed misdetection; snapped at consensus",
+      "female-wave: dropped 4 collapsed per-frame pitch(es) below 14.39",
+      "female-wave: pitch crosscheck: run-length mode estimates y=10.96 but grid detection returned y=23.98 — likely a multiple/harmonic misdetection",
+      "female-wave: frame 1 own pitch 11.40x12.00 is outside the consensus pitch family 23.98x23.98 — harmonic/collapsed misdetection; snapped at consensus",
+      "female-wave: frame 2 own pitch 6.00x6.00 is outside the consensus pitch family 23.98x23.98 — harmonic/collapsed misdetection; snapped at consensus",
+      "female-wave: frame 3 own pitch 11.32x12.20 is outside the consensus pitch family 23.98x23.98 — harmonic/collapsed misdetection; snapped at consensus",
+      "female-wave: frame 4 own pitch 11.44x12.26 is outside the consensus pitch family 23.98x23.98 — harmonic/collapsed misdetection; snapped at consensus"
+    ],
+    "manual_image_editing": false,
+    "publication": "Copies and semantic filenames only. All sprite pixels are canonical sprite-gen exported output.",
+    "review": "Detailed 128px art rejected by user. Regenerated from original tiny block avatar. Male-wave and female-classic hair regenerated for clear differences and spacing. Engine projection segmentation replaced failed component-only split; engine pixel_unfake handles measured pitch family warnings. Native 24px binary alpha verified.",
+    "asset_root": "public/assets/character/",
+    "prompt_set": {
+      "male-classic": "qa/character/prompts/male-classic.txt",
+      "male-wave": "qa/character/prompts/male-wave.txt",
+      "female-classic": "qa/character/prompts/female-classic.txt",
+      "female-wave": "qa/character/prompts/female-wave.txt"
+    }
+  }
+}

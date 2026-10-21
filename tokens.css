@@ -1,18 +1,20 @@
 /* =====================================================================
-   OFFICE QUEST × 효성마을 — Design Tokens (v1.2 · Hyosung brand palette)
+   OFFICE QUEST × 효성마을 — Design Tokens (v1.3 · Hyosung brand palette)
    Derived 1:1 from officequest_intro.html (motion video) & refs/01–10.
    Light = default (:root). Dark/Gaming = [data-theme="dark"] or .dark
    v1.2: 효성 공식 팔레트 7색(--hs-*)을 단일 출처로 두고 시맨틱 토큰을 그 위에 재매핑
          (DESIGN.md §3.0). 색은 refs/ 이미지보다 이 파일이 우선.
+   v1.3: Paperlogy @font-face src = 로컬(/fonts/paperlogy, npm run fonts:fetch) 먼저, CDN 폴백
+         (PRD D72, DESIGN §2.1). 색 토큰은 v1.2와 동일.
    ===================================================================== */
 
 /* ---------- 1. Font: Paperlogy ---------- */
-@font-face{font-family:'Paperlogy';src:url('https://fastly.jsdelivr.net/gh/projectnoonnu/2408-3@1.0/Paperlogy-4Regular.woff2') format('woff2');font-weight:400;font-style:normal;font-display:swap}
-@font-face{font-family:'Paperlogy';src:url('https://fastly.jsdelivr.net/gh/projectnoonnu/2408-3@1.0/Paperlogy-5Medium.woff2') format('woff2');font-weight:500;font-style:normal;font-display:swap}
-@font-face{font-family:'Paperlogy';src:url('https://fastly.jsdelivr.net/gh/projectnoonnu/2408-3@1.0/Paperlogy-6SemiBold.woff2') format('woff2');font-weight:600;font-style:normal;font-display:swap}
-@font-face{font-family:'Paperlogy';src:url('https://fastly.jsdelivr.net/gh/projectnoonnu/2408-3@1.0/Paperlogy-7Bold.woff2') format('woff2');font-weight:700;font-style:normal;font-display:swap}
-@font-face{font-family:'Paperlogy';src:url('https://fastly.jsdelivr.net/gh/projectnoonnu/2408-3@1.0/Paperlogy-8ExtraBold.woff2') format('woff2');font-weight:800;font-style:normal;font-display:swap}
-@font-face{font-family:'Paperlogy';src:url('https://fastly.jsdelivr.net/gh/projectnoonnu/2408-3@1.0/Paperlogy-9Black.woff2') format('woff2');font-weight:900;font-style:normal;font-display:swap}
+@font-face{font-family:'Paperlogy';src:url('/fonts/paperlogy/Paperlogy-4Regular.woff2') format('woff2'),url('https://fastly.jsdelivr.net/gh/projectnoonnu/2408-3@1.0/Paperlogy-4Regular.woff2') format('woff2');font-weight:400;font-style:normal;font-display:swap}
+@font-face{font-family:'Paperlogy';src:url('/fonts/paperlogy/Paperlogy-5Medium.woff2') format('woff2'),url('https://fastly.jsdelivr.net/gh/projectnoonnu/2408-3@1.0/Paperlogy-5Medium.woff2') format('woff2');font-weight:500;font-style:normal;font-display:swap}
+@font-face{font-family:'Paperlogy';src:url('/fonts/paperlogy/Paperlogy-6SemiBold.woff2') format('woff2'),url('https://fastly.jsdelivr.net/gh/projectnoonnu/2408-3@1.0/Paperlogy-6SemiBold.woff2') format('woff2');font-weight:600;font-style:normal;font-display:swap}
+@font-face{font-family:'Paperlogy';src:url('/fonts/paperlogy/Paperlogy-7Bold.woff2') format('woff2'),url('https://fastly.jsdelivr.net/gh/projectnoonnu/2408-3@1.0/Paperlogy-7Bold.woff2') format('woff2');font-weight:700;font-style:normal;font-display:swap}
+@font-face{font-family:'Paperlogy';src:url('/fonts/paperlogy/Paperlogy-8ExtraBold.woff2') format('woff2'),url('https://fastly.jsdelivr.net/gh/projectnoonnu/2408-3@1.0/Paperlogy-8ExtraBold.woff2') format('woff2');font-weight:800;font-style:normal;font-display:swap}
+@font-face{font-family:'Paperlogy';src:url('/fonts/paperlogy/Paperlogy-9Black.woff2') format('woff2'),url('https://fastly.jsdelivr.net/gh/projectnoonnu/2408-3@1.0/Paperlogy-9Black.woff2') format('woff2');font-weight:900;font-style:normal;font-display:swap}
 
 :root{
   /* ---------- 2. Typography ---------- */

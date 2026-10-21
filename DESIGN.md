@@ -1,4 +1,4 @@
-# 오피스퀘스트 × 효성마을 — 디자인 시스템 스펙 (v1.2)
+# 오피스퀘스트 × 효성마을 — 디자인 시스템 스펙 (v1.4)
 
 > 이 문서는 20초 소개 모션그래픽(`motion/officequest_intro.html`)과 레퍼런스 화면(`refs/01–10`)에 **실제로 사용한 값**을 그대로 옮겨 고정한 테마 명세입니다.
 > Next.js(App Router) + Tailwind CSS 빌더가 이 문서와 `tokens.css`만으로 동일한 룩을 재현하는 것이 목표입니다.
@@ -7,6 +7,8 @@
 > **앱 구현 시 우선순위**: 이 문서와 `PRD.md` §2 결정 테이블이 다르면 **PRD §2가 이깁니다**(특히 D2·D6·D28·D35·D36). v1.1에서 앱 값(사이드바 264px, 최대 폭 제한 없음, 스탯 타일 3개, 일일 링 1/4, 조직도 lg 모달, reduced-motion 1.8s)을 PRD·refs와 맞췄습니다(맨 끝 변경 이력).
 >
 > **v1.2 — 효성 브랜드 팔레트(§3.0)**: 공식 7색을 `--hs-*` 토큰으로 두고 보라·면·보더·포커스·보상 색을 그 위에 재매핑했습니다. **`refs/01–10` 이미지와 `motion/`은 브랜드 팔레트 이전에 만든 것**이라 보라 톤(`#6D28D9` 계열)·코인 노랑이 다릅니다. **색은 이 문서와 `tokens.css`가 refs보다 우선**하고, refs는 구도·정보·상태의 기준으로만 씁니다(Visual QA에서 색 차이는 허용 차이).
+>
+> **v1.3 — PRD v2.5 반영**: 폰트 로컬 우선(§2.1), 반응형 표·스크롤 소유권(§6.1·§6.2), 시연 첨부 배지(§7.7), 조직도 잔액 비표시(§7.10), 상품 카드 CTA 제거(§7.11), 새 컴포넌트 §7.14–7.17, 캐릭터 PNG 자산 계약(§8.1). **색 토큰·브랜드 팔레트는 v1.2 그대로**입니다.
 
 ---
 
@@ -46,17 +48,17 @@
 
 ## 2. 타이포그래피
 
-### 2.1 @font-face (tokens.css에 포함)
+### 2.1 @font-face (tokens.css에 포함, v1.3 = 로컬 우선)
 ```css
-@font-face{font-family:'Paperlogy';src:url('https://fastly.jsdelivr.net/gh/projectnoonnu/2408-3@1.0/Paperlogy-4Regular.woff2') format('woff2');font-weight:400;font-display:swap}
-@font-face{font-family:'Paperlogy';src:url('https://fastly.jsdelivr.net/gh/projectnoonnu/2408-3@1.0/Paperlogy-5Medium.woff2') format('woff2');font-weight:500;font-display:swap}
-@font-face{font-family:'Paperlogy';src:url('https://fastly.jsdelivr.net/gh/projectnoonnu/2408-3@1.0/Paperlogy-6SemiBold.woff2') format('woff2');font-weight:600;font-display:swap}
-@font-face{font-family:'Paperlogy';src:url('https://fastly.jsdelivr.net/gh/projectnoonnu/2408-3@1.0/Paperlogy-7Bold.woff2') format('woff2');font-weight:700;font-display:swap}
-@font-face{font-family:'Paperlogy';src:url('https://fastly.jsdelivr.net/gh/projectnoonnu/2408-3@1.0/Paperlogy-8ExtraBold.woff2') format('woff2');font-weight:800;font-display:swap}
-@font-face{font-family:'Paperlogy';src:url('https://fastly.jsdelivr.net/gh/projectnoonnu/2408-3@1.0/Paperlogy-9Black.woff2') format('woff2');font-weight:900;font-display:swap}
+@font-face{font-family:'Paperlogy';src:url('/fonts/paperlogy/Paperlogy-4Regular.woff2') format('woff2'),url('https://fastly.jsdelivr.net/gh/projectnoonnu/2408-3@1.0/Paperlogy-4Regular.woff2') format('woff2');font-weight:400;font-display:swap}
+@font-face{font-family:'Paperlogy';src:url('/fonts/paperlogy/Paperlogy-5Medium.woff2') format('woff2'),url('https://fastly.jsdelivr.net/gh/projectnoonnu/2408-3@1.0/Paperlogy-5Medium.woff2') format('woff2');font-weight:500;font-display:swap}
+@font-face{font-family:'Paperlogy';src:url('/fonts/paperlogy/Paperlogy-6SemiBold.woff2') format('woff2'),url('https://fastly.jsdelivr.net/gh/projectnoonnu/2408-3@1.0/Paperlogy-6SemiBold.woff2') format('woff2');font-weight:600;font-display:swap}
+@font-face{font-family:'Paperlogy';src:url('/fonts/paperlogy/Paperlogy-7Bold.woff2') format('woff2'),url('https://fastly.jsdelivr.net/gh/projectnoonnu/2408-3@1.0/Paperlogy-7Bold.woff2') format('woff2');font-weight:700;font-display:swap}
+@font-face{font-family:'Paperlogy';src:url('/fonts/paperlogy/Paperlogy-8ExtraBold.woff2') format('woff2'),url('https://fastly.jsdelivr.net/gh/projectnoonnu/2408-3@1.0/Paperlogy-8ExtraBold.woff2') format('woff2');font-weight:800;font-display:swap}
+@font-face{font-family:'Paperlogy';src:url('/fonts/paperlogy/Paperlogy-9Black.woff2') format('woff2'),url('https://fastly.jsdelivr.net/gh/projectnoonnu/2408-3@1.0/Paperlogy-9Black.woff2') format('woff2');font-weight:900;font-display:swap}
 ```
 - 필수: 400 / 600 / 800. 권장 추가: 500, 700, 900(로고·D-Day·LEVEL UP).
-- `<link rel="preconnect" href="https://fastly.jsdelivr.net" crossorigin>` 를 `<head>`에 둔다.
+- (v1.3, PRD D72) **로컬 파일(`public/fonts/paperlogy/`, `npm run fonts:fetch`)이 먼저, CDN은 폴백**입니다. 로컬 6개가 있으면 실행 중 외부 폰트 요청이 0입니다. `preconnect`는 두지 않습니다(로컬이 있을 때 불필요한 연결). 앱에서 `@font-face`를 다시 선언하지 않습니다.
 - 전역: `font-family:'Paperlogy',system-ui,sans-serif; -webkit-font-smoothing:antialiased; letter-spacing:-0.01em;`
 - **숫자**: 포인트·타이머·순위·카운터에 `font-variant-numeric: tabular-nums` (`.num` 클래스). Paperlogy가 tnum을 완전히 지원하지 않으므로 **카운트다운 타이머는 글자별 `<span>`을 `width:.6em; text-align:center`로 고정폭** 처리한다(영상과 동일).
 
@@ -341,6 +343,27 @@ export default config; // 익명 default export 금지(ESLint import/no-anonymou
 
 **GNB 구성 (좌→우)**: 로고 타일(44px, 보라 배경 + 픽셀 별) + "OFFICE QUEST" 900/24px + "× 효성마을" 600/16px muted → 탭 세그먼트(대시보드/업무 퀘스트/효성마을, 패딩 5px, 탭 높이 44px, 활성 탭 = 흰 필 슬라이드) → 우측: DEBUG 칩(1px dashed `#C4C4E6`) · 시연 타이머(검정 `#18181B` 칩, 보라 라이브 점, `HH:MM:SS` 800/21px 고정폭) · 포인트 칩(코인 스프라이트 + 1,500 P) · 페르소나 전환기(아바타 34px + 이름 + 부서 + chevron) · 테마 토글 아이콘 버튼(48px)
 
+### 6.1 반응형 고정·축소 값 (v1.3, PRD D87)
+| 폭 | GNB | 사이드바 | 상세 aside | 본문 | 그리드 |
+|---|---|---|---|---|---|
+| 1920 | 64 고정 | 264 고정 | 400 고정 | 나머지(fr) | 벤토 3열 · 마켓 카드 4열 |
+| 1440 | 64 | 264 | 400 | 나머지(최소 520) | 벤토 3열 · 마켓 카드 4열(카드 폭 축소) |
+| 1280 | 64 | 264 | 400 | 최소 520 | 벤토 3열 · 마켓 카드 3열 |
+| 1279 이하 | 64(탭 아이콘+텍스트 유지) | 상단 가로 메뉴(가로 스크롤 칩) | 본문 아래로 이동 | 풀폭 | 벤토 2열(§ 아래) · 마켓 카드 2열 |
+| 390 | 64(페르소나·테마는 메뉴로) | 상단 가로 메뉴 | 본문 아래 | 풀폭, 패딩 16 | 1열 · 마켓 카드 1열 |
+- 줄여도 되는 것: 장식(오라 개수, 배경 블롭), 카드 내부 여백(24 → 16), 표 제목 열(말줄임 + `title`). 줄이면 안 되는 것: 정보 텍스트(금액·상태·사유), 버튼 높이 40 이상, 비활성 사유.
+- 표(게시판·운영 콘솔)는 1279 이하에서 표 영역만 가로 스크롤(페이지 가로 스크롤 금지). 운영 콘솔 조치 열은 우측 `position: sticky`(PRD D86).
+- 390은 "깨지지 않고 핵심 동작에 도달"까지만(모바일 전용 디자인은 범위 밖).
+
+### 6.2 스크롤 소유권 (v1.3, PRD D73)
+| 화면 | 고정 영역 | 스크롤 영역 |
+|---|---|---|
+| `/village` 목록 | GNB · 마을 사이드바 · 제목 · 검색 · 분류·토글 칩 | 상품 그리드만(`market-scroll`, `overflow-y:auto`, `overscroll-behavior:contain`, `tabindex=0`, 포커스 링 표시). 페이지 높이 = `100dvh`, 문서 스크롤 없음 |
+| `/village/[id]`·`/village/new`·`/edit` | GNB(플로팅) | 문서 전체 |
+| 업무 퀘스트·대시보드·운영 콘솔 | GNB(플로팅) | 문서 전체(대시보드는 1280 이상에서 한 화면 높이, §벤토) |
+| 모달 | 헤더·푸터 | 모달 본문(최대 `calc(100dvh - 96px)`) |
+- 스크롤 영역 하단에 다음 카드가 잘려 보이도록(스크롤 가능 신호) 패딩 하단 24. 스크롤바는 브라우저 기본(얇은 커스텀 스크롤바 허용, 색은 `--border`).
+
 ### 벤토 대시보드 그리드
 ```
 grid-template-columns: 1fr 1.12fr 1.38fr;   grid-template-rows: 1fr 1fr;   gap: 20px;
@@ -390,13 +413,16 @@ Tailwind: `grid grid-cols-[1fr_1.12fr_1.38fr] grid-rows-2 gap-5` / 카드1·2 `r
 **Search**: 높이 48–54, radius 15, search 아이콘 + placeholder muted.
 
 ### 7.5 Slider (현상금)
-트랙 12px radius 999 bg `--accent-soft` · 채움 `linear-gradient(90deg,var(--accent),var(--accent-2))` · 노브 34px 흰색 + 3px `--accent` 보더 + `--sh-knob`, 드래그 중 `scale(1.18)` · 눈금 0/250/500/750/1,000 P (600/14 muted) · 값 표시 900/30 accent 우측 상단 · 10P 단위 스냅. 하단 **에스크로 박스**: bg accent-soft, `--hs-purple-900` 600/17, lock 아이콘, 우측 "보유 1,500 P → 1,200 P" 800.
+트랙 12px radius 999 bg `--accent-soft` · 채움 `linear-gradient(90deg,var(--accent),var(--accent-2))` · 노브 34px 흰색 + 3px `--accent` 보더 + `--sh-knob`, 드래그 중 `scale(1.18)` · 눈금 0/250/500/750/1,000 P (600/14 muted — 보유 1,000 P 이상일 때의 예. 눈금 값은 `maxB` 기준 동적, PRD D79: 300 P → 0/80/150/230/300) · 값 표시 900/30 accent 우측 상단 · 10P 단위 스냅. 하단 **에스크로 박스**: bg accent-soft, `--hs-purple-900` 600/17, lock 아이콘, 우측 "보유 1,500 P → 1,200 P" 800.
 
 ### 7.6 Rich Editor 툴바 (TinyMCE 5.10.2 스킨 오버라이드)
 툴바 높이 44, bg `--surface-muted`, 하단 1px 보더, 버튼 B/I/U/목록/표/링크/이미지 800/15 muted, gap 16, 우측 버전 태그(gray badge 24px). 본문 패딩 16, 컨테이너 radius 18 1px 보더. 잠김 상태(채택 전): 컨테이너 opacity .38 + 상단 lock 칩(danger) "채택 전 에디터 잠금" → 채택 후 success 칩 "결과물 에디터 열림".
 
-### 7.7 SharePoint 링크 배지
-높이 92(앱 72), radius 16. 업로드 중: 1px dashed `#C4C4E6`, upload 아이콘 + 파일명 + 8px 진행 바 + %. 완료: SP 로고 타일 52px radius 13 `#036C70` 흰 "S" 900 + 우하단 20px 원 `#1A9BA1`(3px surface 보더) · 파일명 700/19 · URL 600/15 accent `text-overflow:ellipsis` (`https://hyosung.sharepoint.com/sites/officequest/Shared%20Documents/…`) · 우측 success 배지 "링크 변환 완료". 라벨 우측 "SharePoint 링크로 자동 변환됨". 컴팩트형(결과물 파일): 로고 40px, bg accent-soft, radius 14.
+### 7.7 SharePoint 시연 첨부 배지 (v1.3, PRD D69·D70)
+높이 92(앱 72), radius 16. 업로드 중(600ms): 1px dashed `--border-strong`, upload 아이콘 + 파일명 + 8px 진행 바 + %. 완료: SP 로고 타일 52px radius 13 `#036C70` 흰 "S" 900 + 우하단 20px 원 `#1A9BA1`(3px surface 보더) · **파일명 = 버튼**(`<button>`, 700/19, 밑줄 없음, hover 시 accent + 밑줄, focus 링, Lucide `download` 16) · 메타 600/15 muted "SharePoint · 1.8 MB · 시연용 첨부"(**URL 표시 없음**) · 우측 info 배지 "시연용". 라벨 우측 "시연용 첨부 · 실제 파일은 저장되지 않아요". 컴팩트형(결과물·답변 파일): 로고 40px, bg accent-soft, radius 14.
+- 스크린샷 첨부: 썸네일 72×72 radius 12 `object-fit:cover` + 파일명 600/14 + 제거 버튼(Lucide `x`).
+- 첨부 버튼 행: `[파일 첨부]`(secondary, Lucide `paperclip`) + `[스크린샷 이미지 첨부]`(secondary, Lucide `image`)를 같은 행에 gap 12, 안내 문구는 버튼 행 아래 줄(겹침 없음). 문의 유형에서는 첫 버튼을 **렌더하지 않음**.
+- 다운로드 안내는 §7.15.
 
 ### 7.8 Modal
 backdrop `rgba(9,9,11,.55)` + `backdrop-filter: blur(6px)` (z 1000) · 패널 surface radius 28 `--sh-pop` 패딩 38×44 (z 1010) · 폭 sm 480 / md 640 / lg 1008 · 헤더 h2 + 우측 배지 · 푸터 우측 정렬 버튼(취소 secondary + primary), 좌측 메타 600/15 muted. 등장 300ms: opacity 0→1, `translateY(24px) scale(.96)`→none `--ease-expo`. 퇴장 180ms `--ease-in`.
@@ -410,11 +436,11 @@ backdrop `rgba(9,9,11,.55)` + `backdrop-filter: blur(6px)` (z 1000) · 패널 su
 - 입력바 68px: 필드 42px radius 10 `#F4F4F5` · 전송 42px `#5B5FC7` send 아이콘.
 
 ### 7.10 조직도 모달 (`OrgChartModal`)
-lg 모달(PRD §8.13, ref10). 상단 검색(이름/사번/부서 실시간 필터, 높이 48). 트리 노드 높이 44 radius 11 700/17 sub, chevron(펼침 down / 접힘 right), 우측 인원 700/13 muted. 들여쓰기 레벨당 26px (l1 38px, l2 64px). 사업장: 마포 본사 · 회현 · 반포 · 수서 · 창원공장 · 울산공장. 임직원 행 60px: 아바타 40px(픽셀 헤드 ×2) · 이름 17/700 · "사번 · 보유 1,240 P" 13 muted · 우측 sm primary "예약자 지정" / secondary "최종 구매자 지정". 검색 일치/선택 행: accent-soft + inset 1px `rgba(135,95,240,.45)`. 포인트가 가격보다 적은 직원은 버튼 비활성 + 툴팁 "보유 포인트 부족".
+lg 모달(PRD §8.13, ref10). 상단 검색(이름/사번/부서 실시간 필터, 높이 48). 트리 노드 높이 44 radius 11 700/17 sub, chevron(펼침 down / 접힘 right), 우측 인원 700/13 muted. 들여쓰기 레벨당 26px (l1 38px, l2 64px). 사업장: 마포 본사 · 회현 · 반포 · 수서 · 창원공장 · 울산공장. 임직원 행 60px: 아바타 40px(픽셀 헤드 ×2) · 이름 17/700 · "사번 · 사업장 · 부서" 13 muted(**보유 P 표시 없음**, v1.3 PRD D67) · 우측 sm primary "예약자 지정" / secondary "최종 구매자 지정". 검색 일치/선택 행: accent-soft + inset 1px `rgba(135,95,240,.45)`. (v1.3) 포인트에 따른 비활성은 없음. 비활성은 구매 제한 직원뿐(툴팁 "구매 제한 중인 직원이에요"). 하단 안내 바 문구는 PRD §8.13.
 
 ### 7.11 효성마을 상품 카드
-radius 24, 패딩 0, overflow hidden. 썸네일 170px(앱 160) — 이미지 또는 픽셀 아이콘 ×9 중앙, 다크 톤 그라데이션 배경; 좌상 마을 배지, 우상 상태 배지(14px 인셋). 본문 패딩 16×18: 분류·판매자 700/14 muted → 제목 700/21 ellipsis → 가격 900/25(또는 무료나눔 success) + 우측 메타(heart `#F43F5E` + 수, eye + 조회수, 700/15) → 하단 CTA 46px radius 12 full-width.
-- CTA 상태: `샀어요 · 구매 요청`(primary) → `구매 요청 완료 · 판매자 승인 대기` → `거래가 완료된 상품이에요`(disabled). 예약중 + 비지정자: disabled `지정 예약자 외 구매 불가`. 무료나눔: secondary `샀어요 · 나눔 요청`.
+radius 24, 패딩 0, overflow hidden. 썸네일 170px(앱 160) — 이미지 또는 픽셀 아이콘 ×9 중앙, 다크 톤 그라데이션 배경; 좌상 마을 배지, 우상 상태 배지(14px 인셋). 본문 패딩 16×18: 분류·판매자 700/14 muted → 제목 700/21 ellipsis → 가격 900/25(또는 무료나눔 success) + 우측 메타(heart `#F43F5E` + 수, eye + 조회수, 700/15) → 판매자·부서 600/14 muted. (v1.3, PRD D63) **카드에는 구매 CTA가 없음** — 카드 전체가 상세 링크.
+- 상세 화면 `[샀어요]` 버튼(`buy-btn`, 48px full-width, 최종 구매자에게만): `샀어요 · 물품 수령 확인`(primary) / `샀어요 · 나눔 받았어요`(무료, primary) / `거래 완료 · 다시 누르면 되돌려요`(secondary, Lucide `undo-2`, 항상 활성 — PRD D89) / `운영자 제재로 구매가 제한됐어요`(disabled + 사유). **문구는 PRD §7.3이 정본**(이 문서는 크기·색·아이콘만 정함). `buy-guidance[data-state=npc]`(v1.4, PRD D90)도 같은 안내 박스 스타일. 그 외 사람에게는 같은 자리에 안내 박스(`buy-guidance`, 48px, bg `--surface-muted`, Lucide `info` + 600/15 문구, PRD §7.3).
 - 좋아요: 클릭 시 fill 토글 + `scale(1.5)` 팝 250ms + 카운트 +1. 거래완료 카드 썸네일 opacity .35.
 - 포인트 부족: 경고 모달 "보유 포인트가 부족합니다! 업무 퀘스트를 수행해 포인트를 모아보세요."
 - **포인트 정산 패널**: 구매자/판매자 카드(250px, radius 20, 아바타 54px, 값 900/34) 사이 점선 트랙, 코인 10개가 50ms 간격으로 450ms 포물선 이동(높이 110px), 카운터 500ms 롤링, 증감 표시 800/17 (− `#FB7185`, + `#4ADE80`). 하단 원장 행 50px "거래완료 · 품목 · 금액 · 양측 거래 내역 기록".
@@ -427,6 +453,19 @@ radius 24, 패딩 0, overflow hidden. 썸네일 170px(앱 160) — 이미지 또
 - Bar: 높이 10(소 8, 시즌 6), radius 999, 트랙 `--surface-muted`, 채움 `linear-gradient(90deg,var(--accent),var(--accent-2))`. 값 변화 600–900ms `--ease-inout`. 100% 도달 시 아이콘 타일이 accent 채움으로 전환.
 - Ring: 76px, r 31, stroke 9, 트랙 `--accent-soft`, 값 `--accent` round cap, -90° 시작, 중앙 800/19 "1/4"(시드 기준, 달성 수/4). dasharray 194.8.
 - EXP 라벨: "골드 **Lv.12** · 다음 레벨까지" / "**68** / 100 EXP" (1레벨 = 100 EXP).
+
+### 7.14 보상 패널 `RewardPanel` · 거래 완료 패널 (v1.3, PRD §8.20)
+화면 상단 중앙 GNB 아래 16px, 폭 420, radius 20, surface + `--sh-pop`, 패딩 16×20, z 900(모달 아래, 토스트 위). 좌 아이콘 타일 44(코인 스프라이트 ×3 또는 Lucide `undo-2`), 제목 800/18, 값 줄 700/16(P와 EXP는 ` · `로 구분, PRD D68, 보상 값은 `--reward` 채움 칩 + `--on-reward` 글자). 등장 300ms `translateY(-12px)`→0 `--ease-expo`, 1,800ms 유지, 퇴장 180ms. 날아가는 코인(일일 보상·거래 완료)은 패널에서 `points-chip`으로 5개, 450ms 포물선, reduced-motion이면 코인만 숨김. `trade-complete-panel`도 같은 틀(제목 "거래 완료!").
+
+### 7.15 시연 다운로드 안내 `demo-download-toast` (v1.3, PRD D70)
+누른 파일명 버튼 바로 아래(앵커 기준 8px), 높이 36, radius 999, bg `--text` 글자 `--bg`(라이트·다크 자동 반전), Lucide `download` 14 + "다운로드 중…" 600/14. 1,400ms 동안: 0–120ms 페이드인, 1,000–1,400ms 페이드아웃. 화면에 1개만, 다시 누르면 시간 재시작. `aria-live="polite"`. 포커스를 옮기지 않음.
+
+### 7.16 꾸미기 모달 · 티어 안내 모달 (v1.3, PRD §8.19)
+- 꾸미기: md 모달(640). 좌 미리보기 240×240(캐릭터 PNG ×10, 티어 오라 없음 — 외형만), 우 3그룹(성별 · 헤어 · 의상) 세그먼트/타일. 의상 타일 88×104 radius 14: 캐릭터 ×3 + 이름 600/13, 선택 = accent 보더 2px, 잠김 = opacity .45 + Lucide `lock` 14 + "Lv.{n} 해금" 600/12. 푸터 `[취소]` secondary · `[저장]` primary.
+- 티어 안내: md 모달. 상단 성별 세그먼트, 6행 표(행 64: 캐릭터 ×2 · 티어 배지 · "Lv.10–14" · 장비 이름), 현재 티어 행 accent-soft. 대시보드 카드 제목 옆 `char-info-btn` = 32px 아이콘 버튼(Lucide `info`, ghost).
+
+### 7.17 문의 답변 카드 (v1.3, PRD §8.18)
+`answer-row` = 카드 radius 18 1px 보더 패딩 20: 상단 아바타 40 · 이름 700/16 · 부서·티어 배지 · 시각 600/13 muted, 본문 600/16 lh 1.6, 스크린샷 썸네일 행. 채택된 답변: 보더 `--accent` 2px + bg `--accent-soft` + 우상 `accepted-answer-badge`(success 배지 "채택된 답변", Lucide `check`). 요청자 화면의 `[채택하기]`는 카드 우상 sm primary. 답변 작성 카드는 목록 아래, 상단 마스킹 안내 박스(info, Lucide `shield-check`).
 
 ---
 
@@ -450,6 +489,20 @@ radius 24, 패딩 0, overflow hidden. 썸네일 170px(앱 160) — 이미지 또
 - 몬스터(업무 병목 슬라임): 외곽 `#14321F`, 몸 `#4ADE80`, 하이라이트 `#DCFCE7`, 입 `#166534`. 머리 위 이름+HP 바(14px, `#EF4444→#F97316`, 2px `#52525B` 보더).
 - 코인 `#FFBE19`(브랜드 옐로)/`#D97706`/외곽 `#7C4A03`/하이라이트 `#FFF7CC` · 젬 `#A855F7`/`#6D28D9`/`#F5D0FE`(게임 소품 고유색, 유지) · 별 `#FFBE19`/`#FFF`. 브랜드 hex(코인·별·넥타이)는 스프라이트 데이터에 직접 쓰지 않고 `src/lib/brand.ts`의 `BRAND`에서 가져옵니다(§3.0).
 - **오라**: 티어색 2–3개로 6/8/10px 정사각 픽셀이 0.9–1.8초 주기로 상승·사인 페이드(카드당 9개, 플래티넘↑ 16개). 히어로 박스 배경 = `radial-gradient(circle at 50% 62%, 티어색 22%α, transparent 55%)`.
+
+### 8.1 캐릭터 PNG 자산 계약 (v1.3, PRD D76 · Opinion 27-1)
+전신 캐릭터는 코드 행렬 대신 **동봉 PNG 24종**(`{male|female}-{classic|wave}-{bronze|silver|gold|platinum|diamond|master}.png`)을 씁니다. 소품·코인·슬라임·물품·아바타 헤드·하이퍼 프레임 캐릭터는 위 코드 행렬 그대로입니다.
+| 항목 | 기준 |
+|---|---|
+| 크기 | 24×24 네이티브, RGBA PNG |
+| 알파 | 0 또는 255만(반투명 없음, 안티에일리어싱 없음) |
+| 배치 | 바디가 위 "그리드" 안전 영역(16×16 바디, (4,6) 오프셋)과 같은 발 위치·머리 높이. 날개·검·망토는 24×24 안 |
+| 외곽선 | 어두운 외곽선 1px, 끊김 없음(색은 `palette.lock.json`) |
+| 색 | 생성 당시 팔레트 잠금(`reference/assets/character/provenance/palette.lock.json`)을 따름. 위 공통 팔레트·티어 표·브랜드 보라와 근소한 차이가 있을 수 있음(허용 차이, 브랜드 hex 규칙은 코드에만 적용) |
+| 조합 | 헤어는 옷과 **한 장으로** 그려 겹침 깨짐 없음. 성별·헤어·티어 24조합이 서로 다른 이미지 |
+| 렌더 | 24×24 캔버스에 `drawImage` → 정수 배율 확대, `imageSmoothingEnabled=false`, `image-rendering: pixelated` |
+| 출처 | `reference/assets/character/provenance/`(원본 아바타·프롬프트·검수 메모). 앱에는 복사하지 않음 |
+자산을 추가·교체할 때는 사람이 위 표를 모두 만족시키고 `character-assets.test`를 통과시킵니다. Autopilot은 자산을 만들거나 고치지 않습니다.
 
 ---
 
@@ -528,14 +581,14 @@ radius 24, 패딩 0, overflow hidden. 썸네일 170px(앱 160) — 이미지 또
 - stroke-width **2**, `stroke-linecap/linejoin: round`, `fill:none`(좋아요 활성만 fill).
 - 크기: 14(배지 안) · 16(메타) · 19–21(버튼·아이콘 타일) · 24(업로드) · 26(shield) — 텍스트와 1em로 맞춘다.
 - 색: 기본 currentColor, 기능 강조는 accent, 하트 `#F43F5E`.
-- 사용 아이콘: `log-in` 접속 · `scroll-text` 퀘스트 · `swords` 완료/티어 · `check` 채택/완료 · `house` 마을 · `lock`/`lock-open` 잠금 · `link` · `shield-check` 보안서약 · `upload` · `send` Teams · `rotate-ccw` 반려/다시보기 · `heart` · `eye` · `search` · `plus` 글 등록 · `users` 조직도 · `zap` DEBUG · `moon`/`sun` 테마 · `chevron-down/right` · `arrow-right` 흐름.
+- 사용 아이콘: `log-in` 접속 · `scroll-text` 퀘스트 · `swords` 완료/티어 · `check` 채택/완료 · `house` 마을 · `lock`/`lock-open` 잠금 · `link` · `shield-check` 보안서약 · `upload` · `send` Teams · `rotate-ccw` 반려/다시보기 · `heart` · `eye` · `search` · `plus` 글 등록 · `users` 조직도 · `zap` DEBUG · `moon`/`sun` 테마 · `chevron-down/right` · `arrow-right` 흐름. (v1.3) `info` 티어 안내·구매 안내 · `volume-2`/`volume-x` 효과음 · `undo-2` 되돌리기 · `download` 시연 다운로드 · `paperclip`/`image` 첨부 · `shirt` 꾸미기 · `messages-square` 답변.
 - 아이콘 타일: 38px radius 11 bg accent-soft 아이콘 accent (완료 시 accent 채움 + 흰 아이콘).
 - 이모지는 UI에 사용하지 않는다(채팅 본문의 사용자 입력은 예외).
 
 ---
 
 ## 11. 카피 톤
-- **짧은 해요체, 동사로 끝나는 CTA**: "퀘스트 등록하기", "채택하기", "샀어요 · 구매 요청", "예약자 지정".
+- **짧은 해요체, 동사로 끝나는 CTA**: "퀘스트 등록하기", "채택하기", "샀어요 · 물품 수령 확인", "예약자 지정", "최종 구매자 지정".
 - 헤드라인은 2줄, 한 단어만 보라 강조: "막힌 업무는 **퀘스트**로 던지세요." / "지원부터 승인까지, **한 흐름으로.**" / "성장할수록, **캐릭터가 진화**합니다." / "포인트로 사고, **나누고, 순환하고.**" / 슬로건 "일하고, 성장하고, **거래하세요.**"
 - 숫자는 단위와 함께, 천 단위 콤마: `1,500 P`, `+100 EXP`, `D-14`, `Lv.12`.
 - 구분자는 가운뎃점 ` · `, 흐름은 화살표 아이콘(→ 문자 대신 Lucide `arrow-right`).
@@ -560,7 +613,10 @@ radius 24, 패딩 0, overflow hidden. 썸네일 170px(앱 160) — 이미지 또
 | `refs/07_quest_detail_inprogress_teams.png` | 퀘스트 상세(진행중, 결과 제출) · 김효성 | 수정/삭제 잠금(툴팁 사유) · 채택된 작업자 스트립 + [팀즈 대화하기] · 제출 결과물 v1(표, SharePoint .xlsm) · [반려(보완 요청)]/[퀘스트 완료(승인)] · 진행 로그 aside · 플로팅 Teams 채팅(보라 헤더, 초록 온라인 점, 타이핑 인디케이터, 입력바) |
 | `refs/08_hyperframe_complete.png` | 하이퍼 프레임 B(완료) · 딤 앱 위 | z 9999 오버레이 · 슬라임 몬스터 + HP 바 + 참격 아크 + -9,999 · 코인/젬 파티클 · 보상 카드 +100P / +300P 현상금 / +100EXP · LEVEL UP Lv.7 → Lv.8 · 1.8초 후 자동 닫힘 문구 |
 | `refs/09_village_market_dark.png` | 효성마을 마켓 · 이퀘스트 사원 · 다크(게이밍 모드) | 사이드바(전체 8 + 6개 마을 카운트, [+ 중고물품 글 등록], 내 거래 현황) · 분류 칩 · 검색 · 정렬 · 8장 상품 카드(마을 배지, 거래가능/예약중/거래완료 배지, 분류, 포인트 가격 or 무료나눔, Lucide `heart` 좋아요, Lucide `eye` 조회수, 판매자) |
-| `refs/10_village_detail_orgchart.png` | 매물 상세(판매자 김효성 뷰) + 그룹웨어 조직도 모달 · 라이트 | 사업장 트리(마포 본사/회현/반포/수서/창원공장/울산공장 + 인원) · 검색 · 직원 행(티어 배지, 사번·사업장·부서, 보유 P, [예약자 지정]/[최종 구매자 지정], 포인트 부족 비활성) · 적용 안내 바 |
+| `refs/10_village_detail_orgchart.png` | 매물 상세(판매자 김효성 뷰) + 그룹웨어 조직도 모달 · 라이트 | 사업장 트리(마포 본사/회현/반포/수서/창원공장/울산공장 + 인원) · 검색 · 직원 행(티어 배지, 사번·사업장·부서, [예약자 지정]/[최종 구매자 지정]) · 적용 안내 바. (v1.3) 보유 P 열·포인트 부족 비활성은 **구현하지 않음**(PRD D67, 허용 차이) |
+
+**v1.3 참고 화면** `reference/screens/*.png` 8장(참조 구현 캡처, 판정 기준 아님): `character-wardrobe`(§7.16) · `tier-guide-female`(§7.16) · `pixel-character-dev`(§8.1) · `daily-reward`(§7.14) · `demo-download-dev`(§7.15) · `inquiry`(§7.17) · `teams-market-guidance`(PRD D77) · `village-scroll`(§6.2). 참조 구현과 이 문서가 다르면 이 문서가 이깁니다(예: 참조 구현의 AI 생성 info 아이콘 대신 Lucide `info`).
+- (v1.3) ref04·06·07의 "SharePoint 링크 배지(링크 변환 완료)"·URL 표시와 "100P + 300P + 100EXP" 합산 표기는 ref 제작 당시 표기입니다. 구현은 §7.7 시연 배지(URL 없음)와 P/EXP 두 줄(PRD D68)이며, Visual QA에서 허용 차이입니다.
 
 ---
 
@@ -572,6 +628,8 @@ radius 24, 패딩 0, overflow hidden. 썸네일 170px(앱 160) — 이미지 또
 - [ ] 비활성 버튼은 항상 이유 라벨 + Tooltip.
 - [ ] 화면 전환 시 빈 프레임 없음(퇴장/진입 150ms 이상 겹침).
 - [ ] 라이트/다크 각각에서 refs/01–10과 시각 비교.
+- [ ] (v1.3) 직접 쓴 CSS 클래스가 Tailwind 유틸리티 이름과 겹치지 않음(`.oq-` 접두), 제목 굵기는 §2.2 값을 명시.
+- [ ] (v1.3) 마켓 목록 스크롤은 `market-scroll`만, 반응형은 §6.1 표.
 
 ---
 
@@ -579,6 +637,8 @@ radius 24, 패딩 0, overflow hidden. 썸네일 170px(앱 160) — 이미지 또
 
 | 버전 | 날짜 (KST) | 변경 | 근거 |
 |---|---|---|---|
+| v1.4 | 2026-10-21 | §7.5 눈금은 `maxB` 기준 동적(PRD D79) 주석, §7.11 `buy-btn` 라벨을 PRD §7.3 문구로 맞추고 "문구는 PRD §7.3" 명시, `buy-guidance` `npc` 상태(D90), 되돌리기 버튼 항상 활성(D89) | 검수봇 v2.5 권장-4·5, 분석봇 v2.5 이의 1·2 |
+| v1.3 | 2026-10-21 | 폰트 로컬 우선·preconnect 삭제(§2.1), 반응형 표 §6.1, 스크롤 소유권 §6.2, 시연 첨부 배지 §7.7, 조직도 잔액 비표시 §7.10, 상품 카드 CTA 제거·상세 `[샀어요]` 상태 §7.11, 새 §7.14 보상 패널·§7.15 다운로드 안내·§7.16 꾸미기·티어 안내·§7.17 답변 카드, §8.1 캐릭터 PNG 계약, 아이콘·카피 추가, §12 참고 화면. 색 토큰 변화 없음 | PRD v2.5(Opinion 16·19·23·24·26·27·27-1·28, 빌드 의견 04) |
 | v1.2 | 2026-10-21 | 효성 브랜드 팔레트 7색 `--hs-*`(§3.0), 시맨틱 토큰 재매핑(매핑표), 신규 `--accent-hover/-pressed/-fg`, `--focus-border`, `--reward`/`--on-reward`/`--reward-soft`, `--live-dot`, `--coin-outline`, `--sh-neon`(라이트에도 정의), `--accent-cyan` 폐지, 노랑 사용 규칙, WCAG 대비표, Reward 버튼·칩, Tailwind 색을 변수 참조로, 스프라이트·하이퍼 프레임 보상색을 브랜드로, 남은 하드코딩 보라(블롭·스테퍼·DEBUG 칩·D-Day 배너 등)를 브랜드로, refs보다 토큰 색 우선 명시 | 팀 요청(효성 공식 팔레트) |
 | v1.1 | 2026-10-21 | §0 경로 수정(`motion/officequest_intro.html`), 없는 `refs/video_stills/` 언급 삭제(§0·§12) | 검수봇 보통-8 · 분석봇 보통(DESIGN 낡은 경로) |
 | v1.1 | 2026-10-21 | 사이드바 앱 값 280 → **264px**(§3.7 `spacing.sidebar`, §6 표), 컨테이너 최대 폭 제한 없음 | 분석봇 높음(사이드바 280 vs 264) · 검수봇 보통-7 · PRD D6 |
