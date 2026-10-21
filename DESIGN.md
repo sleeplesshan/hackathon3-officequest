@@ -1,10 +1,12 @@
-# 오피스퀘스트 × 효성마을 — 디자인 시스템 스펙 (v1.1)
+# 오피스퀘스트 × 효성마을 — 디자인 시스템 스펙 (v1.2)
 
 > 이 문서는 20초 소개 모션그래픽(`motion/officequest_intro.html`)과 레퍼런스 화면(`refs/01–10`)에 **실제로 사용한 값**을 그대로 옮겨 고정한 테마 명세입니다.
 > Next.js(App Router) + Tailwind CSS 빌더가 이 문서와 `tokens.css`만으로 동일한 룩을 재현하는 것이 목표입니다.
 > 표기: 영상의 가상 스테이지는 1920×1080 기준입니다. 실제 앱(1440px 데스크톱 기준)에서는 **§6 레이아웃의 앱 값**을 사용하고, 영상 전용 대형 수치(디스플레이 176px 등)는 랜딩/스플래시에만 씁니다.
 >
 > **앱 구현 시 우선순위**: 이 문서와 `PRD.md` §2 결정 테이블이 다르면 **PRD §2가 이깁니다**(특히 D2·D6·D28·D35·D36). v1.1에서 앱 값(사이드바 264px, 최대 폭 제한 없음, 스탯 타일 3개, 일일 링 1/4, 조직도 lg 모달, reduced-motion 1.8s)을 PRD·refs와 맞췄습니다(맨 끝 변경 이력).
+>
+> **v1.2 — 효성 브랜드 팔레트(§3.0)**: 공식 7색을 `--hs-*` 토큰으로 두고 보라·면·보더·포커스·보상 색을 그 위에 재매핑했습니다. **`refs/01–10` 이미지와 `motion/`은 브랜드 팔레트 이전에 만든 것**이라 보라 톤(`#6D28D9` 계열)·코인 노랑이 다릅니다. **색은 이 문서와 `tokens.css`가 refs보다 우선**하고, refs는 구도·정보·상태의 기준으로만 씁니다(Visual QA에서 색 차이는 허용 차이).
 
 ---
 
@@ -22,7 +24,7 @@
 ## 1. 디자인 원칙
 
 1. **정제된 기본, 화려한 순간.** 평소 UI는 Apple/Linear처럼 조용하고 밀도 높게. 화려함(빛줄기·파티클·네온)은 **하이퍼 프레임 오버레이와 티어 진화**에만 집중시킨다.
-2. **보라는 신호다.** 보라(`#6D28D9`/`#7C3AED`)는 "행동·내 것·진행"에만 쓴다. 화면의 보라 면적은 10% 이하.
+2. **보라는 신호다.** 효성 보라(`--accent` = `--hs-purple-600` `#6428E6`, hover `#3D00B8`)는 "행동·내 것·진행"에만 쓴다. 화면의 보라 면적은 10% 이하. **효성 옐로(`--hs-yellow` `#FFBE19`)는 보상의 신호**(별·코인·레벨업·보상 CTA 하이라이트)로만, 채움으로만 쓴다(§3.0).
 3. **숫자가 주인공.** 포인트·EXP·D-Day·순위는 ExtraBold/Black + tabular-nums로 크게. 단위(P, EXP, 건)는 한 단계 작고 보라색.
 4. **게임은 픽셀로만.** 게임 감성은 코드로 그린 16×16/24×24 도트 스프라이트로 표현한다. 일러스트·3D·이모지로 대체하지 않는다.
 5. **상태는 언제나 보인다.** 모든 퀘스트/매물은 상태 배지를 가지고, 잠김·비활성은 이유를 텍스트로 말한다(예: "지정 예약자 외 구매 불가").
@@ -31,7 +33,7 @@
 
 | ✅ Do | ❌ Don't |
 |---|---|
-| 단색 보라 + 미세한 2-stop 그라데이션(`#6D28D9→#8B5CF6`)만 프로그레스/슬라이더에 | 무지개·네온 그라데이션 배경, 그라데이션 텍스트 남발 (예외: LEVEL UP 타이틀 1곳) |
+| 단색 보라 + 미세한 2-stop 그라데이션(`#6428E6→#875FF0`, 즉 `--accent→--accent-2`)만 프로그레스/슬라이더에 | 무지개·네온 그라데이션 배경, 그라데이션 텍스트 남발 (예외: LEVEL UP 타이틀 1곳) |
 | 1px `#E4E4E7` 보더 + 아주 옅은 보라 그림자로 깊이 | 두꺼운 드롭섀도, 컬러 글로우 카드(다크 마스터 카드 1곳 예외) |
 | Paperlogy 단일 패밀리, 굵기(400–900)로만 위계 | 시스템 폰트, 2개 이상 폰트 혼용, 이탤릭 |
 | 헤드라인 자간 `-0.045em`, 본문 `-0.01em` | 기본 자간 그대로 둔 큰 제목 |
@@ -85,6 +87,87 @@
 
 전체 값은 `tokens.css` 참조. 핵심 표:
 
+### 3.0 효성 브랜드 팔레트 (Hyosung brand palette, v1.2)
+
+공식 7색입니다. **hex는 `tokens.css`의 `--hs-*`에만** 적고, 컴포넌트는 시맨틱 토큰(`--accent`, `--reward` …)이나 `--hs-*` 변수로만 씁니다. 캔버스(스프라이트·파티클·하이퍼 프레임)처럼 CSS 변수를 못 쓰는 곳은 `src/lib/brand.ts`의 `BRAND` 상수 하나만 씁니다(값은 tokens.css와 같아야 하며 단위 테스트로 대조, Harness §5.1·§5.5-11).
+
+| 브랜드 토큰 | 값 | 역할 |
+|---|---|---|
+| `--hs-purple-900` | `#2E008B` | 가장 진한 보라 · 눌림(pressed) · **노랑 위 글자색**(`--on-reward`) |
+| `--hs-purple-800` | `#3D00B8` | 진한 보라 · 주 버튼 hover |
+| `--hs-purple-600` | `#6428E6` | **시그니처 보라** · 주 버튼·활성·링크·보라 텍스트(`--accent`, 라이트 `--accent-fg`) |
+| `--hs-purple-400` | `#875FF0` | 밝은 보라 · 그라데이션 끝·링·포커스 보더·네온 글로우(`--accent-2`, `--focus-border`, `--neon`) |
+| `--hs-lavender-200` | `#C4C4E6` | 라벤더 · 강조 보더(`--border-accent`)·네온 pale |
+| `--hs-lavender-50` | `#F1F1F9` | 옅은 라벤더 · 소프트 배지·선택 행·에스크로 박스 배경(`--accent-soft`, `--surface-sunken`) |
+| `--hs-yellow` | `#FFBE19` | **보상/하이라이트 액센트** · 별·코인·레벨업·보상 CTA·골드 티어·다크 라이브 점(`--reward`, `--coin`, `--tier-gold`, 다크 `--live-dot`) |
+
+**기존 → 새 토큰 매핑** (구조는 그대로, 값만 브랜드로)
+
+| 토큰 | v1.1 Light | v1.2 Light | v1.1 Dark | v1.2 Dark |
+|---|---|---|---|---|
+| `--accent` (주 버튼 채움·활성) | `#6D28D9` | `--hs-purple-600` `#6428E6` | `#A855F7` | `--hs-purple-600` `#6428E6` |
+| `--accent-hover` (신규) | — | `--hs-purple-800` `#3D00B8` | — | `--hs-purple-800` |
+| `--accent-pressed` (신규) | — | `--hs-purple-900` `#2E008B` | — | `--hs-purple-900` |
+| `--accent-2` (그라데이션 끝·링) | `#7C3AED` | `--hs-purple-400` `#875FF0` | `#A855F7` | `--hs-purple-400` |
+| `--accent-fg` (신규, 면 위 보라 텍스트) | (`--accent`) | `#6428E6` | (`--accent` `#A855F7`) | `--purple-300` `#A692EB` |
+| `--accent-soft` | `#EDE9FE` | `--hs-lavender-50` `#F1F1F9` | `rgba(168,85,247,.14)` | `rgba(135,95,240,.16)` |
+| `--accent-ring` | `rgba(124,58,237,.12)` | `rgba(100,40,230,.12)` | `rgba(168,85,247,.22)` | `rgba(135,95,240,.24)` |
+| `--focus-border` (신규, 인풋 포커스 보더) | `#A78BFA`(하드코딩) | `--hs-purple-400` | — | `--hs-purple-400` |
+| `--surface-sunken` | `#F3F0FF` | `--hs-lavender-50` | `#0E0E14` | 그대로 |
+| `--border-accent` | `#C4B5FD` | `--hs-lavender-200` `#C4C4E6` | `rgba(168,85,247,.45)` | `rgba(135,95,240,.45)` |
+| `--purple-50…900` | violet 10단 | 50 `#F1F1F9` · 100 `#DADAF0`* · 200 `#C4C4E6` · 300 `#A692EB`* · 400 `#875FF0` · 500 `#7644EB`* · 600 `#6428E6` · 700 `#5014CF`* · 800 `#3D00B8` · 900 `#2E008B` | — | 같음 |
+| `--neon` / `-soft` / `-pale` | `#A855F7` / `#C084FC` / `#E9D5FF` | `#875FF0` / `#A692EB` / `#C4C4E6` | — | 같음 |
+| `--reward` / `--on-reward` / `--reward-soft` (신규) | — | `#FFBE19` / `#2E008B` / `#FFF3D6` | — | 같음 / 같음 / `rgba(255,190,25,.14)` |
+| `--coin` | `#FBBF24` | `--hs-yellow` | — | 같음 |
+| `--tier-gold` | `#F5B301` | `--hs-yellow`(배지 bg/fg는 그대로) | — | 같음 |
+| `--live-dot` (신규, 타이머 라이브 점) | (accent) | `--accent` | `--accent-cyan` `#06B6D4` | `--hs-yellow` |
+| `--accent-cyan` | `#0891B2` | **폐지** | `#06B6D4` | **폐지** |
+| 보라 그림자·블롭 rgba | `76,29,149` · `109,40,217` · `124,58,237` · `168,85,247` | `46,0,139` · `100,40,230` · `100,40,230` · `135,95,240` | | |
+
+\* 파생색 = 인접 브랜드 2색의 50:50 혼합(스케일 빈칸 채우기용). 화면의 주요 색은 브랜드 7색만 씁니다.
+**바꾸지 않은 것**: 중립 회색(`--bg #FAFAFC`, `--surface`, 텍스트·보더 회색), 시맨틱 success/warning/danger/info/revise(노랑 보상과 주황 경고를 섞지 않음), 티어 6색 중 골드 외 5색(게임 등급 색, 마스터 `#A855F7` 포함), Teams·SharePoint 연동색, 스프라이트 고유 팔레트(§8에서 코인·별·넥타이만 브랜드로).
+
+**시안 결정 (PRD D2 갱신)**: 다크 GNB 타이머 라이브 점 1곳만 쓰던 `--accent-cyan`은 브랜드 팔레트에 없어 **폐지**합니다. 그 자리는 `--live-dot`(라이트 `--accent`, 다크 `--hs-yellow`, 다크 면 대비 11.2:1). 금지 패턴 검사의 `#06B6D4` 금지(Harness §5.5-4)는 그대로 둡니다. 플래티넘·다이아 티어의 시안 계열(`#67E8F9`, `#22D3EE`)은 티어 색이라 별개입니다.
+
+**노랑 사용 규칙 (MUST)**
+- 노랑은 **채움(배경·아이콘 면·스프라이트)으로만** 씁니다. 노랑 위 글자·아이콘은 `--on-reward` `#2E008B`(8.48:1).
+- **밝은 면(흰·`--bg`·라벤더) 위 노랑 글자·선 금지**(흰 위 1.66:1). 밝은 면에 노랑 아이콘(코인·별)을 둘 때는 외곽선 `--coin-outline` `#7C4A03`(7.40:1) 또는 `--on-reward` 1–2px를 붙입니다(비텍스트 3:1).
+- 다크 면 위에서는 노랑 글자 허용(`#12121A` 위 11.21:1): 하이퍼 프레임 "POSTED!"·"LEVEL UP!", 다크 라이브 점.
+- 쓰는 곳: 별점 별(Lucide `star` fill), 코인 스프라이트, 레벨업 텍스트 그라데이션, 보상 카드 강조 테두리, `[보상 받기]`·`[별점 주고 승인]` 같은 **보상 CTA**(Reward 버튼 §7.1), 골드 티어. 경고(warning)에는 쓰지 않습니다.
+- 한 화면의 노랑 면적은 보라보다 작게(보상 순간 제외).
+
+**WCAG 대비** (상대 휘도 공식으로 계산. AA 기준: 본문 4.5 · 큰 글자/비텍스트 3.0)
+
+| 조합 (글자 / 배경) | 대비 | 판정 | 용도 |
+|---|---|---|---|
+| 흰 / `#6428E6` | 7.03 | AA ✓ | 주 버튼(라이트·다크 공통) |
+| 흰 / `#3D00B8` | 11.11 | AAA ✓ | 주 버튼 hover |
+| 흰 / `#2E008B` | 14.10 | AAA ✓ | pressed · D-Day 배너 |
+| 흰 / `#5014CF` (purple-700 파생) | 8.97 | AAA ✓ | 필요 시 |
+| `#6428E6` / `#FFFFFF` | 7.03 | AA ✓ | 링크·단위·보라 텍스트(라이트 `--accent-fg`) |
+| `#6428E6` / `#FAFAFC` | 6.74 | AA ✓ | 페이지 위 보라 텍스트 |
+| `#6428E6` / `#F1F1F9` | 6.26 | AA ✓ | 소프트 배지(진행중·요청) |
+| `#2E008B` / `#FFBE19` | 8.48 | AAA ✓ | 노랑 채움 위 글자(`--on-reward`) |
+| `#2E008B` / `#FFF3D6` | 12.79 | AAA ✓ | 보상 소프트 칩 |
+| `#FFBE19` / `#FFFFFF` | **1.66** | ✕ 금지 | 밝은 면 위 노랑 글자 |
+| `#FFBE19` / `#FAFAFC` | **1.59** | ✕ 금지 | 〃 |
+| `#7C4A03` / `#FFFFFF` | 7.40 | 비텍스트 ✓ | 밝은 면 코인·별 외곽선 |
+| `#18181B` / `#FAFAFC` | 17.00 | AAA ✓ | 본문 |
+| `#52525B` / `#FFFFFF` | 7.73 | AAA ✓ | 2차 텍스트 |
+| `#52525B` / `#F1F1F9` | 6.88 | AA ✓ | 라벤더 면 위 보조 텍스트 |
+| `#71717A` / `#FFFFFF` | 4.83 | AA ✓ | muted 라벨 |
+| `#71717A` / `#F1F1F9` | **4.30** | ✕ 본문 · ✓ 큰 글자 | 라벤더 면 위 작은 muted 글자 금지 → `--text-sub` |
+| `#875FF0` / `#FFFFFF` | 4.26 | 비텍스트 ✓ | 포커스 보더·링·그라데이션 끝(본문 글자로는 안 씀) |
+| `#C4C4E6` / `#FFFFFF` | 1.70 | 장식 전용 | `--border-accent`(정보 전달 경계 아님) |
+| 다크 `#FAFAFA` / `#09090B` · `#12121A` | 19.06 · 17.85 | AAA ✓ | 본문 |
+| 다크 `#A1A1AA` / `#12121A` | 7.27 | AAA ✓ | muted |
+| 다크 `#A692EB` / `#12121A` | 7.04 | AAA ✓ | 다크 `--accent-fg`(보라 텍스트·배지 글자) |
+| 다크 `#A692EB` / `#251E3C`(accent-soft 합성) | 5.97 | AA ✓ | 다크 소프트 배지 |
+| 다크 `#875FF0` / `#12121A` | 4.37 | 비텍스트 ✓ · 본문 ✕ | 다크 포커스·링 → 다크 보라 **텍스트**는 `#A692EB` |
+| 다크 흰 / `#875FF0` | 4.26 | 본문 ✕ | → 다크 주 버튼 채움은 `#6428E6`(7.03) |
+| 다크 `#FFBE19` / `#12121A` · `#09090B` | 11.21 · 11.97 | AAA ✓ | 다크 노랑 강조·라이브 점 |
+| 다크 `#6428E6` 버튼 면 / `#12121A` | 2.65 | 참고 | 버튼은 글자(7.03)로 식별, `--sh-btn` 보라 1px 링 추가 |
+
 ### 3.1 기본 (라이트 / 다크)
 
 | 토큰 | Light | Dark (Gaming) | 용도 |
@@ -97,13 +180,17 @@
 | `--text-sub` | `#52525B` | `#D4D4D8` | 2차 텍스트 |
 | `--text-muted` | `#71717A` | `#A1A1AA` | 라벨/메타 |
 | `--border` | `#E4E4E7` | `#27272A` | 모든 1px 보더 |
-| `--accent` | `#6D28D9` | `#A855F7` | 주 버튼, 활성, 강조 |
-| `--accent-2` | `#7C3AED` | `#A855F7` | 그라데이션 끝, 링 |
-| `--accent-soft` | `#EDE9FE` | `rgba(168,85,247,.14)` | 소프트 배지, 선택 행 배경 |
+| `--accent` | `#6428E6` (`--hs-purple-600`) | `#6428E6` | 주 버튼 채움, 활성 |
+| `--accent-hover` / `--accent-pressed` | `#3D00B8` / `#2E008B` | 같음 | 주 버튼 hover / press |
+| `--accent-2` | `#875FF0` | `#875FF0` | 그라데이션 끝, 링 |
+| `--accent-fg` | `#6428E6` | `#A692EB` | 면 위 보라 텍스트(단위·링크·배지 글자) |
+| `--accent-soft` | `#F1F1F9` | `rgba(135,95,240,.16)` | 소프트 배지, 선택 행 배경 |
+| `--reward` / `--on-reward` | `#FFBE19` / `#2E008B` | 같음 | 보상·하이라이트 채움 / 그 위 글자 |
+| `--live-dot` | `--accent` | `#FFBE19` | GNB 타이머 라이브 점 |
 | `--dot-grid` | `#DCDCE2` (32px 점) | `#17171F` (64px 라인 그리드) | 배경 패턴 |
 
 ### 3.2 퍼플 스케일
-`50 #FAF5FF · 100 #EDE9FE · 200 #DDD6FE · 300 #C4B5FD · 400 #A78BFA · 500 #8B5CF6 · 600 #7C3AED · 700 #6D28D9 · 800 #5B21B6 · 900 #4C1D95` / 네온: `#A855F7`, `#C084FC`, `#E9D5FF`
+`50 #F1F1F9 · 100 #DADAF0* · 200 #C4C4E6 · 300 #A692EB* · 400 #875FF0 · 500 #7644EB* · 600 #6428E6 · 700 #5014CF* · 800 #3D00B8 · 900 #2E008B` (\* 파생, §3.0) / 네온: `#875FF0`, `#A692EB`, `#C4C4E6`
 
 ### 3.3 시맨틱
 
@@ -120,7 +207,7 @@
 | 도메인 | 상태 | 토큰 | Light |
 |---|---|---|---|
 | 업무 퀘스트 | 모집중 | `--st-recruit-*` | success |
-| | 진행중 | `--st-progress-*` | accent-soft / accent |
+| | 진행중 | `--st-progress-*` | accent-soft / accent-fg |
 | | 진행중(보완요청) | `--st-revise-*` | warning |
 | | 완료 | `--st-done-*` | `#E4E4E7` / `#52525B` (승인 직후 순간엔 solid 보라) |
 | 효성마을 | 거래가능 | `--mk-avail-*` | success |
@@ -128,7 +215,7 @@
 | | 거래완료 | `--mk-sold-*` | 회색 + 썸네일 opacity .35 |
 | | 무료나눔(가격 자리) | `--mk-free-fg` | `#16A34A` / dark `#4ADE80`, 800 |
 | 퀘스트 유형 | 문의 | `--qt-inquiry-*` | info |
-| | 요청 | `--qt-request-*` | accent-soft / accent |
+| | 요청 | `--qt-request-*` | accent-soft / accent-fg |
 
 ### 3.5 티어 6색
 
@@ -136,37 +223,39 @@
 |---|---|---|---|---|
 | 브론즈 | `#CD7F32` | `#FFEDD5` / `#9A3412` | 남색 사원복 + 브론즈 핀 | Lv.1–4 |
 | 실버 | `#94A3B8` | `#F1F5F9` / `#475569` | + 은빛 망토 | Lv.5–9 |
-| 골드 | `#F5B301` | `#FEF3C7` / `#A16207` | 황금 갑옷 + 어깨판 + 레드 망토 + 왕관 픽셀 | Lv.10–14 |
+| 골드 | `#FFBE19` (`--hs-yellow`, v1.2) | `#FEF3C7` / `#A16207` | 황금 갑옷 + 어깨판 + 레드 망토 + 왕관 픽셀 | Lv.10–14 |
 | 플래티넘 | `#67E8F9` | `#E2E8F0` / `#334155` | 백금 갑옷 + 사이버 고글 + 오라 | Lv.15–19 |
 | 다이아 | `#22D3EE` | `#CFFAFE` / `#0E7490` | 크리스탈 날개 | Lv.20–24 |
 | 마스터 | `#A855F7` | `#F3E8FF` / `#7E22CE` | 보라 갑옷 + 보라 날개 + 전설의 검 + 번개 오라 | Lv.25+ |
 
-티어 진행 라인: `linear-gradient(90deg,#CD7F32,#94A3B8,#F5B301,#CBD5E1,#22D3EE,#A855F7)`
+티어 진행 라인: `linear-gradient(90deg,#CD7F32,#94A3B8,#FFBE19,#CBD5E1,#22D3EE,#A855F7)` (tokens.css에서는 골드 정지점이 `var(--hs-yellow)`)
 
 ### 3.6 연동 브랜드색
-Teams 헤더 `#464775`, 브랜드/전송 `#5B5FC7`, 로고 타일 `#7B83EB`, 채팅 배경 `#F5F5F7`, 내 말풍선 `#E8EBFA`, 온라인 `#22C55E` · SharePoint `#036C70` + 보조 점 `#1A9BA1` · 코인 `#FBBF24`/`#D97706`
+Teams 헤더 `#464775`, 브랜드/전송 `#5B5FC7`, 로고 타일 `#7B83EB`, 채팅 배경 `#F5F5F7`, 내 말풍선 `#E8EBFA`, 온라인 `#22C55E` · SharePoint `#036C70` + 보조 점 `#1A9BA1` · 코인 `--coin` = `#FFBE19`(v1.2) / 음영 `#D97706` / 외곽 `--coin-outline` `#7C4A03`
 
 ### 3.7 Tailwind `theme.extend`
 ```js
-// tailwind.config.ts — 색은 모두 CSS 변수를 참조(라이트/다크 자동 전환). 실제 파일(content·타입 포함, 검증 완료)은 Harness.md 부록 A
+// tailwind.config.ts — 색은 모두 CSS 변수를 참조(라이트/다크 자동 전환, v1.2 브랜드 hex는 tokens.css에만). 변수 색이라 `bg-purple-600/50` 같은 불투명도 수식어는 쓰지 않음. 실제 파일(content·타입 포함, 검증 완료)은 Harness.md 부록 A
 const config = {
   darkMode: ['class', '[data-theme="dark"]'],
   theme: {
     extend: {
       fontFamily: { sans: ['Paperlogy', 'system-ui', 'sans-serif'] },
       colors: {
-        bg: 'var(--bg)', surface: { DEFAULT: 'var(--surface)', muted: 'var(--surface-muted)' },
+        bg: 'var(--bg)', surface: { DEFAULT: 'var(--surface)', muted: 'var(--surface-muted)', sunken: 'var(--surface-sunken)' },
         ink: { DEFAULT: 'var(--text)', sub: 'var(--text-sub)', muted: 'var(--text-muted)', faint: 'var(--text-faint)' },
         line: { DEFAULT: 'var(--border)', strong: 'var(--border-strong)', accent: 'var(--border-accent)' },
-        accent: { DEFAULT: 'var(--accent)', 2: 'var(--accent-2)', soft: 'var(--accent-soft)' },
-        purple: { 50:'#FAF5FF',100:'#EDE9FE',200:'#DDD6FE',300:'#C4B5FD',400:'#A78BFA',500:'#8B5CF6',600:'#7C3AED',700:'#6D28D9',800:'#5B21B6',900:'#4C1D95' },
-        neon: { DEFAULT: '#A855F7', soft: '#C084FC', pale: '#E9D5FF' },
+        accent: { DEFAULT: 'var(--accent)', hover: 'var(--accent-hover)', pressed: 'var(--accent-pressed)', 2: 'var(--accent-2)', fg: 'var(--accent-fg)', soft: 'var(--accent-soft)' },
+        hs: { 'purple-900': 'var(--hs-purple-900)', 'purple-800': 'var(--hs-purple-800)', 'purple-600': 'var(--hs-purple-600)', 'purple-400': 'var(--hs-purple-400)', 'lavender-200': 'var(--hs-lavender-200)', 'lavender-50': 'var(--hs-lavender-50)', yellow: 'var(--hs-yellow)' },
+        reward: { DEFAULT: 'var(--reward)', on: 'var(--on-reward)', soft: 'var(--reward-soft)' },
+        purple: { 50:'var(--purple-50)',100:'var(--purple-100)',200:'var(--purple-200)',300:'var(--purple-300)',400:'var(--purple-400)',500:'var(--purple-500)',600:'var(--purple-600)',700:'var(--purple-700)',800:'var(--purple-800)',900:'var(--purple-900)' },
+        neon: { DEFAULT: 'var(--neon)', soft: 'var(--neon-soft)', pale: 'var(--neon-pale)' },
         success: { bg: 'var(--success-bg)', fg: 'var(--success-fg)' },
         warning: { bg: 'var(--warning-bg)', fg: 'var(--warning-fg)' },
         danger:  { bg: 'var(--danger-bg)',  fg: 'var(--danger-fg)' },
         info:    { bg: 'var(--info-bg)',    fg: 'var(--info-fg)' },
         revise:  { bg: 'var(--revise-bg)', line: 'var(--revise-border)', fg: 'var(--revise-fg)', strong: 'var(--revise-strong)' },
-        tier: { bronze:'#CD7F32', silver:'#94A3B8', gold:'#F5B301', platinum:'#67E8F9', diamond:'#22D3EE', master:'#A855F7' },
+        tier: { bronze:'#CD7F32', silver:'#94A3B8', gold:'var(--tier-gold)', platinum:'#67E8F9', diamond:'#22D3EE', master:'#A855F7' },
         teams: { header:'#464775', brand:'#5B5FC7', logo:'#7B83EB' },
         sharepoint: '#036C70',
       },
@@ -184,7 +273,7 @@ const config = {
       borderRadius: { xs:'6px', sm:'10px', md:'14px', lg:'18px', xl:'22px', '2xl':'28px', pill:'999px' },
       boxShadow: {
         card: 'var(--sh-card)', float: 'var(--sh-float)', pop: 'var(--sh-pop)', btn: 'var(--sh-btn)',
-        focus: 'var(--sh-focus)', seg: 'var(--sh-seg)', knob: 'var(--sh-knob)', neon: '0 0 0 1px rgba(168,85,247,.5),0 0 60px -10px rgba(168,85,247,.6)',
+        focus: 'var(--sh-focus)', seg: 'var(--sh-seg)', knob: 'var(--sh-knob)', neon: 'var(--sh-neon)',
       },
       zIndex: { gnb:'200', dropdown:'300', chat:'800', backdrop:'1000', modal:'1010', toast:'1100', hyper:'9999' },
       spacing: { 'gnb':'64px', 'sidebar':'264px', '4.5':'18px', '5.5':'22px', '7':'28px' },
@@ -221,10 +310,10 @@ export default config; // 익명 default export 금지(ESLint import/no-anonymou
 - 규칙: **안쪽 요소의 라디우스 = 바깥 라디우스 − 패딩** 에 가깝게 (카드 28 → 내부 박스 18–22).
 
 **Shadow** (`tokens.css` `--sh-*`)
-- card: `0 1px 2px rgba(24,24,27,.04), 0 18px 48px -20px rgba(76,29,149,.16)` (다크: `0 0 0 1px rgba(168,85,247,.04), 0 24px 64px -24px rgba(0,0,0,.7)`)
-- btn(primary): `0 10px 24px -10px rgba(109,40,217,.7), inset 0 1px 0 rgba(255,255,255,.18)`
-- focus: `0 0 0 4px rgba(124,58,237,.12)` + 보더 `#A78BFA`
-- neon(다크 마스터 카드 전용): `0 0 0 1px rgba(168,85,247,.5), 0 0 60px -10px rgba(168,85,247,.6)`
+- card: `0 1px 2px rgba(24,24,27,.04), 0 18px 48px -20px rgba(46,0,139,.14)` (다크: `0 0 0 1px rgba(135,95,240,.04), 0 24px 64px -24px rgba(0,0,0,.7)`)
+- btn(primary): `0 10px 24px -10px rgba(100,40,230,.7), inset 0 1px 0 rgba(255,255,255,.18)`
+- focus: `0 0 0 4px rgba(100,40,230,.12)` + 보더 `--focus-border`(`#875FF0`, 흰 면 4.26:1)
+- neon(다크 마스터 카드 전용, `--sh-neon`): `0 0 0 1px rgba(135,95,240,.5), 0 0 60px -10px rgba(135,95,240,.6)`
 
 **Glass**: `background: var(--glass); backdrop-filter: blur(20px); border:1px solid var(--border);` — GNB, 플로팅 컨트롤에만. 카드 본문에는 쓰지 않는다(가독성).
 
@@ -236,7 +325,7 @@ export default config; // 익명 default export 금지(ESLint import/no-anonymou
 
 - Light: `--bg` + 점 그리드 `radial-gradient(circle,#DCDCE2 1.3px,transparent 1.6px) 0 0/32px 32px`, `mask-image: radial-gradient(ellipse at 50% 45%, #000 25%, transparent 78%)`
 - Dark: 라인 그리드 `linear-gradient(#17171F 1px,transparent 1px), linear-gradient(90deg,#17171F 1px,transparent 1px) 0 0/64px 64px` + 같은 마스크
-- 블롭 2개: 1100px 원, `radial-gradient(circle, rgba(124,58,237,.13), transparent 62%)` (다크 `rgba(168,85,247,.16)`), 20–30초 주기로 ±120px 천천히 표류
+- 블롭 2개: 1100px 원, `radial-gradient(circle, rgba(100,40,230,.13), transparent 62%)` (다크 `rgba(135,95,240,.16)`), 20–30초 주기로 ±120px 천천히 표류
 
 ---
 
@@ -250,7 +339,7 @@ export default config; // 익명 default export 금지(ESLint import/no-anonymou
 | 사이드바(업무 퀘스트·효성마을) | 316px | 264px (`--sidebar-w`는 앱 `app-layout.css`에서 264px로 재정의, PRD D6) |
 | 본문 상단 | GNB 하단 + 22px | GNB 하단 + 20px |
 
-**GNB 구성 (좌→우)**: 로고 타일(44px, 보라 배경 + 픽셀 별) + "OFFICE QUEST" 900/24px + "× 효성마을" 600/16px muted → 탭 세그먼트(대시보드/업무 퀘스트/효성마을, 패딩 5px, 탭 높이 44px, 활성 탭 = 흰 필 슬라이드) → 우측: DEBUG 칩(1px dashed `#C4B5FD`) · 시연 타이머(검정 `#18181B` 칩, 보라 라이브 점, `HH:MM:SS` 800/21px 고정폭) · 포인트 칩(코인 스프라이트 + 1,500 P) · 페르소나 전환기(아바타 34px + 이름 + 부서 + chevron) · 테마 토글 아이콘 버튼(48px)
+**GNB 구성 (좌→우)**: 로고 타일(44px, 보라 배경 + 픽셀 별) + "OFFICE QUEST" 900/24px + "× 효성마을" 600/16px muted → 탭 세그먼트(대시보드/업무 퀘스트/효성마을, 패딩 5px, 탭 높이 44px, 활성 탭 = 흰 필 슬라이드) → 우측: DEBUG 칩(1px dashed `#C4C4E6`) · 시연 타이머(검정 `#18181B` 칩, 보라 라이브 점, `HH:MM:SS` 800/21px 고정폭) · 포인트 칩(코인 스프라이트 + 1,500 P) · 페르소나 전환기(아바타 34px + 이름 + 부서 + chevron) · 테마 토글 아이콘 버튼(48px)
 
 ### 벤토 대시보드 그리드
 ```
@@ -260,7 +349,7 @@ height: calc(100vh - GNB - 상하 여백)  (최소 760px)
 | 카드 | 위치 | 내용 |
 |---|---|---|
 | 내 캐릭터 스테이터스 | col 1, row 1–2 (`row-span-2`) | 히어로 박스(캐릭터 ×13, 티어 색 radial 오라, 바닥 줄무늬), Lv 배지, 장비 배지, 이름 34/800, 부서·마을, EXP 바(68%), 스탯 타일 3개(보유 포인트 1,500 P · 오늘 완료 0/2회 · 완료 퀘스트 23건, ref01) |
-| 시즌 D-Day + TOP 5 | col 2, row 1–2 (`row-span-2`) | D-Day 다크 배너(`linear-gradient(135deg,#18181B,#27203A)`), 시즌 진행 바, 랭킹 행 5개(76px, 내 행 = accent-soft + inset 보더 `#DDD6FE`) |
+| 시즌 D-Day + TOP 5 | col 2, row 1–2 (`row-span-2`) | D-Day 다크 배너(`linear-gradient(135deg,#18181B,#2E008B)`), 시즌 진행 바, 랭킹 행 5개(76px, 내 행 = accent-soft + inset 보더 `#C4C4E6`) |
 | 오늘의 일일 퀘스트 | col 3, row 1 | 진행 링 76px(1/4, ref01), 4개 행(접속/등록/완료/채택, +10P +50EXP) |
 | 최신 업무 퀘스트 & 효성마을 인기 매물 | col 3, row 2 | 2열 피드(각 3개, 행 92px) |
 
@@ -273,7 +362,8 @@ Tailwind: `grid grid-cols-[1fr_1.12fr_1.38fr] grid-rows-2 gap-5` / 카드1·2 `r
 ### 7.1 Button
 | 종류 | 높이 | 패딩 | Radius | 폰트 | 스타일 |
 |---|---|---|---|---|---|
-| Primary | 56 (sm 42) | 0 26 (sm 0 16) | 14 (sm 11) | 700 / 19 (sm 16) | bg `--accent`, 흰 글자, `--sh-btn` |
+| Primary | 56 (sm 42) | 0 26 (sm 0 16) | 14 (sm 11) | 700 / 19 (sm 16) | bg `--accent`, 흰 글자, `--sh-btn` · hover bg `--accent-hover` · press bg `--accent-pressed` |
+| Reward(보상 CTA) | 동일 | 동일 | 동일 | 동일 | bg `--reward`, 글자·아이콘 `--on-reward`, 1px `--on-reward` 12%α 보더 · hover lift. `[보상 받기]`·`[별점 주고 승인]`에만(§3.0 노랑 규칙) |
 | Secondary | 동일 | 동일 | 동일 | 동일 | bg `--surface`, 1px `--border`, `--text` |
 | Reject(반려) | 58 | — | 14 | 700/18 | bg `--revise-bg`, 보더 `#FDBA74`, 글자 `#C2410C`, 아이콘 rotate-ccw |
 | Icon | 48×48 | — | 13 | 아이콘 21px | 보더 버튼 |
@@ -287,29 +377,30 @@ Tailwind: `grid grid-cols-[1fr_1.12fr_1.38fr] grid-rows-2 gap-5` / 카드1·2 `r
 - Pill(기능 태그): 높이 46, 패딩 0 18, 1px 보더, 700/17, 아이콘 accent.
 - Chip(GNB): 높이 48, 패딩 0 16, radius 13.
 - Category chip: 높이 42, 패딩 0 18, 활성 = `--text` 배경 + `--bg` 글자(반전).
-- Caption pill(검정): 높이 48, 번호 원 34px `#7C3AED`.
+- Caption pill(검정): 높이 48, 번호 원 34px `--accent`.
+- Reward chip: bg `--reward-soft`, 글자 `--on-reward`, Lucide `star`/코인 아이콘 fill `--reward` + 외곽 `--on-reward`(밝은 면).
 - Chapter tag: 번호 타일 38px radius 11 accent + 700/19 accent 라벨.
 
 ### 7.3 Card
 `bg --surface · border 1px --border · radius 28 · shadow --sh-card · padding 24–28`. 카드 헤더 = h3(22/800) 좌 + 배지/라벨 우, 간격 `justify-between`. 내부 서브 박스 radius 16–22, bg `--surface-muted`.
 
 ### 7.4 Input
-높이 66(앱 52), 패딩 0 22, radius 15, 1px 보더, 600/23(앱 16). Focus: 보더 `#A78BFA` + `--sh-focus`. 캐럿 2px accent. 라벨: 700/16 muted, 하단 12px.
+높이 66(앱 52), 패딩 0 22, radius 15, 1px 보더, 600/23(앱 16). Focus: 보더 `--focus-border` + `--sh-focus`. 캐럿 2px accent. 라벨: 700/16 muted, 하단 12px.
 **Segmented(문의/요청)**: 트랙 `--surface-muted` 패딩 5 radius 15, 세그 170×54(앱 140×44), 활성 필 = surface + `--sh-seg`, 200ms `--ease-inout` 슬라이드. 오른쪽에 유형 설명 600/17 muted ("답변만 필요한 간단한 질문" ↔ "결과물 제출이 필요한 업무 요청").
 **Search**: 높이 48–54, radius 15, search 아이콘 + placeholder muted.
 
 ### 7.5 Slider (현상금)
-트랙 12px radius 999 bg `--accent-soft` · 채움 `linear-gradient(90deg,#6D28D9,#8B5CF6)` · 노브 34px 흰색 + 3px `#7C3AED` 보더 + `--sh-knob`, 드래그 중 `scale(1.18)` · 눈금 0/250/500/750/1,000 P (600/14 muted) · 값 표시 900/30 accent 우측 상단 · 10P 단위 스냅. 하단 **에스크로 박스**: bg accent-soft, `#4C1D95` 600/17, lock 아이콘, 우측 "보유 1,500 P → 1,200 P" 800.
+트랙 12px radius 999 bg `--accent-soft` · 채움 `linear-gradient(90deg,var(--accent),var(--accent-2))` · 노브 34px 흰색 + 3px `--accent` 보더 + `--sh-knob`, 드래그 중 `scale(1.18)` · 눈금 0/250/500/750/1,000 P (600/14 muted) · 값 표시 900/30 accent 우측 상단 · 10P 단위 스냅. 하단 **에스크로 박스**: bg accent-soft, `--hs-purple-900` 600/17, lock 아이콘, 우측 "보유 1,500 P → 1,200 P" 800.
 
 ### 7.6 Rich Editor 툴바 (TinyMCE 5.10.2 스킨 오버라이드)
 툴바 높이 44, bg `--surface-muted`, 하단 1px 보더, 버튼 B/I/U/목록/표/링크/이미지 800/15 muted, gap 16, 우측 버전 태그(gray badge 24px). 본문 패딩 16, 컨테이너 radius 18 1px 보더. 잠김 상태(채택 전): 컨테이너 opacity .38 + 상단 lock 칩(danger) "채택 전 에디터 잠금" → 채택 후 success 칩 "결과물 에디터 열림".
 
 ### 7.7 SharePoint 링크 배지
-높이 92(앱 72), radius 16. 업로드 중: 1px dashed `#C4B5FD`, upload 아이콘 + 파일명 + 8px 진행 바 + %. 완료: SP 로고 타일 52px radius 13 `#036C70` 흰 "S" 900 + 우하단 20px 원 `#1A9BA1`(3px surface 보더) · 파일명 700/19 · URL 600/15 accent `text-overflow:ellipsis` (`https://hyosung.sharepoint.com/sites/officequest/Shared%20Documents/…`) · 우측 success 배지 "링크 변환 완료". 라벨 우측 "SharePoint 링크로 자동 변환됨". 컴팩트형(결과물 파일): 로고 40px, bg accent-soft, radius 14.
+높이 92(앱 72), radius 16. 업로드 중: 1px dashed `#C4C4E6`, upload 아이콘 + 파일명 + 8px 진행 바 + %. 완료: SP 로고 타일 52px radius 13 `#036C70` 흰 "S" 900 + 우하단 20px 원 `#1A9BA1`(3px surface 보더) · 파일명 700/19 · URL 600/15 accent `text-overflow:ellipsis` (`https://hyosung.sharepoint.com/sites/officequest/Shared%20Documents/…`) · 우측 success 배지 "링크 변환 완료". 라벨 우측 "SharePoint 링크로 자동 변환됨". 컴팩트형(결과물 파일): 로고 40px, bg accent-soft, radius 14.
 
 ### 7.8 Modal
 backdrop `rgba(9,9,11,.55)` + `backdrop-filter: blur(6px)` (z 1000) · 패널 surface radius 28 `--sh-pop` 패딩 38×44 (z 1010) · 폭 sm 480 / md 640 / lg 1008 · 헤더 h2 + 우측 배지 · 푸터 우측 정렬 버튼(취소 secondary + primary), 좌측 메타 600/15 muted. 등장 300ms: opacity 0→1, `translateY(24px) scale(.96)`→none `--ease-expo`. 퇴장 180ms `--ease-in`.
-**보안서약서**: 행 패딩 16×18 radius 16 1px 보더 · 체크박스 32px radius 9 2px `#D4D4D8` → 체크 시 `#6D28D9` 채움 + 흰 체크, `scale(1.25)` 팝 200ms · 제목 700/19 "(필수)" · 설명 600/14 muted · 우측 shield-check 26px accent. 미동의 시 primary 비활성.
+**보안서약서**: 행 패딩 16×18 radius 16 1px 보더 · 체크박스 32px radius 9 2px `#D4D4D8` → 체크 시 `--accent` 채움 + 흰 체크, `scale(1.25)` 팝 200ms · 제목 700/19 "(필수)" · 설명 600/14 muted · 우측 shield-check 26px accent. 미동의 시 primary 비활성.
 
 ### 7.9 Teams 채팅 창 (`VirtualTeamsChat`)
 우하단 플로팅 `right:24px; bottom:24px; width:420px; height:560px; z-index:800; radius 28; overflow hidden; --sh-pop`
@@ -319,7 +410,7 @@ backdrop `rgba(9,9,11,.55)` + `backdrop-filter: blur(6px)` (z 1000) · 패널 su
 - 입력바 68px: 필드 42px radius 10 `#F4F4F5` · 전송 42px `#5B5FC7` send 아이콘.
 
 ### 7.10 조직도 모달 (`OrgChartModal`)
-lg 모달(PRD §8.13, ref10). 상단 검색(이름/사번/부서 실시간 필터, 높이 48). 트리 노드 높이 44 radius 11 700/17 sub, chevron(펼침 down / 접힘 right), 우측 인원 700/13 muted. 들여쓰기 레벨당 26px (l1 38px, l2 64px). 사업장: 마포 본사 · 회현 · 반포 · 수서 · 창원공장 · 울산공장. 임직원 행 60px: 아바타 40px(픽셀 헤드 ×2) · 이름 17/700 · "사번 · 보유 1,240 P" 13 muted · 우측 sm primary "예약자 지정" / secondary "최종 구매자 지정". 검색 일치/선택 행: accent-soft + inset 1px `rgba(168,85,247,.45)`. 포인트가 가격보다 적은 직원은 버튼 비활성 + 툴팁 "보유 포인트 부족".
+lg 모달(PRD §8.13, ref10). 상단 검색(이름/사번/부서 실시간 필터, 높이 48). 트리 노드 높이 44 radius 11 700/17 sub, chevron(펼침 down / 접힘 right), 우측 인원 700/13 muted. 들여쓰기 레벨당 26px (l1 38px, l2 64px). 사업장: 마포 본사 · 회현 · 반포 · 수서 · 창원공장 · 울산공장. 임직원 행 60px: 아바타 40px(픽셀 헤드 ×2) · 이름 17/700 · "사번 · 보유 1,240 P" 13 muted · 우측 sm primary "예약자 지정" / secondary "최종 구매자 지정". 검색 일치/선택 행: accent-soft + inset 1px `rgba(135,95,240,.45)`. 포인트가 가격보다 적은 직원은 버튼 비활성 + 툴팁 "보유 포인트 부족".
 
 ### 7.11 효성마을 상품 카드
 radius 24, 패딩 0, overflow hidden. 썸네일 170px(앱 160) — 이미지 또는 픽셀 아이콘 ×9 중앙, 다크 톤 그라데이션 배경; 좌상 마을 배지, 우상 상태 배지(14px 인셋). 본문 패딩 16×18: 분류·판매자 700/14 muted → 제목 700/21 ellipsis → 가격 900/25(또는 무료나눔 success) + 우측 메타(heart `#F43F5E` + 수, eye + 조회수, 700/15) → 하단 CTA 46px radius 12 full-width.
@@ -329,12 +420,12 @@ radius 24, 패딩 0, overflow hidden. 썸네일 170px(앱 160) — 이미지 또
 - **포인트 정산 패널**: 구매자/판매자 카드(250px, radius 20, 아바타 54px, 값 900/34) 사이 점선 트랙, 코인 10개가 50ms 간격으로 450ms 포물선 이동(높이 110px), 카운터 500ms 롤링, 증감 표시 800/17 (− `#FB7185`, + `#4ADE80`). 하단 원장 행 50px "거래완료 · 품목 · 금액 · 양측 거래 내역 기록".
 
 ### 7.12 퀘스트 행 (리스트/피드)
-높이 92(피드)·76(랭킹)·124(지원자). 구성: 썸네일/아바타 타일 56–66px radius 12–16 `--surface-muted` · 상태 배지(24px) · 제목 700/17–19 ellipsis · 메타 600/14 muted("현상금 300 P · 재무팀", 조회수) · 우측 액션. 지원자 행: 티어 배지 + 소속·마을 + 각오 인용 600/15 sub · "채택하기" sm 버튼. 채택된 행: 보더 `#A78BFA` + bg `#FAF7FF` + `0 0 0 4px rgba(124,58,237,.1)`, 나머지 opacity .45.
-**워크플로 스테퍼**: 노드 58px radius 17, 대기 = surface + 보더 + muted 숫자, 완료 = accent 채움 흰 숫자 + `0 10px 24px -8px rgba(109,40,217,.6)`, 현재 = 추가 7px 링 `rgba(124,58,237,.16)`. 연결선 4px `--border`, 채움 `#6D28D9→#A855F7`, 노드 전환 시 노드 `scale(1.18)` 250ms. 단계: 모집중 → 지원 → 채택 → 진행중 → 결과물 제출 → 반려·재제출 → 승인·완료.
+높이 92(피드)·76(랭킹)·124(지원자). 구성: 썸네일/아바타 타일 56–66px radius 12–16 `--surface-muted` · 상태 배지(24px) · 제목 700/17–19 ellipsis · 메타 600/14 muted("현상금 300 P · 재무팀", 조회수) · 우측 액션. 지원자 행: 티어 배지 + 소속·마을 + 각오 인용 600/15 sub · "채택하기" sm 버튼. 채택된 행: 보더 `#875FF0` + bg `#F1F1F9` + `0 0 0 4px rgba(100,40,230,.1)`, 나머지 opacity .45.
+**워크플로 스테퍼**: 노드 58px radius 17, 대기 = surface + 보더 + muted 숫자, 완료 = accent 채움 흰 숫자 + `0 10px 24px -8px rgba(100,40,230,.6)`, 현재 = 추가 7px 링 `rgba(100,40,230,.16)`. 연결선 4px `--border`, 채움 `#6428E6→#875FF0`, 노드 전환 시 노드 `scale(1.18)` 250ms. 단계: 모집중 → 지원 → 채택 → 진행중 → 결과물 제출 → 반려·재제출 → 승인·완료.
 
 ### 7.13 Progress Bar / Ring
 - Bar: 높이 10(소 8, 시즌 6), radius 999, 트랙 `--surface-muted`, 채움 `linear-gradient(90deg,var(--accent),var(--accent-2))`. 값 변화 600–900ms `--ease-inout`. 100% 도달 시 아이콘 타일이 accent 채움으로 전환.
-- Ring: 76px, r 31, stroke 9, 트랙 `--accent-soft`, 값 `#7C3AED` round cap, -90° 시작, 중앙 800/19 "1/4"(시드 기준, 달성 수/4). dasharray 194.8.
+- Ring: 76px, r 31, stroke 9, 트랙 `--accent-soft`, 값 `--accent` round cap, -90° 시작, 중앙 800/19 "1/4"(시드 기준, 달성 수/4). dasharray 194.8.
 - EXP 라벨: "골드 **Lv.12** · 다음 레벨까지" / "**68** / 100 EXP" (1레벨 = 100 EXP).
 
 ---
@@ -345,7 +436,7 @@ radius 24, 패딩 0, overflow hidden. 썸네일 170px(앱 160) — 이미지 또
 - **그리드**: 캐릭터 = 16×16 바디를 24×24 캔버스의 (4,6) 오프셋에 배치(날개·검·망토 여유). 헤드 아바타 = 캐릭터에서 (4,5) 16×13 크롭. 소품: 코인 8×8, 젬 7×7, 별 7×7, 스크롤 12×10, 슬라임 16×12, 상품 아이콘 12×12.
 - **정수 배율만**: ×2(랭킹 52px 타일) · ×3(아바타/버튼 내 코인) · ×4(피드 썸네일) · ×9(티어 카드·상품) · ×12–13(히어로/오버레이) · ×14(보스 슬라임). 위치도 정수 px로 스냅.
 - **아이들 모션**: 4px(1픽셀×배율) 단위 2-step 바운스 (`steps(2)`), 연속 보간 금지.
-- **공통 팔레트**: 외곽선 `#1C1528` · 머리 `#3B2718`(마스터 `#2E1065`) · 피부 `#F6C7A0` / 음영 `#D99A73` · 눈 `#18181B` · 셔츠 `#F4F4F5` · 넥타이 `#7C3AED`(골드 `#B91C1C`) · 바지 `#2A2A35` · 신발 `#121216`
+- **공통 팔레트**: 외곽선 `#1C1528` · 머리 `#3B2718`(마스터 `#2E1065`) · 피부 `#F6C7A0` / 음영 `#D99A73` · 눈 `#18181B` · 셔츠 `#F4F4F5` · 넥타이 `#6428E6`(브랜드, v1.2)(골드 `#B91C1C`) · 바지 `#2A2A35` · 신발 `#121216`
 
 | 티어 | 재킷/갑옷 J / 음영 j | 핀 | 망토 | 추가 레이어 |
 |---|---|---|---|---|
@@ -357,7 +448,7 @@ radius 24, 패딩 0, overflow hidden. 썸네일 170px(앱 160) — 이미지 또
 | 마스터 | `#7C3AED` / `#4C1D95` | `#F0ABFC` | `#581C87` / `#3B0764` | 어깨판, 고글(렌즈 `#F0ABFC`), 날개 `#FAF5FF`/`#C084FC`/`#7E22CE`, 전설의 검(날 `#F5F3FF`, 엣지 `#C084FC`, 가드 `#A855F7`, 손잡이 `#3B0764`), 핑크 크라운 점, 번개 오라 |
 
 - 몬스터(업무 병목 슬라임): 외곽 `#14321F`, 몸 `#4ADE80`, 하이라이트 `#DCFCE7`, 입 `#166534`. 머리 위 이름+HP 바(14px, `#EF4444→#F97316`, 2px `#52525B` 보더).
-- 코인 `#FBBF24`/`#D97706`/외곽 `#7C4A03`/하이라이트 `#FFF7CC` · 젬 `#A855F7`/`#6D28D9`/`#F5D0FE` · 별 `#FDE047`/`#FFF`.
+- 코인 `#FFBE19`(브랜드 옐로)/`#D97706`/외곽 `#7C4A03`/하이라이트 `#FFF7CC` · 젬 `#A855F7`/`#6D28D9`/`#F5D0FE`(게임 소품 고유색, 유지) · 별 `#FFBE19`/`#FFF`. 브랜드 hex(코인·별·넥타이)는 스프라이트 데이터에 직접 쓰지 않고 `src/lib/brand.ts`의 `BRAND`에서 가져옵니다(§3.0).
 - **오라**: 티어색 2–3개로 6/8/10px 정사각 픽셀이 0.9–1.8초 주기로 상승·사인 페이드(카드당 9개, 플래티넘↑ 16개). 히어로 박스 배경 = `radial-gradient(circle at 50% 62%, 티어색 22%α, transparent 55%)`.
 
 ---
@@ -396,11 +487,11 @@ radius 24, 패딩 0, overflow hidden. 썸네일 170px(앱 160) — 이미지 또
 | ms | 이벤트 |
 |---|---|
 | 0–150 | 백드롭 fade-in |
-| 0–300 | 게시판(600×420, `#9B6B3D`/테두리 14px `#5A3A1E`, 포스트잇 4장) back-ease 팝, 타이틀 "QUEST POSTED!" 112/900 (`POSTED!` `#C084FC`) scale 1.25→1 back |
+| 0–300 | 게시판(600×420, `#9B6B3D`/테두리 14px `#5A3A1E`, 포스트잇 4장) back-ease 팝, 타이틀 "QUEST POSTED!" 112/900 (`POSTED!` `--hs-yellow` `#FFBE19`, 다크 딤 위 11:1) scale 1.25→1 back |
 | 0–250 | 캐릭터(×12) 좌측에서 expo 슬라이드인 |
 | 350–550 | 캐릭터 점프(-46px, -6°) 하며 스크롤 투척 |
 | 350–700 | 스크롤 ×12: `translate(-560,90) scale(.35) rotate(-220°)` → 보드 중앙 |
-| 700–900 | 핀 고정 임팩트 `scale(1.14)`, **빛 폭발**: 흰 radial flash(1200px) 0→1→0 + 회전 광선(repeating-conic 5°/15°, 보라 26%α) |
+| 700–900 | 핀 고정 임팩트 `scale(1.14)`, **빛 폭발**: 흰 radial flash(1200px) 0→1→0 + 회전 광선(repeating-conic 5°/15°, `#875FF0` 26%α) |
 | 700–1500 | 별/코인 파티클 34개 방사 |
 | 800–1050 | 서브 카피 "퀘스트가 게시판에 등록되었습니다 · 현상금 300 P 에스크로 보관" |
 | 1500–1800 | 전체 fade-out 후 언마운트 |
@@ -411,12 +502,12 @@ radius 24, 패딩 0, overflow hidden. 썸네일 170px(앱 160) — 이미지 또
 | 0–150 | 백드롭, 점선 바닥 라인 |
 | 0–300 | 슬라임 보스(×14) back 팝 + HP 바, 작업자 캐릭터 expo 진입 |
 | 300–500 | 캐릭터 웜업(-36px) → 대시(+470px, -10°) expo |
-| 450–720 | **보라 검기**: 반경 250px 호, 꼬리→머리로 굵기 6→52px, 글로우 `#A855F7` blur 30, 내부 흰 코어, 220ms에 3.6rad 스윕 후 페이드 |
+| 450–720 | **보라 검기**: 반경 250px 호, 꼬리→머리로 굵기 6→52px, 글로우 `#875FF0`(`--hs-purple-400`) blur 30, 내부 흰 코어, 220ms에 3.6rad 스윕 후 페이드 |
 | 550–700 | 흰 플래시, 슬라임 흔들림(±16px), HP 100→0, "CRITICAL!" → "-9,999" 84/900 |
 | 700–800 | 슬라임 scale 1.18→0.2 폭발 → 초록 픽셀 파편 46개 |
 | 720–1500 | 코인·젬·별 36개 분수 + 상단에서 46개 레인, 광선 회전 |
 | 850–1150 | 보상 카드 3장 80ms 스태거 back 팝: "+100 P 기본 보상" "+300 P 현상금" "+100 EXP" |
-| 1000–1250 | "LEVEL UP!" 120/900 (흰→`#D8B4FE` 그라데이션 텍스트 + 6px `#5B21B6` 드롭) + "실버 Lv.7 → Lv.8" 필 |
+| 1000–1250 | "LEVEL UP!" 120/900 (흰→`#FFBE19` 그라데이션 텍스트 + 6px `#2E008B` 드롭, v1.2 브랜드) + "실버 Lv.7 → Lv.8" 필 |
 | 1500–1800 | fade-out, 실제 포인트·EXP 반영(카운터 롤링) |
 
 ### 9.5 파티클 규칙
@@ -488,6 +579,7 @@ radius 24, 패딩 0, overflow hidden. 썸네일 170px(앱 160) — 이미지 또
 
 | 버전 | 날짜 (KST) | 변경 | 근거 |
 |---|---|---|---|
+| v1.2 | 2026-10-21 | 효성 브랜드 팔레트 7색 `--hs-*`(§3.0), 시맨틱 토큰 재매핑(매핑표), 신규 `--accent-hover/-pressed/-fg`, `--focus-border`, `--reward`/`--on-reward`/`--reward-soft`, `--live-dot`, `--coin-outline`, `--sh-neon`(라이트에도 정의), `--accent-cyan` 폐지, 노랑 사용 규칙, WCAG 대비표, Reward 버튼·칩, Tailwind 색을 변수 참조로, 스프라이트·하이퍼 프레임 보상색을 브랜드로, 남은 하드코딩 보라(블롭·스테퍼·DEBUG 칩·D-Day 배너 등)를 브랜드로, refs보다 토큰 색 우선 명시 | 팀 요청(효성 공식 팔레트) |
 | v1.1 | 2026-10-21 | §0 경로 수정(`motion/officequest_intro.html`), 없는 `refs/video_stills/` 언급 삭제(§0·§12) | 검수봇 보통-8 · 분석봇 보통(DESIGN 낡은 경로) |
 | v1.1 | 2026-10-21 | 사이드바 앱 값 280 → **264px**(§3.7 `spacing.sidebar`, §6 표), 컨테이너 최대 폭 제한 없음 | 분석봇 높음(사이드바 280 vs 264) · 검수봇 보통-7 · PRD D6 |
 | v1.1 | 2026-10-21 | §3.7 예시를 `const config … export default config`로 변경 | 분석봇 높음(lint 익명 default export 경고) |

@@ -1,7 +1,9 @@
 /* =====================================================================
-   OFFICE QUEST × 효성마을 — Design Tokens (v1.0)
+   OFFICE QUEST × 효성마을 — Design Tokens (v1.2 · Hyosung brand palette)
    Derived 1:1 from officequest_intro.html (motion video) & refs/01–10.
    Light = default (:root). Dark/Gaming = [data-theme="dark"] or .dark
+   v1.2: 효성 공식 팔레트 7색(--hs-*)을 단일 출처로 두고 시맨틱 토큰을 그 위에 재매핑
+         (DESIGN.md §3.0). 색은 refs/ 이미지보다 이 파일이 우선.
    ===================================================================== */
 
 /* ---------- 1. Font: Paperlogy ---------- */
@@ -21,17 +23,27 @@
   --lh-tight:1.0; --lh-heading:1.12; --lh-body:1.5; --lh-relaxed:1.65;
   --ls-display:-0.045em; --ls-heading:-0.03em; --ls-body:-0.01em; --ls-eyebrow:0.24em;
 
+  /* ---------- 3.0 Hyosung brand palette (official, 단일 출처 — 다른 곳에 hex 복사 금지) ---------- */
+  --hs-purple-900:#2E008B; --hs-purple-800:#3D00B8; --hs-purple-600:#6428E6; --hs-purple-400:#875FF0;
+  --hs-lavender-200:#C4C4E6; --hs-lavender-50:#F1F1F9; --hs-yellow:#FFBE19;
+
   /* ---------- 3. Color — Light (default) ---------- */
-  --bg:#FAFAFC; --surface:#FFFFFF; --surface-muted:#F4F4F5; --surface-sunken:#F3F0FF;
+  --bg:#FAFAFC; --surface:#FFFFFF; --surface-muted:#F4F4F5; --surface-sunken:var(--hs-lavender-50);
   --glass:rgba(255,255,255,.72);
   --text:#18181B; --text-sub:#52525B; --text-muted:#71717A; --text-faint:#A1A1AA; --text-on-accent:#FFFFFF;
-  --border:#E4E4E7; --border-strong:#D4D4D8; --border-accent:#C4B5FD; --dot-grid:#DCDCE2;
+  --border:#E4E4E7; --border-strong:#D4D4D8; --border-accent:var(--hs-lavender-200); --dot-grid:#DCDCE2;
 
-  /* purple scale (Tailwind violet basis, signature = 700/600) */
-  --purple-50:#FAF5FF; --purple-100:#EDE9FE; --purple-200:#DDD6FE; --purple-300:#C4B5FD; --purple-400:#A78BFA;
-  --purple-500:#8B5CF6; --purple-600:#7C3AED; --purple-700:#6D28D9; --purple-800:#5B21B6; --purple-900:#4C1D95;
-  --neon:#A855F7; --neon-soft:#C084FC; --neon-pale:#E9D5FF;
-  --accent:var(--purple-700); --accent-2:var(--purple-600); --accent-cyan:#0891B2; --accent-soft:var(--purple-100); --accent-ring:rgba(124,58,237,.12);
+  /* purple scale — 브랜드 5단(50·200·400·600·800·900)은 --hs-* 그대로, 100·300·500·700은 인접 브랜드 2색의 50:50 혼합(파생) */
+  --purple-50:var(--hs-lavender-50); --purple-100:#DADAF0; --purple-200:var(--hs-lavender-200); --purple-300:#A692EB; --purple-400:var(--hs-purple-400);
+  --purple-500:#7644EB; --purple-600:var(--hs-purple-600); --purple-700:#5014CF; --purple-800:var(--hs-purple-800); --purple-900:var(--hs-purple-900);
+  --neon:var(--hs-purple-400); --neon-soft:var(--purple-300); --neon-pale:var(--hs-lavender-200);
+  /* accent: fill(버튼·활성) / fg(흰·밝은 면 위 보라 텍스트) 분리 — DESIGN §3.0 대비표 */
+  --accent:var(--hs-purple-600); --accent-hover:var(--hs-purple-800); --accent-pressed:var(--hs-purple-900);
+  --accent-2:var(--hs-purple-400); --accent-fg:var(--hs-purple-600); --accent-soft:var(--hs-lavender-50);
+  --accent-ring:rgba(100,40,230,.12); --focus-border:var(--hs-purple-400);
+  /* reward/highlight (별·코인·레벨업·CTA 하이라이트) — 노랑은 채움 전용, 위 글자는 --on-reward. 밝은 면 위 노랑 글자 금지 */
+  --reward:var(--hs-yellow); --on-reward:var(--hs-purple-900); --reward-soft:#FFF3D6;
+  --live-dot:var(--accent);   /* GNB 타이머 라이브 점 (다크: 노랑). 시안 --accent-cyan은 v1.2에서 폐지 */
 
   /* semantic */
   --success-bg:#DCFCE7; --success-fg:#15803D; --success-solid:#22C55E;
@@ -42,7 +54,7 @@
 
   /* status badges — 업무 퀘스트 */
   --st-recruit-bg:var(--success-bg);  --st-recruit-fg:var(--success-fg);   /* 모집중 */
-  --st-progress-bg:var(--accent-soft); --st-progress-fg:var(--accent);     /* 진행중 */
+  --st-progress-bg:var(--accent-soft); --st-progress-fg:var(--accent-fg);     /* 진행중 */
   --st-revise-bg:var(--warning-bg);   --st-revise-fg:var(--warning-fg);    /* 진행중(보완요청) */
   --st-done-bg:#E4E4E7;               --st-done-fg:#52525B;                /* 완료 */
   /* status badges — 효성마을 */
@@ -52,21 +64,21 @@
   --mk-free-fg:#16A34A;                                                    /* 무료나눔 (dark: #4ADE80) */
   /* quest type */
   --qt-inquiry-bg:var(--info-bg);     --qt-inquiry-fg:var(--info-fg);      /* 문의 */
-  --qt-request-bg:var(--accent-soft); --qt-request-fg:var(--accent);       /* 요청 */
+  --qt-request-bg:var(--accent-soft); --qt-request-fg:var(--accent-fg);       /* 요청 */
 
   /* 6 tiers: main / badge-bg / badge-fg */
   --tier-bronze:#CD7F32;   --tier-bronze-bg:#FFEDD5;   --tier-bronze-fg:#9A3412;
   --tier-silver:#94A3B8;   --tier-silver-bg:#F1F5F9;   --tier-silver-fg:#475569;
-  --tier-gold:#F5B301;     --tier-gold-bg:#FEF3C7;     --tier-gold-fg:#A16207;
+  --tier-gold:var(--hs-yellow); --tier-gold-bg:#FEF3C7;     --tier-gold-fg:#A16207;
   --tier-platinum:#67E8F9; --tier-platinum-bg:#E2E8F0; --tier-platinum-fg:#334155;
   --tier-diamond:#22D3EE;  --tier-diamond-bg:#CFFAFE;  --tier-diamond-fg:#0E7490;
   --tier-master:#A855F7;   --tier-master-bg:#F3E8FF;   --tier-master-fg:#7E22CE;
-  --tier-gradient:linear-gradient(90deg,#CD7F32,#94A3B8,#F5B301,#CBD5E1,#22D3EE,#A855F7);
+  --tier-gradient:linear-gradient(90deg,#CD7F32,#94A3B8,var(--hs-yellow),#CBD5E1,#22D3EE,#A855F7);
 
   /* integrations */
   --teams-header:#464775; --teams-brand:#5B5FC7; --teams-logo:#7B83EB; --teams-chat-bg:#F5F5F7; --teams-bubble-me:#E8EBFA; --teams-online:#22C55E;
   --sharepoint:#036C70; --sharepoint-2:#1A9BA1;
-  --coin:#FBBF24; --coin-dark:#D97706;
+  --coin:var(--hs-yellow); --coin-dark:#D97706; --coin-outline:#7C4A03;
 
   /* ---------- 4. Spacing (4px base) ---------- */
   --sp-1:4px; --sp-2:8px; --sp-3:12px; --sp-4:16px; --sp-5:20px; --sp-6:24px; --sp-7:28px; --sp-8:32px;
@@ -78,13 +90,14 @@
 
   /* ---------- 6. Shadow ---------- */
   --sh-xs:0 1px 2px rgba(24,24,27,.04);
-  --sh-card:0 1px 2px rgba(24,24,27,.04),0 18px 48px -20px rgba(76,29,149,.16);
-  --sh-float:0 10px 30px -18px rgba(76,29,149,.25);
+  --sh-card:0 1px 2px rgba(24,24,27,.04),0 18px 48px -20px rgba(46,0,139,.14);
+  --sh-float:0 10px 30px -18px rgba(46,0,139,.22);
   --sh-pop:0 24px 60px -20px rgba(24,24,27,.28);
-  --sh-btn:0 10px 24px -10px rgba(109,40,217,.7),inset 0 1px 0 rgba(255,255,255,.18);
-  --sh-focus:0 0 0 4px rgba(124,58,237,.12);
+  --sh-btn:0 10px 24px -10px rgba(100,40,230,.7),inset 0 1px 0 rgba(255,255,255,.18);
+  --sh-focus:0 0 0 4px rgba(100,40,230,.12);
   --sh-seg:0 1px 3px rgba(0,0,0,.08),0 0 0 1px var(--border);
-  --sh-knob:0 6px 16px -4px rgba(109,40,217,.5);
+  --sh-knob:0 6px 16px -4px rgba(100,40,230,.5);
+  --sh-neon:0 0 0 1px rgba(135,95,240,.5),0 0 60px -10px rgba(135,95,240,.6);
 
   /* ---------- 7. Glass ---------- */
   --glass-blur:20px; --glass-border:1px solid var(--border);
@@ -117,17 +130,19 @@
   --bg:#09090B; --surface:#12121A; --surface-muted:#1A1A24; --surface-sunken:#0E0E14;
   --glass:rgba(18,18,26,.72);
   --text:#FAFAFA; --text-sub:#D4D4D8; --text-muted:#A1A1AA; --text-faint:#71717A;
-  --border:#27272A; --border-strong:#3F3F46; --border-accent:rgba(168,85,247,.45); --dot-grid:#17171F;
-  --accent:#A855F7; --accent-2:#A855F7; --accent-cyan:#06B6D4; /* Harness 사이버 시안 포인트: 타이머 라이브 점·포커스 보조 */ --accent-soft:rgba(168,85,247,.14); --accent-ring:rgba(168,85,247,.22);
+  --border:#27272A; --border-strong:#3F3F46; --border-accent:rgba(135,95,240,.45); --dot-grid:#17171F;
+  --accent:var(--hs-purple-600); --accent-hover:var(--hs-purple-800); --accent-pressed:var(--hs-purple-900); /* 흰 글자 7.03:1 */
+  --accent-2:var(--hs-purple-400); --accent-fg:var(--purple-300); /* 다크 면 위 보라 텍스트 7.04:1 */ --accent-soft:rgba(135,95,240,.16); --accent-ring:rgba(135,95,240,.24);
+  --focus-border:var(--hs-purple-400); --reward-soft:rgba(255,190,25,.14); --live-dot:var(--hs-yellow);
   --success-bg:rgba(34,197,94,.14);  --success-fg:#4ADE80;
   --warning-bg:rgba(245,158,11,.15); --warning-fg:#FBBF24;
   --danger-bg:rgba(239,68,68,.15);   --danger-fg:#F87171;
   --info-bg:rgba(14,165,233,.15);    --info-fg:#38BDF8;
   --revise-bg:rgba(249,115,22,.12);  --revise-border:rgba(249,115,22,.35); --revise-fg:#FDBA74; --revise-strong:#FB923C;
   --st-done-bg:#27272A; --st-done-fg:#A1A1AA; --mk-sold-bg:#27272A; --mk-sold-fg:#A1A1AA; --mk-free-fg:#4ADE80;
-  --sh-card:0 0 0 1px rgba(168,85,247,.04),0 24px 64px -24px rgba(0,0,0,.7);
-  --sh-btn:0 0 0 1px rgba(168,85,247,.4),0 12px 32px -8px rgba(168,85,247,.55);
-  --sh-neon:0 0 0 1px rgba(168,85,247,.5),0 0 60px -10px rgba(168,85,247,.6);
+  --sh-card:0 0 0 1px rgba(135,95,240,.04),0 24px 64px -24px rgba(0,0,0,.7);
+  --sh-btn:0 0 0 1px rgba(135,95,240,.4),0 12px 32px -8px rgba(100,40,230,.55);
+  --sh-neon:0 0 0 1px rgba(135,95,240,.5),0 0 60px -10px rgba(135,95,240,.6);
   --teams-chat-bg:#14141C; --teams-bubble-me:#2A2550;
 }
 

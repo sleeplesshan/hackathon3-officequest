@@ -1,4 +1,4 @@
-# 🛡️ [AGENT HARNESS] 오피스퀘스트 (Office Quest) & 효성마을 Autopilot 실행 규약 · v2.3
+# 🛡️ [AGENT HARNESS] 오피스퀘스트 (Office Quest) & 효성마을 Autopilot 실행 규약 · v2.4
 
 이 문서는 GitHub Copilot Agent Mode(Autopilot)가 **오피스퀘스트 & 효성마을**을 사람의 개입 없이 끝까지 구현·검증하기 위한 **최상위 실행 제어 하네스(Execution Harness)**입니다. 에이전트는 모든 코드 생성, 상태 관리, UI 렌더링, 테스트 과정에서 이 문서의 규칙을 지켜야 합니다.
 
@@ -97,6 +97,7 @@
       constants.ts  types.ts  clock.ts  format.ts  rng.ts  sharepoint.ts
       formulas.ts  guards.ts  quest-machine.ts  market-machine.ts  teams-replies.ts
       rating.ts  restrictions.ts  monitoring.ts  admin-machine.ts     # v2.2 (PRD §6.8–6.11)
+      brand.ts                       # v2.4: BRAND 상수(캔버스용 효성 7색, tokens.css --hs-*와 동일, DESIGN §3.0)
       db/ seed.ts  scenarios.ts  reducer.ts  persistence.ts  sync.ts  DbProvider.tsx  selectors.ts  useDb.ts
       ui/ UiProvider.tsx  theme-script.ts
       test-hooks.ts
@@ -181,7 +182,7 @@ npm run fonts:fetch                    # 실패해도 exit 0 (B4)
 
 - `tsconfig.json`(A-2): Next 표준 전체 옵션(`target ES2017`, `lib [dom, dom.iterable, esnext]`, `skipLibCheck`, `noEmit`, `esModuleInterop`, `module esnext`, `moduleResolution bundler`, `resolveJsonModule`, `isolatedModules`, `jsx preserve`, `incremental`, `plugins [{name:'next'}]`) + `strict`, `noUncheckedIndexedAccess`, `noImplicitOverride`, `paths @/*`. `include`에 `.next/types/**/*.ts`. `next-env.d.ts`(A-3)를 직접 만들어 **`next build` 전에도 `tsc --noEmit`이 exit 0**(값 일부만 쓰면 TS17004 `--jsx`, TS1259 `esModuleInterop`으로 exit 2 — 분석봇 재현).
 - `eslint.config.mjs`(A-5): FlatCompat `next/core-web-vitals` + `next/typescript`, **`const eslintConfig = [...]; export default eslintConfig;`**(익명 배열 default export는 `import/no-anonymous-default-export` 경고 → `--max-warnings=0` 실패). `scripts/**/*.mjs`는 `no-console: off`(CLI 출력용). 나머지는 `no-console: ['error',{allow:['warn','error']}]`.
-- `postcss.config.mjs`·`tailwind.config.ts`도 같은 이유로 **이름 있는 const 후 default export**. `tailwind.config.ts`(A-7) = DESIGN.md §3.7 theme 그대로(v1.1: `spacing.sidebar = '264px'`) + `content` + `satisfies Config`.
+- `postcss.config.mjs`·`tailwind.config.ts`도 같은 이유로 **이름 있는 const 후 default export**. `tailwind.config.ts`(A-7) = DESIGN.md §3.7 theme 그대로(v1.1: `spacing.sidebar = '264px'`, v1.2: 색은 전부 `var(--…)` 참조 — 브랜드 hex 없음) + `content` + `satisfies Config`.
 - `next.config.ts`(A-4): `reactStrictMode: true`, `eslint: { dirs: ['src','tests'], ignoreDuringBuilds: false }`, `typescript.ignoreBuildErrors: false`, `images.unoptimized: true`. `output: 'export'` 금지.
 - `playwright.config.ts`(A-9): `webServer.command = npx next start -p ${PORT}`(빌드는 npm 스크립트가 먼저 수행), **`reuseExistingServer: false`**, `workers 1`, `retries 0`, 프로젝트 `e2e`(1440×900)·`visual`(1920×1080), `PW_CHANNEL`/`PW_EXECUTABLE_PATH` 환경변수(B2).
 - `vitest.config.ts`(A-8): `tests/unit/**/*.test.ts`, `environment: 'node'`, `@` → `./src`, **`TZ = 'Asia/Seoul'` 고정**(v2.3).
@@ -352,6 +353,7 @@ npm run fonts:fetch                    # 실패해도 exit 0 (B4)
 | `sharepoint.test.ts` | URL 인코딩(한글·공백·괄호), 크기 포맷 |
 | `teams-replies.test.ts` | 키워드 우선순위, 기본 문구 순환, 네고 가격 계산(10단위 내림) |
 | `sprites.test.ts` | §2 Skill 3 게이트 |
+| `brand.test.ts` (v2.4) | `src/lib/brand.ts`의 `BRAND` 7색이 `src/styles/tokens.css`의 `--hs-*` 값과 정확히 같음(파일을 읽어 정규식으로 대조), 스프라이트 코인·별 색 = `BRAND.yellow`, 넥타이 = `BRAND.purple600`(DESIGN §3.0·§8) |
 | `teams-replies.test.ts`·`quest-machine.test.ts` 보강 | `teams/reply`는 `pendingReplyFor`가 있을 때 1회만 성공(두 번째 `INVALID_STATE`), NPC 자동 승인 2회 호출 시 1회만 반영(StrictMode 멱등) |
 | `smoke.test.ts` | P0 스모크(`clock.now()` > 0) + **시간대 고정 확인**(`2026-10-21T05:02:48Z`의 `getHours()` = 14, 부록 A-8 TZ 고정) |
 | `rating.test.ts` (v2.2) | **별점 매핑 5건**(별 1개→+50 · 별 2개→+75 · 별 3개→+100 · 별 4개→+125 · 별 5개→+150 EXP, 각 건에서 P 증가 = 100+B로 동일, AC-8.14.2), `formatRating`(99/23→"4.3", 41/9→"4.6", 38/9→"4.2", 0건→"평가 없음"), §4.4 시드 `count = completedTotal`, 승인 시 sum/count·RatingRecord·`quest.rating` 기록, 일일 미션 EXP +50 불변 |
@@ -438,19 +440,22 @@ npm run fonts:fetch                    # 실패해도 exit 0 (B4)
 1. `tiny.cloud`, `apiKey=` 문자열
 2. URL 호스트 허용 목록 외 `http(s)://` — **허용 호스트: `hyosung.sharepoint.com`, `fastly.jsdelivr.net`(Paperlogy CDN·DESIGN §2.1 preconnect), `www.w3.org`(인라인 SVG `xmlns`), `localhost`**
 3. `onClick={() => {}}` (공백 변형 포함)
-4. `#06B6D4`/`#06b6d4`
+4. `#06B6D4`/`#06b6d4`(폐지된 시안, PRD D2 · DESIGN v1.2 §3.0)
 5. `Math.random(` (파티클·시드는 mulberry32)
 6. 유니코드 `Extended_Pictographic` 문자(⚡ ♥ 👁 ↔ © ™ 등 포함) — `teams-replies.ts`·`seed.ts` 포함 모든 소스. 아이콘은 Lucide(PRD D21)
 7. `font-family` 선언의 1순위가 `Paperlogy`/`var(--font-sans)`/`inherit`가 아님
 8. `console.log(`
 9. `<img … src="http` (외부 이미지)
 10. `localStorage`/`sessionStorage`/`new BroadcastChannel`을 모듈 최상위 `const`에서 접근
+11. (v2.4) **효성 브랜드 hex 리터럴**(`#2E008B` `#3D00B8` `#6428E6` `#875FF0` `#C4C4E6` `#F1F1F9` `#FFBE19`, 대소문자 무관) — `src/styles/tokens.css`(검사 제외)와 `src/lib/brand.ts`(캔버스용 단일 출처) 밖에서 쓰면 위반. 컴포넌트는 `var(--hs-*)`·시맨틱 토큰·Tailwind `hs-*`/`accent-*`/`reward-*` 클래스로만 씁니다. 다른 hex(티어·스프라이트 고유색 등)는 이 규칙 대상이 아닙니다.
 
 ---
 
 ## 6. Visual QA 절차 (refs 대조)
 
 목표: 픽셀 일치가 아니라 **ref와 같은 구도·정보·상태·토큰**. 자동 DOM 체크리스트 + 나란히 비교 이미지 + Right Brain 검토로 판정합니다.
+
+> **색 기준 (v2.4, PRD D62)**: `refs/`는 효성 브랜드 팔레트 이전 이미지입니다. 화면 색은 DESIGN v1.2·`tokens.css`가 기준이며, ref와의 **보라 톤·노랑 차이는 FAIL이 아니라 허용 차이**로 기록합니다. 구도·정보·상태·라이트/다크 배경(`rgb(250, 250, 252)`·`rgb(9, 9, 11)`, 바뀌지 않음)은 그대로 판정합니다. Right Brain은 대신 DESIGN §3.0 노랑 사용 규칙(밝은 면 위 노랑 글자 없음)을 확인합니다.
 
 > **v2.2 범위 (PRD D53)**: 별점 모달·운영자 콘솔·제재 배너·`admin-badge`에는 ref가 없으므로 **Visual QA(촬영·비교·구도 체크) 대상이 아닙니다**. DESIGN.md 컴포넌트(모달·표·배지·칩·버튼, 비활성 규칙 §7.1)로만 만들고, 검증은 E2E `14`·`15`의 DOM 단언이 맡습니다. 기존 ref 화면에 새로 붙는 요소(ref01 `dash-rating`, ref06 `applicant-rating-*`, ref07 `reject-count`·`worker-rating`, ref08 별 표시)는 구도 체크에서 **허용 차이**로 기록합니다. 촬영은 항상 비운영자 페르소나(kim/lee)이므로 GNB 탭은 3개 그대로입니다.
 
@@ -617,9 +622,10 @@ npm run test:visual          # 새로 빌드 후 §6 10장 DOM 단언 통과 + q
 **메모리 변경**: (없음 | Hot에 'X' 추가)
 ```
 - 좌뇌 필수 확인 항목(매 체크포인트, 해당되는 것): 에스크로 선차감·환불, 일 2회 한도(지원·승인), 2시간 타이머 3개 버튼 비활성 + 효성마을 예외, 문의/요청 첨부 분기, 예약자 전용 구매, 포인트 불변식, TypeScript strict 무결성, 빌드·E2E 결과.
+  - v2.4 추가: 브랜드 hex는 tokens.css·`brand.ts`에만(`qa:forbidden` 11), `brand.test` 대조, 다크 보라 텍스트는 `--accent-fg`.
   - v2.3 추가: 게이트 grep 단어 경계(`@p5\b`가 `@p5b`를 고르지 않음), 제재 상태 우선순위·멱등(`INVALID_STATE`)·부분 제재·id 정규 순서, 플래그 4건·재발·수명, 별점 집계↔원장 불변식, vitest TZ 고정.
   - v2.2 추가: **별점 → EXP 매핑 5종과 P 불변**(별 3개 = 기존 수치), 별점 평균 반올림·평가 수 누적, **반려 2회 한도**(3번째 `REJECT_LIMIT`, 이후 승인만), **운영자 권한 경계**(비운영자 `admin/*` 거부, 운영자 플레이어 액션 거부), **제재 가드**(등록·구매·조직도 대상, 가드 순서, 만료 시각 경계), 감사 로그 append-only, `detectFlags` 결정성·14일 경계·시드 5건, 운영자가 랭킹·조직도·불변식에서 제외됨.
-- 우뇌 필수 확인 항목(v2.2 추가: 별점 모달이 승인 흐름을 끊지 않는지, 운영자 콘솔 표의 근거 가독성, 제재 배너·비활성 사유가 사용자에게 이해되는지, 새 UI가 DESIGN 컴포넌트만 쓰는지): Paperlogy 실제 로드, 보라 라이트/다크 대비(본문 AA), 벤토 위계·정렬, 도트 스프라이트 선명도(정수 배율), 하이퍼 프레임 임팩트·프레임 드랍, 빈 화면·깨진 UI, taste/mengto 슬롭 체크(§2), refs 구도 일치.
+- 우뇌 필수 확인 항목(v2.4 추가: 효성 브랜드 색이 DESIGN §3.0 매핑대로 쓰였는지, 노랑은 채움+`#2E008B` 글자로만·밝은 면 위 노랑 글자 없음, 다크 보라 텍스트 가독성 / v2.2 추가: 별점 모달이 승인 흐름을 끊지 않는지, 운영자 콘솔 표의 근거 가독성, 제재 배너·비활성 사유가 사용자에게 이해되는지, 새 UI가 DESIGN 컴포넌트만 쓰는지): Paperlogy 실제 로드, 보라 라이트/다크 대비(본문 AA), 벤토 위계·정렬, 도트 스프라이트 선명도(정수 배율), 하이퍼 프레임 임팩트·프레임 드랍, 빈 화면·깨진 UI, taste/mengto 슬롭 체크(§2), refs 구도 일치.
 
 ### 10.3 `.dual-brain/MEMORY.md` 초기 내용
 ```md
@@ -746,7 +752,7 @@ const config = { plugins: { tailwindcss: {}, autoprefixer: {} } };
 export default config;
 ```
 
-### A-7 tailwind.config.ts (DESIGN.md v1.1 §3.7 theme 그대로)
+### A-7 tailwind.config.ts (DESIGN.md v1.2 §3.7 theme 그대로)
 
 `tailwind.config.ts`
 ```ts
@@ -760,18 +766,20 @@ const config = {
     extend: {
       fontFamily: { sans: ['Paperlogy', 'system-ui', 'sans-serif'] },
       colors: {
-        bg: 'var(--bg)', surface: { DEFAULT: 'var(--surface)', muted: 'var(--surface-muted)' },
+        bg: 'var(--bg)', surface: { DEFAULT: 'var(--surface)', muted: 'var(--surface-muted)', sunken: 'var(--surface-sunken)' },
         ink: { DEFAULT: 'var(--text)', sub: 'var(--text-sub)', muted: 'var(--text-muted)', faint: 'var(--text-faint)' },
         line: { DEFAULT: 'var(--border)', strong: 'var(--border-strong)', accent: 'var(--border-accent)' },
-        accent: { DEFAULT: 'var(--accent)', 2: 'var(--accent-2)', soft: 'var(--accent-soft)' },
-        purple: { 50:'#FAF5FF',100:'#EDE9FE',200:'#DDD6FE',300:'#C4B5FD',400:'#A78BFA',500:'#8B5CF6',600:'#7C3AED',700:'#6D28D9',800:'#5B21B6',900:'#4C1D95' },
-        neon: { DEFAULT: '#A855F7', soft: '#C084FC', pale: '#E9D5FF' },
+        accent: { DEFAULT: 'var(--accent)', hover: 'var(--accent-hover)', pressed: 'var(--accent-pressed)', 2: 'var(--accent-2)', fg: 'var(--accent-fg)', soft: 'var(--accent-soft)' },
+        hs: { 'purple-900': 'var(--hs-purple-900)', 'purple-800': 'var(--hs-purple-800)', 'purple-600': 'var(--hs-purple-600)', 'purple-400': 'var(--hs-purple-400)', 'lavender-200': 'var(--hs-lavender-200)', 'lavender-50': 'var(--hs-lavender-50)', yellow: 'var(--hs-yellow)' },
+        reward: { DEFAULT: 'var(--reward)', on: 'var(--on-reward)', soft: 'var(--reward-soft)' },
+        purple: { 50:'var(--purple-50)',100:'var(--purple-100)',200:'var(--purple-200)',300:'var(--purple-300)',400:'var(--purple-400)',500:'var(--purple-500)',600:'var(--purple-600)',700:'var(--purple-700)',800:'var(--purple-800)',900:'var(--purple-900)' },
+        neon: { DEFAULT: 'var(--neon)', soft: 'var(--neon-soft)', pale: 'var(--neon-pale)' },
         success: { bg: 'var(--success-bg)', fg: 'var(--success-fg)' },
         warning: { bg: 'var(--warning-bg)', fg: 'var(--warning-fg)' },
         danger:  { bg: 'var(--danger-bg)',  fg: 'var(--danger-fg)' },
         info:    { bg: 'var(--info-bg)',    fg: 'var(--info-fg)' },
         revise:  { bg: 'var(--revise-bg)', line: 'var(--revise-border)', fg: 'var(--revise-fg)', strong: 'var(--revise-strong)' },
-        tier: { bronze:'#CD7F32', silver:'#94A3B8', gold:'#F5B301', platinum:'#67E8F9', diamond:'#22D3EE', master:'#A855F7' },
+        tier: { bronze:'#CD7F32', silver:'#94A3B8', gold:'var(--tier-gold)', platinum:'#67E8F9', diamond:'#22D3EE', master:'#A855F7' },
         teams: { header:'#464775', brand:'#5B5FC7', logo:'#7B83EB' },
         sharepoint: '#036C70',
       },
@@ -789,7 +797,7 @@ const config = {
       borderRadius: { xs:'6px', sm:'10px', md:'14px', lg:'18px', xl:'22px', '2xl':'28px', pill:'999px' },
       boxShadow: {
         card: 'var(--sh-card)', float: 'var(--sh-float)', pop: 'var(--sh-pop)', btn: 'var(--sh-btn)',
-        focus: 'var(--sh-focus)', seg: 'var(--sh-seg)', knob: 'var(--sh-knob)', neon: '0 0 0 1px rgba(168,85,247,.5),0 0 60px -10px rgba(168,85,247,.6)',
+        focus: 'var(--sh-focus)', seg: 'var(--sh-seg)', knob: 'var(--sh-knob)', neon: 'var(--sh-neon)',
       },
       zIndex: { gnb:'200', dropdown:'300', chat:'800', backdrop:'1000', modal:'1010', toast:'1100', hyper:'9999' },
       spacing: { 'gnb':'64px', 'sidebar':'264px', '4.5':'18px', '5.5':'22px', '7':'28px' },
@@ -1010,6 +1018,8 @@ import { join, relative } from 'node:path';
 
 const ROOT = join(process.cwd(), 'src');
 const SKIP = new Set([join('src', 'styles', 'tokens.css')]);
+const BRAND_OK = new Set([join('src', 'lib', 'brand.ts')]); // 캔버스용 BRAND 상수 (DESIGN §3.0)
+const BRAND_HEX = /#(?:2E008B|3D00B8|6428E6|875FF0|C4C4E6|F1F1F9|FFBE19)(?![0-9a-f])/i;
 const URL_ALLOW = ['hyosung.sharepoint.com', 'fastly.jsdelivr.net', 'www.w3.org', 'localhost'];
 
 const files = [];
@@ -1024,7 +1034,7 @@ const files = [];
 const rules = [
   { id: 1, name: 'Tiny Cloud / API key', re: /tiny\.cloud|apiKey\s*=/ },
   { id: 3, name: 'empty onClick handler', re: /onClick=\{\s*\(\)\s*=>\s*\{\s*\}\s*\}/ },
-  { id: 4, name: 'cyan #06B6D4 outside tokens', re: /#06B6D4/i },
+  { id: 4, name: 'retired cyan #06B6D4 (PRD D2)', re: /#06B6D4/i },
   { id: 5, name: 'Math.random (use mulberry32)', re: /Math\.random\(/ },
   { id: 6, name: 'emoji / pictographic symbol (use Lucide)', re: /\p{Extended_Pictographic}/u },
   { id: 8, name: 'console.log', re: /console\.log\(/ },
@@ -1040,6 +1050,10 @@ for (const file of files) {
   for (const r of rules) {
     const m = text.match(r.re);
     if (m) violations.push(`${rel}: [${r.id}] ${r.name} -> ${JSON.stringify(m[0].slice(0, 60))}`);
+  }
+  if (!BRAND_OK.has(rel)) {
+    const b = text.match(BRAND_HEX);
+    if (b) violations.push(`${rel}: [11] brand hex outside tokens (use var(--hs-*) or BRAND) -> ${b[0]}`);
   }
   for (const m of text.matchAll(/https?:\/\/([a-zA-Z0-9.-]+)/g)) {
     if (!URL_ALLOW.includes(m[1])) violations.push(`${rel}: [2] URL host not allowed -> ${m[1]}`);
@@ -1133,4 +1147,5 @@ test('P0 root responds 200 and renders app-root @p0', async ({ page }) => {
 | v2.3 | 2026-10-21 | `15`에 `clock.fastForward` 만료 재렌더 테스트, testid `admin-stale-seed`·`flag-new-evidence-*`·`data-also`·`data-user` | 분석봇 v2.2 보통(만료 재렌더 · 재발 · 시드 수명) |
 | v2.3 | 2026-10-21 | vitest `TZ='Asia/Seoul'` 고정(A-8, Windows 호환) + `smoke.test` 시간대 단언 | 분석봇 v2.2 보통(시간대) |
 | v2.3 | 2026-10-21 | `monitoring.test`: 시드 4건, R1/R3 중복 제거, R5 새 조건, 재발, 수명, `isSeedStale`; `invariants.test` 별점 불변식 3개; §9.4 시연 준비; §8 결정 행 2개 | 분석봇 v2.2 보통(오탐·중복 · 재발 · 시드 수명 · 집계↔원장) |
+| v2.4 | 2026-10-21 | 효성 브랜드 팔레트(DESIGN v1.2): A-7 Tailwind 색을 변수 참조로(`accent.hover/pressed/fg`, `hs.*`, `reward.*`, `purple.*`, `neon.*`, `tier.gold`, `shadow.neon`), `src/lib/brand.ts` + `brand.test`, `qa:forbidden` 규칙 11(브랜드 hex는 tokens.css·brand.ts에만)·규칙 4 이름(폐지된 시안), §6 ref 색 차이 = 허용 차이, 좌뇌·우뇌 체크 항목 | 팀 요청(효성 공식 팔레트) |
 | v2.0 | 2026-10-21 | 최초 Autopilot 제출본 | — |
