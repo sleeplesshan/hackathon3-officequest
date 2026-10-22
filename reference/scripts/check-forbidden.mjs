@@ -1,4 +1,4 @@
-// Harness §5.5 금지 패턴 검사 (v2.5, v2.7). 대상: src/** (src/styles/tokens.css 제외). 위반 시 exit 1.
+// Harness §5.5 금지 패턴 검사. 대상: src/** (src/styles/tokens.css 제외). 위반 시 exit 1.
 import { readdirSync, readFileSync, statSync } from 'node:fs';
 import { join, relative } from 'node:path';
 
@@ -6,12 +6,12 @@ const ROOT = join(process.cwd(), 'src');
 const SKIP = new Set([join('src', 'styles', 'tokens.css')]);
 const BRAND_OK = new Set([join('src', 'lib', 'brand.ts')]); // 캔버스용 BRAND 상수 (DESIGN §3.0)
 const BRAND_HEX = /#(?:2E008B|3D00B8|6428E6|875FF0|C4C4E6|F1F1F9|FFBE19)(?![0-9a-f])/i;
-// v2.5: hyosung.sharepoint.com 제거 (PRD D70: 시연 첨부는 URL을 만들지 않음)
+// hyosung.sharepoint.com은 허용하지 않음 (PRD D70: 시연 첨부는 URL을 만들지 않음)
 const URL_ALLOW = ['fastly.jsdelivr.net', 'www.w3.org', 'localhost'];
-// v2.5 규칙 12: Tailwind 유틸리티와 이름이 겹치는 커스텀 CSS 클래스 선택자 (Harness §1.6-9)
+// 규칙 12: Tailwind 유틸리티와 이름이 겹치는 커스텀 CSS 클래스 선택자 (Harness §1.6-9)
 const TW_CLASH = /(?:^|[\s,}>+~(])\.(ring|shadow|container|hidden|block|inline|flex|grid|table|border|rounded|truncate|blur|filter|transform|transition|outline|underline|italic|uppercase|lowercase|capitalize|static|fixed|absolute|relative|sticky|visible|invisible|collapse|contents|grow|shrink|isolate|sr-only|antialiased|ease-in|ease-out|ease-linear|animate-spin|animate-pulse|prose)(?=[\s,{:.\[>+~)])/m;
 
-// v2.7: 이 검사는 officequest/src만 본다. 저장소 루트의 파일럿 빌드(Pilot_Test_Code_Review/)와 빌드 산출물은 경로가 어떻게 잡혀도 건너뛴다.
+// 이 검사는 officequest/src만 본다. 저장소 루트의 파일럿 빌드(Pilot_Test_Code_Review/)와 빌드 산출물은 경로가 어떻게 잡혀도 건너뛴다.
 const SKIP_DIRS = new Set(['node_modules', '.next', 'Pilot_Test_Code_Review']);
 if (process.cwd().split(/[\\/]/).includes('Pilot_Test_Code_Review')) {
   console.error('check-forbidden: run from officequest/, not from Pilot_Test_Code_Review/');

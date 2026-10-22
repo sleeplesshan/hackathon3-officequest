@@ -1,5 +1,5 @@
-// tokens.css(v1.3)의 Paperlogy CDN woff2 URL 6개를 public/fonts/paperlogy/에 같은 파일명으로 저장.
-// v2.5: 로컬 경로(/fonts/...)는 건너뛰고 https URL만 받는다. 이미 있으면 다시 받지 않음. 실패해도 exit 0 (Harness B4).
+// tokens.css의 Paperlogy CDN woff2 URL 6개를 public/fonts/paperlogy/에 같은 파일명으로 저장.
+// 로컬 경로(/fonts/...)는 건너뛰고 https URL만 받는다. 이미 있으면 다시 받지 않음. 실패해도 exit 0 (Harness B4).
 import { existsSync, mkdirSync, readFileSync, statSync, writeFileSync } from 'node:fs';
 import { basename, join } from 'node:path';
 

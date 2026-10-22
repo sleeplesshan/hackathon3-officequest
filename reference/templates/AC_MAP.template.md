@@ -1,4 +1,4 @@
-# AC_MAP — PRD v2.5 MUST AC ↔ 테스트
+# AC_MAP — PRD MUST AC ↔ 테스트
 
 규칙(Harness §5.2): PRD §8의 MUST AC마다 한 줄. 빈 칸 0. 단위 테스트로만 검증하는 AC는 단위 테스트 이름을 적습니다. SHOULD AC는 아래 별도 표에 측정값만.
 

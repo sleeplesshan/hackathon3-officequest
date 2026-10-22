@@ -1,11 +1,11 @@
 /* =====================================================================
-   OFFICE QUEST × 효성마을 — Design Tokens (v1.3 · Hyosung brand palette)
+   OFFICE QUEST × 효성마을 — Design Tokens (Hyosung brand palette)
    Derived 1:1 from officequest_intro.html (motion video) & refs/01–10.
    Light = default (:root). Dark/Gaming = [data-theme="dark"] or .dark
-   v1.2: 효성 공식 팔레트 7색(--hs-*)을 단일 출처로 두고 시맨틱 토큰을 그 위에 재매핑
-         (DESIGN.md §3.0). 색은 refs/ 이미지보다 이 파일이 우선.
-   v1.3: Paperlogy @font-face src = 로컬(/fonts/paperlogy, npm run fonts:fetch) 먼저, CDN 폴백
-         (PRD D72, DESIGN §2.1). 색 토큰은 v1.2와 동일.
+   색: 효성 공식 팔레트 7색(--hs-*)을 단일 출처로 두고 시맨틱 토큰을 그 위에 매핑
+       (DESIGN.md §3.0). 색은 refs/ 이미지보다 이 파일이 우선.
+   폰트: Paperlogy @font-face src = 로컬(/fonts/paperlogy, npm run fonts:fetch) 먼저, CDN 폴백
+         (PRD D72, DESIGN §2.1).
    ===================================================================== */
 
 /* ---------- 1. Font: Paperlogy ---------- */
@@ -45,7 +45,7 @@
   --accent-ring:rgba(100,40,230,.12); --focus-border:var(--hs-purple-400);
   /* reward/highlight (별·코인·레벨업·CTA 하이라이트) — 노랑은 채움 전용, 위 글자는 --on-reward. 밝은 면 위 노랑 글자 금지 */
   --reward:var(--hs-yellow); --on-reward:var(--hs-purple-900); --reward-soft:#FFF3D6;
-  --live-dot:var(--accent);   /* GNB 타이머 라이브 점 (다크: 노랑). 시안 --accent-cyan은 v1.2에서 폐지 */
+  --live-dot:var(--accent);   /* GNB 타이머 라이브 점 (다크: 노랑). 시안 --accent-cyan은 쓰지 않음 */
 
   /* semantic */
   --success-bg:#DCFCE7; --success-fg:#15803D; --success-solid:#22C55E;

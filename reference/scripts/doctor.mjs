@@ -1,4 +1,4 @@
-// Harness §0-6 / P0 사전 진단 (v2.5, PRD Opinion 06). 항상 exit 0. 결과: 콘솔 표 + qa/doctor.json
+// Harness §0-6 / P0 사전 진단. 항상 exit 0. 결과: 콘솔 표 + qa/doctor.json
 // 실패 원인을 "환경 / 레지스트리 / 브라우저 / 자산" 으로 나눠 다음 행동(§7 Blocker 번호)을 제안한다.
 import { existsSync, mkdirSync, readdirSync, readFileSync, statSync, writeFileSync } from 'node:fs';
 import { join } from 'node:path';

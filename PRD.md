@@ -67,7 +67,7 @@
 | 폰트 | PostCSS 플러그인 `scripts/local-fonts.cjs`로 `@font-face` 교체 | 루트 `tokens.css`의 로컬 → CDN, PostCSS 플러그인 없음(D72) |
 | 정보 아이콘 | 생성 이미지 `public/assets/character/info-badge.png` | Lucide `info`(D76). 캐릭터 PNG 24장만 사용 |
 | CSS 클래스 | `.grow`(`app-layout.css`)·`.ring`(`mock-base.css`) | Tailwind와 겹치는 이름 금지(Harness §1.6-9, 규칙 12) |
-| testid·테스트 | 마켓 스크롤 영역 `village-products-scroll`(이 문서는 `market-scroll`), `@feedback`·`@scroll` 태그, 스펙 이름·개수 다름(`07-market-pathA` 등 21개), `doctor` 스크립트 없음, `check-forbidden`에 규칙 11–13 없음 | Harness §4 태그 8종, §5.2 스펙 23개, `reference/scripts/` 최신본 |
+| testid·테스트 | 마켓 스크롤 영역 `village-products-scroll`(이 문서는 `market-scroll`), `@feedback`·`@scroll` 태그, 스펙 이름·개수 다름(`07-market-pathA` 등 21개), `doctor` 스크립트 없음, `check-forbidden`에 규칙 11–13 없음 | Harness §4 태그 8종, §5.2 스펙 23개, `reference/scripts/` |
 | QA 기록 | `qa/AC_MAP.md` = 파일럿 당시 AC 기준("69/69 E2E") | **형식만** 참고, 내용은 현재 AC로 새로 작성(`reference/templates/AC_MAP.template.md`) |
 
 확인 결과 차이가 없는 항목: 효성마을 목록 페이지네이션은 파일럿에도 없음(D73과 같음, 게시판만 10행/페이지), 비최종 구매자 코드 `NOT_RESERVED_BUYER`, 시연 첨부 URL 없음(D70), 조직도 잔액 비표시(D67), 자정 직후 새날 판정(§6.4).

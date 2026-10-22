@@ -1350,7 +1350,7 @@ console.log(`[doctor] FAIL ${summary.fail} · WARN ${summary.warn} (qa/doctor.js
 | `tests/unit/*.test.ts` · `domain-fixtures.ts` | P1 | 표 기반 단위 테스트 구성, 고정 시각·시드 픽스처 |
 | `tests/e2e/helpers.ts` · `quest-helpers.ts` · `market-helpers.ts` · `*.spec.ts` | P2–P6 | `bootstrap`·`approveWithStars`·`expectHyperFrame` 같은 헬퍼와 시나리오 진행. 태그·스펙 이름은 §4·§5.2 기준으로 다시 붙임 |
 | `tests/visual/refs.spec.ts` · `compare.spec.ts` · `comparison-helpers.ts` | P3–P6 | ref 촬영·DOM 단언·나란히 비교 이미지 생성 |
-| `scripts/*.mjs` | P0 | 스크립트 구조. 실제 사용은 `reference/scripts/` 최신본(부록 A). `local-fonts.cjs`는 쓰지 않음 |
+| `scripts/*.mjs` | P0 | 스크립트 구조. 실제 사용은 `reference/scripts/`(부록 A). `local-fonts.cjs`는 쓰지 않음 |
 | `qa/AC_MAP.md` · `qa/VISUAL_QA.md` · `qa/compare/` | P6 | 기록 **형식**만. 내용은 파일럿 당시 AC 기준이라 그대로 쓰지 않음 |
 | `public/assets/character/` · `qa/character/` | P3 | PNG 24장은 `reference/assets/character/`에서 복사(같은 파일). `info-badge.png`·생성 이력은 쓰지 않음 |
 
