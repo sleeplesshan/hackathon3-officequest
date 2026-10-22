@@ -9,14 +9,14 @@
 
 | 경로 | 내용 | Autopilot이 하는 일 |
 |---|---|---|
-| `scripts/check-forbidden.mjs` | 금지 패턴 검사(규칙 1–13: Tailwind 이름 충돌·음원 파일 포함, SharePoint 호스트는 허용하지 않음). 부록 A-13과 같음 | `officequest/scripts/`로 복사 |
+| `scripts/check-forbidden.mjs` | 금지 패턴 검사(규칙 1–13: Tailwind 이름 충돌·음원 파일 포함, SharePoint 호스트는 허용하지 않음). 부록 A-13과 같음 | 앱 루트 `scripts/`로 복사 |
 | `scripts/fetch-fonts.mjs` | Paperlogy 6개를 `public/fonts/paperlogy/`로 받음. 이미 있으면 건너뜀, 3회 재시도, `OFL.txt` 작성, 항상 exit 0. 부록 A-12와 같음 | 복사 |
-| `scripts/doctor.mjs` | 사전 진단(Node·레지스트리·고정 버전·브라우저·TinyMCE·폰트·캐릭터 PNG·tokens). 항상 exit 0, `qa/doctor.json`. 부록 A-15와 같음 | 복사 |
-| `assets/character/*.png` | 캐릭터 PNG 24종(`{male\|female}-{classic\|wave}-{tier}.png`, 24×24, 알파 0/255). PRD D76 | `officequest/public/assets/character/`로 복사 |
+| `scripts/doctor.mjs` | 사전 진단(Node·레지스트리·고정 버전·브라우저·TinyMCE·폰트·캐릭터 PNG·tokens). 항상 exit 0, `docs/doctor.json`. 부록 A-15와 같음 | 복사 |
+| `assets/character/*.png` | 캐릭터 PNG 24종(`{male\|female}-{classic\|wave}-{tier}.png`, 24×24, 알파 0/255). PRD D76 | 앱 루트 `public/assets/character/`로 복사 |
 | `assets/character/provenance/` | 생성 이력(`provenance.json`), 팔레트 잠금(`palette.lock.json`), 검수 메모(`qa-notes.md`), 원본 아바타, 프롬프트 | 읽기만(복사하지 않음) |
-| `public/editor-ko.js` | TinyMCE 한국어 UI 문자열(외부 URL·이모지 없음). PRD D88 | `officequest/public/editor-ko.js`로 복사 |
+| `public/editor-ko.js` | TinyMCE 한국어 UI 문자열(외부 URL·이모지 없음). PRD D88 | 앱 루트 `public/editor-ko.js`로 복사 |
 | `screens/*.png` | 참조 구현 화면 8장(1200px 폭, 색 줄임) | Right Brain 참고용. 판정 기준 아님 |
-| `templates/AC_MAP.template.md` | `qa/AC_MAP.md` 형식 | 형식만 사용 |
+| `templates/AC_MAP.template.md` | `docs/AC_MAP.md` 형식 | 형식만 사용 |
 
 ## 출처와 라이선스 메모
 - 캐릭터 PNG: 원본 앱의 코드 아바타를 기준으로 생성하고 사용자가 검수한 자산입니다(`provenance/`). 참조 구현의 정보 아이콘 이미지는 들어 있지 않습니다(PRD D76: Lucide `info` 사용).

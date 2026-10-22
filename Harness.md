@@ -17,7 +17,8 @@
    ```md
    # Office Quest Autopilot
    - Spec: PRD.md (decisions §2 win). Process/verification: Harness.md. Visuals: DESIGN.md + tokens.css + refs/.
-   - App lives in ./officequest (Next.js 15.5 App Router, TS strict, Tailwind 3.4). Never upgrade pinned versions.
+   - App lives only in "./3조 Office Quest_Autopilot/Office Quest/" (Next.js 15.5 App Router, TS strict, Tailwind 3.4). Run every npm command there and always quote paths (they contain spaces). Never upgrade pinned versions.
+   - "./3조 Office Quest_Autopilot/" holds exactly two items: 실행.command (macOS launcher) and Office Quest/ (Harness §1.2, §1.7).
    - Config files: copy Harness.md Appendix A verbatim (verified 2026-10-21).
    - Never ask the user. Use Harness.md §8 decision table; log every non-trivial decision in DUAL_BRAIN_AUDIT.md.
    - Done only when Harness.md §9 Definition of Done passes (or §9.3 conditional completion).
@@ -30,7 +31,7 @@
    - 같은 게이트 항목이 **5회 연속** 실패하면 §7의 해당 폴백을 적용합니다. 폴백 후에도 실패하면 그 항목을 Audit에 `unresolved`(게이트 항목 · 마지막 오류 3줄 · 재현 명령)로 기록하고 **다음 Phase 진입을 허용**합니다. 이 항목은 §9 DoD에서 다시 검사합니다.
    - 예외: P0의 `typecheck`·`build` 실패는 이후 모든 작업을 막으므로 넘어가지 않고 해결합니다(ENV-BLOCKED만 §9.3으로).
 5. 컨텍스트가 길어져 세션이 바뀌면, 새 세션은 `DUAL_BRAIN_AUDIT.md`의 "현재 Phase / 다음 작업" 줄과 `.dual-brain/MEMORY.md` Hot 섹션부터 읽고 이어갑니다.
-6. P0 설치 직후 `npm run doctor`(부록 A-15)를 실행하고 `qa/doctor.json`을 Audit에 첨부합니다. 진단만 하고 항상 exit 0이며, FAIL/WARN 줄의 `->` 뒤 §7 번호대로 처리합니다. 환경·레지스트리·브라우저·자산 실패를 코드 문제와 섞지 않기 위함입니다.
+6. P0 설치 직후 `npm run doctor`(부록 A-15)를 실행하고 `docs/doctor.json`을 Audit에 첨부합니다. 진단만 하고 항상 exit 0이며, FAIL/WARN 줄의 `->` 뒤 §7 번호대로 처리합니다. 환경·레지스트리·브라우저·자산 실패를 코드 문제와 섞지 않기 위함입니다.
 
 ---
 
@@ -40,12 +41,12 @@
 
 | 영역 | 기술 스택 및 구현 강제 사항 |
 | :--- | :--- |
-| **Core Framework** | **Next.js 15.5 (App Router)** + **TypeScript 5.9 (`strict: true`)** + **Tailwind CSS 3.4** + **lucide-react**. 앱 위치는 **`./officequest/`** (PRD D23). `src/` 디렉터리 사용 |
+| **Core Framework** | **Next.js 15.5 (App Router)** + **TypeScript 5.9 (`strict: true`)** + **Tailwind CSS 3.4** + **lucide-react**. 앱 위치는 **`./3조 Office Quest_Autopilot/Office Quest/`**(앱 루트, PRD D23, §1.2·§1.7). `src/` 디렉터리 사용 |
 | **Real-time Mock DB** | 백엔드 없이 **React Context + 순수 리듀서 + `localStorage` + `BroadcastChannel`(폴백: `storage` 이벤트 + `CustomEvent('oq:db')`)**. 페르소나 전환·포인트 증감·상태 변경이 새로고침 없이 모든 컴포넌트에 즉시, 다른 탭에는 300ms 이내 반영 (PRD §10) |
 | **Rich Text Editor** | **TinyMCE 5.10.2 셀프호스팅**(`tinymce@5.10.2` → `public/tinymce/` 복사, `@tinymce/tinymce-react@6.3.1`의 `tinymceScriptSrc`). Tiny Cloud·API Key 사용 금지 → 경고 배너 0. 실패 시 동일 툴바의 `FallbackEditor`로 자동 전환(§7 B3) |
 | **2D Pixel & Motion** | 외부 이미지 URL 금지. **HTML5 `<canvas>` 픽셀 행렬 렌더러 + CSS `@keyframes` + 단일 파티클 캔버스**로 소품·하이퍼 프레임(정확히 1,800ms)을 코드로 렌더. **예외(PRD D76)**: 전신 캐릭터는 동봉 PNG 24종(`public/assets/character/`, 24×24)을 캔버스에 `drawImage` 후 정수 배율 확대. 효과음은 Web Audio 합성만(D71) |
 | **Typography** | **Paperlogy** 단일 패밀리. 루트 `tokens.css`의 `@font-face`가 **로컬(`/fonts/paperlogy/`) → CDN** 순(PRD D72). 앱 `fonts.css`는 비워 두고 재선언하지 않음(§7 B4). Tailwind `fontFamily.sans` 기본값 |
-| **Design Tokens** | 루트 `tokens.css`를 **수정 없이** `officequest/src/styles/tokens.css`로 복사(바이트 동일, `npm run verify:tokens`로 검사). 앱 전용 치수는 `src/styles/app-layout.css`에서 재정의(PRD D6) |
+| **Design Tokens** | 루트 `tokens.css`를 **수정 없이** 앱의 `src/styles/tokens.css`로 복사(바이트 동일, `npm run verify:tokens`로 검사). 앱 전용 치수는 `src/styles/app-layout.css`에서 재정의(PRD D6) |
 | **Testing** | Vitest 3.2(순수 로직 단위 테스트) + Playwright 1.64(E2E·Visual QA, Chromium) |
 
 ### 1.1 고정 버전 (변경·업그레이드 금지, `--save-exact`)
@@ -68,70 +69,76 @@
 
 ### 1.2 폴더 구조 (저장소 루트 기준)
 
+**경로 규칙**: Autopilot은 앱을 저장소 루트의 `3조 Office Quest_Autopilot/Office Quest/`(이하 **앱 루트**) 안에만 만듭니다. 이 문서·PRD·DESIGN에서 앱 안을 가리키는 경로(`src/…`·`public/…`·`tests/…`·`scripts/…`·`docs/…`, 부록 A의 설정 파일)는 모두 앱 루트 기준이고, `npm`·`npx` 명령도 모두 앱 루트에서 실행합니다. 저장소 루트 파일(`tokens.css`·`refs/`·`reference/`·`PRD.md`)은 앱 루트에서 `../../`로 닿습니다. 폴더 이름에 공백이 있으므로 셸 명령·스크립트에서 경로는 **항상 따옴표로 감쌉니다**(예: `cd "3조 Office Quest_Autopilot/Office Quest"`). `DUAL_BRAIN_AUDIT.md`·`.dual-brain/`·`.github/copilot-instructions.md`는 저장소 루트에 둡니다.
+
 ```
 ./PRD.md  ./Harness.md  ./DESIGN.md  ./tokens.css  ./DUAL_BRAIN_AUDIT.md
 ./.dual-brain/MEMORY.md
 ./.github/copilot-instructions.md
 ./refs/01…10_*.png   ./motion/officequest_intro.html   ./skills/…   (읽기 전용 · 수정 금지)
 ./reference/   ./Pilot_Test_Code_Review/   (참조 자료 · 파일럿 빌드, 읽기 전용 · 수정·빌드 금지, §12)
-./officequest/
-  package.json  package-lock.json  .nvmrc  .npmrc  .gitignore
-  next.config.ts  tsconfig.json  tailwind.config.ts  postcss.config.mjs
-  eslint.config.mjs  playwright.config.ts  vitest.config.ts
-  scripts/
-    copy-tinymce.mjs      # node_modules/tinymce → public/tinymce (postinstall)
-    fetch-fonts.mjs       # tokens.css의 Paperlogy woff2 URL 6개 → public/fonts/paperlogy/ 같은 파일명 (실패해도 exit 0)
-    verify-tokens.mjs     # src/styles/tokens.css === ../tokens.css (바이트 비교)
-    check-forbidden.mjs   # §5.5 금지 패턴 검사 (= reference/scripts/ 와 동일)
-    doctor.mjs            # 사전 진단(부록 A-15, 항상 exit 0)
-  public/
-    tinymce/              # 복사본 (.gitignore)
-    fonts/paperlogy/      # fonts:fetch 결과 6개 + OFL.txt — 커밋함 (SIL OFL 1.1, 재배포 허용·라이선스 안내 동봉)
-    assets/character/     # ../reference/assets/character/*.png 24개 복사 (PRD D76)
-    editor-ko.js          # ../reference/public/editor-ko.js 복사 (TinyMCE 한국어 UI, PRD D88)
-  src/
-    app/
-      layout.tsx  globals.css  page.tsx                       # 대시보드
-      quests/page.tsx (redirect)  quests/daily/page.tsx  quests/new/page.tsx
-      quests/board/page.tsx  quests/[no]/page.tsx  quests/[no]/edit/page.tsx
-      village/page.tsx  village/new/page.tsx  village/[id]/page.tsx  village/[id]/edit/page.tsx
-      admin/page.tsx                                            # 운영자 콘솔 (PRD §8.16)
-      not-found.tsx
-    styles/  tokens.css(복사본)  fonts.css  app-layout.css
-    lib/
-      constants.ts  types.ts  clock.ts  format.ts  rng.ts  attachments.ts   # 첨부 메타·검증(URL 없음, D69·D70)
-      character.ts  audio.ts  quest-access.ts                           # 외형(D75)·효과음(D71)·시간 만료 접근(D74)
-      formulas.ts  guards.ts  quest-machine.ts  market-machine.ts  teams-replies.ts
-      rating.ts  restrictions.ts  monitoring.ts  admin-machine.ts     # PRD §6.8–6.11
-      brand.ts                       # BRAND 상수(캔버스용 효성 7색, tokens.css --hs-*와 동일, DESIGN §3.0)
-      db/ seed.ts  scenarios.ts  reducer.ts  persistence.ts  sync.ts  DbProvider.tsx  selectors.ts  useDb.ts
-      ui/ UiProvider.tsx  theme-script.ts
-      test-hooks.ts
-    components/
-      ui/        Button Badge Chip Tooltip Modal ConfirmModal Toast Segmented Slider ProgressBar ProgressRing Avatar Skeleton
-      shell/     AppShell Gnb NavTabs SessionTimer PointsChip AdminBadge PersonaSwitcher ThemeToggle DebugMenu QuestSidebar VillageSidebar RestrictionBanner
-      dashboard/ CharacterCard RankingCard DailyCard FeedCard
-      pixel/     sprites.ts PixelSprite.tsx TierAura.tsx ParticleCanvas.tsx particles.ts lightning.ts
-      hyperframe/ HyperFrameHost.tsx HyperFramePost.tsx HyperFrameClear.tsx useHyperFrame.ts
-      editor/    RichEditor.tsx TinyEditor.tsx FallbackEditor.tsx editor-api.ts
-      quest/     QuestForm BountyPanel SharePointBadge AttachmentPicker DemoDownloadToast QuestBoard QuestRow QuestDetail Stepper ApplicantList WorkerPanel SubmissionCard ReviewBar RejectModal RatingModal RatingStars RejectCounter QuestTimeline OriginalRequestToggle AnswerList AnswerEditor QuestTimeNotice
-      character/ CharacterStudioModal TierGuideModal character-assets.ts      # PRD §8.19
-      feedback/  RewardPanel TradeCompletePanel SoundToggle useFeedback.ts   # PRD §8.20
-      modals/    SecurityPledgeModal InsufficientPointsModal
-      village/   ItemCard ItemGrid MarketScroll ItemForm PhotoPicker ItemDetail BuyButton BuyGuidance SellerPanel SettlementPanel TradeHistoryDrawer
-      teams/     VirtualTeamsChat.tsx TeamsHost.tsx
-      org/       OrgChartModal.tsx
-      admin/     AdminConsole AdminSidebar FlagTable FlagEvidence RestrictModal DismissModal RestrictionTable LiftModal AdminLogTable AdminForbidden
-  tests/
-    unit/  formulas.test.ts quest-machine.test.ts market-machine.test.ts invariants.test.ts
-           rating.test.ts restrictions.test.ts monitoring.test.ts
-           seed.test.ts sprites.test.ts attachments.test.ts teams-replies.test.ts guards.test.ts smoke.test.ts
-           inquiry.test.ts character.test.ts character-assets.test.ts quest-access.test.ts persistence.test.ts bounty-ticks.test.ts toast.test.ts audio.test.ts
-           brand.test.ts
-    e2e/   helpers.ts  00-smoke … 21-demo-attachments, 99-full-flow (§5.2, 23개)
-    visual/ refs.spec.ts  compare.spec.ts
-    fixtures/ e2e_원본.xlsx  e2e_결과.xlsx  screenshot.png  photo.png   # 작은 더미 파일
-  qa/ screens/  compare/  VISUAL_QA.md  AC_MAP.md  doctor.json
+./3조 Office Quest_Autopilot/            # Autopilot 산출물. 앱은 이 안에만 만든다. 맨 위에는 아래 두 항목만 둔다
+  실행.command                         # macOS 더블클릭 실행기 (§1.7, 부록 A-16, chmod +x)
+  Office Quest/                        # Next.js 프로젝트 = 앱 루트
+    README.md               # 실행 방법·폴더 안내·데모 계정·첫 실행 Gatekeeper 안내 (§1.7)
+    package.json  package-lock.json  .nvmrc  .npmrc  .gitignore   # .gitignore = 부록 A-10 (node_modules·.next·테스트 결과)
+    next.config.ts  tsconfig.json  tailwind.config.ts  postcss.config.mjs
+    eslint.config.mjs  playwright.config.ts  vitest.config.ts
+    scripts/
+      copy-tinymce.mjs      # node_modules/tinymce → public/tinymce (postinstall)
+      fetch-fonts.mjs       # tokens.css의 Paperlogy woff2 URL 6개 → public/fonts/paperlogy/ 같은 파일명 (실패해도 exit 0)
+      verify-tokens.mjs     # src/styles/tokens.css === ../../tokens.css (바이트 비교)
+      check-forbidden.mjs   # §5.5 금지 패턴 검사 (= reference/scripts/ 와 동일)
+      doctor.mjs            # 사전 진단(부록 A-15, 항상 exit 0)
+    public/                 # 이미지·캐릭터·폰트. 효과음은 Web Audio 합성(PRD D71)이라 음원 파일·sounds/ 폴더 없음
+      tinymce/              # 복사본 (.gitignore)
+      fonts/paperlogy/      # fonts:fetch 결과 6개 + OFL.txt — 커밋함 (SIL OFL 1.1, 재배포 허용·라이선스 안내 동봉)
+      assets/character/     # ../../reference/assets/character/*.png 24개 복사 (PRD D76)
+      editor-ko.js          # ../../reference/public/editor-ko.js 복사 (TinyMCE 한국어 UI, PRD D88)
+    src/
+      app/
+        layout.tsx  globals.css  page.tsx                       # 대시보드
+        quests/page.tsx (redirect)  quests/daily/page.tsx  quests/new/page.tsx
+        quests/board/page.tsx  quests/[no]/page.tsx  quests/[no]/edit/page.tsx
+        village/page.tsx  village/new/page.tsx  village/[id]/page.tsx  village/[id]/edit/page.tsx
+        admin/page.tsx                                            # 운영자 콘솔 (PRD §8.16)
+        not-found.tsx
+      styles/  tokens.css(복사본)  fonts.css  app-layout.css
+      lib/
+        constants.ts  types.ts  clock.ts  format.ts  rng.ts  attachments.ts   # 첨부 메타·검증(URL 없음, D69·D70)
+        character.ts  audio.ts  quest-access.ts                           # 외형(D75)·효과음(D71)·시간 만료 접근(D74)
+        formulas.ts  guards.ts  quest-machine.ts  market-machine.ts  teams-replies.ts
+        rating.ts  restrictions.ts  monitoring.ts  admin-machine.ts     # PRD §6.8–6.11
+        brand.ts                       # BRAND 상수(캔버스용 효성 7색, tokens.css --hs-*와 동일, DESIGN §3.0)
+        db/ seed.ts  scenarios.ts  reducer.ts  persistence.ts  sync.ts  DbProvider.tsx  selectors.ts   # 목업 DB
+        ui/ UiProvider.tsx  theme-script.ts
+        test-hooks.ts
+      hooks/     useDb.ts  useNow.ts                # 공용 훅: DB 접근(useDb().dispatch) · 1초 틱(PRD §6.10)
+      components/                                   # 기능별 하위 폴더
+        ui/        Button Badge Chip Tooltip Modal ConfirmModal Toast Segmented Slider ProgressBar ProgressRing Avatar Skeleton
+        shell/     AppShell Gnb NavTabs SessionTimer PointsChip AdminBadge PersonaSwitcher ThemeToggle DebugMenu QuestSidebar VillageSidebar RestrictionBanner
+        dashboard/ CharacterCard RankingCard DailyCard FeedCard
+        pixel/     sprites.ts PixelSprite.tsx TierAura.tsx ParticleCanvas.tsx particles.ts lightning.ts
+        hyperframe/ HyperFrameHost.tsx HyperFramePost.tsx HyperFrameClear.tsx useHyperFrame.ts
+        editor/    RichEditor.tsx TinyEditor.tsx FallbackEditor.tsx editor-api.ts
+        quest/     QuestForm BountyPanel SharePointBadge AttachmentPicker DemoDownloadToast QuestBoard QuestRow QuestDetail Stepper ApplicantList WorkerPanel SubmissionCard ReviewBar RejectModal RatingModal RatingStars RejectCounter QuestTimeline OriginalRequestToggle AnswerList AnswerEditor QuestTimeNotice
+        character/ CharacterStudioModal TierGuideModal character-assets.ts      # PRD §8.19
+        feedback/  RewardPanel TradeCompletePanel SoundToggle useFeedback.ts   # PRD §8.20
+        modals/    SecurityPledgeModal InsufficientPointsModal
+        village/   ItemCard ItemGrid MarketScroll ItemForm PhotoPicker ItemDetail BuyButton BuyGuidance SellerPanel SettlementPanel TradeHistoryDrawer
+        teams/     VirtualTeamsChat.tsx TeamsHost.tsx
+        org/       OrgChartModal.tsx
+        admin/     AdminConsole AdminSidebar FlagTable FlagEvidence RestrictModal DismissModal RestrictionTable LiftModal AdminLogTable AdminForbidden
+    tests/
+      unit/  formulas.test.ts quest-machine.test.ts market-machine.test.ts invariants.test.ts
+             rating.test.ts restrictions.test.ts monitoring.test.ts
+             seed.test.ts sprites.test.ts attachments.test.ts teams-replies.test.ts guards.test.ts smoke.test.ts
+             inquiry.test.ts character.test.ts character-assets.test.ts quest-access.test.ts persistence.test.ts bounty-ticks.test.ts toast.test.ts audio.test.ts
+             brand.test.ts
+      e2e/   helpers.ts  00-smoke … 21-demo-attachments, 99-full-flow (§5.2, 23개)
+      visual/ refs.spec.ts  compare.spec.ts
+      fixtures/ e2e_원본.xlsx  e2e_결과.xlsx  screenshot.png  photo.png   # 작은 더미 파일
+    docs/  AC_MAP.md  VISUAL_QA.md  doctor.json  screens/  compare/   # AC 매핑·검증 기록 (§5.2·§6·§0-6)
 ```
 
 ### 1.3 설치 명령 (Phase 0에서 이 순서로 실행)
@@ -139,8 +146,8 @@
 `create-next-app`은 사용하지 않습니다(대화형 프롬프트·폴더 충돌 방지). 아래 ①→②→③ 순서를 지킵니다. **② 전에 `node scripts/…`를 실행하면 `MODULE_NOT_FOUND`**입니다.
 
 ```bash
-# ① 설치 (저장소 루트에서)
-mkdir -p officequest && cd officequest
+# ① 설치 (저장소 루트에서 시작, 이후 모든 명령은 앱 루트에서)
+mkdir -p "3조 Office Quest_Autopilot/Office Quest" && cd "3조 Office Quest_Autopilot/Office Quest"
 printf "save-exact=true\n" > .npmrc && printf "22\n" > .nvmrc
 npm init -y
 npm install --save-exact next@15.5.28 react@19.1.10 react-dom@19.1.10 lucide-react@1.60.0 tinymce@5.10.2 @tinymce/tinymce-react@6.3.1
@@ -151,16 +158,18 @@ npm install --save-dev --save-exact typescript@5.9.3 @types/node@22.20.5 @types/
 npx playwright install chromium        # --with-deps 없이(sudo 프롬프트 방지). 실패·실행 불가 시 §7 B2
 
 # ② 파일 작성: 부록 A의 파일을 "그대로" 만든다 (package.json은 scripts 블록만 A-1로 교체)
-mkdir -p scripts src/app src/styles src/lib tests/unit tests/e2e tests/visual public
-cp ../tokens.css src/styles/tokens.css
-mkdir -p public/assets/character && cp ../reference/assets/character/*.png public/assets/character/   # (없으면 B26)
-cp ../reference/public/editor-ko.js public/editor-ko.js                                                # (없으면 SHOULD 생략)
-cp ../reference/scripts/check-forbidden.mjs ../reference/scripts/fetch-fonts.mjs ../reference/scripts/doctor.mjs scripts/ 2>/dev/null || true   # 없으면 부록 A 본문으로 작성
+mkdir -p scripts src/app src/styles src/lib src/hooks src/components tests/unit tests/e2e tests/visual public docs
+cp ../../tokens.css src/styles/tokens.css
+mkdir -p public/assets/character && cp ../../reference/assets/character/*.png public/assets/character/   # (없으면 B26)
+cp ../../reference/public/editor-ko.js public/editor-ko.js                                                # (없으면 SHOULD 생략)
+cp ../../reference/scripts/check-forbidden.mjs ../../reference/scripts/fetch-fonts.mjs ../../reference/scripts/doctor.mjs scripts/ 2>/dev/null || true   # 없으면 부록 A 본문으로 작성
+# 실행기 "../실행.command" = 부록 A-16 그대로, 앱 README.md = §1.7 항목
+chmod +x "../실행.command"
 
 # ③ 실행 (스크립트가 생긴 뒤)
 npm run postinstall                    # = node scripts/copy-tinymce.mjs → public/tinymce/tinymce.min.js
 npm run fonts:fetch                    # 실패해도 exit 0 (B4)
-npm run doctor                         # 진단표 + qa/doctor.json, 항상 exit 0 (§0-6)
+npm run doctor                         # 진단표 + docs/doctor.json, 항상 exit 0 (§0-6)
 ```
 
 - npm 11의 `npm warn install-scripts … esbuild, unrs-resolver … not yet covered by allowScripts` 경고는 **무시**합니다(빌드·vitest·루트 `postinstall` 모두 정상 동작 확인, 2026-10-21). `npm install-scripts approve`는 실행하지 않습니다.
@@ -229,6 +238,13 @@ npm run doctor                         # 진단표 + qa/doctor.json, 항상 exit
 11. (PRD D71·§8.20) **피드백은 성공 뒤에만**: 효과음·보상 패널·코인 모션은 `dispatch` 결과가 `ok`일 때 `useFeedback().emit(key)`로만 부릅니다. 버튼 `onClick` 시작, 렌더, `BroadcastChannel` 수신, 새로고침에서 부르지 않습니다. 호버음 대상 = GNB 탭·사이드바 이동 버튼·게시판 `board-new-btn`·퀘스트 폼 제출·서약 확인·조직도 두 버튼·물품 폼 제출·마을 탭(**같은 동작의 모든 진입점**). 음원 파일·`new Audio(`는 쓰지 않습니다(규칙 13).
 12. (PRD D88) **에디터 로더**: `RichEditor` 여러 개가 동시에 마운트돼도 `/tinymce/tinymce.min.js`는 모듈 범위 Promise 1개로 한 번만 로드하고, `window.tinymce`가 생긴 뒤 `@tinymce/tinymce-react`를 마운트합니다(`tinymceScriptSrc` 대신 전역 사용). 8초 타임아웃·오류 → `FallbackEditor`. `language:'ko_KR'`·`language_url:'/editor-ko.js'`는 파일이 있을 때만.
 13. **아직 만들지 않은 라우트로의 `<Link>`는 `prefetch={false}`**. Phase 진행 중 prod 빌드에서 없는 라우트를 prefetch하면 404 리소스·콘솔 오류가 생겨 `00-smoke`가 실패합니다(B24). 해당 Phase가 끝나면 기본값으로 돌려도 됩니다.
+
+### 1.7 산출물 폴더 · 실행기 (MUST)
+
+1. **위치**: 앱은 `3조 Office Quest_Autopilot/` 안에만 만듭니다. 그 폴더의 맨 위에는 **`실행.command`와 `Office Quest/` 두 항목만** 둡니다(macOS가 만드는 `.DS_Store`는 무시). 앱 파일을 저장소 루트나 다른 폴더에 만들지 않습니다.
+2. **`실행.command`**(부록 A-16 그대로, `chmod +x`): 자기 폴더로 이동 → `Office Quest/`로 이동 → Node가 없으면 안내 문구를 보여 주고 멈춤 → `node_modules`가 없으면 `npm install` → `npm run dev`(포트 3000)를 실행하고 서버가 응답하면 `http://localhost:3000`을 브라우저로 엽니다. 모든 경로는 따옴표로 감쌉니다.
+3. **앱 `README.md`**(앱 루트): ① 실행 방법 — `실행.command` 더블클릭, 터미널 대안(`cd "3조 Office Quest_Autopilot/Office Quest" && npm install && npm run dev`), Node.js 22 LTS 필요. ② **첫 실행 Gatekeeper 안내** — "확인되지 않은 개발자" 경고가 뜨면 Finder에서 `실행.command`를 **우클릭 > 열기 > 열기**(또는 시스템 설정 > 개인정보 보호 및 보안 > "그래도 열기"). 압축을 풀어 실행 권한이 사라졌으면 `chmod +x "3조 Office Quest_Autopilot/실행.command"`. ③ 폴더 안내 — §1.2 앱 루트 구조 요약(`src/app` 라우트, `src/components` 기능별, `src/lib` 도메인·목업 DB·`brand.ts`, `src/hooks`, `src/styles`, `public/`, `scripts/`, `tests/unit`·`tests/e2e`·`tests/visual`, `docs/`). ④ 데모 계정 — 로그인 없이 GNB 페르소나 전환: 김효성 대리(`kim`) · 이퀘스트 사원(`lee`) · 박마스터 과장(`park`) · 최운영 매니저(`ops`, 운영자), 값은 PRD §4. ⑤ 시연 전 `[데이터 초기화]`(§9.4)와 검증 명령(§9.1) 요약.
+4. **완료 확인**: §9.1의 실행기 확인으로 `실행.command`를 실제로 실행해 `http://localhost:3000`이 앱을 돌려주는 것을 확인합니다.
 
 ---
 
@@ -329,11 +345,11 @@ npm run doctor                         # 진단표 + qa/doctor.json, 항상 exit
 
 | Subagent | 소유 파일 (쓰기 권한) | 산출물 / 완료 신호 |
 |---|---|---|
-| **S1 Architect & State** | `officequest/` 루트 설정 파일 전부(부록 A), `scripts/**`(`doctor.mjs` 포함), `public/assets/character/**`·`public/editor-ko.js`(복사만), `src/lib/**`(types·constants·clock·formulas·guards·machines·db/*·attachments·character·audio·quest-access·teams-replies·test-hooks·ui/*), `src/app/layout.tsx`, `tests/unit/**`(sprites.test 제외), P0의 `tests/e2e/00-smoke.spec.ts` `@p0` 테스트 | 순수 리듀서 + 가드 + 시드 + 동기화, 단위 테스트 통과 |
+| **S1 Architect & State** | 앱 루트 설정 파일 전부(부록 A), `README.md`·`../실행.command`(§1.7, 부록 A-16), `scripts/**`(`doctor.mjs` 포함), `src/hooks/**`, `public/assets/character/**`·`public/editor-ko.js`(복사만), `src/lib/**`(types·constants·clock·formulas·guards·machines·db/*·attachments·character·audio·quest-access·teams-replies·test-hooks·ui/*), `src/app/layout.tsx`, `tests/unit/**`(sprites.test 제외), P0의 `tests/e2e/00-smoke.spec.ts` `@p0` 테스트 | 순수 리듀서 + 가드 + 시드 + 동기화, 단위 테스트 통과 |
 | **S2 UI/UX & Mengto/Taste** | `src/styles/**`, `tailwind.config.ts`, `src/app/globals.css`, `src/components/ui/**`, `src/components/shell/**`, `src/components/dashboard/**`, `src/app/page.tsx`, `src/app/quests/daily/page.tsx`, `src/app/not-found.tsx` | Paperlogy, 라이트/다크, GNB(페르소나 4명·운영자 배지·`운영자 콘솔` 탭·타이머·디버그), 제재 배너, 벤토 대시보드(별점 줄), 일일 퀘스트 화면 |
 | **S3 Pixel & Motion** | `src/components/pixel/**`, `src/components/hyperframe/**`, `src/components/character/**`, `src/components/feedback/**`, `tests/unit/sprites.test.ts` | 6티어 스프라이트·오라, 파티클, 하이퍼 프레임 A/B, 코인/별 마이크로 모션 훅(`useCoinBurst`) |
 | **S4 Feature** | `src/components/{editor,quest,modals,village,teams,org,admin}/**`, `src/app/quests/{page,new,board,[no]}/**`, `src/app/village/**`, `src/app/admin/**`, `tests/fixtures/**` | TinyMCE/폴백 에디터, 보안서약서, 퀘스트 등록·게시판·상세 워크플로(별점 모달·반려 한도), 효성마을, Teams, 조직도, 운영자 콘솔 |
-| **S5 Dual-Brain QA & E2E** | `playwright.config.ts`, `vitest.config.ts`, `tests/e2e/**`, `tests/visual/**`, `qa/**` | E2E·Visual 스펙, 체크리스트 결과, Right/Left 검토 보고(파일 수정은 테스트·qa만) |
+| **S5 Dual-Brain QA & E2E** | `playwright.config.ts`, `vitest.config.ts`, `tests/e2e/**`, `tests/visual/**`, `docs/**` | E2E·Visual 스펙, 체크리스트 결과, Right/Left 검토 보고(파일 수정은 테스트·docs만) |
 | **Orchestrator** | `DUAL_BRAIN_AUDIT.md`, `.dual-brain/MEMORY.md`, `.github/copilot-instructions.md`, 통합 시 충돌 해결 | Phase 게이트 판정, 메모리 기록 |
 
 - 다른 역할의 파일 수정이 필요하면: 해당 역할 차례에 수정하거나, 오케스트레이터가 "통합 수정"으로 처리하고 Audit에 기록.
@@ -344,13 +360,13 @@ npm run doctor                         # 진단표 + qa/doctor.json, 항상 exit
 
 ## 4. Phase 계획 · 진입/종료 게이트
 
-모든 명령은 `officequest/`에서 실행합니다. 게이트 실패 시 같은 Phase에서 수정 → 재실행. 반복 실패 처리는 §0-4 규칙(5회 → 폴백 → `unresolved` 기록 후 진입 허용, §9에서 재검사)을 따릅니다.
+모든 명령은 앱 루트(`"3조 Office Quest_Autopilot/Office Quest"`, §1.2 경로 규칙)에서 실행합니다. 게이트 실패 시 같은 Phase에서 수정 → 재실행. 반복 실패 처리는 §0-4 규칙(5회 → 폴백 → `unresolved` 기록 후 진입 허용, §9에서 재검사)을 따릅니다.
 
 **테스트 Phase 태그**: 모든 E2E·Visual 테스트 제목 끝에 그 테스트가 **처음 통과할 수 있는 Phase 태그**를 붙입니다(`@p0` `@p2` `@p3` `@p4a` `@p4b` `@p5` `@p5b` `@p6`, §5.2·§6 표). **grep은 태그마다 단어 경계 `\b`를 붙입니다**: `--grep "@p5"`는 `@p5b`까지 고르므로(실측) 모든 게이트는 `"@p0\b|@p2\b|…|@p5\b"` 형식입니다. 새 태그를 만들거나 명령을 직접 쓸 때도 `\b`를 빼지 않습니다. 확인: `npx playwright test --list --grep "@p5\b"` 결과에 `@p5b` 테스트가 나오면 안 됨. 게이트는 **지금까지의 태그를 누적**해서 실행합니다(회귀 방지). 태그 없는 테스트는 금지합니다.
 
 | Phase | 담당 | 진입 조건 | 작업 | 종료 게이트 (전부 통과) |
 |---|---|---|---|---|
-| **P0 Bootstrap** | S1 | 문서 읽기 완료(§0) | §1.3 ①②③(자산·스크립트 복사, `npm run doctor` 포함), 부록 A 파일 전부(빈 레이아웃 + `app-root` 페이지, `tests/unit/smoke.test.ts`, `tests/e2e/00-smoke.spec.ts`의 `@p0` 테스트), `.github/copilot-instructions.md`, Audit/Memory 파일 | `npm run verify:tokens` ✓ · `npm run qa:forbidden` ✓ · `npm run typecheck` ✓ · `npm run lint` ✓ · `npm run test:unit` ✓ · `npm run build` ✓ · `npx playwright test --list` ✓(≥1 test) · `npm run test:e2e -- --grep "@p0\b"` ✓(브라우저 ENV-BLOCKED면 `--list`까지만, B2) · `public/tinymce/tinymce.min.js` 존재(없으면 B3 기록) · `qa/doctor.json` 존재(FAIL 줄은 §7대로 처리했거나 ENV-BLOCKED로 기록) |
+| **P0 Bootstrap** | S1 | 문서 읽기 완료(§0) | §1.3 ①②③(자산·스크립트 복사, `npm run doctor` 포함), `실행.command`(A-16)·앱 `README.md`(§1.7), 부록 A 파일 전부(빈 레이아웃 + `app-root` 페이지, `tests/unit/smoke.test.ts`, `tests/e2e/00-smoke.spec.ts`의 `@p0` 테스트), `.github/copilot-instructions.md`, Audit/Memory 파일 | `npm run verify:tokens` ✓ · `npm run qa:forbidden` ✓ · `npm run typecheck` ✓ · `npm run lint` ✓ · `npm run test:unit` ✓ · `npm run build` ✓ · `npx playwright test --list` ✓(≥1 test) · `npm run test:e2e -- --grep "@p0\b"` ✓(브라우저 ENV-BLOCKED면 `--list`까지만, B2) · `public/tinymce/tinymce.min.js` 존재(없으면 B3 기록) · `docs/doctor.json` 존재(FAIL 줄은 §7대로 처리했거나 ENV-BLOCKED로 기록) |
 | **P1 Domain & State** | S1 | P0 통과 | PRD §3·§5·§6·§7·§9 전부: constants, types, formulas, guards, quest/market machine, reducer, seed, scenarios(§5.4), persistence, sync, DbProvider, test-hooks. **품질 보상·운영 도메인**: `RATING_EXP`·별점 누적(§6.8), `rejectCount`(§6.9), 제재·운영자 가드·`admin/*` 액션·감사 로그(§6.10), `detectFlags`(§6.11), 운영자 `ops`, 시드 §4.4·§9.5–9.7. **거래·문의·꾸미기 도메인**: 마켓 지정·수령·되돌리기(§7.2, D63·D64), 문의 답변·채택(D65·D66), `character/equip`(D75), 시간 만료 접근 셀렉터(D74), 첨부 검증(D69), 스키마 v2(D78), 눈금(D79) | `npm run test:unit` ✓ — **PRD §7.1·§7.2 표의 모든 행마다 테스트 1개 이상**, `rating.test`·`restrictions.test`·`monitoring.test` ✓(테스트 이름에 행 설명 포함), §6.2 불변식(시드 고정 무작위 액션 500스텝) ✓, seed(PRD §9 수치) ✓ · typecheck ✓ · lint ✓ · **Dual-Brain 체크포인트 #1** |
 | **P2 Shell & Design** | S2 | P1 통과 | tokens/fonts/layout CSS, ui 프리미티브, AppShell·GNB(타이머·`zap` 토글·+30분·만료·리셋·포인트·페르소나·테마·DEBUG), 사이드바 2종, 대시보드(`dash-rating` 포함), 일일 퀘스트 화면, 페르소나 전환기 4명(`ops`는 "운영자" 구분선 아래)·운영자일 때 `admin-badge`·랭킹 운영자 제외(티어표·캐릭터는 S3 스프라이트 placeholder 허용: 같은 크기 `<canvas data-testid=pixel-sprite data-tier>`) | build ✓ · lint ✓ · `npm run test:e2e -- --grep "@p0\b\|@p2\b"` ✓ · **Dual-Brain 체크포인트 #2** |
 | **P3 Pixel & Motion** | S3 (+ 오케스트레이터 통합) | P1 통과. 작업은 P2와 병렬 가능, **종료 게이트 판정은 P2 통과 후** | sprites.ts, PixelSprite(외형 PNG + `data-outfit/gender/hair`), TierAura, ParticleCanvas, 하이퍼 프레임 A/B(+ reduced-motion), 코인/별 hover 버스트, CharacterStudioModal·TierGuideModal(§8.19), `audio.ts` 합성음·`sound-toggle`·RewardPanel(§8.20). 통합: 오케스트레이터가 `layout.tsx`에 `<HyperFrameHost/>` 마운트, 대시보드·티어표 placeholder를 `PixelSprite`로 교체 | `sprites.test.ts` ✓ · `character-assets.test.ts` ✓ · `npm run test:e2e -- --grep "@p0\b\|@p2\b\|@p3\b"` ✓(`12-hyperframe`: A/B 각각 1,650–1,950ms, `06-season`, `19-character`) · `npm run test:visual -- --grep "@p3\b"` ✓(Visual 01·02) |
@@ -437,7 +453,7 @@ npm run doctor                         # 진단표 + qa/doctor.json, 항상 exit
 | `21-demo-attachments.spec.ts` | `@p4b` | AC-8.4.9(`demo-attachment-download` 클릭·Enter → `demo-download-toast` 보였다가 1,400ms 안에 숨김, `page.on('popup'\|'download'\|'request')` 0, URL 불변, 연속 클릭 1개), 결과물 제출·문의 답변의 첨부 행렬(D69) |
 | `99-full-flow.spec.ts` | `@p6` | **PRD §11 정식 시나리오 11단계, 기대 수치 그대로 단언**(5단계 `반려 1/2`, 7단계 별 3개 → lee 750 Lv.8 · 4.0 · 평가 9건, 8–10단계 = 지정 → 수령 확인) |
 
-**MUST AC → 테스트 매핑 확인**: P6에서 S5가 PRD §8의 MUST AC 목록(**AC-8.1.6–8.1.8, 8.2.5–8.2.6, 8.3.4, 8.4.7–8.4.10, 8.6.5, 8.7.7–8.7.9, 8.9.4–8.9.5, 8.11.7, 8.12.3, 8.13.3, 8.14.1–8.14.4, 8.15.1–8.15.3, 8.16.1–8.16.9, 8.17.1–8.17.2, 8.18.1–8.18.7, 8.19.1–8.19.4, 8.20.1–8.20.2, 8.21.1–8.21.3 포함**, 형식은 `reference/templates/AC_MAP.template.md`)을 위 표·§5.1과 대조해 `qa/AC_MAP.md`(`| AC | 테스트 파일 · 테스트 이름 |`)를 만들고, 빈 칸이 0이어야 합니다. 단위 테스트로만 검증하는 AC(8.14.2 별점 매핑 5건, 8.16.6 경계값, 8.16.7 멱등·부분 제재·재발, 8.18.6–8.18.7, 8.19.3–8.19.4, 8.12.3)는 단위 테스트 이름을 적습니다. SHOULD AC(8.1.2의 200ms, 8.8.3, §10 1초)는 측정값만 Audit에 기록합니다.
+**MUST AC → 테스트 매핑 확인**: P6에서 S5가 PRD §8의 MUST AC 목록(**AC-8.1.6–8.1.8, 8.2.5–8.2.6, 8.3.4, 8.4.7–8.4.10, 8.6.5, 8.7.7–8.7.9, 8.9.4–8.9.5, 8.11.7, 8.12.3, 8.13.3, 8.14.1–8.14.4, 8.15.1–8.15.3, 8.16.1–8.16.9, 8.17.1–8.17.2, 8.18.1–8.18.7, 8.19.1–8.19.4, 8.20.1–8.20.2, 8.21.1–8.21.3 포함**, 형식은 `reference/templates/AC_MAP.template.md`)을 위 표·§5.1과 대조해 `docs/AC_MAP.md`(`| AC | 테스트 파일 · 테스트 이름 |`)를 만들고, 빈 칸이 0이어야 합니다. 단위 테스트로만 검증하는 AC(8.14.2 별점 매핑 5건, 8.16.6 경계값, 8.16.7 멱등·부분 제재·재발, 8.18.6–8.18.7, 8.19.3–8.19.4, 8.12.3)는 단위 테스트 이름을 적습니다. SHOULD AC(8.1.2의 200ms, 8.8.3, §10 1초)는 측정값만 Audit에 기록합니다.
 
 **E2E 공통 규칙** (`tests/e2e/helpers.ts`):
 - `bootstrap(page, { persona='kim', theme='light', fixedTime='2026-10-21T14:02:48+09:00', fresh=true })`: `page.addInitScript`로 **`localStorage['oq:booted']`가 없을 때만** `localStorage.clear()` 후 `oq:booted='1'`, `oq:test='1'`, UI 상태(`oq:v1:ui`)를 설정합니다. 플래그가 `localStorage`에 있으므로 **같은 context의 두 번째 페이지(13-sync)나 페이지 이동·새로고침이 DB를 지우지 않습니다**(`sessionStorage`는 탭마다 달라 쓰지 않음). Playwright는 테스트마다 새 context라 테스트 간 격리는 유지됩니다. `fresh:false`면 초기화 스크립트를 건너뜁니다.
@@ -525,9 +541,9 @@ npm run doctor                         # 진단표 + qa/doctor.json, 항상 exit
 
 > **ref가 없는 화면 ② (PRD D53)**: 별점 모달·운영자 콘솔·제재 배너·`admin-badge`에는 ref가 없으므로 **Visual QA(촬영·비교·구도 체크) 대상이 아닙니다**. DESIGN.md 컴포넌트(모달·표·배지·칩·버튼, 비활성 규칙 §7.1)로만 만들고, 검증은 E2E `14`·`15`의 DOM 단언이 맡습니다. 기존 ref 화면에 새로 붙는 요소(ref01 `dash-rating`, ref06 `applicant-rating-*`, ref07 `reject-count`·`worker-rating`, ref08 별 표시)는 구도 체크에서 **허용 차이**로 기록합니다. 촬영은 항상 비운영자 페르소나(kim/lee)이므로 GNB 탭은 3개 그대로입니다.
 
-1. **촬영** `npm run test:visual` (`tests/visual/refs.spec.ts`, 테스트 1개 = ref 1장, 태그: 01·02 `@p3` · 03–05 `@p4a` · 06–08 `@p4b` · 09·10 `@p5`): 1920×1080, `deviceScaleFactor 1`, 고정 시각 `2026-10-21T14:02:48+09:00`, 시드 데이터, 테스트 모드, `document.fonts.ready` + `data-hydrated` 대기 → `qa/screens/0X_<ref이름>.png` 저장. 각 화면에서 아래 표의 **DOM 단언**을 함께 실행(실패 = 테스트 실패).
-2. **비교 이미지** (`tests/visual/compare.spec.ts`, `@p6`, 해당 스크린샷이 없으면 그 ref는 건너뛰고 표에 `MISSING`): `page.setContent`로 왼쪽 `../refs/0X_*.png`, 오른쪽 `qa/screens/0X_*.png`를 각각 960px 폭으로 나란히 배치해 `qa/compare/0X.png` 생성(이미지는 base64 data URL로 로드).
-3. **Right Brain 검토**: 비전 입력이 가능하면 `qa/compare/0X.png` 10장을 보고, 불가능하면 DOM 단언 결과 + 계산 스타일 덤프(`qa/screens/0X.styles.json`: 배경색·폰트·주요 요소 bbox)로 아래 "구도 체크"를 판정. 결과를 `qa/VISUAL_QA.md`에 `| ref | 항목 | PASS/FAIL | 근거 |`로 기록. **판정 규칙**: DOM 단언(1단계) = 게이트(FAIL이면 테스트 실패). 구도 체크(이 단계) = **기록용** — FAIL은 최대 2회 수정·재촬영하고, 그래도 FAIL이면 `unresolved`(근거·스크린샷 경로)로 남기고 진행(DoD를 막지 않음). PRD §8.13의 MAY 항목(ref10 "관심 표시" 칩 등)은 판정 대상 아님.
+1. **촬영** `npm run test:visual` (`tests/visual/refs.spec.ts`, 테스트 1개 = ref 1장, 태그: 01·02 `@p3` · 03–05 `@p4a` · 06–08 `@p4b` · 09·10 `@p5`): 1920×1080, `deviceScaleFactor 1`, 고정 시각 `2026-10-21T14:02:48+09:00`, 시드 데이터, 테스트 모드, `document.fonts.ready` + `data-hydrated` 대기 → `docs/screens/0X_<ref이름>.png` 저장. 각 화면에서 아래 표의 **DOM 단언**을 함께 실행(실패 = 테스트 실패).
+2. **비교 이미지** (`tests/visual/compare.spec.ts`, `@p6`, 해당 스크린샷이 없으면 그 ref는 건너뛰고 표에 `MISSING`): `page.setContent`로 왼쪽 `../../refs/0X_*.png`, 오른쪽 `docs/screens/0X_*.png`를 각각 960px 폭으로 나란히 배치해 `docs/compare/0X.png` 생성(이미지는 base64 data URL로 로드).
+3. **Right Brain 검토**: 비전 입력이 가능하면 `docs/compare/0X.png` 10장을 보고, 불가능하면 DOM 단언 결과 + 계산 스타일 덤프(`docs/screens/0X.styles.json`: 배경색·폰트·주요 요소 bbox)로 아래 "구도 체크"를 판정. 결과를 `docs/VISUAL_QA.md`에 `| ref | 항목 | PASS/FAIL | 근거 |`로 기록. **판정 규칙**: DOM 단언(1단계) = 게이트(FAIL이면 테스트 실패). 구도 체크(이 단계) = **기록용** — FAIL은 최대 2회 수정·재촬영하고, 그래도 FAIL이면 `unresolved`(근거·스크린샷 경로)로 남기고 진행(DoD를 막지 않음). PRD §8.13의 MAY 항목(ref10 "관심 표시" 칩 등)은 판정 대상 아님.
 4. **공통 체크 (모든 화면)**: GNB 64px·탭 3개·타이머 칩·포인트 칩·페르소나·테마 토글 존재 / `getComputedStyle(body).fontFamily`가 Paperlogy로 시작하고 `document.fonts.check('800 16px Paperlogy')`가 true(네트워크·로컬 폰트 모두 없으면 `ENV-SKIP` 기록) / 라이트 배경 `rgb(250, 250, 252)`, 다크 `rgb(9, 9, 11)` / 가로 스크롤 없음 / 콘솔 에러 0 / 사이드바 폭 264±2px(사이드바 있는 화면) / 이모지 텍스트 없음.
 
 | ref | 촬영 방법 | DOM 단언 (자동) | 구도 체크 (검토) |
@@ -552,12 +568,12 @@ npm run doctor                         # 진단표 + qa/doctor.json, 항상 exit
 | B1 | npm 레지스트리 접근 불가 · `ETARGET`/`notarget`(미러 지연) | `ETARGET`이면 먼저 `--prefer-online`으로 같은 버전 재시도 → `npm install` 3회 재시도(`--prefer-offline`) → 기존 `node_modules` 사용 가능하면 계속 → 불가하면 Audit에 "ENV-BLOCKED: npm registry" 기록 후 **네트워크 불필요 작업(문서·코드 작성·tsc 가능한 범위)을 계속**하고 마지막 보고에 명시. 버전 변경으로 우회 금지 |
 | B2 | `npx playwright install chromium` 실패, 또는 설치됐지만 실행 시 공유 라이브러리 오류 | ① 재시도 2회(`--with-deps` 없이) → ② Linux에서 라이브러리 오류면 `sudo -n true`가 성공할 때만 `npx playwright install-deps chromium`(비밀번호 프롬프트 금지) → ③ `PW_CHANNEL=chrome`(설치된 Google Chrome) → ④ `PW_CHANNEL=msedge` → ⑤ `PW_EXECUTABLE_PATH` = macOS `/Applications/Google Chrome.app/Contents/MacOS/Google Chrome` · Windows `C:\Program Files\Google\Chrome\Application\chrome.exe` · Linux `/usr/bin/google-chrome` 또는 `/usr/bin/chromium` → 모두 실패 시 "ENV-BLOCKED: browser" 기록, E2E·Visual 테스트는 **작성까지** 완료하고 §9.3 조건부 완료 |
 | B3 | TinyMCE 문제(복사 실패, 스크립트 로드 실패, React 19 경고, iframe 입력 불가, 빌드 오류, 여러 에디터 동시 마운트 시 중복 로드) | **로더 계약 §1.6-12**: 공유 Promise 1개, `window.tinymce` 확인 후 마운트, 콘솔 경고를 숨기지 않음. `RichEditor`가 `/tinymce/tinymce.min.js` 로드 8초 실패 또는 `onScriptsLoadError` 시 자동으로 `FallbackEditor`(contentEditable + `document.execCommand` 기반: 블록·B/I/U·글자색·정렬·리스트·링크·이미지(Base64)·표 삽입·코드블록, 동일 툴바 스킨, 우측 "TinyMCE 5.10.2" 태그 유지) 렌더. `public/tinymce/tinymce.min.js`가 없으면 먼저 `npm run postinstall`을 직접 실행. 같은 문제로 게이트 5회 실패 시 `.env.production`에 `NEXT_PUBLIC_EDITOR=fallback` 고정 + Audit 기록. TinyMCE 5 설정: `base_url:'/tinymce'`, `suffix:'.min'`, `plugins:'lists table link image code codesample paste autoresize'`, `toolbar:'undo redo \| formatselect fontselect \| bold italic underline forecolor \| alignleft aligncenter alignright \| bullist numlist \| link image table codesample'`, `menubar:'file edit view insert format table tools'`, `branding:false`, `paste_data_images:true`, `images_upload_handler`→Base64, `skin: theme==='dark'?'oxide-dark':'oxide'`, `content_css: theme==='dark'?'dark':'default'`, 테마 변경 시 `key={theme}`로 재마운트(내용 보존) |
-| B4 | Paperlogy CDN 차단·오프라인 | (PRD D72) 루트 `tokens.css`가 **로컬 → CDN** 순 `src`를 가지므로 앱은 재선언하지 않음(`fonts.css` 비움, PostCSS로 지우지 않음). 로컬 파일은 `npm run fonts:fetch`(이미 있으면 건너뜀, 3회 재시도, 실패해도 exit 0)로 받고 **커밋**합니다(OFL 1.1, `OFL.txt` 동봉). **로컬 파일이 없으면 브라우저가 `/fonts/paperlogy/*.woff2` 404를 콘솔 오류로 남긴 뒤 CDN으로 넘어갑니다**(2026-10-21 실측). `qa/doctor.json`의 폰트가 6/6 미만일 때만 `/fonts/paperlogy/*.woff2` 404를 **콘솔 수집과 404 리소스 수집 양쪽에서** 제외하고(`00`·모든 스펙이 같은 헬퍼 `isAllowedFontMiss(url)` 사용) Audit에 `ENV-SKIP: local fonts n/6`을 기록합니다. 그 외 404는 B24대로 실패합니다. 둘 다 없으면 `'Apple SD Gothic Neo','Malgun Gothic','Noto Sans KR',system-ui` 폴백 + Visual QA 폰트 항목 `ENV-SKIP` |
+| B4 | Paperlogy CDN 차단·오프라인 | (PRD D72) 루트 `tokens.css`가 **로컬 → CDN** 순 `src`를 가지므로 앱은 재선언하지 않음(`fonts.css` 비움, PostCSS로 지우지 않음). 로컬 파일은 `npm run fonts:fetch`(이미 있으면 건너뜀, 3회 재시도, 실패해도 exit 0)로 받고 **커밋**합니다(OFL 1.1, `OFL.txt` 동봉). **로컬 파일이 없으면 브라우저가 `/fonts/paperlogy/*.woff2` 404를 콘솔 오류로 남긴 뒤 CDN으로 넘어갑니다**(2026-10-21 실측). `docs/doctor.json`의 폰트가 6/6 미만일 때만 `/fonts/paperlogy/*.woff2` 404를 **콘솔 수집과 404 리소스 수집 양쪽에서** 제외하고(`00`·모든 스펙이 같은 헬퍼 `isAllowedFontMiss(url)` 사용) Audit에 `ENV-SKIP: local fonts n/6`을 기록합니다. 그 외 404는 B24대로 실패합니다. 둘 다 없으면 `'Apple SD Gothic Neo','Malgun Gothic','Noto Sans KR',system-ui` 폴백 + Visual QA 폰트 항목 `ENV-SKIP` |
 | B5 | `BroadcastChannel` 미지원 | `storage` 이벤트 + 같은 탭 `CustomEvent('oq:db')` 폴백(`sync.ts`) |
 | B6 | 하이드레이션 경고 | 브라우저 값 읽기를 effect로 이동, 서버는 스켈레톤. 날짜 문자열은 클라이언트에서만 포맷. `suppressHydrationWarning`은 `<html>` 외 사용 금지 |
 | B7 | 타이머 테스트 불안정 | `page.clock.install` + `fastForward`/`runFor`(02-timer, 01의 타이머 테스트), 나머지는 `setFixedTime`. 도메인 시각은 `clock.now()`, 경과시간은 `performance.now()`(§1.6-2). `waitForTimeout`으로 시간 맞추기 금지 |
 | B8 | 1.8초 오버레이가 E2E 클릭을 가림 | `hyperframe` 보임 → 숨김 대기 후 다음 단계(§5.2 `expectHyperFrame`). 오버레이 시간 단축·우회 금지(PRD D3). 시간 측정은 `__OQ_TEST__.hyperframes`(`performance.now()`) + Node 경과 |
-| B9 | 린트가 생성물 검사·설정 파일 경고 | ESLint `ignores`에 `public/**`, `.next/**`, `qa/**`, 리포트 폴더 포함. 설정 파일은 이름 있는 const export(부록 A-5·A-6·A-7), `scripts/**` `no-console: off` |
+| B9 | 린트가 생성물 검사·설정 파일 경고 | ESLint `ignores`에 `public/**`, `.next/**`, `docs/**`, 리포트 폴더 포함. 설정 파일은 이름 있는 const export(부록 A-5·A-6·A-7), `scripts/**` `no-console: off` |
 | B10 | `npm audit`가 tinymce 5 취약점 경고 | 무시. `npm audit fix --force` 금지(버전이 바뀜). Audit에 "알려진 경고, 시연용 로컬 앱" 기록 |
 | B11 | `next build` 내장 린트가 flat config와 충돌 | ① FlatCompat 설정 확인 → ② 그래도 실패하면 `next.config.ts`의 `eslint.ignoreDuringBuilds: true`로 바꾸고 `npm run lint`를 DoD에서 별도 실행(이미 포함) + Audit 기록 |
 | B12 | StrictMode 이중 effect로 중복 실행 | cleanup + 리듀서 가드로 멱등(§1.6-5) |
@@ -642,7 +658,7 @@ npm run doctor                         # 진단표 + qa/doctor.json, 항상 exit
 
 ### 9.1 명령 (전부 exit 0)
 ```bash
-cd officequest
+cd "3조 Office Quest_Autopilot/Office Quest"
 npm ci                       # 또는 최초 1회 npm install (postinstall이 public/tinymce 생성)
 npm run verify:tokens        # tokens.css 바이트 동일
 npm run qa:forbidden         # §5.5 금지 패턴 0
@@ -650,22 +666,34 @@ npm run typecheck            # tsc --noEmit, 에러 0
 npm run lint                 # eslint --max-warnings=0
 npm run test:unit            # §5.1 전부 통과
 npm run build                # next build 성공
-npm run doctor               # 진단표 + qa/doctor.json (항상 exit 0, 결과를 Audit에 첨부)
+npm run doctor               # 진단표 + docs/doctor.json (항상 exit 0, 결과를 Audit에 첨부)
 npm run test:e2e             # 새로 빌드 후 §5.2 23개 스펙(00–21, 99) 전부 통과, 태그 필터 없음
-npm run test:visual          # 새로 빌드 후 §6 10장 DOM 단언 통과 + qa/screens, qa/compare 생성
+npm run test:visual          # 새로 빌드 후 §6 10장 DOM 단언 통과 + docs/screens, docs/compare 생성
 # (= npm run verify 한 번으로 동일)
+```
+
+실행기 확인(§1.7, 저장소 루트에서, 전부 exit 0):
+```bash
+ls -A "3조 Office Quest_Autopilot" | grep -v '^.DS_Store$'      # 정확히 두 줄: Office Quest, 실행.command
+test -x "3조 Office Quest_Autopilot/실행.command" && bash -n "3조 Office Quest_Autopilot/실행.command"
+OQ_NO_OPEN=1 "./3조 Office Quest_Autopilot/실행.command" > /tmp/oq-launch.log 2>&1 &   # macOS 실제 실행은 브라우저까지 열림(OQ_NO_OPEN 없이)
+for i in $(seq 1 90); do curl -fs http://localhost:3000 | grep -q 'data-testid="app-root"' && break; sleep 2; done
+curl -fs http://localhost:3000 | grep -q 'data-testid="app-root"'   # 앱이 뜸
+pkill -f "next dev -p 3000"                  # 확인 후 종료
 ```
 
 ### 9.2 체크리스트
 - [ ] PRD §9 시드: 퀘스트 7건(모집중 3·진행중 1·보완요청 1·완료 2), 물품 8건(6개 마을·거래가능·예약중·거래완료·무료나눔) — `seed.test.ts`·`00-smoke`로 증명
 - [ ] PRD §11 전체 플로우 수치(kim 1,500→1,200→0 / lee 300→700→1,900 / lee Lv.7→8 / 2/2, 지정 단계에서 포인트 불변) — `99-full-flow` 통과
 - [ ] `16`–`21` 통과, 단위 `inquiry`·`character`·`character-assets`·`quest-access`·`attachments`·`persistence`·`bounty-ticks`·`toast`·`audio` 통과, `qa:forbidden` 규칙 12·13 포함 0건, 모든 테스트 제목에 §4의 Phase 태그(기능 태그·무태그 0)
-- [ ] `qa/AC_MAP.md`: PRD §8의 MUST AC 전부 테스트에 매핑(빈 칸 0, §5.2 목록의 AC 포함)
+- [ ] `docs/AC_MAP.md`: PRD §8의 MUST AC 전부 테스트에 매핑(빈 칸 0, §5.2 목록의 AC 포함)
 - [ ] `rating.test` 별점 매핑 5건, `monitoring.test` 시드 플래그 **4건**(PRD §9.7), `14-rating-reject`(별 5개 포함)·`15-admin-moderation` 통과
-- [ ] `qa/VISUAL_QA.md`: ref 10장의 **DOM 단언 전부 PASS**(또는 근거 있는 `ENV-SKIP`). 구도 체크는 기록용(§6-3)
+- [ ] `docs/VISUAL_QA.md`: ref 10장의 **DOM 단언 전부 PASS**(또는 근거 있는 `ENV-SKIP`). 구도 체크는 기록용(§6-3)
 - [ ] `DUAL_BRAIN_AUDIT.md`: 체크포인트 #1–#6 + 최종 감리, 모든 지적이 fixed/rejected/unresolved로 판정, `unresolved` 중 MUST 요구사항 0건(ENV-BLOCKED 제외)
 - [ ] 콘솔 에러 0, 외부 이미지 요청 0, Tiny Cloud 요청 0 (`00-smoke`)
 - [ ] `.github/copilot-instructions.md` 존재
+- [ ] `3조 Office Quest_Autopilot/` 맨 위가 `실행.command` + `Office Quest/` 두 항목뿐이고, 앱 파일이 그 밖에 없음(§1.7)
+- [ ] 실행기 확인(§9.1) 통과: `실행.command`로 실제 실행해 `http://localhost:3000`에서 앱이 뜸. 앱 `README.md`에 실행 방법·Gatekeeper 안내(우클릭 > 열기)·폴더 안내·데모 계정
 - [ ] Audit 맨 위 "결과 요약"에 위 명령 결과와 실행 시각(KST) 기록, TinyMCE 5.10.2 고정 사유 1줄(PRD D39)
 
 ### 9.3 조건부 완료 (ENV-BLOCKED일 때의 종료 규칙)
@@ -722,7 +750,7 @@ npm run test:visual          # 새로 빌드 후 §6 10장 DOM 단언 통과 + q
 # Dual-Brain Memory — Office Quest
 ## Hot
 - 스펙 우선순위: PRD §2 > PRD > DESIGN/tokens > refs > Harness > skills (근거: PRD §0.2)
-- 앱 위치 ./officequest, 고정 버전 Harness §1.1 (근거: PRD D23, Harness §1.1)
+- 앱 위치 "./3조 Office Quest_Autopilot/Office Quest"(경로는 따옴표로), 산출물 폴더 맨 위는 실행.command + Office Quest/만, 고정 버전 Harness §1.1 (근거: PRD D23, Harness §1.2·§1.7·§1.1)
 - 하이퍼 프레임 1,800ms, JS 타이머 닫힘, 경과시간은 performance.now (근거: PRD D3, D28, D38)
 - E2E 게이트는 Phase 태그 누적 grep, test:e2e는 항상 새 빌드 (근거: Harness §4, §1.4)
 - 별점 EXP 50/75/100/125/150, 별 3개 = 기존 수치, 반려 최대 2회, 운영자 ops는 플레이어 아님 (근거: PRD D40, D45, D47)
@@ -744,12 +772,13 @@ npm run test:visual          # 새로 빌드 후 §6 10장 DOM 단언 통과 + q
 - 사용자에게 질문하고 대기하기
 - 부록 A 설정 파일을 임의로 줄이거나 익명 default export로 바꾸기
 - Phase 태그 없는 테스트·§4 목록 밖 태그(`@feedback` 등), 아직 없는 기능을 앞 Phase 게이트에 넣기
+- `3조 Office Quest_Autopilot/` 밖에 앱 파일 만들기, 그 폴더 맨 위에 `실행.command`·`Office Quest/` 외 항목 두기
 - `Pilot_Test_Code_Review/` 수정·import·빌드·테스트 실행·통째 복사, 그 안의 PRD·Harness·DESIGN 사본을 명세로 쓰기
 - 구매 요청·판매자 승인·NPC 자동 승인 만들기, 동료 잔액 표시, 첨부 URL 생성, 음원 파일, 캐릭터 PNG 생성·편집, `reference/`를 앱 런타임에서 import(복사만 허용), Tailwind와 겹치는 CSS 클래스
 
 ---
 
-## 부록 A. 검증된 설정·스크립트 파일 (그대로 복사 · `officequest/` 기준 경로)
+## 부록 A. 검증된 설정·스크립트 파일 (그대로 복사 · 앱 루트 `Office Quest/` 기준 경로)
 
 아래 파일은 2026-10-21 Linux(Node 20.19.2, npm 11.21.0) 스크래치 프로젝트에서 §1.3 고정 버전으로 `typecheck`(빌드 전)·`lint --max-warnings=0`·`test:unit`·`build`·`playwright test --list`·`test:e2e -- --grep @p0`까지 **실제로 통과한 내용 그대로**입니다(§1.5 검증 기록). 수정이 필요하면 Audit에 사유를 기록합니다.
 
@@ -780,7 +809,7 @@ npm run test:visual          # 새로 빌드 후 §6 10장 DOM 단언 통과 + q
     "paths": { "@/*": ["./src/*"] }
   },
   "include": ["next-env.d.ts", "src/**/*.ts", "src/**/*.tsx", "tests/**/*.ts", "*.ts", ".next/types/**/*.ts"],
-  "exclude": ["node_modules", "public", ".next", "playwright-report", "test-results", "../Pilot_Test_Code_Review"]
+  "exclude": ["node_modules", "public", ".next", "playwright-report", "test-results", "../../Pilot_Test_Code_Review"]
 }
 ```
 
@@ -823,7 +852,7 @@ import { FlatCompat } from '@eslint/eslintrc';
 const compat = new FlatCompat({ baseDirectory: dirname(fileURLToPath(import.meta.url)) });
 
 const eslintConfig = [
-  { ignores: ['.next/**', 'node_modules/**', 'public/**', 'playwright-report/**', 'test-results/**', 'qa/**', 'next-env.d.ts', '**/Pilot_Test_Code_Review/**'] },
+  { ignores: ['.next/**', 'node_modules/**', 'public/**', 'playwright-report/**', 'test-results/**', 'docs/**', 'next-env.d.ts', '**/Pilot_Test_Code_Review/**'] },
   ...compat.extends('next/core-web-vitals', 'next/typescript'),
   {
     rules: {
@@ -1107,11 +1136,11 @@ console.log(`[fetch-fonts] ${ok}/${urls.length} present in public/fonts/paperlog
 import { existsSync, readFileSync } from 'node:fs';
 import { join } from 'node:path';
 
-const root = join(process.cwd(), '..', 'tokens.css');
+const root = join(process.cwd(), '..', '..', 'tokens.css');
 const copy = join(process.cwd(), 'src', 'styles', 'tokens.css');
-if (!existsSync(root)) { console.warn('[verify-tokens] ../tokens.css not found (MISSING) - skipped'); process.exit(0); }
-if (!existsSync(copy)) { console.error('[verify-tokens] src/styles/tokens.css missing. Run: cp ../tokens.css src/styles/tokens.css'); process.exit(1); }
-if (!readFileSync(root).equals(readFileSync(copy))) { console.error('[verify-tokens] src/styles/tokens.css differs from ../tokens.css'); process.exit(1); }
+if (!existsSync(root)) { console.warn('[verify-tokens] ../../tokens.css not found (MISSING) - skipped'); process.exit(0); }
+if (!existsSync(copy)) { console.error('[verify-tokens] src/styles/tokens.css missing. Run: cp ../../tokens.css src/styles/tokens.css'); process.exit(1); }
+if (!readFileSync(root).equals(readFileSync(copy))) { console.error('[verify-tokens] src/styles/tokens.css differs from ../../tokens.css'); process.exit(1); }
 console.log('[verify-tokens] OK');
 ```
 
@@ -1132,10 +1161,10 @@ const URL_ALLOW = ['fastly.jsdelivr.net', 'www.w3.org', 'localhost'];
 // 규칙 12: Tailwind 유틸리티와 이름이 겹치는 커스텀 CSS 클래스 선택자 (Harness §1.6-9)
 const TW_CLASH = /(?:^|[\s,}>+~(])\.(ring|shadow|container|hidden|block|inline|flex|grid|table|border|rounded|truncate|blur|filter|transform|transition|outline|underline|italic|uppercase|lowercase|capitalize|static|fixed|absolute|relative|sticky|visible|invisible|collapse|contents|grow|shrink|isolate|sr-only|antialiased|ease-in|ease-out|ease-linear|animate-spin|animate-pulse|prose)(?=[\s,{:.\[>+~)])/m;
 
-// 이 검사는 officequest/src만 본다. 저장소 루트의 파일럿 빌드(Pilot_Test_Code_Review/)와 빌드 산출물은 경로가 어떻게 잡혀도 건너뛴다.
+// 이 검사는 앱 루트(3조 Office Quest_Autopilot/Office Quest)의 src만 본다. 저장소 루트의 파일럿 빌드(Pilot_Test_Code_Review/)와 빌드 산출물은 경로가 어떻게 잡혀도 건너뛴다.
 const SKIP_DIRS = new Set(['node_modules', '.next', 'Pilot_Test_Code_Review']);
 if (process.cwd().split(/[\\/]/).includes('Pilot_Test_Code_Review')) {
-  console.error('check-forbidden: run from officequest/, not from Pilot_Test_Code_Review/');
+  console.error('check-forbidden: run from "3조 Office Quest_Autopilot/Office Quest/", not from Pilot_Test_Code_Review/');
   process.exit(2);
 }
 
@@ -1221,10 +1250,10 @@ test('P0 root responds 200 and renders app-root @p0', async ({ page }) => {
 
 ### A-15 scripts/doctor.mjs (§0-6)
 
-진단만 하고 **항상 exit 0**입니다. Node 버전·레지스트리·고정 버전 설치·브라우저(번들 → `PW_CHANNEL` → `PW_EXECUTABLE_PATH` 후보)·TinyMCE 복사본·폰트 6개·캐릭터 PNG 24개·tokens 복사본을 확인하고, 실패 줄마다 §7 번호를 제안합니다. 결과는 `qa/doctor.json`.
+진단만 하고 **항상 exit 0**입니다. Node 버전·레지스트리·고정 버전 설치·브라우저(번들 → `PW_CHANNEL` → `PW_EXECUTABLE_PATH` 후보)·TinyMCE 복사본·폰트 6개·캐릭터 PNG 24개·tokens 복사본·실행기(`../실행.command`, 실행 권한)를 확인하고, 실패 줄마다 §7 번호를 제안합니다. 결과는 `docs/doctor.json`.
 
 ```js
-// Harness §0-6 / P0 사전 진단. 항상 exit 0. 결과: 콘솔 표 + qa/doctor.json
+// Harness §0-6 / P0 사전 진단. 항상 exit 0. 결과: 콘솔 표 + docs/doctor.json
 // 실패 원인을 "환경 / 레지스트리 / 브라우저 / 자산" 으로 나눠 다음 행동(§7 Blocker 번호)을 제안한다.
 import { existsSync, mkdirSync, readdirSync, readFileSync, statSync, writeFileSync } from 'node:fs';
 import { join } from 'node:path';
@@ -1285,15 +1314,72 @@ const fonts = existsSync(fontDir) ? readdirSync(fontDir).filter((f) => f.endsWit
 add('asset', 'public/fonts/paperlogy', fonts.length === 6 ? 'OK' : 'WARN', `${fonts.length}/6`, fonts.length === 6 ? '' : 'npm run fonts:fetch → B4');
 const charDir = join(cwd, 'public', 'assets', 'character');
 const chars = existsSync(charDir) ? readdirSync(charDir).filter((f) => /^(male|female)-(classic|wave)-(bronze|silver|gold|platinum|diamond|master)\.png$/.test(f)) : [];
-add('asset', 'public/assets/character', chars.length === 24 ? 'OK' : 'WARN', `${chars.length}/24`, chars.length === 24 ? '' : 'cp ../reference/assets/character/*.png public/assets/character/ → B26');
+add('asset', 'public/assets/character', chars.length === 24 ? 'OK' : 'WARN', `${chars.length}/24`, chars.length === 24 ? '' : 'cp ../../reference/assets/character/*.png public/assets/character/ → B26');
 const tok = has('src/styles/tokens.css');
-add('asset', 'src/styles/tokens.css', tok ? 'OK' : 'FAIL', '', tok ? '' : 'cp ../tokens.css src/styles/tokens.css');
+add('asset', 'src/styles/tokens.css', tok ? 'OK' : 'FAIL', '', tok ? '' : 'cp ../../tokens.css src/styles/tokens.css');
+// 6) 실행기 (Harness §1.7): 앱 루트의 한 단계 위에 실행.command
+const launcher = join(cwd, '..', '실행.command');
+const launcherOk = existsSync(launcher) && (statSync(launcher).mode & 0o111) !== 0;
+add('asset', '../실행.command', launcherOk ? 'OK' : 'WARN', '', launcherOk ? '' : '부록 A-16으로 작성 후 chmod +x "../실행.command" (§1.7)');
 
 const summary = { at: new Date().toISOString(), fail: out.filter((r) => r.status === 'FAIL').length, warn: out.filter((r) => r.status === 'WARN').length, checks: out };
-mkdirSync(join(cwd, 'qa'), { recursive: true });
-writeFileSync(join(cwd, 'qa', 'doctor.json'), JSON.stringify(summary, null, 2));
+mkdirSync(join(cwd, 'docs'), { recursive: true });
+writeFileSync(join(cwd, 'docs', 'doctor.json'), JSON.stringify(summary, null, 2));
 for (const r of out) console.log(`[doctor] ${r.status.padEnd(4)} ${r.area}/${r.item} ${r.detail}${r.next ? `  -> ${r.next}` : ''}`);
-console.log(`[doctor] FAIL ${summary.fail} · WARN ${summary.warn} (qa/doctor.json). 진단만 하며 항상 exit 0`);
+console.log(`[doctor] FAIL ${summary.fail} · WARN ${summary.warn} (docs/doctor.json). 진단만 하며 항상 exit 0`);
+```
+
+### A-16 실행.command (§1.7)
+
+`../실행.command` (= `3조 Office Quest_Autopilot/실행.command`, 앱 루트의 한 단계 위). 작성 후 `chmod +x "../실행.command"`. 줄 끝은 LF.
+```bash
+#!/bin/bash
+# Office Quest 실행기 (macOS). Finder에서 더블클릭하면 Terminal에서 실행된다 (Harness §1.7).
+# 경로에 공백이 있으므로 모든 경로를 따옴표로 감싼다.
+cd "$(dirname "$0")" || exit 1
+if ! cd "Office Quest"; then
+  echo "[실행] 'Office Quest' 폴더를 찾지 못했습니다. 실행.command와 같은 폴더에 있어야 합니다."
+  read -r -p "Enter를 누르면 닫힙니다." _
+  exit 1
+fi
+
+# Finder에서 열면 셸 설정이 일부만 읽힐 수 있으므로 흔한 Node 설치 위치를 PATH에 더한다.
+export PATH="/opt/homebrew/bin:/usr/local/bin:$PATH"
+if [ -s "$HOME/.nvm/nvm.sh" ]; then . "$HOME/.nvm/nvm.sh" >/dev/null 2>&1; fi
+
+if ! command -v node >/dev/null 2>&1 || ! command -v npm >/dev/null 2>&1; then
+  echo "[실행] Node.js가 없습니다. https://nodejs.org 에서 Node.js 22 LTS를 설치한 뒤 다시 실행하세요."
+  read -r -p "Enter를 누르면 닫힙니다." _
+  exit 1
+fi
+
+if [ ! -d "node_modules" ]; then
+  echo "[실행] 처음 실행이라 패키지를 설치합니다(몇 분 걸릴 수 있습니다)."
+  if ! npm install; then
+    echo "[실행] npm install에 실패했습니다. 위 오류를 확인하세요."
+    read -r -p "Enter를 누르면 닫힙니다." _
+    exit 1
+  fi
+fi
+
+URL="http://localhost:3000"
+# 서버가 응답하면 브라우저를 연다. OQ_NO_OPEN=1이면 열지 않는다(Harness §9.1 자동 확인용).
+if [ "${OQ_NO_OPEN:-0}" != "1" ]; then
+  (
+    for _ in $(seq 1 120); do
+      if curl -fs -o /dev/null "$URL"; then
+        if command -v open >/dev/null 2>&1; then open "$URL"
+        elif command -v xdg-open >/dev/null 2>&1; then xdg-open "$URL" >/dev/null 2>&1
+        fi
+        exit 0
+      fi
+      sleep 1
+    done
+  ) &
+fi
+
+echo "[실행] $URL 에서 Office Quest를 엽니다. 끝내려면 이 창에서 Control+C를 누르세요."
+exec npm run dev
 ```
 
 ---
@@ -1307,16 +1393,16 @@ console.log(`[doctor] FAIL ${summary.fail} · WARN ${summary.warn} (qa/doctor.js
 | 경로 | 용도 | Autopilot이 하는 일 |
 |---|---|---|
 | `reference/README.md` | 폴더 설명·출처·라이선스 메모 | 읽기 |
-| `reference/scripts/check-forbidden.mjs` · `fetch-fonts.mjs` · `doctor.mjs` | 부록 A-12·A-13·A-15와 같은 내용 | `officequest/scripts/`로 복사(없으면 부록 본문으로 작성) |
-| `reference/assets/character/*.png` (24개) + `provenance/` | 캐릭터 PNG(PRD D76)와 생성 이력·팔레트 잠금·검수 메모 | PNG만 `officequest/public/assets/character/`로 복사. `provenance/`는 복사하지 않음 |
-| `reference/public/editor-ko.js` | TinyMCE 한국어 UI 문자열(PRD D88) | `officequest/public/editor-ko.js`로 복사 |
+| `reference/scripts/check-forbidden.mjs` · `fetch-fonts.mjs` · `doctor.mjs` | 부록 A-12·A-13·A-15와 같은 내용 | 앱 루트 `scripts/`로 복사(없으면 부록 본문으로 작성) |
+| `reference/assets/character/*.png` (24개) + `provenance/` | 캐릭터 PNG(PRD D76)와 생성 이력·팔레트 잠금·검수 메모 | PNG만 앱 루트 `public/assets/character/`로 복사. `provenance/`는 복사하지 않음 |
+| `reference/public/editor-ko.js` | TinyMCE 한국어 UI 문자열(PRD D88) | 앱 루트 `public/editor-ko.js`로 복사 |
 | `reference/screens/*.png` (8장) | 참조 구현 화면(꾸미기·일일 보상·다운로드 안내·문의·캐릭터·Teams 안내·티어 안내·마켓 스크롤) | Right Brain 참고용. **판정 기준 아님**(Visual QA는 `refs/`만) |
-| `reference/templates/AC_MAP.template.md` | `qa/AC_MAP.md` 형식 | `qa/AC_MAP.md` 작성 시 형식만 사용 |
+| `reference/templates/AC_MAP.template.md` | `docs/AC_MAP.md` 형식 | `docs/AC_MAP.md` 작성 시 형식만 사용 |
 
 규칙:
 1. **PRD·Harness가 이깁니다.** 참조 구현과 다르게 정한 항목(PRD §0.4 목록: 열린 high 칩, 답변 달린 문의 잠금, 포인트 부족 경고 모달 유지, 스키마 v2 재적재, 루트 tokens.css 폰트, Lucide `info`, Tailwind 클래스 충돌 금지, Phase 태그 필수)은 문서대로 만듭니다.
 2. `reference/`가 **없어도** 모든 Phase를 끝낼 수 있습니다. 스크립트는 부록 A 본문, PNG는 B26, 에디터 한국어 파일은 SHOULD라 생략 가능.
-3. 앱 코드에서 `../reference/`를 import하거나 런타임에 읽지 않습니다. 복사만 합니다.
+3. 앱 코드에서 `../../reference/`를 import하거나 런타임에 읽지 않습니다. 복사만 합니다.
 4. `reference/` 파일은 수정하지 않습니다(루트 문서와 같은 읽기 전용, §8).
 
 ### 12.2 `Pilot_Test_Code_Review/` — 공식 참조 구현
@@ -1356,7 +1442,7 @@ console.log(`[doctor] FAIL ${summary.fail} · WARN ${summary.warn} (qa/doctor.js
 
 규칙:
 1. **읽기 전용.** 이 폴더의 파일을 고치지 않고, 앱 코드에서 import하거나 런타임에 읽지 않습니다.
-2. **실행하지 않습니다.** 파일럿 안에서 `npm install`·`npm ci`·`next build`·`vitest`·`playwright`를 돌리지 않습니다. 게이트는 항상 `officequest/`에서 실행합니다. 부록 A의 `tsconfig`(exclude)·ESLint(ignores)·Vitest(exclude)·Playwright(`testIgnore`)·`check-forbidden`(SKIP_DIRS)이 이 폴더를 건너뜁니다(2026-10-21 스크래치에서 tsc·eslint·vitest list·playwright list 모두 파일럿 파일 0건 확인).
+2. **실행하지 않습니다.** 파일럿 안에서 `npm install`·`npm ci`·`next build`·`vitest`·`playwright`를 돌리지 않습니다. 게이트는 항상 앱 루트에서 실행합니다. 부록 A의 `tsconfig`(exclude)·ESLint(ignores)·Vitest(exclude)·Playwright(`testIgnore`)·`check-forbidden`(SKIP_DIRS)이 이 폴더를 건너뜁니다(2026-10-21 스크래치에서 tsc·eslint·vitest list·playwright list 모두 파일럿 파일 0건 확인).
 3. **통째로 복사하지 않습니다.** 폴더·여러 파일을 한꺼번에 옮기지 않습니다. 파일 **하나**를 가져오는 것은 그 파일이 이미 현재 PRD·Harness·DESIGN을 만족할 때만 허용합니다. 가져온 뒤 import 경로·문구·testid를 현재 문서에 맞추고, 그 Phase 게이트를 다시 돌리고, Audit에 `PILOT-COPY: <파일> → <변경 요약>`을 남깁니다.
 4. **문서가 이깁니다.** 파일럿과 PRD가 다르면 PRD대로 만들고, 차이를 처음 발견하면(§0.4 표에 없으면) Audit에 `PILOT-DIFF: <경로> → <PRD 근거>`를 기록합니다.
 5. **없어도 끝까지 갑니다.** 폴더가 없으면 Audit에 `MISSING: Pilot_Test_Code_Review` 한 줄을 남기고 §12.1 `reference/`와 부록 A만으로 진행합니다(§0-1 MISSING 규칙).

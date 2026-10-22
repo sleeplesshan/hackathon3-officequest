@@ -10,6 +10,7 @@ GitHub Copilot Agent Mode(Autopilot)가 사람에게 묻지 않고 앱을 끝까
 | `tokens.css` | CSS 변수 토큰: 효성 브랜드 7색 `--hs-*`와 그 위의 라이트/다크 시맨틱 토큰, 티어 6색, Teams, z-index, 모션. Paperlogy는 로컬 → CDN 순 |
 | `reference/` | 참조 구현에서 골라 온 작은 자료: 검사 스크립트(`check-forbidden`·`fetch-fonts`·`doctor`), 캐릭터 PNG 24장 + 출처, 참고 화면 8장, 에디터 한국어 파일, AC_MAP 양식. **예시일 뿐 규칙이 아니며**, 없어도 Autopilot은 끝까지 실행됩니다. node_modules·비밀값·영상은 들어 있지 않습니다 |
 | `Pilot_Test_Code_Review/` | **공식 참조 구현**: 끝까지 빌드된 파일럿 앱 전체(`officequest/` 앱 소스·테스트·qa·scripts·public 자산, 함정 목록 `Opinion.md`, `RUN.md`, 감리 기록, 명세 사본). Autopilot이 읽고 배우는 용도이며 **읽기 전용·빌드 금지**. 문서와 다른 점은 PRD §0.4 표, 읽을 곳은 Harness §12.2. `node_modules`·`.next`·`public/tinymce`·테스트 결과·영상은 빠져 있습니다. 없어도 Autopilot은 끝까지 실행됩니다 |
+| `3조 Office Quest_Autopilot/` | **Autopilot 산출물**(Autopilot이 만듦): `실행.command`(macOS 더블클릭 실행기)와 `Office Quest/`(Next.js 앱, 실행 방법·데모 계정은 그 안의 `README.md`). 구조는 Harness §1.2·§1.7 |
 | `skills/` | taste · mengto · sprite-gen · dual-brain(SKILL.md, README.ko.md) · SOURCES.md |
 | `motion/officequest_intro.html` | 20초 소개 모션그래픽. 단일 HTML이며, R 키나 클릭으로 다시 재생 |
 | `motion/officequest_intro.mp4` | 위 영상 렌더본: 1920×1080, 30fps, 20.6초 |

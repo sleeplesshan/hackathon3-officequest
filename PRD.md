@@ -22,9 +22,13 @@
 ./skills/{dual-brain,taste,mengto,sprite-gen}/ + ./skills/SOURCES.md   ← 스킬 원본 (Harness §2에서 사용 범위 지정)
                             dual-brain 최소 구성 = SKILL.md + README.ko.md. references/*.md는 있으면 사용, 없으면 Harness §0-1 MISSING 규칙
 ./source/mock/ ./source/motion/   ← 목업·영상 소스 (시드·스프라이트 포팅 원천, 읽기 전용)
-./officequest/              ← 구현할 Next.js 앱 (Autopilot이 생성)
+./3조 Office Quest_Autopilot/  ← Autopilot 산출물 폴더(Autopilot이 생성). 앱은 이 폴더 안에만 만듦. 맨 위에는 아래 두 항목만 둠
+    실행.command            ← macOS 더블클릭 실행기 (Harness §1.7)
+    Office Quest/           ← 구현할 Next.js 앱 = 앱 루트 (Harness §1.2)
 ./DUAL_BRAIN_AUDIT.md       ← Autopilot이 작성하는 감리 기록
 ```
+**앱 경로 규칙**: 이 문서와 Harness·DESIGN에서 앱 안을 가리키는 경로(`src/…`·`public/…`·`tests/…`·`scripts/…`·`docs/…`)는 모두 앱 루트 `3조 Office Quest_Autopilot/Office Quest/` 기준이고, `npm` 명령도 모두 앱 루트에서 실행합니다. 저장소 루트 파일(`PRD.md`·`tokens.css`·`refs/`·`reference/` 등)은 앱 루트에서 `../../`로 닿습니다. 폴더 이름에 공백이 있으므로 명령·스크립트의 경로는 항상 따옴표로 감쌉니다.
+
 `source/mock/`(목업 HTML·`pages.js`·`sprites.js`)가 저장소에 있으면 시드 데이터와 스프라이트 행렬을 그대로 포팅합니다. 없으면 이 문서 §9와 `motion/officequest_intro.html`의 스프라이트 정의를 사용합니다.
 
 ### 0.2 문서 우선순위 (충돌 시 위가 이김)
@@ -117,7 +121,7 @@ Autopilot은 아래 결정을 **재논의하지 않고** 그대로 구현합니�
 | D3 | 하이퍼 프레임 1.8초 | 원본 PRD vs 소개 영상(1.2초/1.6초로 단축) | 앱은 **정확히 1,800ms** 후 자동 닫힘. 영상은 스펙이 아님 | 원본 PRD MUST |
 | D4 | 오버레이 배경 `bg-black/75 backdrop-blur-sm` | 원본 Harness vs DESIGN §9.4 | DESIGN §9.4 값 사용(어두운 radial + blur 6px + 스캔라인). `position:fixed; inset:0; z-index:9999` 유지 | 둘 다 "반투명 다크", DESIGN이 더 구체적 |
 | D5 | 카드에 "미묘한 글래스모피즘" | 원본 PRD Skill B vs DESIGN §4(글래스는 GNB·플로팅만) vs taste(글래스 금지) | `backdrop-filter`는 **GNB·플로팅 칩·모달/오버레이 백드롭·Teams 헤더**에만. 벤토 카드는 불투명 `--surface` + 1px `--border` + `--sh-card` + 상단 1px 내부 하이라이트(`inset 0 1px 0 rgba(255,255,255,.6)`, 다크 `rgba(255,255,255,.04)`)로 "유리 가장자리" 표현 | 가독성(DESIGN) + PRD 의도 충족 |
-| D6 | 레이아웃 치수: 사이드바 280px(DESIGN §6) vs 264px(DESIGN §12·refs) vs `--sidebar-w:316px`(tokens, 영상값) / GNB 64 vs 78 | DESIGN 내부, tokens | 앱 값 = **GNB 64px, 좌측 사이드바 264px, 상세 우측 aside 400px, 콘텐츠 패딩 24px, 최대폭 제한 없음(fr 단위)**. `tokens.css`는 수정하지 않고 `officequest/src/styles/app-layout.css`에서 변수 재정의. DESIGN §3.7·§6도 264px | refs가 실제 앱 화면 |
+| D6 | 레이아웃 치수: 사이드바 280px(DESIGN §6) vs 264px(DESIGN §12·refs) vs `--sidebar-w:316px`(tokens, 영상값) / GNB 64 vs 78 | DESIGN 내부, tokens | 앱 값 = **GNB 64px, 좌측 사이드바 264px, 상세 우측 aside 400px, 콘텐츠 패딩 24px, 최대폭 제한 없음(fr 단위)**. `tokens.css`는 수정하지 않고 `src/styles/app-layout.css`에서 변수 재정의. DESIGN §3.7·§6도 264px | refs가 실제 앱 화면 |
 | D7 | TinyMCE 5.10.2 "Self-Hosted / Fallback" | 원본 PRD·Harness | **1순위**: npm `tinymce@5.10.2`를 `public/tinymce/`로 복사해 셀프호스팅(API Key 불필요, 경고 배너 없음). **폴백**: 동일 툴바의 `FallbackEditor`(contentEditable). 전환 조건은 Harness §7 | 원본이 둘 다 허용 |
 | D8 | Paperlogy CDN 의존 | 원본 PRD | **D72를 따름**(로컬 먼저, CDN 두 번째 — 루트 `tokens.css`) | 오프라인 대비 |
 | D9 | 게시판 상태 필터: 원본 3개(모집중/진행중/완료) vs ref03 4개(+보완요청) | 원본 PRD vs refs/03 | 칩 **전체 · 모집중 · 진행중 · 보완요청 · 완료**. `진행중` 필터는 `in_progress`와 `revision`을 **모두** 포함, `보완요청`은 `revision`만 | ref03 카운트(진행중 2)와 일치 |
@@ -134,7 +138,7 @@ Autopilot은 아래 결정을 **재논의하지 않고** 그대로 구현합니�
 | D20 | D-Day 계산 | refs/01 "D-14" | **KST 달력 날짜 차이**: `D = dateKST(seasonEndsAt) − dateKST(now)` (일). 2026-10-21 → 2026-11-04 = D-14 | ref 일치 |
 | D21 | 버튼 라벨의 이모지(💬🛒🔄✅) | 원본 PRD vs DESIGN §10(이모지 금지) | 라벨 텍스트는 원본 그대로, **이모지 대신 Lucide 아이콘**(message-circle, shopping-cart, rotate-ccw, check). 문서 전체의 **⚡ → `zap`, ♥ → `heart`, 👁 → `eye`** 도 같은 규칙. 유니코드 `Extended_Pictographic` 문자(⚡ ♥ ↔ © ™ 등)는 UI 텍스트·소스에 쓰지 않음(Harness §5.5-6 자동 검사). ↺ ✕ ○ → 같은 비해당 기호도 아이콘으로 대체 권장 | 헤드리스 렌더 깨짐 방지, 금지 패턴 검사와 일치 |
 | D22 | 문의/요청 첨부 분기 범위 | 원본 PRD | 퀘스트 `type`이 그 퀘스트의 **모든 첨부**(요청자 첨부 + 작업자 결과물 + 문의 답변)를 결정. **세부 행렬은 D69(요청 = 일반 파일 + 스크린샷, 문의 = 스크린샷만), 링크 없음은 D70** | 규칙 단일화 |
-| D23 | 앱 위치 | 저장소 구조 | Next.js 앱은 **`./officequest/`** 하위 폴더. 루트의 `skills/`, `refs/`, `motion/`이 lint/tsc 대상에 들어가지 않게 함 | 빌드 무결성 |
+| D23 | 앱 위치 | 저장소 구조 | Next.js 앱은 **`./3조 Office Quest_Autopilot/Office Quest/`**(앱 루트). 산출물 폴더 `3조 Office Quest_Autopilot/`의 맨 위에는 `실행.command`와 `Office Quest/` 두 항목만 둠(Harness §1.2·§1.7). 루트의 `skills/`, `refs/`, `motion/`이 lint/tsc 대상에 들어가지 않게 함 | 빌드 무결성 |
 | D24 | 하이퍼 프레임 중 상태 반영 시점 | 원본 PRD("즉시 지급") vs DESIGN §9.4("1500–1800ms 실제 반영") | **DB 상태는 클릭 즉시(t=0) 커밋**. 숫자 카운터 롤링 애니메이션만 오버레이 종료 후 재생 | 테스트·다중 탭 일관성 |
 | D25 | 등록 후 수정 가능 범위 | 원본 PRD("수정") | 모집중일 때 수정 가능: 제목·업무 분야·마감일·본문·첨부. **유형(문의/요청)과 현상금은 등록 후 변경 불가** | 에스크로 재계산 제거 |
 | D26 | 구매 요청 동시성 | 원본 PRD | **해당 없음** — 구매 요청 단계가 없음(D63). 수령 확인 권한은 물품당 최종 구매자 1명(`finalBuyerId`)뿐이라 동시성 문제가 없음 | 정산 모호성 제거 |
@@ -206,7 +210,7 @@ Autopilot은 아래 결정을 **재논의하지 않고** 그대로 구현합니�
 
 ---
 
-## 3. 상수 (단일 출처: `officequest/src/lib/constants.ts`)
+## 3. 상수 (단일 출처: `src/lib/constants.ts`)
 
 ```ts
 export const TZ = 'Asia/Seoul';
@@ -307,7 +311,7 @@ export const VALIDATION = {
 
 ---
 
-## 5. 데이터 모델 (단일 출처: `officequest/src/lib/types.ts`)
+## 5. 데이터 모델 (단일 출처: `src/lib/types.ts`)
 
 ```ts
 export type UserId = 'kim' | 'lee' | 'park' | 'choi' | 'jung' | 'han' | 'kang' | 'oh' | 'ops' | (string & {});
@@ -557,7 +561,7 @@ export type Action =
 
 ---
 
-## 6. 규칙 엔진 · 수식 (단일 출처: `officequest/src/lib/formulas.ts`)
+## 6. 규칙 엔진 · 수식 (단일 출처: `src/lib/formulas.ts`)
 
 ### 6.1 레벨 · 티어
 ```
@@ -642,7 +646,7 @@ tier(level)       = bronze(1–4) | silver(5–9) | gold(10–14) | platinum(15�
 - 사유 라벨(정확한 문구): 등록 제한 "운영자 제재로 퀘스트 등록이 제한됐어요 ({MM.DD HH:mm}까지 · 사유: {reason})", 무기한이면 "(해제 시까지 · 사유: …)". 구매 제한 "운영자 제재로 구매가 제한됐어요 ({…}까지 · 사유: {reason})".
 - 제재받은 사용자의 모든 화면 상단에 `restriction-banner`(warning 색, Lucide `shield-alert`): "운영자 제재 중 · {종류 목록} · {기간} · 사유: {reason}". 운영자 화면에는 표시 안 함.
 
-### 6.11 의심 활동 탐지 `detectFlags(db, now)` (단일 출처: `officequest/src/lib/monitoring.ts`, D49)
+### 6.11 의심 활동 탐지 `detectFlags(db, now)` (단일 출처: `src/lib/monitoring.ts`, D49)
 최근 14일(`now − 14일 ≤ at ≤ now`)의 `db.ratings`(approvedAt 기준)와 `db.transactions`(`market_purchase`, at 기준, **`reversedAt`이 있는 되돌린 구매는 제외**, D64)만 사용. 운영자는 대상 아님. 결과는 `severity`(high 먼저) → `lastAt` 내림차순 → `id` 오름차순으로 정렬.
 | 규칙 | 조건 | id | 심각도 | 근거(evidence) |
 |---|---|---|---|---|
@@ -989,7 +993,7 @@ sm–md 모달. 헤더 "결과물 품질 평가" + 작업자 아바타·이름·
 
 ---
 
-## 9. 시드 데이터 (단일 출처: `officequest/src/lib/db/seed.ts`, 첫 실행·스키마 불일치·`[데이터 초기화]` 시 적재)
+## 9. 시드 데이터 (단일 출처: `src/lib/db/seed.ts`, 첫 실행·스키마 불일치·`[데이터 초기화]` 시 적재)
 
 ### 9.1 업무 퀘스트 7건 (모집중 3 · 진행중 1 · 보완요청 1 · 완료 2)
 | no | 유형 | 상태 | 제목 | 요청자 | 현상금 | 업무 분야 | 마감 | 등록 | 조회 | 첨부 | 지원자(각오) | 작업자 / 제출 |
@@ -1104,5 +1108,6 @@ sm–md 모달. 헤더 "결과물 품질 평가" + 작업자 아바타·이름·
 4. `npm run test:unit`, `npm run test:e2e`(§11 전체 플로우 포함) 전부 통과.
 5. Visual QA(Harness §6) 10장 **DOM 단언** 전부 PASS(구도 체크는 기록, 최대 2회 수정 후 `unresolved` 허용).
 6. 품질 보상·운영 기능: 별점 매핑 5종 단위 테스트, 반려 한도, 운영자 콘솔·제재(Harness `14`·`15` 스펙) 통과.
-6-1. 거래·문의·꾸미기·피드백 기능: 판매자 지정·수령 확인·되돌리기(`07`·`08`), 문의 답변(`16`), 마켓 스크롤(`17`), 시간 만료 접근(`18`), 꾸미기(`19`), 피드백·효과음(`20`), 시연 첨부(`21`) 스펙 통과. `npm run doctor` 결과(`qa/doctor.json`)를 Audit에 첨부.
-7. 환경 차단(브라우저·레지스트리)으로 실행할 수 없는 명령은 Harness §9 "조건부 완료" 규칙을 따른다.
+6-1. 거래·문의·꾸미기·피드백 기능: 판매자 지정·수령 확인·되돌리기(`07`·`08`), 문의 답변(`16`), 마켓 스크롤(`17`), 시간 만료 접근(`18`), 꾸미기(`19`), 피드백·효과음(`20`), 시연 첨부(`21`) 스펙 통과. `npm run doctor` 결과(`docs/doctor.json`)를 Audit에 첨부.
+7. 산출물 구조와 실행기: `3조 Office Quest_Autopilot/` 맨 위에 `실행.command`와 `Office Quest/`만 있고, `실행.command`로 실제로 실행해 `http://localhost:3000`에서 앱이 뜨는 것을 확인한다(Harness §1.7·§9.1). 앱 `README.md`에 실행 방법·폴더 안내·데모 계정·첫 실행 Gatekeeper 안내가 있다.
+8. 환경 차단(브라우저·레지스트리)으로 실행할 수 없는 명령은 Harness §9 "조건부 완료" 규칙을 따른다.
